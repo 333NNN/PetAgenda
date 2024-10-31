@@ -6,6 +6,12 @@ package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
 import javax.swing.JOptionPane;
+import petagenda.Usuario;
+import petagenda.bd.BD;
+import petagenda.dados.Endereco;
+import petagenda.dados.LocalAtuacao;
+import petagenda.exception.IllegalArgumentsException;
+import petagenda.servico.Servico;
 import ui.custom.RoundedCornerButtonUI;
 import ui.custom.RoundedCornerBorder;
 
@@ -22,7 +28,6 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         initComponents();
         initMenuPanel();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
