@@ -46,11 +46,10 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         lbl_Vacinas = new javax.swing.JLabel();
         jbtn_AddVacinas = new javax.swing.JButton();
         label_porte = new javax.swing.JLabel();
-        txtf_telefone = new javax.swing.JTextField();
         label_cor = new javax.swing.JLabel();
         txtf_Cor = new javax.swing.JTextField();
         label_sexo = new javax.swing.JLabel();
-        jcmbBx_Sexo = new javax.swing.JComboBox<>();
+        jcmbBx_Porte = new javax.swing.JComboBox<>();
         label_comportamento_do_pet = new javax.swing.JLabel();
         jtxtArea_Comportamento = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -58,6 +57,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         jtxtArea_Saude = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jbtn_cadastrarPet = new javax.swing.JButton();
+        jcmbBx_Sexo1 = new javax.swing.JComboBox<>();
         jlbl_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -173,14 +173,6 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         label_porte.setText("Porte:");
         jPanel1.add(label_porte, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 182, -1, -1));
 
-        txtf_telefone.setBackground(new java.awt.Color(217, 217, 217));
-        txtf_telefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtf_telefone.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        txtf_telefone.setCaretColor(new java.awt.Color(0, 0, 0));
-        txtf_telefone.setMinimumSize(new java.awt.Dimension(250, 50));
-        txtf_telefone.setPreferredSize(new java.awt.Dimension(166, 50));
-        jPanel1.add(txtf_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 201, 250, -1));
-
         label_cor.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         label_cor.setForeground(new java.awt.Color(0, 0, 0));
         label_cor.setText("Cor:");
@@ -191,21 +183,21 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         txtf_Cor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         txtf_Cor.setCaretColor(new java.awt.Color(0, 0, 0));
         txtf_Cor.setPreferredSize(new java.awt.Dimension(250, 50));
-        jPanel1.add(txtf_Cor, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 201, -1, -1));
+        jPanel1.add(txtf_Cor, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 201, 250, -1));
 
         label_sexo.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         label_sexo.setForeground(new java.awt.Color(0, 0, 0));
         label_sexo.setText("Sexo:");
         jPanel1.add(label_sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(628, 182, -1, -1));
 
-        jcmbBx_Sexo.setBackground(new java.awt.Color(217, 217, 217));
-        jcmbBx_Sexo.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
-        jcmbBx_Sexo.setForeground(new java.awt.Color(0, 0, 0));
-        jcmbBx_Sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONAR", "Fêmea", "Macho" }));
-        jcmbBx_Sexo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jcmbBx_Sexo.setMinimumSize(new java.awt.Dimension(232, 50));
-        jcmbBx_Sexo.setPreferredSize(new java.awt.Dimension(232, 50));
-        jPanel1.add(jcmbBx_Sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(608, 201, -1, -1));
+        jcmbBx_Porte.setBackground(new java.awt.Color(217, 217, 217));
+        jcmbBx_Porte.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        jcmbBx_Porte.setForeground(new java.awt.Color(0, 0, 0));
+        jcmbBx_Porte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONAR", "Pequeno", "Médio", "Grande", "Gigante" }));
+        jcmbBx_Porte.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jcmbBx_Porte.setMinimumSize(new java.awt.Dimension(232, 50));
+        jcmbBx_Porte.setPreferredSize(new java.awt.Dimension(232, 50));
+        jPanel1.add(jcmbBx_Porte, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 250, -1));
 
         label_comportamento_do_pet.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         label_comportamento_do_pet.setForeground(new java.awt.Color(0, 0, 0));
@@ -283,6 +275,15 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         // Aplicando a UI personalizada
         jbtn_cadastrarPet.setUI(new RoundedCornerButtonUI());
         jPanel1.add(jbtn_cadastrarPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 530, 240, 50));
+
+        jcmbBx_Sexo1.setBackground(new java.awt.Color(217, 217, 217));
+        jcmbBx_Sexo1.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        jcmbBx_Sexo1.setForeground(new java.awt.Color(0, 0, 0));
+        jcmbBx_Sexo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONAR", "Fêmea", "Macho" }));
+        jcmbBx_Sexo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jcmbBx_Sexo1.setMinimumSize(new java.awt.Dimension(232, 50));
+        jcmbBx_Sexo1.setPreferredSize(new java.awt.Dimension(232, 50));
+        jPanel1.add(jcmbBx_Sexo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(608, 201, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, -1, -1));
 
@@ -370,7 +371,8 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JButton jbtn_AddVacinas;
     private javax.swing.JButton jbtn_cadastrarPet;
-    private javax.swing.JComboBox<String> jcmbBx_Sexo;
+    private javax.swing.JComboBox<String> jcmbBx_Porte;
+    private javax.swing.JComboBox<String> jcmbBx_Sexo1;
     private javax.swing.JLabel jlbl_background;
     private javax.swing.JScrollPane jtxtArea_Comportamento;
     private javax.swing.JScrollPane jtxtArea_Saude;
@@ -386,6 +388,5 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
     private javax.swing.JTextField txtf_Cor;
     private javax.swing.JTextField txtf_Raca;
     private javax.swing.JTextField txtf_nome_Pet;
-    private javax.swing.JTextField txtf_telefone;
     // End of variables declaration//GEN-END:variables
 }
