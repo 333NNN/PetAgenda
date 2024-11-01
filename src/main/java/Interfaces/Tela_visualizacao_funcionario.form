@@ -185,6 +185,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jtbl_funcionarios.getTableHeader().setReorderingAllowed(false);"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

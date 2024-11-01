@@ -164,6 +164,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jtbl_funcionarios.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jtbl_funcionarios);
 
         jPanel6.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 910, 480));

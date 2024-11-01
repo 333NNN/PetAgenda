@@ -29,14 +29,22 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel_menu = new javax.swing.JPanel();
         jPanel_tabela = new javax.swing.JPanel();
         jScrollPane_historico_servico = new javax.swing.JScrollPane();
         jtbl_historico_servico = new javax.swing.JTable();
-        jPanel_menu = new javax.swing.JPanel();
         jlbl_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
+        jPanel_menu.setForeground(new java.awt.Color(124, 115, 101));
+        jPanel_menu.setAlignmentX(0.0F);
+        jPanel_menu.setAlignmentY(0.0F);
+        jPanel_menu.setPreferredSize(new java.awt.Dimension(205, 768));
+        jPanel_menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPanel_tabela.setPreferredSize(new java.awt.Dimension(865, 480));
         jPanel_tabela.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -62,31 +70,14 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jtbl_historico_servico.getTableHeader().setReorderingAllowed(false);
         jScrollPane_historico_servico.setViewportView(jtbl_historico_servico);
 
         jPanel_tabela.add(jScrollPane_historico_servico, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(jPanel_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(309, 104, -1, -1));
 
-        jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
-        jPanel_menu.setForeground(new java.awt.Color(124, 115, 101));
-        jPanel_menu.setPreferredSize(new java.awt.Dimension(205, 768));
-
-        javax.swing.GroupLayout jPanel_menuLayout = new javax.swing.GroupLayout(jPanel_menu);
-        jPanel_menu.setLayout(jPanel_menuLayout);
-        jPanel_menuLayout.setHorizontalGroup(
-            jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 205, Short.MAX_VALUE)
-        );
-        jPanel_menuLayout.setVerticalGroup(
-            jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
-        jlbl_background.setPreferredSize(new java.awt.Dimension(1366, 768));
         getContentPane().add(jlbl_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
