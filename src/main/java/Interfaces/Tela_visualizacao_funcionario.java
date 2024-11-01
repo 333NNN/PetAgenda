@@ -5,8 +5,15 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
+import javax.swing.table.DefaultTableModel;
+import petagenda.bd.BD;
 import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
 
@@ -22,6 +29,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
     public Tela_visualizacao_funcionario() {
         initComponents();
         initMenuPanel();
+        carregarDadosTabela();
     }
 
     /**
@@ -38,7 +46,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtbl_funcionarios = new javax.swing.JTable();
         jlbl_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -81,7 +89,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         jLabel1.setText("Funcionários");
         jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(307, 20, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtbl_funcionarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -156,7 +164,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtbl_funcionarios);
 
         jPanel6.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 910, 480));
 
@@ -182,6 +190,35 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
         jPanel_menu.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
+    }
+
+    private void carregarDadosTabela() {
+        DefaultTableModel modelo = (DefaultTableModel) jtbl_funcionarios.getModel();
+        modelo.setRowCount(0);
+
+        String sql = "SELECT u.nome, u.cpf, u.telefone, ts.nome AS servico "
+                   + "FROM usuario u "
+                   + "JOIN tipo_servico ts ON u.id_servico_presta = ts.id";
+
+        try (Connection conn = BD.getConnection(); 
+             PreparedStatement stmt = conn.prepareStatement(sql); 
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Object[] linha = {
+                    rs.getString("nome"),
+                    rs.getString("cpf"),
+                    rs.getString("telefone"),
+                    rs.getString("servico"),
+                    
+                };
+                modelo.addRow(linha); // Adiciona cada linha de dados na tabela
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao carregar dados: " + e.getMessage());
+        }
     }
 
     /**
@@ -225,8 +262,8 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel jlbl_background;
+    private javax.swing.JTable jtbl_funcionarios;
     // End of variables declaration//GEN-END:variables
 
 }
