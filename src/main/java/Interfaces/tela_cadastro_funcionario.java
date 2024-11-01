@@ -205,6 +205,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
 
         field_nome_funcionario.setBackground(new java.awt.Color(217, 217, 217));
         field_nome_funcionario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        field_nome_funcionario.setForeground(new java.awt.Color(0, 0, 0));
         field_nome_funcionario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_nome_funcionario.setMinimumSize(new java.awt.Dimension(550, 50));
         field_nome_funcionario.setPreferredSize(new java.awt.Dimension(550, 50));
@@ -221,6 +222,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jPanel1.add(jlbl_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 174, -1, -1));
 
         field_cpf.setBackground(new java.awt.Color(217, 217, 217));
+        field_cpf.setForeground(new java.awt.Color(0, 0, 0));
         field_cpf.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_cpf.setMinimumSize(new java.awt.Dimension(250, 50));
         field_cpf.setPreferredSize(new java.awt.Dimension(250, 50));
@@ -235,6 +237,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jPanel1.add(jlbl_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 174, -1, -1));
 
         field_telefone.setBackground(new java.awt.Color(217, 217, 217));
+        field_telefone.setForeground(new java.awt.Color(0, 0, 0));
         field_telefone.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_telefone.setMinimumSize(new java.awt.Dimension(250, 50));
         field_telefone.setPreferredSize(new java.awt.Dimension(250, 50));
@@ -252,7 +255,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
 
         jcbox_Selecao_servico.setBackground(new java.awt.Color(217, 217, 217));
         jcbox_Selecao_servico.setFont(new java.awt.Font("Merriweather", 0, 14)); // NOI18N
-        jcbox_Selecao_servico.setForeground(new java.awt.Color(217, 217, 217));
+        jcbox_Selecao_servico.setForeground(new java.awt.Color(0, 0, 0));
         jcbox_Selecao_servico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jcbox_Selecao_servico.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jcbox_Selecao_servico.addActionListener(new java.awt.event.ActionListener() {
@@ -268,6 +271,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jPanel1.add(jlbl_cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(329, 263, -1, -1));
 
         field_cep.setBackground(new java.awt.Color(217, 217, 217));
+        field_cep.setForeground(new java.awt.Color(0, 0, 0));
         field_cep.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_cep.setMinimumSize(new java.awt.Dimension(150, 50));
         field_cep.setPreferredSize(new java.awt.Dimension(150, 50));
@@ -279,6 +283,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jPanel1.add(jlbl_numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(519, 263, -1, -1));
 
         field_numero.setBackground(new java.awt.Color(217, 217, 217));
+        field_numero.setForeground(new java.awt.Color(0, 0, 0));
         field_numero.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_numero.setPreferredSize(new java.awt.Dimension(90, 50));
         jPanel1.add(field_numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(501, 282, -1, -1));
@@ -289,6 +294,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jPanel1.add(jlbl_rua, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 350, -1, -1));
 
         field_rua.setBackground(new java.awt.Color(217, 217, 217));
+        field_rua.setForeground(new java.awt.Color(0, 0, 0));
         field_rua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_rua.setMinimumSize(new java.awt.Dimension(550, 50));
         field_rua.setPreferredSize(new java.awt.Dimension(550, 50));
@@ -305,6 +311,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jPanel1.add(jlbl_bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 443, -1, -1));
 
         field_bairro.setBackground(new java.awt.Color(217, 217, 217));
+        field_bairro.setForeground(new java.awt.Color(0, 0, 0));
         field_bairro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_bairro.setMinimumSize(new java.awt.Dimension(270, 50));
         field_bairro.setPreferredSize(new java.awt.Dimension(270, 50));
@@ -316,6 +323,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jPanel1.add(jlbl_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 443, -1, -1));
 
         field_cidade.setBackground(new java.awt.Color(217, 217, 217));
+        field_cidade.setForeground(new java.awt.Color(0, 0, 0));
         field_cidade.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_cidade.setMinimumSize(new java.awt.Dimension(250, 50));
         field_cidade.setPreferredSize(new java.awt.Dimension(250, 50));
@@ -327,6 +335,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jbtn_cadastrarFuncionario.setText("CADASTRAR");
         jbtn_cadastrarFuncionario.setBorder(null);
         jbtn_cadastrarFuncionario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jbtn_cadastrarFuncionario.setPreferredSize(new java.awt.Dimension(240, 50));
         jbtn_cadastrarFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_cadastrarFuncionarioActionPerformed(evt);

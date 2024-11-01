@@ -7,6 +7,7 @@ package Interfaces;
 import com.mycompany.petagenda.MenuPanel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
+import javax.swing.SwingUtilities;
 import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
 
@@ -35,6 +36,7 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel_menu = new javax.swing.JPanel();
+        jbtn_cadastrarPet = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollBar1 = new javax.swing.JScrollBar();
         jLabel1 = new javax.swing.JLabel();
@@ -53,6 +55,20 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         jPanel_menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
 
+        jbtn_cadastrarPet.setBackground(new java.awt.Color(77, 120, 63));
+        jbtn_cadastrarPet.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
+        jbtn_cadastrarPet.setForeground(new java.awt.Color(255, 255, 255));
+        jbtn_cadastrarPet.setText("Cadastrar Pet");
+        jbtn_cadastrarPet.setBorder(null);
+        jbtn_cadastrarPet.setPreferredSize(new java.awt.Dimension(240, 50));
+        jbtn_cadastrarPet.setUI(new RoundedCornerButtonUI());
+        jbtn_cadastrarPet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_cadastrarPetActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jbtn_cadastrarPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 620, -1, -1));
+
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jPanel6.setMinimumSize(new java.awt.Dimension(905, 560));
@@ -61,7 +77,6 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollBar1.setOrientation(JScrollBar.VERTICAL);
-        jScrollBar1.setMinimumSize(new java.awt.Dimension(12, 510));
         jScrollBar1.setPreferredSize(new java.awt.Dimension(12, 490));
         jPanel6.add(jScrollBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(889, 70, -1, -1));
 
@@ -83,6 +98,13 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtn_cadastrarPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_cadastrarPetActionPerformed
+        // TODO add your handling code here:
+        tela_cadastro_pet telaCadPets = new tela_cadastro_pet();
+        telaCadPets.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jbtn_cadastrarPetActionPerformed
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
         jPanel_menu.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
@@ -129,6 +151,7 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JScrollBar jScrollBar1;
+    private javax.swing.JButton jbtn_cadastrarPet;
     private javax.swing.JLabel jlbl_background;
     // End of variables declaration//GEN-END:variables
 

@@ -7,6 +7,7 @@ package Interfaces;
 import com.mycompany.petagenda.MenuPanel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
+import javax.swing.SwingUtilities;
 import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
 
@@ -34,6 +35,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel_menu = new javax.swing.JPanel();
+        jbtn_cadastrarCliente = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollBar1 = new javax.swing.JScrollBar();
         jlbl_Clientes = new javax.swing.JLabel();
@@ -51,6 +53,20 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         jPanel_menu.setPreferredSize(new java.awt.Dimension(205, 768));
         jPanel_menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
+
+        jbtn_cadastrarCliente.setBackground(new java.awt.Color(77, 120, 63));
+        jbtn_cadastrarCliente.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
+        jbtn_cadastrarCliente.setForeground(new java.awt.Color(255, 255, 255));
+        jbtn_cadastrarCliente.setText("Cadastrar Cliente");
+        jbtn_cadastrarCliente.setBorder(null);
+        jbtn_cadastrarCliente.setPreferredSize(new java.awt.Dimension(240, 50));
+        jbtn_cadastrarCliente.setUI(new RoundedCornerButtonUI());
+        jbtn_cadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_cadastrarClienteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jbtn_cadastrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 620, -1, -1));
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -81,6 +97,13 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtn_cadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_cadastrarClienteActionPerformed
+        // TODO add your handling code here:
+        Tela_cadastro_cliente telaCadCliente = new Tela_cadastro_cliente();
+        telaCadCliente.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jbtn_cadastrarClienteActionPerformed
 
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
@@ -129,6 +152,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JScrollBar jScrollBar1;
+    private javax.swing.JButton jbtn_cadastrarCliente;
     private javax.swing.JLabel jlbl_Clientes;
     private javax.swing.JLabel jlbl_background;
     // End of variables declaration//GEN-END:variables

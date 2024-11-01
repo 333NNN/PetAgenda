@@ -53,13 +53,19 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         jPanel_menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
 
-        btn_cadastrarFuncionario.setText("Cadastrar");
+        btn_cadastrarFuncionario.setBackground(new java.awt.Color(77, 120, 63));
+        btn_cadastrarFuncionario.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
+        btn_cadastrarFuncionario.setForeground(new java.awt.Color(255, 255, 255));
+        btn_cadastrarFuncionario.setText("Cadastrar Funcionário");
+        btn_cadastrarFuncionario.setBorder(null);
+        btn_cadastrarFuncionario.setPreferredSize(new java.awt.Dimension(240, 50));
         btn_cadastrarFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cadastrarFuncionarioActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_cadastrarFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 670, -1, -1));
+        btn_cadastrarFuncionario.setUI(new RoundedCornerButtonUI());
+        getContentPane().add(btn_cadastrarFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 620, -1, -1));
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -138,8 +144,8 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton btn_cadastrarFuncionario;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JScrollBar jScrollBar1;
