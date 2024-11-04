@@ -59,6 +59,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         lbl_clientes.setText("Clientes");
         jPanel6.add(lbl_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 20, -1, -1));
 
+        jtbl_clientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jtbl_clientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -134,6 +135,8 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jtbl_clientes.setShowHorizontalLines(true);
+        jtbl_clientes.setShowVerticalLines(true);
         jtbl_clientes.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jtbl_clientes);
 
