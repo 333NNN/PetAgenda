@@ -34,17 +34,23 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jlbl_title_cliente = new javax.swing.JLabel();
         jPanel_menu = new javax.swing.JPanel();
+        jPanel_tabela = new javax.swing.JPanel();
+        jScrollPane_visualizacao_cliente = new javax.swing.JScrollPane();
+        jtbl_visualizacao_cliente = new javax.swing.JTable();
         jbtn_cadastrarCliente = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        jScrollBar1 = new javax.swing.JScrollBar();
-        jlbl_Clientes = new javax.swing.JLabel();
         jlbl_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1366, 768));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jlbl_title_cliente.setFont(new java.awt.Font("Segoe UI", 0, 45)); // NOI18N
+        jlbl_title_cliente.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_title_cliente.setText("Clientes");
+        getContentPane().add(jlbl_title_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, -1, -1));
 
         jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
         jPanel_menu.setForeground(new java.awt.Color(124, 115, 101));
@@ -53,6 +59,40 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         jPanel_menu.setPreferredSize(new java.awt.Dimension(205, 768));
         jPanel_menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
+
+        jPanel_tabela.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_tabela.setMinimumSize(new java.awt.Dimension(905, 560));
+        jPanel_tabela.setOpaque(false);
+        jPanel_tabela.setPreferredSize(new java.awt.Dimension(895, 480));
+        jPanel_tabela.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane_visualizacao_cliente.setPreferredSize(new java.awt.Dimension(895, 480));
+
+        jtbl_visualizacao_cliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Nome do cliente", "CPF", "Telefone", "Serviço contratado", "Endereço"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jtbl_visualizacao_cliente.setPreferredSize(new java.awt.Dimension(895, 480));
+        jScrollPane_visualizacao_cliente.setViewportView(jtbl_visualizacao_cliente);
+
+        jPanel_tabela.add(jScrollPane_visualizacao_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        getContentPane().add(jPanel_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 103, -1, -1));
 
         jbtn_cadastrarCliente.setBackground(new java.awt.Color(77, 120, 63));
         jbtn_cadastrarCliente.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
@@ -67,25 +107,6 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jbtn_cadastrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 620, -1, -1));
-
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jPanel6.setMinimumSize(new java.awt.Dimension(905, 560));
-        jPanel6.setOpaque(false);
-        jPanel6.setPreferredSize(new java.awt.Dimension(905, 560));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jScrollBar1.setOrientation(JScrollBar.VERTICAL);
-        jScrollBar1.setPreferredSize(new java.awt.Dimension(12, 490));
-        jPanel6.add(jScrollBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 70, -1, -1));
-
-        jlbl_Clientes.setBackground(new java.awt.Color(255, 255, 255));
-        jlbl_Clientes.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
-        jlbl_Clientes.setForeground(new java.awt.Color(0, 0, 0));
-        jlbl_Clientes.setText("Clientes");
-        jPanel6.add(jlbl_Clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 20, -1, -1));
-
-        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 51, -1, -1));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         jlbl_background.setText(" ");
@@ -149,12 +170,13 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel_menu;
-    private javax.swing.JScrollBar jScrollBar1;
+    private javax.swing.JPanel jPanel_tabela;
+    private javax.swing.JScrollPane jScrollPane_visualizacao_cliente;
     private javax.swing.JButton jbtn_cadastrarCliente;
-    private javax.swing.JLabel jlbl_Clientes;
     private javax.swing.JLabel jlbl_background;
+    private javax.swing.JLabel jlbl_title_cliente;
+    private javax.swing.JTable jtbl_visualizacao_cliente;
     // End of variables declaration//GEN-END:variables
 
 }

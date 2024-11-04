@@ -30,6 +30,7 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel_menu = new javax.swing.JPanel();
+        jlbl_title_historico_servicos = new javax.swing.JLabel();
         jPanel_tabela = new javax.swing.JPanel();
         jScrollPane_historico_servico = new javax.swing.JScrollPane();
         jtbl_historico_servico = new javax.swing.JTable();
@@ -45,6 +46,11 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
         jPanel_menu.setPreferredSize(new java.awt.Dimension(205, 768));
         jPanel_menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jlbl_title_historico_servicos.setFont(new java.awt.Font("Segoe UI", 0, 45)); // NOI18N
+        jlbl_title_historico_servicos.setForeground(new java.awt.Color(0, 0, 0));
+        jlbl_title_historico_servicos.setText("Histórico de serviços");
+        getContentPane().add(jlbl_title_historico_servicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 30, -1, -1));
 
         jPanel_tabela.setPreferredSize(new java.awt.Dimension(865, 480));
         jPanel_tabela.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -128,6 +134,7 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_tabela;
     private javax.swing.JScrollPane jScrollPane_historico_servico;
     private javax.swing.JLabel jlbl_background;
+    private javax.swing.JLabel jlbl_title_historico_servicos;
     private javax.swing.JTable jtbl_historico_servico;
     // End of variables declaration//GEN-END:variables
 }
