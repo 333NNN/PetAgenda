@@ -35,18 +35,24 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         jPanel_menu = new javax.swing.JPanel();
         jbtn_cadastrarPet = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jPanel_tabela_pet = new javax.swing.JPanel();
+        jScrollPane_tabela_visualizacao_pet = new javax.swing.JScrollPane();
+        jtbl_visualizacao_pet = new javax.swing.JTable();
         jlbl_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1366, 768));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Pets");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 30, -1, -1));
 
         jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
         jPanel_menu.setForeground(new java.awt.Color(124, 115, 101));
@@ -68,65 +74,26 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
                 jbtn_cadastrarPetActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtn_cadastrarPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 620, -1, -1));
+        getContentPane().add(jbtn_cadastrarPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 620, -1, -1));
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jPanel6.setMinimumSize(new java.awt.Dimension(905, 560));
-        jPanel6.setOpaque(false);
-        jPanel6.setPreferredSize(new java.awt.Dimension(905, 560));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel_tabela_pet.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_tabela_pet.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jPanel_tabela_pet.setMinimumSize(new java.awt.Dimension(905, 560));
+        jPanel_tabela_pet.setOpaque(false);
+        jPanel_tabela_pet.setPreferredSize(new java.awt.Dimension(815, 480));
+        jPanel_tabela_pet.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
-        jLabel1.setText("Pets");
-        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 20, -1, -1));
+        jScrollPane_tabela_visualizacao_pet.setPreferredSize(new java.awt.Dimension(815, 480));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtbl_visualizacao_pet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Nome do Pet", "Raça", "Cor", "Porte", "Sexo", "Castrado"
+                "Nome do pet", "Raça", "Cor", "Porte", "Sexo", "Castrado"
             }
         ) {
             Class[] types = new Class [] {
@@ -137,14 +104,11 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable1.setSelectionForeground(new java.awt.Color(51, 51, 51));
-        jTable1.setShowHorizontalLines(true);
-        jTable1.setShowVerticalLines(true);
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane_tabela_visualizacao_pet.setViewportView(jtbl_visualizacao_pet);
 
-        jPanel6.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 910, 480));
+        jPanel_tabela_pet.add(jScrollPane_tabela_visualizacao_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 51, -1, -1));
+        getContentPane().add(jPanel_tabela_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(341, 106, -1, -1));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         jlbl_background.setText(" ");
@@ -206,12 +170,12 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel_menu;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JPanel jPanel_tabela_pet;
+    private javax.swing.JScrollPane jScrollPane_tabela_visualizacao_pet;
     private javax.swing.JButton jbtn_cadastrarPet;
     private javax.swing.JLabel jlbl_background;
+    private javax.swing.JTable jtbl_visualizacao_pet;
     // End of variables declaration//GEN-END:variables
 
 }

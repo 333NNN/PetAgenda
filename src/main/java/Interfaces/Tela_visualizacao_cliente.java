@@ -34,10 +34,10 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel6 = new javax.swing.JPanel();
         lbl_clientes = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtbl_clientes = new javax.swing.JTable();
+        jPanel_tabela_clientes = new javax.swing.JPanel();
+        jScrollPane_clientes_cadastrados = new javax.swing.JScrollPane();
+        jtbl_clientes_cadastrados = new javax.swing.JTable();
         jPanel_menu = new javax.swing.JPanel();
         jbtn_cadastrarCliente = new javax.swing.JButton();
         jlbl_background = new javax.swing.JLabel();
@@ -47,102 +47,46 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jPanel6.setMinimumSize(new java.awt.Dimension(905, 560));
-        jPanel6.setOpaque(false);
-        jPanel6.setPreferredSize(new java.awt.Dimension(905, 560));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         lbl_clientes.setBackground(new java.awt.Color(255, 255, 255));
         lbl_clientes.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
+        lbl_clientes.setForeground(new java.awt.Color(0, 0, 0));
         lbl_clientes.setText("Clientes");
-        jPanel6.add(lbl_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 20, -1, -1));
+        getContentPane().add(lbl_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, -1, -1));
 
-        jtbl_clientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jtbl_clientes.setModel(new javax.swing.table.DefaultTableModel(
+        jPanel_tabela_clientes.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_tabela_clientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jPanel_tabela_clientes.setMinimumSize(new java.awt.Dimension(905, 560));
+        jPanel_tabela_clientes.setOpaque(false);
+        jPanel_tabela_clientes.setPreferredSize(new java.awt.Dimension(895, 480));
+        jPanel_tabela_clientes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane_clientes_cadastrados.setPreferredSize(new java.awt.Dimension(895, 480));
+
+        jtbl_clientes_cadastrados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
-                "Nome", "CPF", "Telefone", "Endereço"
+                "Nome do cliente", "CPF", "Telefone", "Endereço"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jtbl_clientes.setShowHorizontalLines(true);
-        jtbl_clientes.setShowVerticalLines(true);
-        jtbl_clientes.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jtbl_clientes);
+        jtbl_clientes_cadastrados.getTableHeader().setReorderingAllowed(false);
+        jScrollPane_clientes_cadastrados.setViewportView(jtbl_clientes_cadastrados);
 
-        jPanel6.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 910, 480));
+        jPanel_tabela_clientes.add(jScrollPane_clientes_cadastrados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, -1, -1));
+        getContentPane().add(jPanel_tabela_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 103, -1, -1));
 
         jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
         jPanel_menu.setForeground(new java.awt.Color(124, 115, 101));
@@ -228,12 +172,12 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel_menu;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel_tabela_clientes;
+    private javax.swing.JScrollPane jScrollPane_clientes_cadastrados;
     private javax.swing.JButton jbtn_cadastrarCliente;
     private javax.swing.JLabel jlbl_background;
-    private javax.swing.JTable jtbl_clientes;
+    private javax.swing.JTable jtbl_clientes_cadastrados;
     private javax.swing.JLabel lbl_clientes;
     // End of variables declaration//GEN-END:variables
 
