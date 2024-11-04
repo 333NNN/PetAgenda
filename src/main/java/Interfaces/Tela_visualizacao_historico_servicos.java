@@ -5,6 +5,12 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+import petagenda.bd.BD;
 import ui.custom.RoundedCornerButtonUI;
 
 /**
@@ -113,14 +119,41 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
 
     private void jbtn_cadastrarIncidenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_cadastrarIncidenteActionPerformed
         // TODO add your handling code here:
-        Tela_cadastro_cliente telaCadCliente = new Tela_cadastro_cliente();
-        telaCadCliente.setVisible(true);
+        Tela_incidentes incidente = new Tela_incidentes();
+        incidente.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jbtn_cadastrarIncidenteActionPerformed
     
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
         jPanel_menu.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
+    }
+    
+    private void carregarDadosTabela() {
+        DefaultTableModel modelo = (DefaultTableModel) jtbl_historico_servico.getModel();
+        modelo.setRowCount(0);
+        
+        String sql = "";
+        
+        /*
+        try (Connection conn = BD.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
+            
+            while (rs.next()) {
+                Object[] linha = {
+                    rs.getString("pets"),
+                    rs.getString("nome"),
+                    rs.getString("data"),
+                    rs.getString("horario"),
+                    rs.getString("servico"),
+                    rs.getString("incidentes"),
+                };
+                
+            }
+            
+        }
+        */
     }
     
     /**
