@@ -5,6 +5,10 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import petagenda.Usuario;
 import petagenda.bd.BD;
@@ -20,6 +24,21 @@ import ui.custom.RoundedCornerBorder;
  * @author c.nunes
  */
 public class Tela_cadastro_cliente extends javax.swing.JFrame {
+
+    public class ConexaoMySQL {
+        private static final String URL = "jdbc:mysql://localhost:3306/pet_agenda";
+        private static final String USER = "root";
+        private static final String PASSWORD = " ";
+
+        public static Connection conectar() {
+            try {
+                return DriverManager.getConnection(URL, USER, PASSWORD);
+            } catch (SQLException e) {
+                System.out.println("Erro ao conectar: " + e.getMessage());
+                return null;
+            }
+        }
+    }
 
     /**
      * Creates new form Interface_cliente
@@ -238,6 +257,24 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
 
     private void jbtn_Cadastrar_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_Cadastrar_clienteActionPerformed
         // TODO add your handling code here:
+        String sql = "INSERT INTO cliente (nome, cpf, telefone, servico_contratado, cep, numero, rua, bairro, cidade) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = ConexaoMySQL.conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, jtxtf_campo_nome_cliente.getText());
+            stmt.setString(2, jtxtf_campo_cpf.getText());
+            stmt.setString(3, jtxtf_campo_telefone.getText());
+            stmt.setString(4, jcbox_Selecao_servico.getSelectedItem().toString());
+            stmt.setString(5, jtxtf_campo_cep.getText());
+            stmt.setString(6, jtxtf_campo_num.getText());
+            stmt.setString(7, jtxtf_campo_rua.getText());
+            stmt.setString(8, jtxtf_campo_bairro.getText());
+            stmt.setString(9, jtxtf_campo_cidade.getText());
+            stmt.executeUpdate();
+            System.out.println("Pessoa inserida com sucesso!");
+        } catch (SQLException e) {
+            System.out.println("Erro ao inserir pessoa: " + e.getMessage());
+        }
         JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
     }//GEN-LAST:event_jbtn_Cadastrar_clienteActionPerformed
 
