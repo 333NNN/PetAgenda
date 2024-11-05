@@ -39,7 +39,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Nenhum Serviço disponível recebido do banco de dados.");
             }
 
-            setFieldsInfo(BD.Usuario.selectLast()); // Recebe o último Usuario do banco e preenche os campos com ele
+            //setFieldsInfo(BD.Usuario.selectLast()); // Recebe o último Usuario do banco e preenche os campos com ele
         } else {
             JOptionPane.showMessageDialog(null, "É necessário estar logado para acessar esta funcionalidade.");
             super.dispose();
@@ -48,6 +48,8 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
     }
 
     // Define as informações dos campos usando um objeto do tipo petagenda.Usuario
+    /*
+    // Preenche o campo de cadastro de funcionário com o último funcionário cadastrado.
     private void setFieldsInfo(Usuario usuario) {
         if (usuario != null) {
             field_nome_funcionario.setText(usuario.getNome());
@@ -67,6 +69,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
             field_cidade.setText(usuario.getEndereco().CIDADE);
         }
     }
+    */
     
     // Limpa as informações dos campos de Usuario
     private void clearFieldsInfo() {
@@ -195,13 +198,13 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         lbl_cadastrarFuncinario.setForeground(new java.awt.Color(0, 0, 0));
         lbl_cadastrarFuncinario.setText("Cadastrar funcionário");
         lbl_cadastrarFuncinario.setPreferredSize(new java.awt.Dimension(486, 45));
-        jPanel1.add(lbl_cadastrarFuncinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 20, -1, -1));
+        jPanel1.add(lbl_cadastrarFuncinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 440, -1));
 
         jlbl_nome_funcionario.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_nome_funcionario.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_nome_funcionario.setText("Nome do funcionário:");
         jlbl_nome_funcionario.setPreferredSize(new java.awt.Dimension(165, 20));
-        jPanel1.add(jlbl_nome_funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 85, -1, 20));
+        jPanel1.add(jlbl_nome_funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, 20));
 
         field_nome_funcionario.setBackground(new java.awt.Color(217, 217, 217));
         field_nome_funcionario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
