@@ -67,6 +67,7 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         jbtn_cadastrarPet.setForeground(new java.awt.Color(255, 255, 255));
         jbtn_cadastrarPet.setText("Cadastrar Pet");
         jbtn_cadastrarPet.setBorder(null);
+        jbtn_cadastrarPet.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtn_cadastrarPet.setPreferredSize(new java.awt.Dimension(240, 50));
         jbtn_cadastrarPet.setUI(new RoundedCornerButtonUI());
         jbtn_cadastrarPet.addActionListener(new java.awt.event.ActionListener() {

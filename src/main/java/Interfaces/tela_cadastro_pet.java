@@ -7,6 +7,8 @@ package Interfaces;
 import com.mycompany.petagenda.MenuPanel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import petagenda.dados.Porte;
+import petagenda.dados.Sexo;
 import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
 
@@ -41,15 +43,15 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         javax.swing.JLabel label_raca = new javax.swing.JLabel();
         txtf_Raca = new javax.swing.JTextField();
         lbl_Castrado = new javax.swing.JLabel();
-        chkBx_Sim = new javax.swing.JCheckBox();
-        chkBx_Nao = new javax.swing.JCheckBox();
+        chkBx_Sim = new javax.swing.JCheckBox("Sim");
+        chkBx_Nao = new javax.swing.JCheckBox("Não");
         lbl_Vacinas = new javax.swing.JLabel();
         jbtn_AddVacinas = new javax.swing.JButton();
         label_porte = new javax.swing.JLabel();
         label_cor = new javax.swing.JLabel();
         txtf_Cor = new javax.swing.JTextField();
         label_sexo = new javax.swing.JLabel();
-        jcmbBx_Porte = new javax.swing.JComboBox<>();
+        jcmbBx_Porte = new javax.swing.JComboBox<Porte>(Porte.values());
         label_comportamento_do_pet = new javax.swing.JLabel();
         jtxtArea_Comportamento = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -57,7 +59,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         jtxtArea_Saude = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jbtn_cadastrarPet = new javax.swing.JButton();
-        jcmbBx_Sexo1 = new javax.swing.JComboBox<>();
+        jcmbBx_Sexo1 = new javax.swing.JComboBox<>(Sexo.values());
         txtf_nome_Pet1 = new javax.swing.JTextField();
         label_nome_do_pet1 = new javax.swing.JLabel();
         jlbl_background = new javax.swing.JLabel();
@@ -122,11 +124,25 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         lbl_Castrado.setText("Castrado:");
         jPanel1.add(lbl_Castrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, -1, -1));
 
+        chkBx_Sim.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                // Verifica se o JCheckBox "Sim" foi selecionado
+                if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+                    // Se "Sim" for selecionado, desmarque "Não"
+                    chkBx_Nao.setSelected(false);
+                }
+            }
+        });
         chkBx_Sim.setBackground(new java.awt.Color(255, 255, 255));
         chkBx_Sim.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         chkBx_Sim.setText("SIM");
         chkBx_Sim.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         chkBx_Sim.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chkBx_Sim.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                chkBx_SimStateChanged(evt);
+            }
+        });
         chkBx_Sim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkBx_SimActionPerformed(evt);
@@ -134,6 +150,15 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         });
         jPanel1.add(chkBx_Sim, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 90, -1, -1));
 
+        chkBx_Nao.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                // Verifica se o JCheckBox "Não" foi selecionado
+                if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+                    // Se "Não" for selecionado, desmarque "Sim"
+                    chkBx_Sim.setSelected(false);
+                }
+            }
+        });
         chkBx_Nao.setBackground(new java.awt.Color(255, 255, 255));
         chkBx_Nao.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         chkBx_Nao.setText("NÃO");
@@ -184,7 +209,6 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
 
         jcmbBx_Porte.setBackground(new java.awt.Color(217, 217, 217));
         jcmbBx_Porte.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
-        jcmbBx_Porte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONAR", "Pequeno", "Médio", "Grande", "Gigante" }));
         jcmbBx_Porte.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jcmbBx_Porte.setMinimumSize(new java.awt.Dimension(232, 50));
         jcmbBx_Porte.setPreferredSize(new java.awt.Dimension(232, 50));
@@ -264,9 +288,11 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         jbtn_cadastrarPet.setUI(new RoundedCornerButtonUI());
         jPanel1.add(jbtn_cadastrarPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 530, 240, 50));
 
+        for (Sexo sexo : Sexo.values()) {
+            sexo.setTipoExibicao("PET");
+        }
         jcmbBx_Sexo1.setBackground(new java.awt.Color(217, 217, 217));
         jcmbBx_Sexo1.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
-        jcmbBx_Sexo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONAR", "Fêmea", "Macho" }));
         jcmbBx_Sexo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jcmbBx_Sexo1.setMinimumSize(new java.awt.Dimension(232, 50));
         jcmbBx_Sexo1.setPreferredSize(new java.awt.Dimension(232, 50));
@@ -333,6 +359,10 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
 
     private void jcmbBx_Sexo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmbBx_Sexo1ActionPerformed
         // TODO add your handling code here:
+        Sexo sexoSelecionado = (Sexo) jcmbBx_Sexo1.getSelectedItem();
+    
+        // Ação com base na seleção (aqui você vai usar PET, já que é para Pet)
+        String sexoPet = sexoSelecionado.PET;
     }//GEN-LAST:event_jcmbBx_Sexo1ActionPerformed
 
     private void txtf_CorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtf_CorActionPerformed
@@ -341,16 +371,24 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
 
     private void jcmbBx_PorteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmbBx_PorteActionPerformed
         // TODO add your handling code here:
+        Porte selectedPorte = (Porte) jcmbBx_Porte.getSelectedItem();
+        
     }//GEN-LAST:event_jcmbBx_PorteActionPerformed
 
     private void txtf_nome_Pet1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtf_nome_Pet1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtf_nome_Pet1ActionPerformed
+    
+    
+    
+    private void chkBx_SimStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chkBx_SimStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chkBx_SimStateChanged
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
         jPanel_menu.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -395,8 +433,8 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JButton jbtn_AddVacinas;
     private javax.swing.JButton jbtn_cadastrarPet;
-    private javax.swing.JComboBox<String> jcmbBx_Porte;
-    private javax.swing.JComboBox<String> jcmbBx_Sexo1;
+    private javax.swing.JComboBox<Porte> jcmbBx_Porte;
+    private javax.swing.JComboBox<Sexo> jcmbBx_Sexo1;
     private javax.swing.JLabel jlbl_background;
     private javax.swing.JScrollPane jtxtArea_Comportamento;
     private javax.swing.JScrollPane jtxtArea_Saude;

@@ -6,6 +6,7 @@ package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
 import java.awt.BorderLayout;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -162,6 +163,9 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
     private void jButton_SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SairActionPerformed
         // TODO add your handling code here:
+        TELA_LOGIN telaLogin = new TELA_LOGIN();
+        telaLogin.setVisible(true);
+        SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_jButton_SairActionPerformed
 
     private void btn_funcionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_funcionariosActionPerformed

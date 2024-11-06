@@ -6,6 +6,7 @@ package com.mycompany.petagenda;
 
 import Interfaces.TELA_LOGIN;
 import Interfaces.Tela_Inicial;
+import Interfaces.Tela_config;
 import Interfaces.Tela_de_visualizacao_do_mes;
 import Interfaces.Tela_visualizacao_cliente;
 import Interfaces.Tela_visualizacao_funcionario;
@@ -366,6 +367,9 @@ public class MenuPanel extends JPanel {
     //Botão Configurações
     private void btn_configActionPerformed(ActionEvent evt) {
         //TODO add your handling code here:
+        Tela_config telaConfig = new Tela_config();
+        telaConfig.setVisible(true);
+        SwingUtilities.getWindowAncestor(this).dispose();
     }
 
     private void btn_configPetMouseMoved(java.awt.event.MouseEvent evt) {
