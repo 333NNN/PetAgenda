@@ -6,6 +6,7 @@ package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,6 +23,33 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
     /**
      * Creates new form Tela_visualizacao_historico_servicos
      */
+        public void PopularTabela (String sql){
+        try {
+            Connection con = (Connection)DriverManager.getConnection("jdbc:mysql://localhost/pet_agenda","root","");
+            PreparedStatement banco = (PreparedStatement)con.prepareStatement(sql);
+            banco.execute();
+            
+            ResultSet resultado = banco.executeQuery(sql);
+            
+            DefaultTableModel model =(DefaultTableModel)jtbl_historico_servico.getModel();
+            model.setNumRows(0);
+            
+            while(resultado.next()){
+                model.addRow(new Object[]
+                {
+                    //Criar a view para preencher a tabela do sistema
+                   resultado.getString("id"),
+                   resultado.getString("nome"),
+                   resultado.getString("cpf")
+                });
+            }
+            banco.close();
+            con.close();
+        }catch (SQLException e){
+            System.out.println("o erro foi:"+e);
+        }
+
+    }
     public Tela_visualizacao_historico_servicos() {
         initComponents();
         initMenuPanel();

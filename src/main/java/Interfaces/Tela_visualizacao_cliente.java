@@ -5,9 +5,15 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
 
@@ -20,6 +26,33 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
     /**
      * Creates new form tela_cadastro_cliente
      */
+    public void PopularTabela (String sql){
+        try {
+            Connection con = (Connection)DriverManager.getConnection("jdbc:mysql://localhost/pet_agenda","root","");
+            PreparedStatement banco = (PreparedStatement)con.prepareStatement(sql);
+            banco.execute();
+            
+            ResultSet resultado = banco.executeQuery(sql);
+            
+            DefaultTableModel model =(DefaultTableModel)jtbl_clientes_cadastrados.getModel();
+            model.setNumRows(0);
+            
+            while(resultado.next()){
+                model.addRow(new Object[]
+                {
+                    //Criar a view para preencher a tabela do sistema
+                   resultado.getString("id"),
+                   resultado.getString("nome"),
+                   resultado.getString("cpf")
+                });
+            }
+            banco.close();
+            con.close();
+        }catch (SQLException e){
+            System.out.println("o erro foi:"+e);
+        }
+
+    }
     public Tela_visualizacao_cliente() {
         initComponents();
         initMenuPanel();
