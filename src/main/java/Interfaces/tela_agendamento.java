@@ -38,20 +38,14 @@ public class tela_agendamento extends javax.swing.JFrame {
         jscp_jtxta_observacao = new javax.swing.JScrollPane();
         jtxta_observacao = new javax.swing.JTextArea();
         jbtn_cadastrarPet = new javax.swing.JButton();
-        jtxtf_dtEncerramentoPacote = new javax.swing.JTextField();
-        jlbl_dtEncerramentoPacote = new javax.swing.JLabel();
         jlbl_enderecoPet = new javax.swing.JLabel();
         jtxtf_enderecoPet = new javax.swing.JTextField();
-        jlbl_dtInicioPacote = new javax.swing.JLabel();
-        jtxtf_dtInicioPacote = new javax.swing.JTextField();
         jtxtf_dtAgendada = new javax.swing.JTextField();
         jlbl_dtAgendada = new javax.swing.JLabel();
         jlbl_hrAgendada = new javax.swing.JLabel();
         jtxtf_hrAgendada = new javax.swing.JTextField();
         jlbl_servicoAgendado = new javax.swing.JLabel();
         jcmb_servicoAgendado = new javax.swing.JComboBox<>();
-        jcmb_quantidadePacote = new javax.swing.JComboBox<>();
-        jlbl_quantidadePacote = new javax.swing.JLabel();
         jcmb_remediosAdicionados = new javax.swing.JComboBox<>();
         jlbl_remediosAdicionados = new javax.swing.JLabel();
         jlbl_remedio = new javax.swing.JLabel();
@@ -68,15 +62,9 @@ public class tela_agendamento extends javax.swing.JFrame {
         jtxtf_donoPet = new javax.swing.JTextField();
         jlbl_localCuidado = new javax.swing.JLabel();
         jtxtf_localCuidado = new javax.swing.JTextField();
-        jlbl_tipoAgendamento = new javax.swing.JLabel();
-        jcmb_tipoAgendamento = new javax.swing.JComboBox<>();
         jlbl_horarioRemedio = new javax.swing.JLabel();
         jtxtf_horarioRemedio = new javax.swing.JTextField();
-        jcmb_intervalo = new javax.swing.JComboBox<>();
-        jlbl_aCada = new javax.swing.JLabel();
-        jspn_aCada = new javax.swing.JSpinner();
         jlbl_img_adicionarRemedio = new javax.swing.JLabel();
-        jlbl_intervalo = new javax.swing.JLabel();
         lbl_CadastrarPet1 = new javax.swing.JLabel();
         jlbl_img_modalidadeAgendamento = new javax.swing.JLabel();
         jlbl_img_infoAdicionalPet = new javax.swing.JLabel();
@@ -354,22 +342,6 @@ public class tela_agendamento extends javax.swing.JFrame {
         jbtn_cadastrarPet.setUI(new RoundedCornerButtonUI());
         jPanel1.add(jbtn_cadastrarPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 1530, 240, 50));
 
-        jtxtf_dtEncerramentoPacote.setBackground(new java.awt.Color(217, 217, 217));
-        jtxtf_dtEncerramentoPacote.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jtxtf_dtEncerramentoPacote.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jtxtf_dtEncerramentoPacote.setMinimumSize(new java.awt.Dimension(250, 50));
-        jtxtf_dtEncerramentoPacote.setPreferredSize(new java.awt.Dimension(250, 50));
-        jtxtf_dtEncerramentoPacote.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxtf_dtEncerramentoPacoteActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jtxtf_dtEncerramentoPacote, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 560, 190, -1));
-
-        jlbl_dtEncerramentoPacote.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
-        jlbl_dtEncerramentoPacote.setText("Data de encerramento");
-        jPanel1.add(jlbl_dtEncerramentoPacote, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 540, -1, -1));
-
         jlbl_enderecoPet.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_enderecoPet.setText("Endereço do Pet");
         jPanel1.add(jlbl_enderecoPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, -1, -1));
@@ -386,22 +358,6 @@ public class tela_agendamento extends javax.swing.JFrame {
         });
         jPanel1.add(jtxtf_enderecoPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, 410, -1));
 
-        jlbl_dtInicioPacote.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
-        jlbl_dtInicioPacote.setText("Data de início do pacote");
-        jPanel1.add(jlbl_dtInicioPacote, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 540, 180, -1));
-
-        jtxtf_dtInicioPacote.setBackground(new java.awt.Color(217, 217, 217));
-        jtxtf_dtInicioPacote.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jtxtf_dtInicioPacote.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jtxtf_dtInicioPacote.setMinimumSize(new java.awt.Dimension(250, 50));
-        jtxtf_dtInicioPacote.setPreferredSize(new java.awt.Dimension(250, 50));
-        jtxtf_dtInicioPacote.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxtf_dtInicioPacoteActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jtxtf_dtInicioPacote, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 560, 190, -1));
-
         jtxtf_dtAgendada.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_dtAgendada.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtf_dtAgendada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -412,15 +368,15 @@ public class tela_agendamento extends javax.swing.JFrame {
                 jtxtf_dtAgendadaActionPerformed(evt);
             }
         });
-        jPanel1.add(jtxtf_dtAgendada, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 690, 230, -1));
+        jPanel1.add(jtxtf_dtAgendada, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, 230, -1));
 
         jlbl_dtAgendada.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_dtAgendada.setText("Data agendada");
-        jPanel1.add(jlbl_dtAgendada, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 670, 130, -1));
+        jPanel1.add(jlbl_dtAgendada, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, 130, -1));
 
         jlbl_hrAgendada.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_hrAgendada.setText("Horário agend.");
-        jPanel1.add(jlbl_hrAgendada, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 670, 110, -1));
+        jPanel1.add(jlbl_hrAgendada, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 460, 110, -1));
 
         jtxtf_hrAgendada.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_hrAgendada.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -432,7 +388,7 @@ public class tela_agendamento extends javax.swing.JFrame {
                 jtxtf_hrAgendadaActionPerformed(evt);
             }
         });
-        jPanel1.add(jtxtf_hrAgendada, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 690, 120, -1));
+        jPanel1.add(jtxtf_hrAgendada, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 480, 120, -1));
 
         jlbl_servicoAgendado.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_servicoAgendado.setText("Serviço agendado");
@@ -445,18 +401,6 @@ public class tela_agendamento extends javax.swing.JFrame {
         jcmb_servicoAgendado.setMinimumSize(new java.awt.Dimension(200, 50));
         jcmb_servicoAgendado.setPreferredSize(new java.awt.Dimension(200, 50));
         jPanel1.add(jcmb_servicoAgendado, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 330, 320, -1));
-
-        jcmb_quantidadePacote.setBackground(new java.awt.Color(217, 217, 217));
-        jcmb_quantidadePacote.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
-        jcmb_quantidadePacote.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONAR", "1 Semana", "2 Semanas", "1 Mes", "3 Meses", "6 Meses", "1 Ano" }));
-        jcmb_quantidadePacote.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jcmb_quantidadePacote.setMinimumSize(new java.awt.Dimension(200, 50));
-        jcmb_quantidadePacote.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel1.add(jcmb_quantidadePacote, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 560, 270, -1));
-
-        jlbl_quantidadePacote.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
-        jlbl_quantidadePacote.setText("Quantidade");
-        jPanel1.add(jlbl_quantidadePacote, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 540, 120, -1));
 
         jcmb_remediosAdicionados.setBackground(new java.awt.Color(217, 217, 217));
         jcmb_remediosAdicionados.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -535,7 +479,7 @@ public class tela_agendamento extends javax.swing.JFrame {
 
         jlbl_funcionarioAgendado.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_funcionarioAgendado.setText("Funcionário agendado");
-        jPanel1.add(jlbl_funcionarioAgendado, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 670, 160, 20));
+        jPanel1.add(jlbl_funcionarioAgendado, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 460, 160, 20));
 
         jcmb_funcionarioAgendado.setBackground(new java.awt.Color(217, 217, 217));
         jcmb_funcionarioAgendado.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -543,7 +487,7 @@ public class tela_agendamento extends javax.swing.JFrame {
         jcmb_funcionarioAgendado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jcmb_funcionarioAgendado.setMinimumSize(new java.awt.Dimension(200, 50));
         jcmb_funcionarioAgendado.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel1.add(jcmb_funcionarioAgendado, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 690, 370, -1));
+        jPanel1.add(jcmb_funcionarioAgendado, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 480, 370, -1));
 
         jlbl_donoPet.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_donoPet.setText("Dono do Pet");
@@ -577,18 +521,6 @@ public class tela_agendamento extends javax.swing.JFrame {
         });
         jPanel1.add(jtxtf_localCuidado, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 1100, 790, -1));
 
-        jlbl_tipoAgendamento.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
-        jlbl_tipoAgendamento.setText("Tipo do agendamento");
-        jPanel1.add(jlbl_tipoAgendamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 450, 160, -1));
-
-        jcmb_tipoAgendamento.setBackground(new java.awt.Color(217, 217, 217));
-        jcmb_tipoAgendamento.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
-        jcmb_tipoAgendamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONAR", "Único", "Pacote mensal", "Pacote semanal" }));
-        jcmb_tipoAgendamento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jcmb_tipoAgendamento.setMinimumSize(new java.awt.Dimension(200, 50));
-        jcmb_tipoAgendamento.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel1.add(jcmb_tipoAgendamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 470, 270, -1));
-
         jlbl_horarioRemedio.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_horarioRemedio.setText("Horário");
         jPanel1.add(jlbl_horarioRemedio, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 820, 80, -1));
@@ -605,30 +537,11 @@ public class tela_agendamento extends javax.swing.JFrame {
         });
         jPanel1.add(jtxtf_horarioRemedio, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 840, 90, -1));
 
-        jcmb_intervalo.setBackground(new java.awt.Color(217, 217, 217));
-        jcmb_intervalo.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
-        jcmb_intervalo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONAR", "Dias na semana", "Dias no mês", "Semanas no mês" }));
-        jcmb_intervalo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jcmb_intervalo.setMinimumSize(new java.awt.Dimension(200, 50));
-        jcmb_intervalo.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel1.add(jcmb_intervalo, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 470, 280, -1));
-
-        jlbl_aCada.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
-        jlbl_aCada.setText("A cada");
-        jPanel1.add(jlbl_aCada, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 450, 50, -1));
-
-        jspn_aCada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jPanel1.add(jspn_aCada, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 470, 90, 50));
-
         jlbl_img_adicionarRemedio.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
         jlbl_img_adicionarRemedio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adic remedio.png"))); // NOI18N
         jlbl_img_adicionarRemedio.setText(" ");
         jlbl_img_adicionarRemedio.setToolTipText("");
         jPanel1.add(jlbl_img_adicionarRemedio, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 750, -1, -1));
-
-        jlbl_intervalo.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
-        jlbl_intervalo.setText("Intervalo");
-        jPanel1.add(jlbl_intervalo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 450, 100, -1));
 
         lbl_CadastrarPet1.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
         lbl_CadastrarPet1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Cadastrar agendamento.png"))); // NOI18N
@@ -686,7 +599,7 @@ public class tela_agendamento extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jPanel2);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 46, 880, 690));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 46, 880, 1890));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         getContentPane().add(jlbl_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -741,17 +654,9 @@ public class tela_agendamento extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtf_nomePetActionPerformed
 
-    private void jtxtf_dtEncerramentoPacoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_dtEncerramentoPacoteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtxtf_dtEncerramentoPacoteActionPerformed
-
     private void jtxtf_enderecoPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_enderecoPetActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtf_enderecoPetActionPerformed
-
-    private void jtxtf_dtInicioPacoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_dtInicioPacoteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtxtf_dtInicioPacoteActionPerformed
 
     private void jtxtf_dtAgendadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_dtAgendadaActionPerformed
         // TODO add your handling code here:
@@ -840,13 +745,9 @@ public class tela_agendamento extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtn_cadastrarPet;
     private javax.swing.JComboBox<String> jcmb_funcionarioAgendado;
-    private javax.swing.JComboBox<String> jcmb_intervalo;
-    private javax.swing.JComboBox<String> jcmb_quantidadePacote;
     private javax.swing.JComboBox<String> jcmb_remediosAdicionados;
     private javax.swing.JComboBox<String> jcmb_servicoAgendado;
-    private javax.swing.JComboBox<String> jcmb_tipoAgendamento;
     private javax.swing.JComboBox<String> jcmb_tipoServico;
-    private javax.swing.JLabel jlbl_aCada;
     private javax.swing.JLabel jlbl_background;
     private javax.swing.JLabel jlbl_btnBuscar;
     private javax.swing.JLabel jlbl_btnLimparPet;
@@ -857,8 +758,6 @@ public class tela_agendamento extends javax.swing.JFrame {
     private javax.swing.JLabel jlbl_devolverPara;
     private javax.swing.JLabel jlbl_donoPet;
     private javax.swing.JLabel jlbl_dtAgendada;
-    private javax.swing.JLabel jlbl_dtEncerramentoPacote;
-    private javax.swing.JLabel jlbl_dtInicioPacote;
     private javax.swing.JLabel jlbl_enderecoPet;
     private javax.swing.JLabel jlbl_funcionarioAgendado;
     private javax.swing.JLabel jlbl_horarioRemedio;
@@ -869,28 +768,22 @@ public class tela_agendamento extends javax.swing.JFrame {
     private javax.swing.JLabel jlbl_img_linha2;
     private javax.swing.JLabel jlbl_img_linha3;
     private javax.swing.JLabel jlbl_img_modalidadeAgendamento;
-    private javax.swing.JLabel jlbl_intervalo;
     private javax.swing.JLabel jlbl_intrucaoAdministracao;
     private javax.swing.JLabel jlbl_localCuidado;
     private javax.swing.JLabel jlbl_nomePet;
     private javax.swing.JLabel jlbl_observacao;
     private javax.swing.JLabel jlbl_passeios;
-    private javax.swing.JLabel jlbl_quantidadePacote;
     private javax.swing.JLabel jlbl_remedio;
     private javax.swing.JLabel jlbl_remediosAdicionados;
     private javax.swing.JLabel jlbl_servicoAgendado;
-    private javax.swing.JLabel jlbl_tipoAgendamento;
     private javax.swing.JLabel jlbl_tipoServico;
     private javax.swing.JScrollPane jscp_jtxta_observacao;
-    private javax.swing.JSpinner jspn_aCada;
     private javax.swing.JSpinner jspn_passeios;
     private javax.swing.JTextArea jtxta_observacao;
     private javax.swing.JTextField jtxtf_buscarCom;
     private javax.swing.JTextField jtxtf_devolverPara;
     private javax.swing.JTextField jtxtf_donoPet;
     private javax.swing.JTextField jtxtf_dtAgendada;
-    private javax.swing.JTextField jtxtf_dtEncerramentoPacote;
-    private javax.swing.JTextField jtxtf_dtInicioPacote;
     private javax.swing.JTextField jtxtf_enderecoPet;
     private javax.swing.JTextField jtxtf_horarioRemedio;
     private javax.swing.JTextField jtxtf_hrAgendada;
