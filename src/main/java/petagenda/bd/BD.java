@@ -58,7 +58,7 @@ public class BD {
                     PreparedStatement select = null;
                     try {    
                         select = conn.prepareStatement(
-                            String.format("SELECT id, nome, id_endereco, cpf, telefone, senha, id_servico_presta, id_permissao, id_local_atuacao FROM %s WHERE cpf = ? AND senha = ?", TABLE));
+                            String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s WHERE cpf = ? AND senha_usuario = ?", TABLE));
                         select.setString(1, login);
                         select.setString(2, senha);
                         ResultSet rs = select.executeQuery();
