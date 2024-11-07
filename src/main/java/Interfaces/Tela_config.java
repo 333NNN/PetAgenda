@@ -62,8 +62,6 @@ public class Tela_config extends javax.swing.JFrame {
         getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
-        jLabel1.setMinimumSize(new java.awt.Dimension(1366, 768));
-        jLabel1.setPreferredSize(new java.awt.Dimension(1366, 768));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
