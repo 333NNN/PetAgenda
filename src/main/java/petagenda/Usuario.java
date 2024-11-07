@@ -1,6 +1,5 @@
 package petagenda;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import petagenda.bd.BD;
 import petagenda.dados.*;
@@ -15,143 +14,82 @@ public final class Usuario {
     private static Usuario atual;
     private int id;
     private String nome;
-    private Endereco endereco;
     private CPF cpf;
-    private String telefone;
     private String senha;
-    private Servico servicoPresta;
-    private Permissao permissao;
-    private LocalAtuacao localAtuacao;
-    
+    private int permissao;
+
     public static final int NULL_ID = -1;
-    
+
     // Exemplo de uso
     public static void main(String[] args) {
         Usuario eu;
         try {
-//            TipoServico passeio = new TipoServico("Passeio");
-//            Servico servicoPresta = new Servico("Dog Walking", passeio, 60, 100.0);
-            // Cadastrando no banco
-//            LocalAtuacao local = new LocalAtuacao("Itaparica", "Vitória");
-//            Endereco end = new Endereco("Rua Majestade", "231", "Cariacica", "Carne seca", "33343278");
-//            Servico servDogWalking = BD.Servico.selectLast();
-//            eu = new Usuario("Antônio", end, "887.844.490-12", "33365759", BD.Servico.selectById(1), BD.LocalAtuacao.selectLast());
-//            BD.Usuario.insert(eu);
-//            System.out.println(BD.Usuario.selectLast().toString());
-
-            // Editando no banco
-//            Usuario altUsuario = BD.Usuario.selectById(4);
-//            altUsuario.setNome("Rosemary");
-//            LocalAtuacao novoLocal = new LocalAtuacao("Aeroporto", "Guarapari");
-//            LocalAtuacao localTucum = BD.LocalAtuacao.selectById(5);
-//            altUsuario.setLocalAtuacao(localTucum);
-//            BD.Usuario.update(altUsuario);
-            
-//            // Apagando do banco
-//            Usuario lastUsuario = BD.Usuario.selectLast();
-//            BD.Usuario.delete(lastUsuario);
-
-            // Listando todos
-//            Usuario[] todos = BD.Usuario.selectAll();
-//            if (todos != null) {
-//                for(Usuario u : todos) {
-//                    if (u != null) {
-//                        System.out.println(u.toString());
-//                    }
-//                }
-//            }
-
             // Teste de login
-            Usuario logado = BD.Usuario.login("78772967030", "124");
+            Usuario logado = BD.Usuario.login("88784449012", "1234");
             System.out.println(logado);
         } catch (IllegalArgumentsException exs) {
-            Throwable[] causas = exs.getCauses(); // Exceções geradas pelo construtor por conta de argumentos inválidos
-            System.out.println(Arrays.toString(causas)); // Printa as exceções se houver
-        }
-        
-    }
-    
-    public Usuario(String nome, Endereco endereco, String cpf, String telefone, Servico servicoPresta) {
-        this(1, nome, endereco, cpf, telefone, servicoPresta, LocalAtuacao.valueOf(endereco) );
-        this.id = NULL_ID;
-    }
-    
-    public Usuario(String nome, Endereco endereco, String cpf, String telefone, Servico servicoPresta, LocalAtuacao localAtuacao) {
-        this(1, nome, endereco, cpf, telefone, servicoPresta, localAtuacao );
-        this.id = NULL_ID;
-    }
-    
-    public Usuario(int id, String nome, Endereco endereco, String cpf, String telefone, Servico servicoPresta, LocalAtuacao localAtuacao) {
-        IllegalArgumentsException exs = new IllegalArgumentsException();
-        
-        // Id
-        try {
-            setId(id);
-        } catch (IllegalIdException ex) {
-            exs.addCause(ex);
-        }
-        
-        // Nome
-        try {
-            setNome(nome);
-        } catch (IllegalNomeException ex) {
-            exs.addCause(ex);
-        }
-        
-        // CPF
-        try {
-            setCpf(cpf);
-        } catch (IllegalCpfException ex) {
-            exs.addCause(ex);
-        }
-        
-        // Telefone
-        try {
-            setTelefone(telefone);
-        } catch (IllegalTelefoneException ex) {
-            exs.addCause(ex);
-        }
-        
-        // Endereço
-        try {
-            setEndereco(endereco);
-        } catch (IllegalEnderecoException ex) {
-            exs.addCause(ex);
-        }
-        
-        // Serviço prestado
-        try {
-            setServico(servicoPresta);
-        } catch (IllegalServicoException ex) {
-            exs.addCause(ex);
-        }
-        
-        // Local de atuação
-        try {
-            setLocalAtuacao(localAtuacao);
-        } catch (IllegalLocalAtuacaoException ex) {
-            exs.addCause(ex);
-        }
-        
-        if (exs.size() > 0) { // Alguma exceção ocorreu
-            throw exs;
+            Throwable[] causas = exs.getCauses();
+            System.out.println(Arrays.toString(causas));
         }
     }
-    
+
+    // Construtores
+    public Usuario(String nome, CPF cpf, String senha) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.senha = senha;
+    }
+
+    public Usuario(int id, String nome, CPF cpf, String senha, int permissao) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.senha = senha;
+        this.permissao = permissao;
+    }
+
+    // Métodos estáticos para manipulação de dados no banco
+
+    public static Usuario selectById(int id) {
+        return BD.Usuario.selectById(id);
+    }
+
+    public static Usuario selectByCpf(String cpf) {
+        return BD.Usuario.selectByCpf(cpf);
+    }
+
+    public static void insert(Usuario usuario) {
+        BD.Usuario.insert(usuario);
+    }
+
+    public static void update(Usuario usuario) {
+        BD.Usuario.update(usuario);
+    }
+
+    public static void delete(Usuario usuario) {
+        BD.Usuario.delete(usuario);
+    }
+
+    public static Usuario login(String cpf, String senha) {
+        return BD.Usuario.login(cpf, senha);
+    }
+
     public boolean isNew() {
         return this.getId() == NULL_ID;
     }
-    
+
     public static void setAtual(Usuario usuario) {
         if (usuario != null && usuario.getSenha() != null) {
             atual = usuario;
         }
     }
-    
+
     public static Usuario getAtual() {
         return atual;
     }
-    
+
+    // Getters e Setters
+
     public void setId(int id) {
         if (id < 0) {
             throw new IllegalIdException("Id não pode ser inferior a zero");
@@ -159,144 +97,57 @@ public final class Usuario {
             this.id = id;
         }
     }
-    
+
     public int getId() {
         return this.id;
     }
-    
+
     public void setNome(String nome) {
-        if (nome == null) {
-            throw new IllegalNomeException("Nome não pode ser nulo.");
-        }
-        nome = nome.trim();
-        if (nome.isEmpty()) {
-            throw new IllegalNomeException("Nome não pode ser vazio.");
-        } else if (nome.length() > 64) {
-            throw new IllegalNomeException("Nome não pode conter mais do que 64 caracteres.");
+        if (nome == null || nome.isEmpty()) {
+            throw new IllegalArgumentException("Nome não pode ser nulo ou vazio.");
         }
         this.nome = nome;
     }
-    
+
     public String getNome() {
         return this.nome;
     }
-    
-    public void setEndereco(Endereco endereco) {
-        if (endereco == null) {
-            throw new IllegalEnderecoException("Endereço não pode ser nulo.");
-//            this.endereco = null;
-        } else {
-            this.endereco = endereco;
-        }
-    }
-    
-    public Endereco getEndereco() {
-        return this.endereco;
-    }
-    
-    public void setCpf(String strCpf) {
-        if (strCpf == null) {
-            this.setCpf((CPF)null); // Meus olhos choram sangue de ter que fazer isso (ಥ﹏ಥ) 
-        } else {
-            strCpf = strCpf.trim();
-            if (strCpf.isEmpty()) {
-                throw new IllegalCpfException("CPF não pode ser vazio.");
-            } else {
-                this.setCpf(new CPF(strCpf)); // Dá throw de IllegalCpfException se for inválido e NullPointerException se for nulo
-            }
-        }
-    }
-    
-    public void setCpf(CPF cpf) {
-        if (cpf == null) {
-            throw new IllegalCpfException("CPF não pode ser nulo.");
-//            this.cpf = null;
-        } else {
-            this.cpf = cpf;
-        }
-    }
-    
-    public void setTelefone(String tel) {
-        if (tel == null) {
-            throw new IllegalTelefoneException("Telefone não pode ser nulo.");
-        }
-        tel = tel.trim();
-        if (tel.isEmpty()) {
-            throw new IllegalTelefoneException("Telefone não pode ser vazio.");
-        } else if (tel.length() > 12) {
-            throw new IllegalTelefoneException("Telefone não pode conter mais do que 12 caracteres.");
-        }
-        this.telefone = tel;
-    }
-    
-    public String getTelefone() {
-        return this.telefone;
-    }
-    
-    public void setPermissao(Permissao permissao) {
-        if (permissao == null) {
-//          throw new IllegalPermissaoException("Permissão não pode ser nula"); /* Não é necessário pois coluna permissao não tem restrição de NOT NULL no BD*/
-            this.permissao = null;
-        } else {
-            this.permissao = permissao;
-        }
-    }
-    
-    public Permissao getPermissao() {
-        return this.permissao;
-    }
-    
-    public void setSenha(String senha) {
-        if (senha == null) {
-            throw new IllegalSenhaException("Senha não pode ser nula.");
-        }
-        senha = senha.trim();
 
-        if (senha.isEmpty()) {
-            throw new IllegalSenhaException("Senha não pode ser vazia.");
-        } 
-        
-        if (senha.length() > 32) {
-            throw new IllegalSenhaException("Senha não pode conter mais do que 32 caracteres.");
+    public void setCpf(String strCpf) {
+        if (strCpf == null || strCpf.isEmpty()) {
+            throw new IllegalArgumentException("CPF não pode ser nulo ou vazio.");
         }
-        
-        this.senha = senha;
+        this.cpf = new CPF(strCpf); // Criando objeto CPF
     }
-    
+
     public CPF getCpf() {
         return this.cpf;
     }
-    
+
+    public void setSenha(String senha) {
+        if (senha == null || senha.isEmpty()) {
+            throw new IllegalArgumentException("Senha não pode ser nula ou vazia.");
+        }
+        this.senha = senha;
+    }
+
     public String getSenha() {
         return this.senha;
     }
-    
-    public void setServico(Servico servico) {
-        if (servico == null) {
-            throw new IllegalServicoException("Serviço não pode ser nulo.");
-        } else {
-            this.servicoPresta = servico;
+
+    public void setPermissao(int permissao) {
+        if (permissao < 0) {
+            throw new IllegalArgumentException("Permissão não pode ser negativa.");
         }
+        this.permissao = permissao;
     }
-    
-    public Servico getServico() {
-        return this.servicoPresta;
+
+    public int getPermissao() {
+        return this.permissao;
     }
-    
-    public void setLocalAtuacao(LocalAtuacao local) {
-        if (local == null) {
-            throw new IllegalLocalAtuacaoException("Local de atuação não pode ser nulo.");
-        } else {
-            this.localAtuacao = local;
-        }
-    }
-    
-    public LocalAtuacao getLocalAtuacao() {
-        return this.localAtuacao;
-    }
-    
+
     @Override
     public String toString() {
-        return String.format("NOME: %-16s | TEL: %-10s | SERV. PRESTA: %-16s | LOCAL ATUAÇÃO: %s", getNome(), getTelefone(), getServico().getNome(), getLocalAtuacao().toString());
+        return String.format("ID: %-5d | NOME: %-16s | CPF: %-11s | PERMISSÃO: %d", getId(), getNome(), getCpf().toString(), getPermissao());
     }
 }

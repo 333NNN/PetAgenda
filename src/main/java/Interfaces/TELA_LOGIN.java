@@ -64,6 +64,7 @@ public class TELA_LOGIN extends javax.swing.JFrame {
         txt_login.setOpaque(false);
         txt_login.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         txt_login.setForeground(new java.awt.Color(30, 30, 30));
+        txt_login.setText("TheMasterOfTheMasterAdmin");
         txt_login.setBorder(null);
         txt_login.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         txt_login.setMinimumSize(new java.awt.Dimension(550, 50));
@@ -86,6 +87,11 @@ public class TELA_LOGIN extends javax.swing.JFrame {
         txt_senha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         txt_senha.setMinimumSize(new java.awt.Dimension(550, 50));
         txt_senha.setPreferredSize(new java.awt.Dimension(552, 50));
+        txt_senha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txt_senhaMouseClicked(evt);
+            }
+        });
         txt_senha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_senhaActionPerformed(evt);
@@ -98,7 +104,7 @@ public class TELA_LOGIN extends javax.swing.JFrame {
         jButton_ENTRAR.setBorder(null);
         jButton_ENTRAR.setBorderPainted(false);
         jButton_ENTRAR.setContentAreaFilled(false);
-        jButton_ENTRAR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_ENTRAR.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton_ENTRAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_ENTRARActionPerformed(evt);
@@ -157,6 +163,11 @@ public class TELA_LOGIN extends javax.swing.JFrame {
     private void txt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_loginActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_loginActionPerformed
+
+    private void txt_senhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_senhaMouseClicked
+        // TODO add your handling code here:
+        txt_senha.setText("");
+    }//GEN-LAST:event_txt_senhaMouseClicked
 
     /**
      * @param args the command line arguments
