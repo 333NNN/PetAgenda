@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `pet_agenda` /*!40100 DEFAULT CHARACTER SET utf8m
 USE `pet_agenda`;
 -- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: pet_agenda
+-- Host: localhost    Database: pet_agenda
 -- ------------------------------------------------------
 -- Server version	5.5.5-10.4.32-MariaDB
 
@@ -65,18 +65,19 @@ DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE `cliente` (
   `id_cliente` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(64) NOT NULL,
+  `cpf` char(11) NOT NULL,
+  `telefone` varchar(12) NOT NULL,
   `rua` varchar(45) NOT NULL,
   `numero` varchar(16) NOT NULL,
   `bairro` varchar(32) NOT NULL,
   `cidade` varchar(32) NOT NULL,
   `cep` char(8) NOT NULL,
-  `telefone` varchar(12) NOT NULL,
-  `cpf` char(11) NOT NULL,
   `check_entrega` tinyint(4) NOT NULL,
   `buscar_com` varchar(64) DEFAULT NULL,
   `devolver_para` varchar(64) DEFAULT NULL,
   `id_servico` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_cliente`),
+  UNIQUE KEY `cpf` (`cpf`),
   KEY `id_servico` (`id_servico`),
   CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`id_servico`) REFERENCES `servico` (`id_servico`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -131,13 +132,14 @@ CREATE TABLE `funcionario` (
   `id_func` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(64) NOT NULL,
   `cpf` char(11) NOT NULL,
+  `telefone` varchar(12) NOT NULL,
   `rua` varchar(45) NOT NULL,
   `cep` char(8) NOT NULL,
   `numero` varchar(16) NOT NULL,
   `cidade` varchar(32) NOT NULL,
-  `telefone` varchar(12) NOT NULL,
   `local_de_atuacao` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_func`)
+  PRIMARY KEY (`id_func`),
+  UNIQUE KEY `cpf` (`cpf`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -338,7 +340,8 @@ CREATE TABLE `usuario` (
   `nome_usuario` varchar(45) NOT NULL,
   `senha_usuario` varchar(25) NOT NULL,
   `permissao` int(11) NOT NULL,
-  PRIMARY KEY (`id_usuario`)
+  PRIMARY KEY (`id_usuario`),
+  UNIQUE KEY `cpf` (`cpf`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -361,4 +364,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-06 20:12:06
+-- Dump completed on 2024-11-07 13:59:11

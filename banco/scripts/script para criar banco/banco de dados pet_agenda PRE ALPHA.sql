@@ -6,7 +6,7 @@ DROP DATABASE pet_agenda;
 
 CREATE TABLE usuario (
 	id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-    cpf CHAR(11) NOT NULL,
+    cpf CHAR(11) NOT NULL UNIQUE,
     nome_usuario VARCHAR(45) NOT NULL,
     senha_usuario VARCHAR(25) NOT NULL,
     permissao INT(11) NOT NULL
@@ -15,12 +15,12 @@ CREATE TABLE usuario (
 CREATE TABLE funcionario (
 	id_func INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(64) NOT NULL,
-    cpf CHAR(11) NOT NULL,
+    cpf CHAR(11) NOT NULL UNIQUE,
+    telefone VARCHAR(12) NOT NULL,
     rua VARCHAR(45) NOT NULL,
     cep CHAR(8) NOT NULL,
     numero VARCHAR(16) NOT NULL,
     cidade VARCHAR(32) NOT NULL,
-    telefone VARCHAR(12) NOT NULL,
     local_de_atuacao VARCHAR(45) NOT NULL
 );
 
@@ -34,13 +34,13 @@ CREATE TABLE servico (
 CREATE TABLE cliente (
 	id_cliente INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(64) NOT NULL,
+    cpf CHAR(11) NOT NULL UNIQUE,
+    telefone VARCHAR(12) NOT NULL,
     rua VARCHAR(45) NOT NULL,
     numero VARCHAR(16) NOT NULL,
     bairro VARCHAR(32) NOT NULL,
     cidade VARCHAR(32) NOT NULL,
     cep CHAR(8) NOT NULL,
-    telefone VARCHAR(12) NOT NULL,
-    cpf CHAR(11) NOT NULL,
     check_entrega TINYINT NOT NULL,
     buscar_com VARCHAR(64),
     devolver_para VARCHAR(64),
