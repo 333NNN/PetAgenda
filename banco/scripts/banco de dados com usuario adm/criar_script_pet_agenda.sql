@@ -135,6 +135,7 @@ CREATE TABLE `funcionario` (
   `rua` varchar(45) NOT NULL,
   `cep` char(8) NOT NULL,
   `numero` varchar(16) NOT NULL,
+  `bairro` varchar(32) NOT NULL,
   `cidade` varchar(32) NOT NULL,
   PRIMARY KEY (`id_func`),
   UNIQUE KEY `cpf` (`cpf`)
@@ -334,4 +335,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-08 19:13:45
+-- Dump completed on 2024-11-08 20:31:59

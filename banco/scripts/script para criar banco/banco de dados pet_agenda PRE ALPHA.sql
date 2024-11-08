@@ -20,6 +20,7 @@ CREATE TABLE funcionario (
     rua VARCHAR(45) NOT NULL,
     cep CHAR(8) NOT NULL,
     numero VARCHAR(16) NOT NULL,
+    bairro VARCHAR(32) NOT NULL,
     cidade VARCHAR(32) NOT NULL
 );
 
