@@ -101,8 +101,6 @@ public class BD {
 
             if (usuario == null) {
                 throw new NullPointerException("Serviço não pode ser nulo");
-            } else if (usuario.getServico().isNew() || usuario.getPermissao() != null && usuario.getPermissao().isNew()) { // Servico prestado precisa associado precisa estar cadastrado
-                throw new IllegalUsuarioException("Usuario contém ou um serviço não cadastrado ou uma permissão inexistente no banco de dados");
             } else {
                 Connection conn = BD.getConnection();
                 if (conn == null) { // Se banco for inacessível
@@ -111,22 +109,7 @@ public class BD {
                     // Criação do statement
                     PreparedStatement insert = null;
                     try {
-                        insert = conn.prepareStatement(
-                                String.format("INSERT INTO %s(nome, id_endereco, cpf, telefone, senha, id_servico_presta, id_permissao, id_local_atuacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", TABLE));
-
-                        // Cadastro individual do endereco no BD
-                        petagenda.dados.Endereco endereco = usuario.getEndereco();
-                        int id_endereco;
-
-//                        if (endereco.isNew()) {
-                        BD.Endereco.insert(endereco);
-                        id_endereco = BD.Endereco.selectLast().getId();
-//                        } else {
-//                            id_endereco = endereco.getId();
-//                        }
-
-                        insert.setString(1, usuario.getNome());
-                        insert.setInt(2, id_endereco);
+                        insert = conn.prepareStatement(String.format("INSERT INTO %s(cpf, nome_usuario, senha_usuario, permissao) VALUES (?, ?, ?, ?)", TABLE));
 
                         petagenda.dados.CPF cpf = usuario.getCpf();
                         String strCpf;
@@ -135,32 +118,12 @@ public class BD {
                         } else {
                             strCpf = null;
                         }
-                        insert.setString(3, strCpf);
-
-                        insert.setString(4, usuario.getTelefone());
-                        insert.setString(5, usuario.getSenha());
-                        insert.setInt(6, usuario.getServico().getId());
-
-                        petagenda.dados.Permissao permissao = usuario.getPermissao();
-                        if (permissao != null) {
-                            insert.setInt(7, permissao.getId());
-                        } else {
-                            insert.setNull(7, java.sql.Types.INTEGER);
-                        }
-
-                        // Criação do local de atuação
-                        // OBS.: Deveria ser implementado uma maneira de reaproveitar locais de atuação semelhantes já existentes no banco
-                        int id_local_atuacao;
-                        petagenda.dados.LocalAtuacao localAtuacao = usuario.getLocalAtuacao();
-                        if (localAtuacao.isNew()) { // Se não for cadastrado no banco
-                            BD.LocalAtuacao.insert(localAtuacao);
-                            id_local_atuacao = BD.LocalAtuacao.selectLast().getId();
-                        } else {
-                            id_local_atuacao = localAtuacao.getId();
-                        }
-
-                        insert.setInt(8, id_local_atuacao);
-
+                        
+                        insert.setString(1, strCpf);
+                        insert.setString(2, usuario.getNome());
+                        insert.setString(3, usuario.getSenha());
+                        insert.setInt(4, usuario.getPermissao());
+                        
                         r = insert.executeUpdate();
                     } catch (SQLException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de execução do insert", JOptionPane.ERROR_MESSAGE);
@@ -194,7 +157,7 @@ public class BD {
 
             if (usuario == null) {
                 throw new NullPointerException("Usuario não pode ser nulo");
-            } else if (!usuario.isNew() && !usuario.getEndereco().isNew() && !usuario.getLocalAtuacao().isNew()) { // Só inicia conexão se Usuario, Endereco e LocalAtuacao forem cadastrados
+            } else {
                 Connection conn = BD.getConnection();
                 if (conn == null) { // Se banco for inacessível
                     return r;
@@ -203,22 +166,14 @@ public class BD {
                     // Criação do statement
                     PreparedStatement insert = null;
                     try {
-                        insert = conn.prepareStatement(
-                                String.format("DELETE FROM %s WHERE id = ?", TABLE));
+                        insert = conn.prepareStatement(String.format("DELETE FROM %s WHERE id = ?", TABLE));
+                        
                         insert.setInt(1, usuario.getId());
 
                         r = insert.executeUpdate();
                     } catch (SQLException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de execução do delete", JOptionPane.ERROR_MESSAGE);
                         r = -1;
-                    }
-
-                    // Deleção do endereço associado
-                    BD.Endereco.delete(usuario.getEndereco());
-
-                    // Deleção do local de atuação associado
-                    if (BD.Usuario.selectByLocalAtuacao(usuario.getLocalAtuacao()) == null) { // Se não houver outro Usuario usando o mesmo local de atuacao
-                        BD.LocalAtuacao.delete(usuario.getLocalAtuacao());
                     }
 
                     if (insert != null) { // Se preparedStatement não falhou
@@ -248,7 +203,7 @@ public class BD {
 
             if (usuario == null) {
                 throw new NullPointerException("Local de atuação não pode ser nulo");
-            } else if (!usuario.isNew() && !usuario.getServico().isNew() && usuario.getPermissao() == null || usuario.getPermissao() != null && !usuario.getPermissao().isNew()) { // Só inicia conexão se Usuario informado possuir id válido e o Servico for cadastrado e Permissao já estiver cadastrado
+            } else {
                 Connection conn = BD.getConnection();
                 if (conn == null) { // Se banco for inacessível
                     return r;
@@ -256,23 +211,8 @@ public class BD {
                     // Criação do statement
                     PreparedStatement insert = null;
                     try {
-                        insert = conn.prepareStatement(
-                                String.format("UPDATE %s SET nome = ?, cpf = ?, telefone = ?, senha = ?, id_servico_presta = ?, id_permissao = ?, id_local_atuacao = ? WHERE id = ?", TABLE));
-
-                        petagenda.dados.Endereco enderecoUsuario = usuario.getEndereco();
-
-                        // Atualização do endereco do Usuario se mudou
-                        petagenda.Usuario usuarioCadastrado = BD.Usuario.selectById(usuario.getId());
-                        petagenda.dados.Endereco enderecoCadastrado = usuarioCadastrado.getEndereco();
-                        int id_endereco_cadastrado = enderecoCadastrado.getId();
-
-                        // Verificação se Endereco do objeto difere do recebido do banco
-                        if (!enderecoUsuario.deepEquals(enderecoCadastrado)) { // Se Endereco do objeto difere do cadastrado no Usuario do banco
-                            enderecoUsuario.setId(id_endereco_cadastrado);
-                            BD.Endereco.update(enderecoUsuario);
-                        }
-
-                        insert.setString(1, usuario.getNome());
+                        insert = conn.prepareStatement(String.format("UPDATE %s SET cpf = ?, nome_usuario = ?, senha_usuario = ? WHERE id = ?", TABLE));
+                        
                         petagenda.dados.CPF cpf = usuario.getCpf();
                         String strCpf;
 //                        if (cpf == null) {
@@ -280,73 +220,63 @@ public class BD {
 //                        } else {
                         strCpf = cpf.toString();
 //                        }
-                        insert.setString(2, strCpf);
-                        insert.setString(3, usuario.getTelefone());
-                        insert.setString(4, usuario.getSenha());
-                        insert.setInt(5, usuario.getServico().getId());
-
-                        petagenda.dados.Permissao permissao = usuario.getPermissao();
-                        if (permissao != null) {
-                            insert.setInt(6, permissao.getId());
-                        } else {
-                            insert.setNull(6, java.sql.Types.INTEGER);
-                        }
+                        insert.setString(1, strCpf);
+                        insert.setString(2, usuario.getNome());
+                        insert.setString(3, usuario.getSenha());
 
                         // Controle de atualização do Local de atuação
-                        petagenda.dados.LocalAtuacao localAtuacaoUsuario = usuario.getLocalAtuacao();
-                        int id_local_atuacao_usuario = localAtuacaoUsuario.getId();
+                        // petagenda.dados.LocalAtuacao localAtuacaoUsuario = usuario.getLocalAtuacao();
+                        // int id_local_atuacao_usuario = localAtuacaoUsuario.getId();
 
-                        petagenda.dados.LocalAtuacao localAtuacaoCadastrado = BD.Usuario.selectById(usuario.getId()).getLocalAtuacao();
-                        int id_local_atuacao_cadastrado = localAtuacaoCadastrado.getId();
+                        //petagenda.dados.LocalAtuacao localAtuacaoCadastrado = BD.Usuario.selectById(usuario.getId()).getLocalAtuacao();
+                        //int id_local_atuacao_cadastrado = localAtuacaoCadastrado.getId();
 
-                        boolean apagarLocalAtuacaoCadastrado = false;
-                        int locaisEncontrados = BD.Usuario.selectByLocalAtuacao(localAtuacaoCadastrado).length;
+                        //boolean apagarLocalAtuacaoCadastrado = false;
+                        //int locaisEncontrados = BD.Usuario.selectByLocalAtuacao(localAtuacaoCadastrado).length;
 
-                        if (locaisEncontrados == 1) { // Somente este usuário usa o local de atuação cadastrados
-                            if (localAtuacaoUsuario.isNew()) {
-                                localAtuacaoUsuario.setId(id_local_atuacao_cadastrado);
-                                BD.LocalAtuacao.update(localAtuacaoUsuario);
-                                insert.setInt(7, id_local_atuacao_cadastrado);
-                            } else if (id_local_atuacao_usuario != id_local_atuacao_cadastrado) {
-                                insert.setInt(7, id_local_atuacao_usuario);
-                                apagarLocalAtuacaoCadastrado = true;
-                            } else { // É o mesmo id de local de atuação
-                                if (!localAtuacaoUsuario.deepEquals(localAtuacaoCadastrado)) {
-                                    BD.LocalAtuacao.update(localAtuacaoUsuario);
-                                }
-                                insert.setInt(7, id_local_atuacao_usuario);
-                            }
-                        } else {
-                            if (localAtuacaoUsuario.isNew()) {
-                                BD.LocalAtuacao.insert(localAtuacaoUsuario);
-                                insert.setInt(7, BD.LocalAtuacao.selectLast().getId());
-                            } else {
-                                insert.setInt(7, id_local_atuacao_usuario);
-                            }
+                        //if (locaisEncontrados == 1) { // Somente este usuário usa o local de atuação cadastrados
+                            //if (localAtuacaoUsuario.isNew()) {
+                                //localAtuacaoUsuario.setId(id_local_atuacao_cadastrado);
+                                //BD.LocalAtuacao.update(localAtuacaoUsuario);
+                                //insert.setInt(7, id_local_atuacao_cadastrado);
+                            //} else if (id_local_atuacao_usuario != id_local_atuacao_cadastrado) {
+                                //insert.setInt(7, id_local_atuacao_usuario);
+                                //apagarLocalAtuacaoCadastrado = true;
+                            //} else { // É o mesmo id de local de atuação
+                                //if (!localAtuacaoUsuario.deepEquals(localAtuacaoCadastrado)) {
+                                    //BD.LocalAtuacao.update(localAtuacaoUsuario);
+                                //}
+                                //insert.setInt(7, id_local_atuacao_usuario);
+                            //}
+                        //} else {
+                            //if (localAtuacaoUsuario.isNew()) {
+                                //BD.LocalAtuacao.insert(localAtuacaoUsuario);
+                                //insert.setInt(7, BD.LocalAtuacao.selectLast().getId());
+                            //} else {
+                                //insert.setInt(7, id_local_atuacao_usuario);
+                            //}
 
-                        }
+                        //}
+                        
+                        //r = insert.executeUpdate();
 
-                        insert.setInt(8, usuario.getId());
-
-                        r = insert.executeUpdate();
-
-                        if (apagarLocalAtuacaoCadastrado) {
-                            BD.LocalAtuacao.delete(localAtuacaoCadastrado);
-                        }
+                        //if (apagarLocalAtuacaoCadastrado) {
+                            //BD.LocalAtuacao.delete(localAtuacaoCadastrado);
+                        //}
                     } catch (SQLException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de execução do update", JOptionPane.ERROR_MESSAGE);
                         r = -1;
                     }
 
-                    if (insert != null) { // Se preparedStatement não falhou
-                        try {
-                            insert.close();
-                        } catch (SQLException e) {
-                            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
-                        } finally {
-                            insert = null;
-                        }
-                    }
+                    //if (insert != null) { // Se preparedStatement não falhou
+                        //try {
+                            //insert.close();
+                        //} catch (SQLException e) {
+                            //JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                        //} finally {
+                            //insert = null;
+                        //}
+                    //}
 
                     try {
                         conn.close();
@@ -539,11 +469,11 @@ public class BD {
                 try {
                     while (rs.next()) {
                         petagenda.Usuario u;
-                        int id_usuario, id_permissao;
-                        String nome_usuario, strCpf, senha_usuario;
+                        int id_permissao;
+                        String id, nome_usuario, strCpf, senha_usuario;
 
                         // Recebimento dos dados do ResultSet
-                        id_usuario = rs.getInt("id_usuario");  // id_usuario
+                        id = rs.getString("id");  // id_usuario
 
                         nome_usuario = rs.getString("nome_usuario");  // nome_usuario
 
@@ -554,7 +484,7 @@ public class BD {
 
                         // Criar o objeto Usuario
                         try {
-                            u = new petagenda.Usuario(id_usuario, nome_usuario, strCpf);
+                            u = new petagenda.Usuario(id, nome_usuario, strCpf);
 
                             if (senha_usuario != null) {
                                 u.setSenha(senha_usuario);
@@ -568,7 +498,7 @@ public class BD {
 
                             uList.add(u);
                         } catch (IllegalArgumentsException exs) {
-                            StringBuilder strEx = new StringBuilder(String.format("Erro ao receber Usuario (id= %d):\n", id_usuario));
+                            StringBuilder strEx = new StringBuilder(String.format("Erro ao receber Usuario (id= %d):\n", id));
                             for (Throwable cause : exs.getCauses()) {
                                 strEx.append(cause.getMessage());
                                 strEx.append("\n");

@@ -7,6 +7,7 @@ package Interfaces;
 import com.mycompany.petagenda.MenuPanel;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
+import petagenda.Funcionario;
 import petagenda.Usuario;
 import petagenda.bd.BD;
 import petagenda.dados.Endereco;
@@ -116,9 +117,11 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
 //            exsCadastro.addCause(ex);
         }
         
-        // Criação do usuário
+        // Criação do funcionario
         try {
-            novoUsuario = new Usuario(nome, endereco, cpf, telefone, servicoPresta, localAtuacao);
+            novoFuncionario = new Funcionario(id, nome, cpf, telefone, servico_prestado, rua, cep, numero, cidade, bairro);
+            // Devemos colocar um novo objeto chamada funcionario
+            
         } catch (IllegalArgumentsException exs) {
             exsCadastro.addCause(exs.getCauses());
         }
@@ -138,7 +141,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, erros.toString(), "Campos inválidos", JOptionPane.ERROR_MESSAGE);
         }
         
-        return novoUsuario;
+        return novoFuncionario;
     }
     
 
