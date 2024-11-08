@@ -61,7 +61,7 @@ public class BD {
                     PreparedStatement select = null;
                     try {
                         select = conn.prepareStatement(
-                        String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s WHERE cpf = ? AND senha_usuario = ?", TABLE));
+                                String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s WHERE cpf = ? AND senha_usuario = ?", TABLE));
                         select.setString(1, login);
                         select.setString(2, senha);
                         ResultSet rs = select.executeQuery();
@@ -118,12 +118,12 @@ public class BD {
                         } else {
                             strCpf = null;
                         }
-                        
+
                         insert.setString(1, strCpf);
                         insert.setString(2, usuario.getNome());
                         insert.setString(3, usuario.getSenha());
                         insert.setInt(4, usuario.getPermissao());
-                        
+
                         r = insert.executeUpdate();
                     } catch (SQLException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de execução do insert", JOptionPane.ERROR_MESSAGE);
@@ -167,7 +167,7 @@ public class BD {
                     PreparedStatement insert = null;
                     try {
                         insert = conn.prepareStatement(String.format("DELETE FROM %s WHERE id = ?", TABLE));
-                        
+
                         insert.setInt(1, usuario.getId());
 
                         r = insert.executeUpdate();
@@ -212,7 +212,7 @@ public class BD {
                     PreparedStatement insert = null;
                     try {
                         insert = conn.prepareStatement(String.format("UPDATE %s SET cpf = ?, nome_usuario = ?, senha_usuario = ? WHERE id = ?", TABLE));
-                        
+
                         petagenda.dados.CPF cpf = usuario.getCpf();
                         String strCpf;
 //                        if (cpf == null) {
@@ -227,41 +227,35 @@ public class BD {
                         // Controle de atualização do Local de atuação
                         // petagenda.dados.LocalAtuacao localAtuacaoUsuario = usuario.getLocalAtuacao();
                         // int id_local_atuacao_usuario = localAtuacaoUsuario.getId();
-
                         //petagenda.dados.LocalAtuacao localAtuacaoCadastrado = BD.Usuario.selectById(usuario.getId()).getLocalAtuacao();
                         //int id_local_atuacao_cadastrado = localAtuacaoCadastrado.getId();
-
                         //boolean apagarLocalAtuacaoCadastrado = false;
                         //int locaisEncontrados = BD.Usuario.selectByLocalAtuacao(localAtuacaoCadastrado).length;
-
                         //if (locaisEncontrados == 1) { // Somente este usuário usa o local de atuação cadastrados
-                            //if (localAtuacaoUsuario.isNew()) {
-                                //localAtuacaoUsuario.setId(id_local_atuacao_cadastrado);
-                                //BD.LocalAtuacao.update(localAtuacaoUsuario);
-                                //insert.setInt(7, id_local_atuacao_cadastrado);
-                            //} else if (id_local_atuacao_usuario != id_local_atuacao_cadastrado) {
-                                //insert.setInt(7, id_local_atuacao_usuario);
-                                //apagarLocalAtuacaoCadastrado = true;
-                            //} else { // É o mesmo id de local de atuação
-                                //if (!localAtuacaoUsuario.deepEquals(localAtuacaoCadastrado)) {
-                                    //BD.LocalAtuacao.update(localAtuacaoUsuario);
-                                //}
-                                //insert.setInt(7, id_local_atuacao_usuario);
-                            //}
-                        //} else {
-                            //if (localAtuacaoUsuario.isNew()) {
-                                //BD.LocalAtuacao.insert(localAtuacaoUsuario);
-                                //insert.setInt(7, BD.LocalAtuacao.selectLast().getId());
-                            //} else {
-                                //insert.setInt(7, id_local_atuacao_usuario);
-                            //}
-
+                        //if (localAtuacaoUsuario.isNew()) {
+                        //localAtuacaoUsuario.setId(id_local_atuacao_cadastrado);
+                        //BD.LocalAtuacao.update(localAtuacaoUsuario);
+                        //insert.setInt(7, id_local_atuacao_cadastrado);
+                        //} else if (id_local_atuacao_usuario != id_local_atuacao_cadastrado) {
+                        //insert.setInt(7, id_local_atuacao_usuario);
+                        //apagarLocalAtuacaoCadastrado = true;
+                        //} else { // É o mesmo id de local de atuação
+                        //if (!localAtuacaoUsuario.deepEquals(localAtuacaoCadastrado)) {
+                        //BD.LocalAtuacao.update(localAtuacaoUsuario);
                         //}
-                        
+                        //insert.setInt(7, id_local_atuacao_usuario);
+                        //}
+                        //} else {
+                        //if (localAtuacaoUsuario.isNew()) {
+                        //BD.LocalAtuacao.insert(localAtuacaoUsuario);
+                        //insert.setInt(7, BD.LocalAtuacao.selectLast().getId());
+                        //} else {
+                        //insert.setInt(7, id_local_atuacao_usuario);
+                        //}
+                        //}
                         //r = insert.executeUpdate();
-
                         //if (apagarLocalAtuacaoCadastrado) {
-                            //BD.LocalAtuacao.delete(localAtuacaoCadastrado);
+                        //BD.LocalAtuacao.delete(localAtuacaoCadastrado);
                         //}
                     } catch (SQLException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de execução do update", JOptionPane.ERROR_MESSAGE);
@@ -269,15 +263,14 @@ public class BD {
                     }
 
                     //if (insert != null) { // Se preparedStatement não falhou
-                        //try {
-                            //insert.close();
-                        //} catch (SQLException e) {
-                            //JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
-                        //} finally {
-                            //insert = null;
-                        //}
+                    //try {
+                    //insert.close();
+                    //} catch (SQLException e) {
+                    //JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                    //} finally {
+                    //insert = null;
                     //}
-
+                    //}
                     try {
                         conn.close();
                     } catch (SQLException e) {
@@ -470,31 +463,23 @@ public class BD {
                     while (rs.next()) {
                         petagenda.Usuario u;
                         int id_permissao;
-                        String id, nome_usuario, strCpf, senha_usuario;
+                        int id;
+                        String nome_usuario, senha_usuario;
+                        CPF cpf;
 
                         // Recebimento dos dados do ResultSet
-                        id = rs.getString("id");  // id_usuario
+                        id = rs.getInt("id"); // id_usuario
+                        nome_usuario = rs.getString("nome_usuario"); // nome_usuario
 
-                        nome_usuario = rs.getString("nome_usuario");  // nome_usuario
+                        // Converte a string do CPF para um objeto CPF
+                        cpf = new CPF(rs.getString("cpf")); // cpf
 
-                        strCpf = rs.getString("cpf");  // cpf
-                        senha_usuario = rs.getString("senha_usuario");  // senha_usuario
-
-                        id_permissao = rs.getInt("permissao");  // permissao
+                        senha_usuario = rs.getString("senha_usuario"); // senha_usuario
+                        id_permissao = rs.getInt("permissao"); // permissao
 
                         // Criar o objeto Usuario
                         try {
-                            u = new petagenda.Usuario(id, nome_usuario, strCpf);
-
-                            if (senha_usuario != null) {
-                                u.setSenha(senha_usuario);
-                            }
-
-                            // Adicionar permissao ao usuario, se necessário
-                            if (id_permissao > 0) {
-                                // Aqui, você pode buscar um objeto Permissao, se precisar
-                                // u.setPermissao(permissao);
-                            }
+                            u = new petagenda.Usuario(id, nome_usuario, cpf, senha_usuario, id_permissao);
 
                             uList.add(u);
                         } catch (IllegalArgumentsException exs) {
