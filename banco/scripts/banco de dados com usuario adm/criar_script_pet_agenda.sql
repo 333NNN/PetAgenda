@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `pet_agenda` /*!40100 DEFAULT CHARACTER SET utf8m
 USE `pet_agenda`;
 -- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
--- Host: localhost    Database: pet_agenda
+-- Host: 127.0.0.1    Database: pet_agenda
 -- ------------------------------------------------------
 -- Server version	5.5.5-10.4.32-MariaDB
 
@@ -29,6 +29,9 @@ CREATE TABLE `agendamento` (
   `dt_hr_marcada` datetime NOT NULL,
   `endereco_pet` varchar(255) NOT NULL,
   `qnt_passeios` int(11) NOT NULL,
+  `dta_hr_iniciado` datetime NOT NULL,
+  `dta_hr_finalizado` datetime NOT NULL,
+  `check_entrega` tinyint(4) NOT NULL,
   `observacao` varchar(255) DEFAULT NULL,
   `pet_buscar_com` varchar(64) DEFAULT NULL,
   `pet_devolver_para` varchar(64) DEFAULT NULL,
@@ -36,13 +39,16 @@ CREATE TABLE `agendamento` (
   `id_servico` int(11) DEFAULT NULL,
   `id_pet` int(11) DEFAULT NULL,
   `id_func` int(11) DEFAULT NULL,
+  `id_cliente` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_agendamento`),
   KEY `id_servico` (`id_servico`),
   KEY `id_pet` (`id_pet`),
   KEY `id_func` (`id_func`),
+  KEY `id_cliente` (`id_cliente`),
   CONSTRAINT `agendamento_ibfk_1` FOREIGN KEY (`id_servico`) REFERENCES `servico` (`id_servico`),
   CONSTRAINT `agendamento_ibfk_2` FOREIGN KEY (`id_pet`) REFERENCES `pet` (`id_pet`),
-  CONSTRAINT `agendamento_ibfk_3` FOREIGN KEY (`id_func`) REFERENCES `funcionario` (`id_func`)
+  CONSTRAINT `agendamento_ibfk_3` FOREIGN KEY (`id_func`) REFERENCES `funcionario` (`id_func`),
+  CONSTRAINT `agendamento_ibfk_4` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -66,20 +72,16 @@ CREATE TABLE `cliente` (
   `id_cliente` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(64) NOT NULL,
   `cpf` char(11) NOT NULL,
-  `telefone` varchar(12) NOT NULL,
+  `telefone` varchar(15) NOT NULL,
   `rua` varchar(45) NOT NULL,
   `numero` varchar(16) NOT NULL,
   `bairro` varchar(32) NOT NULL,
   `cidade` varchar(32) NOT NULL,
   `cep` char(8) NOT NULL,
-  `check_entrega` tinyint(4) NOT NULL,
   `buscar_com` varchar(64) DEFAULT NULL,
   `devolver_para` varchar(64) DEFAULT NULL,
-  `id_servico` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_cliente`),
-  UNIQUE KEY `cpf` (`cpf`),
-  KEY `id_servico` (`id_servico`),
-  CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`id_servico`) REFERENCES `servico` (`id_servico`)
+  UNIQUE KEY `cpf` (`cpf`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -93,32 +95,29 @@ LOCK TABLES `cliente` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `financeiro`
+-- Table structure for table `cliente_contrata_servico`
 --
 
-DROP TABLE IF EXISTS `financeiro`;
+DROP TABLE IF EXISTS `cliente_contrata_servico`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `financeiro` (
-  `id_financeiro` int(11) NOT NULL AUTO_INCREMENT,
-  `relatorio_dia` decimal(8,2) NOT NULL,
-  `relatorio_semanal` decimal(8,2) NOT NULL,
-  `relatorio_mes` decimal(8,2) NOT NULL,
-  `relatorio_anual` decimal(8,2) NOT NULL,
-  `id_historico_servico` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_financeiro`),
-  KEY `id_historico_servico` (`id_historico_servico`),
-  CONSTRAINT `financeiro_ibfk_1` FOREIGN KEY (`id_historico_servico`) REFERENCES `historico_servico` (`id_historico_servico`)
+CREATE TABLE `cliente_contrata_servico` (
+  `id_servico` int(11) DEFAULT NULL,
+  `id_cliente` int(11) DEFAULT NULL,
+  KEY `id_servico` (`id_servico`),
+  KEY `id_cliente` (`id_cliente`),
+  CONSTRAINT `cliente_contrata_servico_ibfk_1` FOREIGN KEY (`id_servico`) REFERENCES `servico` (`id_servico`),
+  CONSTRAINT `cliente_contrata_servico_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `financeiro`
+-- Dumping data for table `cliente_contrata_servico`
 --
 
-LOCK TABLES `financeiro` WRITE;
-/*!40000 ALTER TABLE `financeiro` DISABLE KEYS */;
-/*!40000 ALTER TABLE `financeiro` ENABLE KEYS */;
+LOCK TABLES `cliente_contrata_servico` WRITE;
+/*!40000 ALTER TABLE `cliente_contrata_servico` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cliente_contrata_servico` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -132,12 +131,11 @@ CREATE TABLE `funcionario` (
   `id_func` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(64) NOT NULL,
   `cpf` char(11) NOT NULL,
-  `telefone` varchar(12) NOT NULL,
+  `telefone` varchar(15) NOT NULL,
   `rua` varchar(45) NOT NULL,
   `cep` char(8) NOT NULL,
   `numero` varchar(16) NOT NULL,
   `cidade` varchar(32) NOT NULL,
-  `local_de_atuacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id_func`),
   UNIQUE KEY `cpf` (`cpf`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -153,37 +151,6 @@ LOCK TABLES `funcionario` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `historico_servico`
---
-
-DROP TABLE IF EXISTS `historico_servico`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `historico_servico` (
-  `id_historico_servico` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_hora_iniciado` datetime NOT NULL,
-  `dt_hr_finalizado` datetime NOT NULL,
-  `caminho_anexo` varchar(200) NOT NULL,
-  `id_incidente` int(11) DEFAULT NULL,
-  `id_agendamento` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_historico_servico`),
-  KEY `id_incidente` (`id_incidente`),
-  KEY `id_agendamento` (`id_agendamento`),
-  CONSTRAINT `historico_servico_ibfk_1` FOREIGN KEY (`id_incidente`) REFERENCES `incidente` (`id_incidente`),
-  CONSTRAINT `historico_servico_ibfk_2` FOREIGN KEY (`id_agendamento`) REFERENCES `agendamento` (`id_agendamento`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `historico_servico`
---
-
-LOCK TABLES `historico_servico` WRITE;
-/*!40000 ALTER TABLE `historico_servico` DISABLE KEYS */;
-/*!40000 ALTER TABLE `historico_servico` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hr_alim_agend`
 --
 
@@ -191,7 +158,7 @@ DROP TABLE IF EXISTS `hr_alim_agend`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `hr_alim_agend` (
-  `id_hr_alim_agend` time NOT NULL,
+  `id_hr_alim_agend` int(11) NOT NULL,
   `horario` time NOT NULL,
   `id_agendamento` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_hr_alim_agend`),
@@ -223,11 +190,14 @@ CREATE TABLE `incidente` (
   `descricao` varchar(200) DEFAULT NULL,
   `id_pet` int(11) DEFAULT NULL,
   `id_servico` int(11) DEFAULT NULL,
+  `id_agendamento` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_incidente`),
   KEY `id_pet` (`id_pet`),
   KEY `id_servico` (`id_servico`),
+  KEY `id_agendamento` (`id_agendamento`),
   CONSTRAINT `incidente_ibfk_1` FOREIGN KEY (`id_pet`) REFERENCES `pet` (`id_pet`),
-  CONSTRAINT `incidente_ibfk_2` FOREIGN KEY (`id_servico`) REFERENCES `servico` (`id_servico`)
+  CONSTRAINT `incidente_ibfk_2` FOREIGN KEY (`id_servico`) REFERENCES `servico` (`id_servico`),
+  CONSTRAINT `incidente_ibfk_3` FOREIGN KEY (`id_agendamento`) REFERENCES `agendamento` (`id_agendamento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -339,7 +309,7 @@ CREATE TABLE `usuario` (
   `cpf` char(11) NOT NULL,
   `nome_usuario` varchar(45) NOT NULL,
   `senha_usuario` varchar(25) NOT NULL,
-  `permissao` int(11) NOT NULL,
+  `permissao` enum('1','2','3') NOT NULL,
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `cpf` (`cpf`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -351,7 +321,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'88784449012','administrador','1234',1);
+INSERT INTO `usuario` VALUES (1,'88784449012','administrador','1234','1');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -364,4 +334,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-07 13:59:11
+-- Dump completed on 2024-11-08 19:13:45
