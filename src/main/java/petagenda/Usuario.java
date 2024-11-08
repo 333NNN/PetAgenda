@@ -54,10 +54,6 @@ public final class Usuario {
         return BD.Usuario.selectById(id);
     }
 
-    public static Usuario selectByCpf(String cpf) {
-        return BD.Usuario.selectByCpf(cpf);
-    }
-
     public static void insert(Usuario usuario) {
         BD.Usuario.insert(usuario);
     }
