@@ -5,6 +5,16 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+import petagenda.Funcionario;
+import petagenda.Usuario;
+import petagenda.bd.BD;
+import petagenda.dados.Endereco;
+import petagenda.dados.LocalAtuacao;
+import petagenda.exception.*;
+import petagenda.servico.Servico;
+import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
 
 /**
@@ -31,6 +41,19 @@ public class Tela_financeiro extends javax.swing.JFrame {
     private void initComponents() {
 
         btn_gerarRelat = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jButton_mesJaneiro = new javax.swing.JButton();
+        jButton_mesFev = new javax.swing.JButton();
+        jButton_mesMarc = new javax.swing.JButton();
+        jButton_mesAbril = new javax.swing.JButton();
+        jButton_mesMaio = new javax.swing.JButton();
+        jButton_mesJun = new javax.swing.JButton();
+        jButton_mesJul = new javax.swing.JButton();
+        jButton_Agos = new javax.swing.JButton();
+        jButton_mesSet = new javax.swing.JButton();
+        jButton_mesOutbr = new javax.swing.JButton();
+        jButton_mesNov = new javax.swing.JButton();
+        jButton_mesDez = new javax.swing.JButton();
         jPanel_menu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -51,7 +74,92 @@ public class Tela_financeiro extends javax.swing.JFrame {
             }
         });
         btn_gerarRelat.setUI(new RoundedCornerButtonUI());
-        getContentPane().add(btn_gerarRelat, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 580, -1, -1));
+        getContentPane().add(btn_gerarRelat, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 610, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(233, 225, 201));
+        jPanel1.setAutoscrolls(true);
+        jPanel1.setMinimumSize(new java.awt.Dimension(728, 420));
+        jPanel1.setPreferredSize(new java.awt.Dimension(728, 420));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton_mesJaneiro.setBackground(new java.awt.Color(157, 150, 140));
+        jButton_mesJaneiro.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
+        jButton_mesJaneiro.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_mesJaneiro.setText("Janeiro");
+        jButton_mesJaneiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_mesJaneiroActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton_mesJaneiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 24, 146, 104));
+
+        jButton_mesFev.setBackground(new java.awt.Color(157, 150, 140));
+        jButton_mesFev.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
+        jButton_mesFev.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_mesFev.setText("Fevereiro");
+        jPanel1.add(jButton_mesFev, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 24, 146, 104));
+
+        jButton_mesMarc.setBackground(new java.awt.Color(157, 150, 140));
+        jButton_mesMarc.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
+        jButton_mesMarc.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_mesMarc.setText("Março");
+        jPanel1.add(jButton_mesMarc, new org.netbeans.lib.awtextra.AbsoluteConstraints(379, 24, 146, 104));
+
+        jButton_mesAbril.setBackground(new java.awt.Color(157, 150, 140));
+        jButton_mesAbril.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
+        jButton_mesAbril.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_mesAbril.setText("Abril");
+        jPanel1.add(jButton_mesAbril, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 24, 146, 104));
+
+        jButton_mesMaio.setBackground(new java.awt.Color(157, 150, 140));
+        jButton_mesMaio.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
+        jButton_mesMaio.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_mesMaio.setText("Maio");
+        jPanel1.add(jButton_mesMaio, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 158, 146, 104));
+
+        jButton_mesJun.setBackground(new java.awt.Color(157, 150, 140));
+        jButton_mesJun.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
+        jButton_mesJun.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_mesJun.setText("Junho");
+        jPanel1.add(jButton_mesJun, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 158, 146, 104));
+
+        jButton_mesJul.setBackground(new java.awt.Color(157, 150, 140));
+        jButton_mesJul.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
+        jButton_mesJul.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_mesJul.setText("Julho");
+        jPanel1.add(jButton_mesJul, new org.netbeans.lib.awtextra.AbsoluteConstraints(379, 158, 146, 104));
+
+        jButton_Agos.setBackground(new java.awt.Color(157, 150, 140));
+        jButton_Agos.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
+        jButton_Agos.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Agos.setText("Agosto");
+        jPanel1.add(jButton_Agos, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 158, 146, 104));
+
+        jButton_mesSet.setBackground(new java.awt.Color(157, 150, 140));
+        jButton_mesSet.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
+        jButton_mesSet.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_mesSet.setText("Setembro");
+        jPanel1.add(jButton_mesSet, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 292, 146, 104));
+
+        jButton_mesOutbr.setBackground(new java.awt.Color(157, 150, 140));
+        jButton_mesOutbr.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
+        jButton_mesOutbr.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_mesOutbr.setText("Outubro");
+        jPanel1.add(jButton_mesOutbr, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 292, 146, 104));
+
+        jButton_mesNov.setBackground(new java.awt.Color(157, 150, 140));
+        jButton_mesNov.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
+        jButton_mesNov.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_mesNov.setText("Novembro");
+        jPanel1.add(jButton_mesNov, new org.netbeans.lib.awtextra.AbsoluteConstraints(379, 292, 146, 104));
+
+        jButton_mesDez.setBackground(new java.awt.Color(157, 150, 140));
+        jButton_mesDez.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
+        jButton_mesDez.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_mesDez.setText("Dezembro");
+        jPanel1.add(jButton_mesDez, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 292, 146, 104));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, 728, 420));
 
         jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
         jPanel_menu.setForeground(new java.awt.Color(124, 115, 101));
@@ -72,6 +180,12 @@ public class Tela_financeiro extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_btn_gerarRelatActionPerformed
+
+    private void jButton_mesJaneiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_mesJaneiroActionPerformed
+
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_mesJaneiroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,7 +231,20 @@ public class Tela_financeiro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_gerarRelat;
+    private javax.swing.JButton jButton_Agos;
+    private javax.swing.JButton jButton_mesAbril;
+    private javax.swing.JButton jButton_mesDez;
+    private javax.swing.JButton jButton_mesFev;
+    private javax.swing.JButton jButton_mesJaneiro;
+    private javax.swing.JButton jButton_mesJul;
+    private javax.swing.JButton jButton_mesJun;
+    private javax.swing.JButton jButton_mesMaio;
+    private javax.swing.JButton jButton_mesMarc;
+    private javax.swing.JButton jButton_mesNov;
+    private javax.swing.JButton jButton_mesOutbr;
+    private javax.swing.JButton jButton_mesSet;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel_menu;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,19 +18,19 @@ import petagenda.servico.*;
 
 public final class Funcionario {
     private static Funcionario atual;
-    private int id_func;
+    private int id;
     private String nome;
     private CPF cpf;
     private String telefone;
-    private String rua;
+    private String servico_prestado;
     private String cep;
     private String numero;
-    
+    private String rua;
     private String bairro;
     private String cidade;
     
-    public Funcionario (int id_func, String nome, CPF cpf, String telefone, String servico_prestado, String rua,String cep, String numero, String bairro, String cidade) {
-        this.id_func = id_func;
+    public Funcionario (int id, String nome, CPF cpf, String telefone, String servico_prestado, String rua,String cep, String numero, String bairro, String cidade) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -60,16 +60,16 @@ public final class Funcionario {
 
     // Getters e Setters
 
-    public void setId(int id_func) {
-        if (id_func < 0) {
+    public void setId(int id) {
+        if (id < 0) {
             throw new IllegalIdException("Id não pode ser inferior a zero");
         } else {
-            this.id_func = id_func;
+            this.id = id;
         }
     }
 
     public int getId() {
-        return this.id_func;
+        return this.id;
     }
 
     public void setNome(String nome) {
