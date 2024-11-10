@@ -1929,22 +1929,19 @@ public class BD {
                 try {
                     while (rs.next()) {
                         petagenda.servico.Servico s;
-                        int id = -1, id_tipo_servico, duracao;
+                        int id = -1, duracao;
                         String nome, descricao;
                         double preco;
-                        petagenda.servico.TipoServico tipo;
 
                         id = rs.getInt("id");
                         nome = rs.getString("nome");
-                        id_tipo_servico = rs.getInt("id_tipo_servico");
-                        tipo = BD.TipoServico.selectById(id_tipo_servico);
                         duracao = rs.getInt("duracao");
                         preco = rs.getDouble("preco");
                         descricao = rs.getString("descricao");
 
                         // Verificação dos dados e criação do objeto
                         try {
-                            s = new petagenda.servico.Servico(id, nome, tipo, duracao, preco, descricao);
+                            s = new petagenda.servico.Servico(id, nome, duracao, preco, descricao);
                             sList.add(s);
                         } catch (IllegalArgumentsException exs) {
                             StringBuilder strEx = new StringBuilder(String.format("Erro ao receber Servico (id= %d):\n", id));
