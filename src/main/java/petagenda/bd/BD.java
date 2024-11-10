@@ -1968,62 +1968,116 @@ public class BD {
         }
     }
 
-    static public class TipoServico {
-
-        static final String TABLE = "tipo_servico";
-
-        public static petagenda.servico.TipoServico[] selectAll() {
-            try {
-                Connection conn = BD.getConnection();
-                if (conn == null) {
-                    return null;
-                }
-                String selectStr = String.format("SELECT id_servico, nome FROM %s", TABLE);
-                PreparedStatement select = conn.prepareStatement(selectStr);
-
-                ResultSet rs = select.executeQuery();
-                petagenda.servico.TipoServico[] tipos = BD.TipoServico.parse(rs);
-
-                return tipos;
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Não foi possível realizar o SELECT.\nVerifique as informações relevantes e tente novamente.", "Erro de SELECT", JOptionPane.ERROR_MESSAGE);
-                return null;
+    static public class Funcionario {
+        public static final String TABLE = "funcionario";
+        
+        public static int insert(petagenda.Funcionario funcionario) {
+            int r = 0;
+            
+            if (funcionario == null) {
+                throw new NullPointerException("Funcionário não pode ser nulo.");
             }
-        }
-
-        public static petagenda.servico.TipoServico selectById(int id) {
-            petagenda.servico.TipoServico tipoServico = null;
-
-            if (id != petagenda.servico.TipoServico.NULL_ID) {
+            else {
                 Connection conn = BD.getConnection();
-                if (conn != null) { // Se banco for acessível
-                    // Criação do statement
-                    PreparedStatement select = null;
+                if (conn == null) { // Se o banco for inacessível retorna 0.
+                    return r;
+                }
+                else {
+                    // Criação do statement.
+                    PreparedStatement insert = null;
                     try {
-                        select = conn.prepareStatement(
-                                String.format("SELECT id_servico, nome FROM %s WHERE id_servico = ?", TABLE));
-                        select.setInt(1, id);
-
-                        ResultSet rs = select.executeQuery();
-                        petagenda.servico.TipoServico[] selected = parse(rs);
-
-                        if (selected != null) {
-                            tipoServico = selected[0];
+                        insert = conn.prepareStatement(String.format("INSERT INTO %s(nome, cpf, telefone, rua, cep, numero, bairro, cidade) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", TABLE));
+                        
+                        insert.setString(1, funcionario.getNome()); // Nome funcionario
+                        
+                        // CPF
+                        petagenda.dados.CPF cpf = funcionario.getCpf();
+                        String strCpf;
+                        if (cpf == null) {
+                            strCpf = null;
                         }
-                    } catch (SQLException e) {
-                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro na execução da query", JOptionPane.ERROR_MESSAGE);
+                        else {
+                            strCpf = cpf.toString();
+                        }
+                        insert.setString(2, strCpf); // CPF
+                        insert.setString(3, funcionario.getTelefone());
+                        insert.setString(4, funcionario.getRua());
+                        insert.setString(5, funcionario.getCep());
+                        insert.setString(6, funcionario.getNumero());
+                        insert.setString(7, funcionario.getBairro());
+                        insert.setString(8, funcionario.getCidade());
+                        
+                        r = insert.executeUpdate();
                     }
-
-                    if (select != null) { // Se preparedStatement não falhou
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de execução do insert", JOptionPane.ERROR_MESSAGE);
+                        r = -1;
+                    }
+                    
+                    if (insert != null) { // Se preparedStatement não falhou
                         try {
-                            select.close();
-                        } catch (SQLException e) {
+                            insert.close();
+                        }
+                        catch (SQLException e) {
                             JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
-                        } finally {
-                            select = null;
+                        } 
+                        finally {
+                            insert = null;
                         }
                     }
-
+                    
+                    try {
+                        conn.close();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                    }
+                    finally {
+                        conn = null;
+                    }
+                }
+            }
+            
+            return r;
+        }
+        
+        public static int delete(petagenda.Funcionario funcionario) {
+            int r = 0;
+            
+            if (funcionario == null) {
+                throw new NullPointerException("Funcionario não pode ser nulo.");
+            }
+            else if (!funcionario.isNew()) { // Só inicia conexão se o funcionário for cadastrado
+                Connection conn = BD.getConnection();
+                if (conn == null) { // Se o banco for inacessível retorna 0.
+                    return r;
+                }
+                else {
+                    // Criação do statement
+                    PreparedStatement insert = null;
+                    try {
+                        insert = conn.prepareStatement(String.format("DELETE FROM %s WHERE id_func = ?", TABLE));
+                        insert.setInt(1, funcionario.getId());
+                        
+                        r = insert.executeUpdate();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de execução do delete", JOptionPane.ERROR_MESSAGE);
+                        r = -1;
+                    }
+                    
+                    if (insert != null) { // Se preparedStatement não falhou
+                        try {
+                            insert.close();
+                        }
+                        catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                        }
+                        finally {
+                            insert = null;
+                        }
+                    }
+                    
                     try {
                         conn.close();
                     } catch (SQLException e) {
@@ -2033,38 +2087,79 @@ public class BD {
                     }
                 }
             }
-
-            return tipoServico;
+            
+            return r;
         }
-
-        public static petagenda.servico.TipoServico[] parse(ResultSet rs) throws SQLException {
-            if (rs == null) {
-                throw new NullPointerException("ResultSet não pode ser null");
+        
+        public static int update(petagenda.Funcionario funcionario) {
+            int r = 0;
+            
+            if (funcionario == null) {
+                throw new NullPointerException("Local de atualização não pode ser nulo.");
             }
-
-            ArrayList<petagenda.servico.TipoServico> tList = new ArrayList<petagenda.servico.TipoServico>();
-            try {
-                while (rs.next()) {
-                    petagenda.servico.TipoServico tipo;
-                    String nome;
-                    int id;
-
-                    id = rs.getInt("id_usuario");
-                    nome = rs.getString("nome_usuario");
-
-                    tipo = new petagenda.servico.TipoServico(id, nome);
-                    tList.add(tipo);
+            else if (!funcionario.isNew()) { // Só inicia a conexão se funcionário for cadastrado.
+                Connection conn = BD.getConnection();
+                
+                if (conn == null) { // Se o banco for inacessível.
+                    return r;
                 }
-                if (!tList.isEmpty()) {
-                    petagenda.servico.TipoServico[] tipos = new petagenda.servico.TipoServico[tList.size()];
-                    tList.toArray(tipos);
-                    return tipos;
+                else {
+                    // Criação do statement.
+                    PreparedStatement insert = null;
+                    try {
+                        insert = conn.prepareStatement(String.format("UPDATE %s SET nome = ?, cpf = ?, telefone = ?, rua = ?, cep = ?, numero = ?, bairro = ?, cidade = ? WHERE id_func = ?", TABLE));
+                        
+                        insert.setString(1, funcionario.getNome()); // Nome
+                        
+                        // CPF
+                        petagenda.dados.CPF cpf = funcionario.getCpf();
+                        String strCpf;
+                        if (cpf == null) {
+                            strCpf = null;
+                        }
+                        else {
+                            strCpf = cpf.toString();
+                        }
+                        insert.setString(2, strCpf); // CPF
+                        insert.setString(3, funcionario.getTelefone()); // Telefone
+                        insert.setString(4, funcionario.getRua()); // Rua
+                        insert.setString(5, funcionario.getCep()); // Cep
+                        insert.setString(6, funcionario.getNumero()); // Numero
+                        insert.setString(7, funcionario.getBairro()); // Bairro
+                        insert.setString(8, funcionario.getCidade()); // Cidade
+                        insert.setInt(9, funcionario.getId()); // id_func
+                        
+                        r = insert.executeUpdate();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de execução do update", JOptionPane.ERROR_MESSAGE);
+                        r = -1;
+                    }
+                    
+                    if (insert != null) { // Se preparedStatement não falhou.
+                        try {
+                            insert.close();
+                        }
+                        catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                        }
+                        finally {
+                            insert = null;
+                        }
+                    }
+                    
+                    try {
+                        conn.close();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                    }
+                    finally {
+                        conn = null;
+                    }
                 }
-            } catch (SQLException e) {
-                System.out.printf("Erro ao fazer parse de ResultSet contendo TipoServico: %s", e.getMessage());
             }
-
-            return null;
+            
+            return r;
         }
     }
 }

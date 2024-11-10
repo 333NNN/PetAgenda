@@ -149,6 +149,7 @@ public final class Cliente {
         }
     }
     
+    // Verifica se o cliente já é existente.
     public boolean isNew() {
         return this.getId() == NULL_ID;
     }
@@ -281,6 +282,7 @@ public final class Cliente {
     public String getDevolverPetPara() {
         return this.devolverPetPara;
     }
+    
     @Override
     public String toString() {
         return String.format("NOME: %s | ENDERECO: %s | TELEFONE: %s | SERVIÇO SOL.: %s", getNome(), getEndereco().toString(), getTelefone(), getServico().getNome());
