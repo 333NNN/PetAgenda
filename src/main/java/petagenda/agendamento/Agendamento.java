@@ -12,7 +12,6 @@ import petagenda.dados.Endereco;
 //import petagenda.dados.Sexo;
 import petagenda.exception.*;
 import petagenda.servico.Servico;
-import petagenda.servico.TipoServico;
 
 /**
  *
@@ -142,9 +141,11 @@ public final class Agendamento {
         return this.servico;
     }
     
+    /*
     public TipoServico getTipoServico() {
         return this.getServico().getTipo();
     }
+    */
     
     public LocalDateTime getDataHoraMarcada() {
         return this.dataHoraMarcada;
@@ -369,8 +370,8 @@ public final class Agendamento {
     
     @Override
     public String toString() {
-        return String.format("--- AGENDAMENTO ---\nTIPO DO SERVICO: %s | SERVIÇO: %s\nPET: %s | END. PET: %s\nDT. HR. MARCADA.: %s | FUNCIONARIO AGEND.: %s", 
-                getServico().getTipo().getNome(), getServico().getNome(), getPet().getNome(), getEnderecoPet(), getDataHoraMarcada().toString(), 
+        return String.format("--- AGENDAMENTO ---\n| SERVIÇO: %s\nPET: %s | END. PET: %s\nDT. HR. MARCADA.: %s | FUNCIONARIO AGEND.: %s", 
+                getServico().getNome(), getServico().getNome(), getPet().getNome(), getEnderecoPet(), getDataHoraMarcada().toString(), 
                 getFuncionarioAgendado().getNome());
     }
 }

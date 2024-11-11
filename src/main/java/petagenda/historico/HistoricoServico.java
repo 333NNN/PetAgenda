@@ -14,8 +14,6 @@ import petagenda.dados.Porte;
 import petagenda.dados.Sexo;
 import petagenda.exception.*;
 import petagenda.servico.Servico;
-import petagenda.servico.TipoServico;
-
 /**
  *
  * @author thiago

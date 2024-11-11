@@ -4,7 +4,6 @@ import java.util.Arrays;
 import petagenda.bd.BD;
 import petagenda.dados.*;
 import petagenda.servico.Servico;
-import petagenda.servico.TipoServico;
 
 public class PetAgenda {
     
