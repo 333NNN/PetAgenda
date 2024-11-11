@@ -119,7 +119,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         
         // Criação do funcionario
         try {
-            novoFuncionario = new Funcionario(id_func, nome, cpf, telefone, rua, cep, numero, cidade, bairro);
+            novoFuncionario = new Funcionario(nome, cpf, telefone, rua, cep, numero, cidade, bairro);
             // Devemos colocar um novo objeto chamada funcionario
             
         } catch (IllegalArgumentsException exs) {

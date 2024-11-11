@@ -46,6 +46,11 @@ public final class Funcionario {
     }
     */
     
+    public Funcionario(String nome, String cpf, String telefone, String rua, String cep, String numero, String bairro, String cidade) {
+        this(1, nome, cpf, telefone, rua, cep, numero, bairro, cidade);
+        this.id_func = NULL_ID;
+    }
+    
     public Funcionario(int id_func, String nome, String cpf, String telefone, String rua, String cep, String numero, String bairro, String cidade) {
         IllegalArgumentsException exs = new IllegalArgumentsException();
         
