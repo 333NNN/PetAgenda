@@ -16,6 +16,10 @@ import petagenda.exception.*;
 import petagenda.servico.Servico;
 import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
@@ -70,8 +74,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
             field_cidade.setText(usuario.getEndereco().CIDADE);
         }
     }
-    */
-    
+     */
     // Limpa as informações dos campos de Usuario
     private void clearFieldsInfo() {
         field_nome_funcionario.setText(null);
@@ -84,23 +87,23 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         field_bairro.setText(null);
         field_cidade.setText(null);
     }
-    
+
     // Recebe as informações dos campos em um novo objeto do tipo petagenda.Usuario
     private Funcionario getFieldsInfo() {
         Funcionario novoFuncionario = null;
         String nome, cpf, telefone, cep, numero, rua, bairro, cidade;
         Servico servicoPresta;
-        
+
         nome = field_nome_funcionario.getText();
         cpf = field_cpf.getText();
         telefone = field_telefone.getText();
-        servicoPresta = (Servico)jcbox_Selecao_servico.getSelectedItem();
+        servicoPresta = (Servico) jcbox_Selecao_servico.getSelectedItem();
         cep = field_cep.getText();
         numero = field_numero.getText();
         rua = field_rua.getText();
         bairro = field_bairro.getText();
         cidade = field_cidade.getText();
-        
+
         IllegalArgumentsException exsCadastro = new IllegalArgumentsException();
         // Criação do objeto do endereco;
         Endereco endereco = null;
@@ -109,14 +112,14 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         } catch (IllegalArgumentsException exs) {
             exsCadastro.addCause(exs.getCauses());
         }
-        
+
         LocalAtuacao localAtuacao = null;
         try {
             localAtuacao = LocalAtuacao.valueOf(endereco);
         } catch (NullPointerException ex) {
 //            exsCadastro.addCause(ex);
         }
-        
+
         // Criação do funcionario
         try {
             novoFuncionario = new Funcionario(nome, cpf, telefone, rua, cep, numero, cidade, bairro);
@@ -124,12 +127,41 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
             
         } catch (IllegalArgumentsException exs) {
             exsCadastro.addCause(exs.getCauses());
+          
+            // Conectando ao banco de dados e inserindo os dados do novo funcionário
+            Connection conexao = BD.getConnection();
+            String sql = "INSERT INTO funcionario (nome, cpf, telefone, rua, cep, numero, cidade, bairro) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+            try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                stmt.setString(1, nome);
+                stmt.setString(2, cpf);
+                stmt.setString(3, telefone);
+                stmt.setString(4, rua);
+                stmt.setString(5, cep);
+                stmt.setString(6, numero);
+                stmt.setString(7, cidade);
+                stmt.setString(8, bairro);
+
+                int rowsInserted = stmt.executeUpdate();
+
+                if (rowsInserted > 0) {
+                    try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            int id_func = generatedKeys.getInt(1);  // Obtém o ID gerado pelo banco
+                            novoFuncionario = new Funcionario(id_func, nome, cpf, telefone, rua, cep, numero, cidade, bairro);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-            
+
+        // Se houver exceções de validação, exibe as mensagens
         if (exsCadastro.size() > 0) {
             Throwable[] todasCauses = exsCadastro.getCauses();
             Arrays.sort(todasCauses); // Ordena as mensagens de exceção usando order_index das exceções
-            
+
             StringBuilder erros = new StringBuilder();
             for (Throwable c : todasCauses) {
                 if (c != null && !(c instanceof IllegalLocalAtuacaoException) && !(c instanceof IllegalEnderecoException)) {
@@ -137,13 +169,12 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
                     erros.append("\n");
                 }
             }
-            
+
             JOptionPane.showMessageDialog(null, erros.toString(), "Campos inválidos", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         return novoFuncionario;
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
