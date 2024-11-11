@@ -29,6 +29,12 @@ public final class Funcionario {
     /*
     public Funcionario (int id_func, String nome, CPF cpf, String telefone, String rua, String cep, String numero, String bairro, String cidade) {
         this.id_func = id_func;
+    private String rua;
+    private String bairro;
+    private String cidade;
+    
+    public Funcionario (int id, String nome, CPF cpf, String telefone, String servico_prestado, String rua,String cep, String numero, String bairro, String cidade) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -140,6 +146,7 @@ public final class Funcionario {
 
 
     // Getters e Setters
+
 
     // id_func
     public void setId(int id_func) {
