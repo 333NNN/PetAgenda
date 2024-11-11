@@ -470,35 +470,27 @@ public class BD {
                     while (rs.next()) {
                         petagenda.Usuario u;
                         int id_permissao;
-                        String id, nome_usuario, strCpf, senha_usuario;
+                        int id_usuario;
+                        String nome_usuario, senha_usuario;
+                        CPF cpf;
 
                         // Recebimento dos dados do ResultSet
-                        id = rs.getString("id");  // id_usuario
+                        id_usuario = rs.getInt("id_usuario"); // id_usuario
+                        nome_usuario = rs.getString("nome_usuario"); // nome_usuario
 
-                        nome_usuario = rs.getString("nome_usuario");  // nome_usuario
+                        // Converte a string do CPF para um objeto CPF
+                        cpf = new CPF(rs.getString("cpf")); // cpf
 
-                        strCpf = rs.getString("cpf");  // cpf
-                        senha_usuario = rs.getString("senha_usuario");  // senha_usuario
-
-                        id_permissao = rs.getInt("permissao");  // permissao
+                        senha_usuario = rs.getString("senha_usuario"); // senha_usuario
+                        id_permissao = rs.getInt("permissao"); // permissao
 
                         // Criar o objeto Usuario
                         try {
-                            u = new petagenda.Usuario(id, nome_usuario, strCpf);
-
-                            if (senha_usuario != null) {
-                                u.setSenha(senha_usuario);
-                            }
-
-                            // Adicionar permissao ao usuario, se necessário
-                            if (id_permissao > 0) {
-                                // Aqui, você pode buscar um objeto Permissao, se precisar
-                                // u.setPermissao(permissao);
-                            }
+                            u = new petagenda.Usuario(id_usuario, nome_usuario, cpf, senha_usuario, id_permissao);
 
                             uList.add(u);
                         } catch (IllegalArgumentsException exs) {
-                            StringBuilder strEx = new StringBuilder(String.format("Erro ao receber Usuario (id= %d):\n", id));
+                            StringBuilder strEx = new StringBuilder(String.format("Erro ao receber Usuario (id= %d):\n", id_usuario));
                             for (Throwable cause : exs.getCauses()) {
                                 strEx.append(cause.getMessage());
                                 strEx.append("\n");
@@ -1667,9 +1659,10 @@ public class BD {
 
             if (servico == null) {
                 throw new NullPointerException("Serviço não pode ser nulo");
-            } else if (servico.getTipo() == null || servico.getTipo().getId() == petagenda.servico.TipoServico.NULL_ID) {
-                throw new IllegalServicoException("Serviço não pode conter um tipo de serviço ainda não cadastrado");
-            } else {
+            } //else if (servico.getTipo() == null || servico.getTipo().getId() == petagenda.servico.TipoServico.NULL_ID) {
+                //throw new IllegalServicoException("Serviço não pode conter um tipo de serviço ainda não cadastrado");
+        //    }
+            else {
                 Connection conn = BD.getConnection();
                 if (conn == null) { // Se banco for inacessível
                     return r;
@@ -1680,7 +1673,7 @@ public class BD {
                         insert = conn.prepareStatement(
                                 String.format("INSERT INTO %s(nome, id_tipo_servico, duracao, preco, descricao) VALUES (?, ?, ?, ?, ?)", TABLE));
                         insert.setString(1, servico.getNome());
-                        insert.setInt(2, servico.getTipo().getId());
+                        //insert.setInt(2, servico.getTipo().getId());
                         insert.setInt(3, servico.getDuracao());
                         insert.setDouble(4, servico.getPreco());
                         insert.setString(5, servico.getDescricao());
@@ -1763,7 +1756,7 @@ public class BD {
 
             if (servico == null) {
                 throw new NullPointerException("Local de atuação não pode ser nulo");
-            } else if (servico.getId() != petagenda.servico.Servico.NULL_ID && servico.getTipo().getId() != petagenda.servico.TipoServico.NULL_ID) { // Só inicia conexão de Servico informado possuir id válido e o TipoServico for cadastrado
+            } else if (servico.getId() != petagenda.servico.Servico.NULL_ID /*&& servico.getTipo().getId() != petagenda.servico.TipoServico.NULL_ID*/) { // Só inicia conexão de Servico informado possuir id válido e o TipoServico for cadastrado
                 Connection conn = BD.getConnection();
                 if (conn == null) { // Se banco for inacessível
                     return r;
@@ -1774,7 +1767,7 @@ public class BD {
                         insert = conn.prepareStatement(
                                 String.format("UPDATE %s SET nome = ?, id_tipo_servico = ?, duracao = ?, preco = ?, descricao = ? WHERE id = ?", TABLE));
                         insert.setString(1, servico.getNome());
-                        insert.setInt(2, servico.getTipo().getId());
+                        //insert.setInt(2, servico.getTipo().getId());
                         insert.setInt(3, servico.getDuracao());
                         insert.setDouble(4, servico.getPreco());
                         insert.setString(5, servico.getDescricao());

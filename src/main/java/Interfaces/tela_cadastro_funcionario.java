@@ -122,6 +122,12 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
 
         // Criação do funcionario
         try {
+            novoFuncionario = new Funcionario(nome, cpf, telefone, rua, cep, numero, cidade, bairro);
+            // Devemos colocar um novo objeto chamada funcionario
+            
+        } catch (IllegalArgumentsException exs) {
+            exsCadastro.addCause(exs.getCauses());
+          
             // Conectando ao banco de dados e inserindo os dados do novo funcionário
             Connection conexao = BD.getConnection();
             String sql = "INSERT INTO funcionario (nome, cpf, telefone, rua, cep, numero, cidade, bairro) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
