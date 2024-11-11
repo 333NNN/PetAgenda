@@ -17,28 +17,27 @@ import java.util.ArrayList;
 public final class Servico {
     private int id;
     private String nome;
-    private TipoServico tipo;
     private int duracao;
     private double preco;
     private String descricao;
     
     public static final int NULL_ID = -1;
     
-    public Servico(String nome, TipoServico tipo, int duracao, double preco) {
-        this(1, nome, tipo, duracao, preco, null);
+    public Servico(String nome, int duracao, double preco) {
+        this(1, nome, duracao, preco, null);
         this.id = NULL_ID;
     }
     
-    public Servico(int id, String nome, TipoServico tipo, int duracao, double preco) {
-        this(id, nome, tipo, duracao, preco, null);
+    public Servico(int id, String nome, int duracao, double preco) {
+        this(id, nome, duracao, preco, null);
     }
     
-    public Servico(String nome, TipoServico tipo, int duracao, double preco, String descricao) {
-        this(1, nome, tipo, duracao, preco, descricao);
+    public Servico(String nome, int duracao, double preco, String descricao) {
+        this(1, nome, duracao, preco, descricao);
         this.id = NULL_ID;
     }
     
-    public Servico(int id, String nome, TipoServico tipo, int duracao, double preco, String descricao) {
+    public Servico(int id, String nome, int duracao, double preco, String descricao) {
         ArrayList<Throwable> cList = null; // Armazena as cause a serem adicionadas ao construtor
         
         try {
@@ -51,15 +50,6 @@ public final class Servico {
         try {
             this.setNome(nome);
         } catch (IllegalNomeException ex) {
-            if (cList == null) {
-                cList = new ArrayList<Throwable>();
-            }
-            cList.add(ex);
-        }
-        
-        try {
-            this.setTipo(tipo);
-        } catch (IllegalTipoServicoException ex) {
             if (cList == null) {
                 cList = new ArrayList<Throwable>();
             }
@@ -135,19 +125,7 @@ public final class Servico {
     public String getNome() {
         return this.nome;
     }
-    
-    public void setTipo(TipoServico t) {
-        if (t == null) {
-            throw new IllegalTipoServicoException("tipo do serviço não pode ser nulo");
-        }
-        
-        this.tipo = t;
-    }
-    
-    public TipoServico getTipo() {
-        return this.tipo;
-    }
-    
+
     public void setDuracao(int duracao) {
         if (duracao < 1) {
             throw new IllegalDuracaoException();

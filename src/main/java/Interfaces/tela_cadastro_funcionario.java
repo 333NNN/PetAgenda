@@ -86,8 +86,8 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
     }
     
     // Recebe as informações dos campos em um novo objeto do tipo petagenda.Usuario
-    private Usuario getFieldsInfo() {
-        Usuario novoUsuario = null;
+    private Funcionario getFieldsInfo() {
+        Funcionario novoFuncionario = null;
         String nome, cpf, telefone, cep, numero, rua, bairro, cidade;
         Servico servicoPresta;
         
@@ -119,7 +119,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         
         // Criação do funcionario
         try {
-            novoFuncionario = new Funcionario(id, nome, cpf, telefone, servico_prestado, rua, cep, numero, cidade, bairro);
+            novoFuncionario = new Funcionario(id_func, nome, cpf, telefone, rua, cep, numero, cidade, bairro);
             // Devemos colocar um novo objeto chamada funcionario
             
         } catch (IllegalArgumentsException exs) {
@@ -377,9 +377,9 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
     }//GEN-LAST:event_field_ruaActionPerformed
 
     private void jbtn_cadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_cadastrarFuncionarioActionPerformed
-        Usuario cadastrar = getFieldsInfo(); // Retorna null se informações forem inválidas
+        Funcionario cadastrar = getFieldsInfo(); // Retorna null se informações forem inválidas
         if (cadastrar != null) {
-            int r = BD.Usuario.insert(cadastrar);
+            int r = BD.Funcionario.insert(cadastrar);
             if (r > 0) { // Insert funcionou
                 clearFieldsInfo();
                 JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
