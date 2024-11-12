@@ -59,8 +59,7 @@ public class BD {
                     // Criação do statement
                     PreparedStatement select = null;
                     try {
-                        select = conn.prepareStatement(
-                        String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s WHERE cpf = ? AND senha_usuario = ?", TABLE));
+                        select = conn.prepareStatement(String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s WHERE cpf = ? AND senha_usuario = ?", TABLE));
                         select.setString(1, login);
                         select.setString(2, senha);
                         ResultSet rs = select.executeQuery();
@@ -109,8 +108,8 @@ public class BD {
                     PreparedStatement insert = null;
                     try {
                         insert = conn.prepareStatement(String.format("INSERT INTO %s(cpf, nome_usuario, senha_usuario, permissao) VALUES (?, ?, ?, ?)", TABLE));
-
-                        petagenda.dados.CPF cpf = usuario.getCpf();
+                        
+                        CPF cpf = usuario.getCpf();
                         String strCpf;
                         if (cpf != null) {
                             strCpf = cpf.toString();
@@ -118,10 +117,10 @@ public class BD {
                             strCpf = null;
                         }
                         
-                        insert.setString(1, strCpf);
-                        insert.setString(2, usuario.getNome());
-                        insert.setString(3, usuario.getSenha());
-                        insert.setInt(4, usuario.getPermissao());
+                        insert.setString(1, strCpf); // cpf
+                        insert.setString(2, usuario.getNome()); // nome_usuario
+                        insert.setString(3, usuario.getSenha()); // senha_usuario
+                        insert.setInt(4, usuario.getPermissao()); // permissao
                         
                         r = insert.executeUpdate();
                     } catch (SQLException e) {
@@ -165,9 +164,9 @@ public class BD {
                     // Criação do statement
                     PreparedStatement insert = null;
                     try {
-                        insert = conn.prepareStatement(String.format("DELETE FROM %s WHERE id = ?", TABLE));
+                        insert = conn.prepareStatement(String.format("DELETE FROM %s WHERE id_usuario = ?", TABLE));
                         
-                        insert.setInt(1, usuario.getId());
+                        insert.setInt(1, usuario.getId()); // id_usuario
 
                         r = insert.executeUpdate();
                     } catch (SQLException e) {
@@ -210,18 +209,19 @@ public class BD {
                     // Criação do statement
                     PreparedStatement insert = null;
                     try {
-                        insert = conn.prepareStatement(String.format("UPDATE %s SET cpf = ?, nome_usuario = ?, senha_usuario = ? WHERE id = ?", TABLE));
+                        insert = conn.prepareStatement(String.format("UPDATE %s SET cpf = ?, nome_usuario = ?, senha_usuario = ? WHERE id_usuario = ?", TABLE));
                         
-                        petagenda.dados.CPF cpf = usuario.getCpf();
+                        CPF cpf = usuario.getCpf();
                         String strCpf;
-//                        if (cpf == null) {
-//                            strCpf = null;
-//                        } else {
-                        strCpf = cpf.toString();
-//                        }
-                        insert.setString(1, strCpf);
-                        insert.setString(2, usuario.getNome());
-                        insert.setString(3, usuario.getSenha());
+                        if (cpf == null) {
+                            strCpf = null;
+                        } 
+                        else {
+                            strCpf = cpf.toString();
+                        }
+                        insert.setString(1, strCpf); // cpf
+                        insert.setString(2, usuario.getNome()); // nome_usuario
+                        insert.setString(3, usuario.getSenha()); // senha_usuario
 
                         // Controle de atualização do Local de atuação
                         // petagenda.dados.LocalAtuacao localAtuacaoUsuario = usuario.getLocalAtuacao();
@@ -289,18 +289,17 @@ public class BD {
             return r;
         }
 
-        public static petagenda.Usuario selectById(int id) {
+        public static petagenda.Usuario selectById(int id_usuario) {
             petagenda.Usuario usuario = null;
 
-            if (id != petagenda.Usuario.NULL_ID) {
+            if (id_usuario != petagenda.Usuario.NULL_ID) {
                 Connection conn = BD.getConnection();
                 if (conn != null) { // Se banco for acessível
                     // Criação do statement
                     PreparedStatement select = null;
                     try {
-                        select = conn.prepareStatement(
-                                String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario,permissao FROM %s WHERE id = ?", TABLE));
-                        select.setInt(1, id);
+                        select = conn.prepareStatement(String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s WHERE id_usuario = ?", TABLE));
+                        select.setInt(1, id_usuario); // id_usuario
 
                         ResultSet rs = select.executeQuery();
                         petagenda.Usuario[] selected = parse(rs);
@@ -342,8 +341,7 @@ public class BD {
                 // Criação do statement
                 PreparedStatement select = null;
                 try {
-                    select = conn.prepareStatement(
-                            String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s", TABLE));
+                    select = conn.prepareStatement(String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s", TABLE));
 
                     ResultSet rs = select.executeQuery();
                     usuarios = parse(rs);
@@ -380,8 +378,7 @@ public class BD {
                 // Criação do statement
                 PreparedStatement select = null;
                 try {
-                    select = conn.prepareStatement(
-                            String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s ORDER BY id DESC LIMIT 1", TABLE));
+                    select = conn.prepareStatement(String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s ORDER BY id_usuario DESC LIMIT 1", TABLE));
 
                     ResultSet rs = select.executeQuery();
                     petagenda.Usuario[] selected = parse(rs);
