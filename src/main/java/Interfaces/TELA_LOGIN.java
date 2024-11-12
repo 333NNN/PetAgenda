@@ -162,6 +162,7 @@ public class TELA_LOGIN extends javax.swing.JFrame {
 
     private void txt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_loginActionPerformed
         // TODO add your handling code here:
+        txt_login.setText("");
     }//GEN-LAST:event_txt_loginActionPerformed
 
     private void txt_senhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_senhaMouseClicked

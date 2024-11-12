@@ -31,6 +31,7 @@ public class Tela_visu_finance extends javax.swing.JFrame {
         jLbl_BGpadrao = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable_telaFinance.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -52,10 +53,10 @@ public class Tela_visu_finance extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 50, 810, 480));
 
         jLbl_BGpadrao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
-        jLbl_BGpadrao.setPreferredSize(new java.awt.Dimension(1366, 768));
         getContentPane().add(jLbl_BGpadrao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1366, 768));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
