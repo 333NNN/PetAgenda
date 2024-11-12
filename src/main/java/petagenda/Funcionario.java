@@ -10,7 +10,7 @@ package petagenda;
  */
 
 import petagenda.bd.BD;
-import petagenda.dados.*;
+import petagenda.dados.CPF;
 import petagenda.exception.*;
 
 public final class Funcionario {

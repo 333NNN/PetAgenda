@@ -19,7 +19,10 @@ import ui.custom.RoundedCornerButtonUI;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -89,7 +92,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
     }
 
     // Recebe as informações dos campos em um novo objeto do tipo petagenda.Usuario
-    private Funcionario getFieldsInfo() {
+    private Funcionario getFieldsInfo() throws SQLException {
         Funcionario novoFuncionario = null;
         String nome, cpf, telefone, cep, numero, rua, bairro, cidade;
         Servico servicoPresta;
@@ -408,7 +411,12 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
     }//GEN-LAST:event_field_ruaActionPerformed
 
     private void jbtn_cadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_cadastrarFuncionarioActionPerformed
-        Funcionario cadastrar = getFieldsInfo(); // Retorna null se informações forem inválidas
+        Funcionario cadastrar = null;
+        try {
+            cadastrar = getFieldsInfo(); // Retorna null se informações forem inválidas
+        } catch (SQLException ex) {
+            Logger.getLogger(tela_cadastro_funcionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if (cadastrar != null) {
             int r = BD.Funcionario.insert(cadastrar);
             if (r > 0) { // Insert funcionou
