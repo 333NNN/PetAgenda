@@ -5,9 +5,15 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
 
@@ -46,11 +52,15 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1366, 768));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Pets");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 30, -1, -1));
 
@@ -128,9 +138,42 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         telaCadPets.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jbtn_cadastrarPetActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        PopularTabela("SELECT nome, raca, cor, porte, sexo, e_castrado FROM pet");
+    }//GEN-LAST:event_formWindowOpened
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
         jPanel_menu.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
+    }
+    public void PopularTabela(String sql){
+        try {
+            Connection con = (Connection)DriverManager.getConnection("jdbc:mysql://localhost/petagenda","root","");
+            PreparedStatement banco = (PreparedStatement)con.prepareStatement(sql);
+            banco.execute();
+            
+            ResultSet resultado = banco.executeQuery(sql);
+            
+            DefaultTableModel model =(DefaultTableModel)jtbl_visualizacao_pet.getModel();
+            model.setNumRows(0);
+            
+            while(resultado.next()){
+                model.addRow(new Object[]
+                {
+                   resultado.getString("nome"),
+                   resultado.getString("raca"),
+                   resultado.getString("cor"),
+                   resultado.getString("porte"),
+                   resultado.getString("sexo"),
+                   resultado.getString("e_castrado")
+                });
+            }
+            banco.close();
+            con.close();
+        }catch (SQLException e){
+            System.out.println("o erro foi:"+e);
+        }
     }
 
     /**
