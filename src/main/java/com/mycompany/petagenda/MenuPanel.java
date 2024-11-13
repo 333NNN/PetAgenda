@@ -9,6 +9,7 @@ import Interfaces.Tela_Inicial;
 import Interfaces.Tela_config;
 import Interfaces.Tela_de_visualizacao_do_mes;
 import Interfaces.Tela_financeiro;
+import Interfaces.Tela_servicos;
 import Interfaces.Tela_visualizacao_cliente;
 import Interfaces.Tela_visualizacao_funcionario;
 import Interfaces.Tela_visualizacao_pet;
@@ -291,7 +292,9 @@ public class MenuPanel extends JPanel {
     //Botão Serviços
     private void btn_servicosActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        
+        Tela_servicos telaServicos = new Tela_servicos();
+        telaServicos.setVisible(true);
+        SwingUtilities.getWindowAncestor(this).dispose();
     }
 
     private void btn_servicosMouseMoved(java.awt.event.MouseEvent evt) {

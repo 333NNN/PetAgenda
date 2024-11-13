@@ -89,6 +89,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         jPanel6.add(lbl_funcionarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(307, 20, -1, -1));
 
         jtbl_funcionarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jtbl_funcionarios.setFont(new java.awt.Font("Merriweather", 0, 16)); // NOI18N
         jtbl_funcionarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
