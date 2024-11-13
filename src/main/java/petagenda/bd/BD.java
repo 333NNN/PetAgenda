@@ -59,7 +59,8 @@ public class BD {
                     // Criação do statement
                     PreparedStatement select = null;
                     try {
-                        select = conn.prepareStatement(String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s WHERE cpf = ? AND senha_usuario = ?", TABLE));
+                        select = conn.prepareStatement(
+                        String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s WHERE cpf = ? AND senha_usuario = ?", TABLE));
                         select.setString(1, login);
                         select.setString(2, senha);
                         ResultSet rs = select.executeQuery();
@@ -108,8 +109,8 @@ public class BD {
                     PreparedStatement insert = null;
                     try {
                         insert = conn.prepareStatement(String.format("INSERT INTO %s(cpf, nome_usuario, senha_usuario, permissao) VALUES (?, ?, ?, ?)", TABLE));
-                        
-                        CPF cpf = usuario.getCpf();
+
+                        petagenda.dados.CPF cpf = usuario.getCpf();
                         String strCpf;
                         if (cpf != null) {
                             strCpf = cpf.toString();
@@ -117,10 +118,10 @@ public class BD {
                             strCpf = null;
                         }
                         
-                        insert.setString(1, strCpf); // cpf
-                        insert.setString(2, usuario.getNome()); // nome_usuario
-                        insert.setString(3, usuario.getSenha()); // senha_usuario
-                        insert.setInt(4, usuario.getPermissao()); // permissao
+                        insert.setString(1, strCpf);
+                        insert.setString(2, usuario.getNome());
+                        insert.setString(3, usuario.getSenha());
+                        insert.setInt(4, usuario.getPermissao());
                         
                         r = insert.executeUpdate();
                     } catch (SQLException e) {
@@ -164,9 +165,9 @@ public class BD {
                     // Criação do statement
                     PreparedStatement insert = null;
                     try {
-                        insert = conn.prepareStatement(String.format("DELETE FROM %s WHERE id_usuario = ?", TABLE));
+                        insert = conn.prepareStatement(String.format("DELETE FROM %s WHERE id = ?", TABLE));
                         
-                        insert.setInt(1, usuario.getId()); // id_usuario
+                        insert.setInt(1, usuario.getId());
 
                         r = insert.executeUpdate();
                     } catch (SQLException e) {
@@ -209,19 +210,18 @@ public class BD {
                     // Criação do statement
                     PreparedStatement insert = null;
                     try {
-                        insert = conn.prepareStatement(String.format("UPDATE %s SET cpf = ?, nome_usuario = ?, senha_usuario = ? WHERE id_usuario = ?", TABLE));
+                        insert = conn.prepareStatement(String.format("UPDATE %s SET cpf = ?, nome_usuario = ?, senha_usuario = ? WHERE id = ?", TABLE));
                         
-                        CPF cpf = usuario.getCpf();
+                        petagenda.dados.CPF cpf = usuario.getCpf();
                         String strCpf;
-                        if (cpf == null) {
-                            strCpf = null;
-                        } 
-                        else {
-                            strCpf = cpf.toString();
-                        }
-                        insert.setString(1, strCpf); // cpf
-                        insert.setString(2, usuario.getNome()); // nome_usuario
-                        insert.setString(3, usuario.getSenha()); // senha_usuario
+//                        if (cpf == null) {
+//                            strCpf = null;
+//                        } else {
+                        strCpf = cpf.toString();
+//                        }
+                        insert.setString(1, strCpf);
+                        insert.setString(2, usuario.getNome());
+                        insert.setString(3, usuario.getSenha());
 
                         // Controle de atualização do Local de atuação
                         // petagenda.dados.LocalAtuacao localAtuacaoUsuario = usuario.getLocalAtuacao();
@@ -289,17 +289,18 @@ public class BD {
             return r;
         }
 
-        public static petagenda.Usuario selectById(int id_usuario) {
+        public static petagenda.Usuario selectById(int id) {
             petagenda.Usuario usuario = null;
 
-            if (id_usuario != petagenda.Usuario.NULL_ID) {
+            if (id != petagenda.Usuario.NULL_ID) {
                 Connection conn = BD.getConnection();
                 if (conn != null) { // Se banco for acessível
                     // Criação do statement
                     PreparedStatement select = null;
                     try {
-                        select = conn.prepareStatement(String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s WHERE id_usuario = ?", TABLE));
-                        select.setInt(1, id_usuario); // id_usuario
+                        select = conn.prepareStatement(
+                                String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario,permissao FROM %s WHERE id = ?", TABLE));
+                        select.setInt(1, id);
 
                         ResultSet rs = select.executeQuery();
                         petagenda.Usuario[] selected = parse(rs);
@@ -341,7 +342,8 @@ public class BD {
                 // Criação do statement
                 PreparedStatement select = null;
                 try {
-                    select = conn.prepareStatement(String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s", TABLE));
+                    select = conn.prepareStatement(
+                            String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s", TABLE));
 
                     ResultSet rs = select.executeQuery();
                     usuarios = parse(rs);
@@ -378,7 +380,8 @@ public class BD {
                 // Criação do statement
                 PreparedStatement select = null;
                 try {
-                    select = conn.prepareStatement(String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s ORDER BY id_usuario DESC LIMIT 1", TABLE));
+                    select = conn.prepareStatement(
+                            String.format("SELECT id_usuario, cpf, nome_usuario, senha_usuario, permissao FROM %s ORDER BY id DESC LIMIT 1", TABLE));
 
                     ResultSet rs = select.executeQuery();
                     petagenda.Usuario[] selected = parse(rs);
@@ -520,9 +523,9 @@ public class BD {
 
             if (cliente == null) {
                 throw new NullPointerException("Serviço não pode ser nulo");
-            } else if (cliente.getServico().isNew()) { // Servico solicitado precisa associado precisa estar cadastrado
+            }/* else if (cliente.getServico().isNew()) { // Servico solicitado precisa associado precisa estar cadastrado
                 throw new IllegalServicoException("Serviço solicitado não pode conter um tipo de serviço ainda não cadastrado");
-            } else {
+            }*/ else {
                 Connection conn = BD.getConnection();
                 if (conn == null) { // Se banco for inacessível
                     return r;
@@ -530,20 +533,21 @@ public class BD {
                     // Criação do statement
                     PreparedStatement insert = null;
                     try {
-                        insert = conn.prepareStatement(
-                                String.format("INSERT INTO %s(id_endereco, nome, cpf, telefone, id_servico_solicita, buscar_com, devolver_para) VALUES (?, ?, ?, ?, ?, ?, ?)", TABLE));
-                        petagenda.dados.Endereco endereco = cliente.getEndereco();
-                        int id_endereco;
+                        insert = conn.prepareStatement(String.format("INSERT INTO %s(nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_para) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", TABLE));
+                        
+                        //petagenda.dados.Endereco endereco = cliente.getEndereco();
+                        //int id_endereco;
 
 //                        if (endereco.isNew()) {
-                        BD.Endereco.insert(endereco);
-                        id_endereco = BD.Endereco.selectLast().getId();
+                        //BD.Endereco.insert(endereco);
+                        //id_endereco = BD.Endereco.selectLast().getId();
 //                        } else {
 //                            id_endereco = endereco.getId();
 //                        }
 
-                        insert.setInt(1, id_endereco);
-                        insert.setString(2, cliente.getNome());
+                        //insert.setInt(1, id_endereco);
+                        insert.setString(1, cliente.getNome()); // nome_cliente
+                        
                         petagenda.dados.CPF cpf = cliente.getCpf();
                         String strCpf;
                         if (cpf == null) {
@@ -551,11 +555,16 @@ public class BD {
                         } else {
                             strCpf = cpf.toString();
                         }
-                        insert.setString(3, strCpf);
-                        insert.setString(4, cliente.getTelefone());
-                        insert.setInt(5, cliente.getServico().getId());
-                        insert.setString(6, cliente.getBuscarPetCom());
-                        insert.setString(7, cliente.getDevolverPetPara());
+                        
+                        insert.setString(2, strCpf); // cpf
+                        insert.setString(3, cliente.getTelefone()); // telefone
+                        insert.setString(4, cliente.getRua()); // rua
+                        insert.setString(5, cliente.getNumero()); // numero
+                        insert.setString(6, cliente.getBairro()); // bairro
+                        insert.setString(7, cliente.getCidade()); // cidade
+                        insert.setString(8, cliente.getCep()); // cep
+                        insert.setString(9, cliente.getBuscarPetCom()); // buscar_com
+                        insert.setString(10, cliente.getDevolverPetPara()); // devolver_para
 
                         r = insert.executeUpdate();
                     } catch (SQLException e) {
@@ -590,7 +599,7 @@ public class BD {
 
             if (cliente == null) {
                 throw new NullPointerException("Cliente não pode ser nulo");
-            } else if (!cliente.isNew() && !cliente.getEndereco().isNew()) { // Só inicia conexão se Cliente e Endereco for cadastrado
+            } else if (!cliente.isNew()) { // Só inicia conexão se Cliente e Endereco for cadastrado
                 Connection conn = BD.getConnection();
                 if (conn == null) { // Se banco for inacessível
                     return r;
@@ -599,14 +608,13 @@ public class BD {
                     // Criação do statement
                     PreparedStatement insert = null;
                     try {
-                        insert = conn.prepareStatement(
-                                String.format("DELETE FROM %s WHERE id = ?", TABLE));
+                        insert = conn.prepareStatement(String.format("DELETE FROM %s WHERE id_cliente = ?", TABLE));
                         insert.setInt(1, cliente.getId());
 
                         r = insert.executeUpdate();
 
                         // Deleção do endereço associado;
-                        BD.Endereco.delete(cliente.getEndereco());
+                        // BD.Endereco.delete(cliente.getEndereco());
                     } catch (SQLException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de execução do delete", JOptionPane.ERROR_MESSAGE);
                         r = -1;
@@ -639,7 +647,7 @@ public class BD {
 
             if (cliente == null) {
                 throw new NullPointerException("Local de atuação não pode ser nulo");
-            } else if (!cliente.isNew() && !cliente.getServico().isNew()) { // Só inicia conexão se Cliente informado possuir id válido e o Servico for cadastrado e endereço já estiver cadastrado
+            } else if (!cliente.isNew() /*&& !cliente.getServico().isNew()*/) { // Só inicia conexão se Cliente informado possuir id válido e o Servico for cadastrado e endereço já estiver cadastrado
                 Connection conn = BD.getConnection();
                 if (conn == null) { // Se banco for inacessível
                     return r;
@@ -647,23 +655,24 @@ public class BD {
                     // Criação do statement
                     PreparedStatement insert = null;
                     try {
-                        insert = conn.prepareStatement(
-                                String.format("UPDATE %s SET nome = ?, cpf = ?, telefone = ?, id_servico_solicita = ?, buscar_com = ?, devolver_para = ? WHERE id = ?", TABLE));
+                        insert = conn.prepareStatement(String.format("UPDATE %s SET nome = ?, cpf = ?, telefone = ?, rua = ?, numero = ?, bairro = ?, cidade = ?, cep = ?, buscar_com = ?, devolver_para = ? WHERE id_cliente = ?", TABLE));
 
-                        petagenda.dados.Endereco enderecoCliente = cliente.getEndereco();
+                        //petagenda.dados.Endereco enderecoCliente = cliente.getEndereco();
 
                         // Atualização do endereco do cliente se mudou
                         petagenda.Cliente clienteCadastrado = BD.Cliente.selectById(cliente.getId());
-                        petagenda.dados.Endereco enderecoCadastrado = clienteCadastrado.getEndereco();
-                        int id_endereco_cadastrado = enderecoCadastrado.getId();
+                        //petagenda.dados.Endereco enderecoCadastrado = clienteCadastrado.getEndereco();
+                        //int id_endereco_cadastrado = enderecoCadastrado.getId();
 
                         // Verificação se Endereco do objeto difere do recebido do banco
+                        /*
                         if (!enderecoCliente.deepEquals(enderecoCadastrado)) { // Se Endereco do objeto difere do cadastrado no cliente do banco
                             enderecoCliente.setId(id_endereco_cadastrado);
                             BD.Endereco.update(enderecoCliente);
                         }
+                        */
 
-                        insert.setString(1, cliente.getNome());
+                        insert.setString(1, cliente.getNome()); // nome
                         petagenda.dados.CPF cpf = cliente.getCpf();
                         String strCpf;
                         if (cpf == null) {
@@ -671,12 +680,16 @@ public class BD {
                         } else {
                             strCpf = cpf.toString();
                         }
-                        insert.setString(2, strCpf);
-                        insert.setString(3, cliente.getTelefone());
-                        insert.setInt(4, cliente.getServico().getId());
-                        insert.setString(5, cliente.getBuscarPetCom());
-                        insert.setString(6, cliente.getDevolverPetPara());
-                        insert.setInt(7, cliente.getId());
+                        insert.setString(2, strCpf); // cpf
+                        insert.setString(3, cliente.getTelefone()); // telefone
+                        insert.setString(4, cliente.getRua()); // rua
+                        insert.setString(5, cliente.getNumero()); // numero
+                        insert.setString(6, cliente.getBairro()); // bairro
+                        insert.setString(7, cliente.getCidade()); // cidade
+                        insert.setString(8, cliente.getCep()); // cep
+                        insert.setString(9, cliente.getBuscarPetCom()); // buscar_com
+                        insert.setString(10, cliente.getDevolverPetPara()); // devolver_para
+                        insert.setInt(11, cliente.getId());
 
                         r = insert.executeUpdate();
                     } catch (SQLException e) {
@@ -706,18 +719,17 @@ public class BD {
             return r;
         }
 
-        public static petagenda.Cliente selectById(int id) {
+        public static petagenda.Cliente selectById(int id_cliente) {
             petagenda.Cliente cliente = null;
 
-            if (id != petagenda.Cliente.NULL_ID) {
+            if (id_cliente != petagenda.Cliente.NULL_ID) {
                 Connection conn = BD.getConnection();
                 if (conn != null) { // Se banco for acessível
                     // Criação do statement
                     PreparedStatement select = null;
                     try {
-                        select = conn.prepareStatement(
-                                String.format("SELECT id, id_endereco, nome, cpf, telefone, id_servico_solicita, buscar_com, devolver_para FROM %s WHERE id = ?", TABLE));
-                        select.setInt(1, id);
+                        select = conn.prepareStatement(String.format("SELECT id_cliente, nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_para FROM %s WHERE id_cliente = ?", TABLE));
+                        select.setInt(1, id_cliente);
 
                         ResultSet rs = select.executeQuery();
                         petagenda.Cliente[] selected = parse(rs);
@@ -759,8 +771,7 @@ public class BD {
                 // Criação do statement
                 PreparedStatement select = null;
                 try {
-                    select = conn.prepareStatement(
-                            String.format("SELECT id, id_endereco, nome, cpf, telefone, id_servico_solicita, buscar_com, devolver_para FROM %s", TABLE));
+                    select = conn.prepareStatement(String.format("SELECT id_cliente, nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_para FROM %s", TABLE));
 
                     ResultSet rs = select.executeQuery();
                     clientes = parse(rs);
@@ -797,8 +808,7 @@ public class BD {
                 // Criação do statement
                 PreparedStatement select = null;
                 try {
-                    select = conn.prepareStatement(
-                            String.format("SELECT id, id_endereco, nome, cpf, telefone, id_servico_solicita, buscar_com, devolver_para FROM %s ORDER BY id DESC LIMIT 1", TABLE));
+                    select = conn.prepareStatement(String.format("SELECT id_cliente, nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_para FROM %s ORDER BY id DESC LIMIT 1", TABLE));
 
                     ResultSet rs = select.executeQuery();
                     petagenda.Cliente[] selected = parse(rs);
@@ -842,20 +852,18 @@ public class BD {
                 try {
                     while (rs.next()) {
                         petagenda.Cliente c;
-                        int id, id_servico_solicita, id_endereco;
-                        String nome, telefone, buscar_com, devolver_para;
+                        int id_cliente, id_servico_solicita, id_endereco;
+                        String nome, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_para;
                         petagenda.servico.Servico servicoSolicita;
                         petagenda.dados.Endereco endereco;
                         petagenda.dados.CPF cpf;
 
                         // Recebimento dos dados do ResultSet
-                        id = rs.getInt("id");
-
-                        id_endereco = rs.getInt("id_endereco");
-                        endereco = BD.Endereco.selectById(id_endereco); // Null, se não encontrar
-
+                        id_cliente = rs.getInt("id_cliente");
                         nome = rs.getString("nome");
-
+                        //id_endereco = rs.getInt("id_endereco");
+                        //endereco = BD.Endereco.selectById(id_endereco); // Null, se não encontrar
+                        
                         String strCpf = rs.getString("cpf");
                         if (strCpf == null) {
                             cpf = null;
@@ -864,16 +872,20 @@ public class BD {
                         }
 
                         telefone = rs.getString("telefone");
-
-                        id_servico_solicita = rs.getInt("id_servico_solicita");
-                        servicoSolicita = BD.Servico.selectById(id_servico_solicita); // Null, se não encontrar
-
+                        rua = rs.getString("rua");
+                        numero = rs.getString("numero");
+                        bairro = rs.getString("bairro");
+                        cidade = rs.getString("cidade");
+                        cep = rs.getString("cep");
                         buscar_com = rs.getString("buscar_com");
                         devolver_para = rs.getString("devolver_para");
 
+                        //id_servico_solicita = rs.getInt("id_servico_solicita");
+                        //servicoSolicita = BD.Servico.selectById(id_servico_solicita); // Null, se não encontrar
+
                         // Verificação dos dados e criação do objeto
                         try {
-                            c = new petagenda.Cliente(id, nome, endereco, telefone, servicoSolicita);
+                            c = new petagenda.Cliente(id_cliente, nome, strCpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_para);
 
                             if (cpf != null) {
                                 c.setCpf(cpf);
@@ -889,7 +901,7 @@ public class BD {
 
                             cList.add(c);
                         } catch (IllegalArgumentsException exs) {
-                            StringBuilder strEx = new StringBuilder(String.format("Erro ao receber Cliente (id= %d):\n", id));
+                            StringBuilder strEx = new StringBuilder(String.format("Erro ao receber Cliente (id= %d):\n", id_cliente));
                             for (Throwable cause : exs.getCauses()) {
                                 strEx.append(cause.getMessage());
                                 strEx.append("\n");
@@ -909,7 +921,7 @@ public class BD {
             }
         }
     }
-
+/*
     static public class Permissao {
 
         static final String TABLE = "permissao";
@@ -1010,7 +1022,9 @@ public class BD {
             return null;
         }
     }
-
+*/
+    
+/*
     static public class Endereco {
 
         public static final String TABLE = "endereco";
@@ -1333,6 +1347,10 @@ public class BD {
         }
     }
 
+*/
+
+    
+/*
     static public class LocalAtuacao {
 
         public static final String TABLE = "local_atuacao";
@@ -1645,6 +1663,7 @@ public class BD {
             }
         }
     }
+*/
 
     static public class Servico {
 
