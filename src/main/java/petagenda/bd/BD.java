@@ -808,7 +808,7 @@ public class BD {
                 // Criação do statement
                 PreparedStatement select = null;
                 try {
-                    select = conn.prepareStatement(String.format("SELECT id_cliente, nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_para FROM %s ORDER BY id DESC LIMIT 1", TABLE));
+                    select = conn.prepareStatement(String.format("SELECT id_cliente, nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_para FROM %s ORDER BY id_cliente DESC LIMIT 1", TABLE));
 
                     ResultSet rs = select.executeQuery();
                     petagenda.Cliente[] selected = parse(rs);

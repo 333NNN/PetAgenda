@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -18,6 +19,8 @@ import petagenda.dados.Porte;
 import petagenda.dados.Sexo;
 import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
+import petagenda.Cliente;
+import petagenda.bd.BD;
 
 /**
  *
@@ -89,6 +92,11 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         setTitle("PetAgenda - Cadastrar Pets");
         setMinimumSize(new java.awt.Dimension(1366, 768));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
@@ -355,12 +363,14 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
 
     private void jbtn_cadastrarPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_cadastrarPetActionPerformed
         // TODO add your handling code here:
-        String sql = "INSERT INTO pet (nome_pet, raca, porte, cor, sexo, comportamento, saude) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+        String sql = "INSERT INTO pet (nome, raca, sexo, porte, comportamento, e_castrado, caminho_cartao_vacinacao, estado_saude, cor, id_cliente) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        
         try (Connection conn = ConexaoMySQL.conectar();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            
             String nomePet = jtxtf_nome_pet.getText();
-            String nomeCliente = jtxtf_nome_cliente.getText();
+
             String raca = txtf_Raca.getText();
             String porte = jcmbBx_Porte.getSelectedItem().toString();
             String cor = txtf_Cor.getText();
@@ -368,11 +378,11 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
             String comportamento = jtxtarea_comportamento.getText();
             String saude = jtxtarea_saude.getText();
             
-            if (nomePet == null || nomeCliente == null || raca == null || porte == null || comportamento == null || saude == null || cor == null || sexo == null) {
+            if (nomePet == null /*|| nomeCliente == null*/ || raca == null || porte == null || comportamento == null || saude == null || cor == null || sexo == null) {
                 JOptionPane.showMessageDialog(this, "Não podemos cadastrar, todas as informações devem ser preenchidas.");
             }else{
                 stmt.setString(1, nomePet);
-                stmt.setString(2, nomeCliente);
+                //stmt.setString(2, nomeCliente);
                 stmt.setString(3, raca);
                 stmt.setString(4, porte);
                 stmt.setString(5, cor);
@@ -434,6 +444,17 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
     private void chkBx_SimStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chkBx_SimStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_chkBx_SimStateChanged
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        
+        Cliente nomeCliente = BD.Cliente.selectLast();
+        
+        System.out.println(nomeCliente);
+        
+        jtxtf_nome_cliente.setText(nomeCliente.toString());
+     
+    }//GEN-LAST:event_formWindowOpened
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
         jPanel_menu.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));

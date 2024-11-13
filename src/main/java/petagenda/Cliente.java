@@ -425,7 +425,7 @@ public final class Cliente {
     
     @Override
     public String toString() {
-        return String.format("NOME: %s | TELEFONE: %s" /*SERVIÇO SOL.: %s"*/, getNome()/*, getEndereco().toString()*/, getTelefone()/*, getServico().getNome()*/);
+        return String.format("%s" /*SERVIÇO SOL.: %s"*/, getNome()/*, getEndereco().toString(), getTelefone(), getServico().getNome()*/);
                                    //ENDERECO: %s 
     }
 }
