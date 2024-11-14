@@ -100,40 +100,24 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         nome = field_nome_funcionario.getText();
         cpf = field_cpf.getText();
         telefone = field_telefone.getText();
-        servicoPresta = (Servico) jcbox_Selecao_servico.getSelectedItem();
+        //servicoPresta = (Servico) jcbox_Selecao_servico.getSelectedItem();
+        rua = field_rua.getText();
         cep = field_cep.getText();
         numero = field_numero.getText();
-        rua = field_rua.getText();
         bairro = field_bairro.getText();
         cidade = field_cidade.getText();
 
         IllegalArgumentsException exsCadastro = new IllegalArgumentsException();
-        // Criação do objeto do endereco;
-        Endereco endereco = null;
-        try {
-            endereco = new Endereco(rua, numero, bairro, cidade, cep);
-        } catch (IllegalArgumentsException exs) {
-            exsCadastro.addCause(exs.getCauses());
-        }
-
-        LocalAtuacao localAtuacao = null;
-        try {
-            localAtuacao = LocalAtuacao.valueOf(endereco);
-        } catch (NullPointerException ex) {
-//            exsCadastro.addCause(ex);
-        }
 
         // Criação do funcionario
         try {
-            novoFuncionario = new Funcionario(nome, cpf, telefone, rua, cep, numero, cidade, bairro);
-            // Devemos colocar um novo objeto chamada funcionario
-            
+            novoFuncionario = new Funcionario(nome, cpf, telefone, rua, cep, numero, bairro, cidade);
         } catch (IllegalArgumentsException exs) {
             exsCadastro.addCause(exs.getCauses());
           
             // Conectando ao banco de dados e inserindo os dados do novo funcionário
             Connection conexao = BD.getConnection();
-            String sql = "INSERT INTO funcionario (nome, cpf, telefone, rua, cep, numero, cidade, bairro) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO funcionario (nome, cpf, telefone, rua, cep, numero, bairro, cidade) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 stmt.setString(1, nome);
@@ -142,8 +126,8 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
                 stmt.setString(4, rua);
                 stmt.setString(5, cep);
                 stmt.setString(6, numero);
-                stmt.setString(7, cidade);
-                stmt.setString(8, bairro);
+                stmt.setString(7, bairro);
+                stmt.setString(8, cidade);
 
                 int rowsInserted = stmt.executeUpdate();
 
@@ -151,7 +135,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
                     try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                         if (generatedKeys.next()) {
                             int id_func = generatedKeys.getInt(1);  // Obtém o ID gerado pelo banco
-                            novoFuncionario = new Funcionario(id_func, nome, cpf, telefone, rua, cep, numero, cidade, bairro);
+                            novoFuncionario = new Funcionario(id_func, nome, cpf, telefone, rua, cep, numero, bairro, cidade);
                         }
                     }
                 }

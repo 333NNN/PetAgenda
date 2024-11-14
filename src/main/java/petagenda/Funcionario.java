@@ -182,14 +182,45 @@ public final class Funcionario {
         return this.nome;
     }
     
+    /*
+    
+   // Cpf
+    public void setCpf(String strCpf) {
+        if (strCpf == null) {
+            this.setCpf((CPF)null); // Meus olhos choram sangue de ter que fazer isso (ಥ﹏ಥ) 
+        } else {
+            this.setCpf(new CPF(strCpf)); // Dá throw de IllegalCpfException se for inválido e NullPointerException se for nulo
+        }
+    }
+    
+    public void setCpf(CPF cpf) {
+        if (cpf == null) {
+//          throw new IllegalCpfException("CPF não pode ser nulo");
+            this.cpf = null;
+        } else {
+            this.cpf = cpf;
+        }
+    }
+    */
+    
     // CPF
     public void setCpf(String strCpf) {
-        strCpf = strCpf.trim(); // Tira os espaços em branco do início e final.
-        if (strCpf == null || strCpf.isEmpty()) {
-            throw new IllegalCpfException("CPF não pode ser nulo ou vazio.");
+        if (strCpf == null) {
+            this.setCpf((CPF)null);
         }
-        
-        this.cpf = new CPF(strCpf); // Criando objeto CPF
+        else {
+            this.setCpf(new CPF(strCpf));
+        }
+    }
+    
+    public void setCpf(CPF cpf) {
+        if (cpf == null) {
+            this.cpf = null;
+            throw new IllegalCpfException("CPF não pode ser nulo."); 
+        }
+        else {
+            this.cpf = cpf;
+        }
     }
 
     public CPF getCpf() {

@@ -255,8 +255,9 @@ public final class Cliente {
     
     public void setCpf(CPF cpf) {
         if (cpf == null) {
-//          throw new IllegalCpfException("CPF não pode ser nulo");
             this.cpf = null;
+            throw new IllegalCpfException("CPF não pode ser nulo");
+            
         } else {
             this.cpf = cpf;
         }

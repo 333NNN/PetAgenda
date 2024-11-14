@@ -363,26 +363,28 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
 
     private void jbtn_cadastrarPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_cadastrarPetActionPerformed
         // TODO add your handling code here:
-        String sql = "INSERT INTO pet (nome, raca, sexo, porte, comportamento, e_castrado, caminho_cartao_vacinacao, estado_saude, cor, id_cliente) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO pet (nome, raca, sexo, porte, comportamento, e_castrado, caminho_cartao_vacinacao, estado_saude, cor, id_cliente) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = ConexaoMySQL.conectar();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             
-            String nomePet = jtxtf_nome_pet.getText();
-
+            String nomePet = jtxtf_nome_pet.getText(); // nome
             String raca = txtf_Raca.getText();
-            String porte = jcmbBx_Porte.getSelectedItem().toString();
-            String cor = txtf_Cor.getText();
             String sexo = jcmbBx_sexo.getSelectedItem().toString();
+            String porte = jcmbBx_Porte.getSelectedItem().toString();
             String comportamento = jtxtarea_comportamento.getText();
+            
+            
+            String cor = txtf_Cor.getText();
+            
+            
             String saude = jtxtarea_saude.getText();
             
-            if (nomePet == null /*|| nomeCliente == null*/ || raca == null || porte == null || comportamento == null || saude == null || cor == null || sexo == null) {
+            if (nomePet == null || raca == null || porte == null || comportamento == null || saude == null || cor == null || sexo == null) {
                 JOptionPane.showMessageDialog(this, "Não podemos cadastrar, todas as informações devem ser preenchidas.");
             }else{
                 stmt.setString(1, nomePet);
-                //stmt.setString(2, nomeCliente);
                 stmt.setString(3, raca);
                 stmt.setString(4, porte);
                 stmt.setString(5, cor);
