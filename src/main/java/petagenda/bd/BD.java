@@ -2181,5 +2181,115 @@ public class BD {
             
             return r;
         }
-    }
+        
+        public static petagenda.Funcionario[] selectAll() {
+            petagenda.Funcionario[] funcionarios = null;
+            
+            Connection conn = BD.getConnection();
+            if (conn != null) { // Se o banco for acessível.
+                PreparedStatement select = null;
+                try {
+                    select = conn.prepareStatement(String.format("SELECT id_func, nome, cpf, telefone, rua, cep, numero, bairro, cidade FROM %s", TABLE));
+                    
+                    ResultSet rs = select.executeQuery();
+                    funcionarios = parse(rs);
+                }
+                catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro na execução da query", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                if (select != null) { // Se preparedStatement não falhou
+                    try {
+                        select.close();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                    }
+                    finally {
+                        select = null;
+                    }
+                }
+                
+                try {
+                    conn.close();
+                }
+                catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                }
+                finally {
+                    conn = null;
+                }
+            }
+            
+            return funcionarios;
+        }
+        
+        public static petagenda.Funcionario[] parse(ResultSet rs) {
+            if (rs == null) {
+                throw new NullPointerException("ResultSet não pode ser nulo.");
+            }
+            else {
+                ArrayList<petagenda.Funcionario> fList = new ArrayList<petagenda.Funcionario>();
+                petagenda.Funcionario[] fArray = null;
+                
+                try {
+                    while (rs.next()){
+                        petagenda.Funcionario f;
+                        int id_func;
+                        String nome, telefone, rua, cep, numero, bairro, cidade;
+                        petagenda.dados.CPF cpf;
+                        
+                        // Recebimento dos dados do ResultSet
+                        id_func = rs.getInt("id_func"); // id_func
+                        nome = rs.getString("nome"); // nome
+                        
+                        String strCpf = rs.getString("cpf");
+                        if (strCpf == null) {
+                            cpf = null;
+                        }
+                        else {
+                            cpf = new CPF(strCpf); // cpf
+                        }
+                        
+                        telefone = rs.getString("telefone"); // telefone
+                        rua = rs.getString("rua");
+                        cep = rs.getString("cep");
+                        numero = rs.getString("numero");
+                        bairro = rs.getString("bairro");
+                        cidade = rs.getString("cidade");
+                        
+                        // Verificação dos dados e criação do objeto.
+                        try {
+                            f = new petagenda.Funcionario(id_func, nome, strCpf, telefone, rua, cep, numero, bairro, cidade);
+                            
+                            if (cpf != null) {
+                                f.setCpf(cpf);
+                            }
+                            
+                            fList.add(f); // Adiciona as informações a lista.
+                        }
+                        catch (IllegalArgumentsException exs) {
+                            StringBuilder strEx = new StringBuilder(String.format("ERRO ao receber Funcionario (id_func = %d)", id_func));
+                            
+                            for (Throwable cause : exs.getCauses()) {
+                                strEx.append(cause.getMessage());
+                                strEx.append("\n");
+                            }
+                            System.out.println(strEx.toString());
+                        }
+                    }
+                    
+                    if (!fList.isEmpty()) {
+                        fArray = new petagenda.Funcionario[fList.size()];
+                        fArray = fList.toArray(fArray);
+                    }
+                }
+                catch (SQLException e) {
+                    System.out.printf("Erro ao fazer parse de ResultSet contendo Funcionario: %s", e.getMessage());
+                }
+                
+                return fArray;
+            }
+        }
+     }
 }
