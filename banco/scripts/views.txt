@@ -1,0 +1,20 @@
+CREATE VIEW vw_detalhes_servico AS
+SELECT 
+    pet.nome AS Pet,
+    funcionario.nome AS NomeFuncionario,
+    DATE(historico_servico.dt_hora_iniciado) AS Data,
+    TIME(historico_servico.dt_hora_iniciado) AS Horario,
+    servico.nome AS ServicoPrestado,
+    incidente.descricao AS Incidente
+FROM 
+    historico_servico
+JOIN 
+    agendamento ON historico_servico.id_agendamento = agendamento.id_agendamento
+JOIN 
+    pet ON agendamento.id_pet = pet.id_pet
+JOIN 
+    funcionario ON agendamento.id_func = funcionario.id_func
+LEFT JOIN 
+    incidente ON historico_servico.id_incidente = incidente.id_incidente
+LEFT JOIN 
+    servico ON incidente.id_servico = servico.id_servico;
