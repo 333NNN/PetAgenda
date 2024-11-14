@@ -14,29 +14,28 @@ import petagenda.dados.Sexo;
  * @author thiago
  */
 public final class Pet {
-    private int id;
+    private int id_pet;
     private String nome;
-    private Cliente dono;
-    private String cor;
     private String raca;
     private Sexo sexo;
     private Porte porte;
     private String comportamento;
     private boolean eCastrado;
-    private String caminhoCartaoVacinacao;
-    private String estadoSaude;
-    
+    private String caminho_cartao_vacinacao;
+    private String estado_saude;
+    private String cor;
+    private Cliente dono;
     
     public Pet(String nome, Cliente dono, String raca, Sexo sexo, Porte porte, boolean eCastrado) {
         this(1, nome, dono, raca, sexo, porte, eCastrado);
-        this.id = -1;
+        this.id_pet = -1;
     }
     
-    public Pet(int id, String nome, Cliente dono, String raca, Sexo sexo, Porte porte, boolean eCastrado) {
+    public Pet(int id_pet, String nome, Cliente dono, String raca, Sexo sexo, Porte porte, boolean eCastrado) {
         IllegalArgumentsException exs = new IllegalArgumentsException();
         
         try {
-            setId(id);
+            setId(id_pet);
         } catch (IllegalIdException ex) {
             exs.addCause(ex);
         }
@@ -78,18 +77,20 @@ public final class Pet {
         }
     }
     
-    public void setId(int id) {
-        if (id < 0) {
+    // id_pet
+    public void setId(int id_pet) {
+        if (id_pet < 0) {
             throw new IllegalIdException("id não pode ser inferior a zero");
         } else {
-            this.id = id;
+            this.id_pet = id_pet;
         }
     }
     
     public int getId() {
-        return this.id;
+        return this.id_pet;
     }
     
+    // nome
     public void setNome(String nome) {
         if (nome == null) {
             throw new IllegalNomeException("nome não pode ser nulo");
@@ -108,38 +109,7 @@ public final class Pet {
         return this.nome;
     }
     
-    public void setDono(Cliente dono) {
-        if (dono == null) {
-            throw new IllegalClienteException("cliente não pode ser nulo");
-        } else {
-            this.dono = dono;
-        }
-    }
-    
-    public Cliente getDono() {
-        return this.dono;
-    }
-    
-    public void setCor(String cor) {
-        if (cor == null) {
-//            throw new IllegalNomeException("cor não pode ser nulo");
-            this.cor = null;
-        } else {
-            cor = cor.trim();
-            if (cor.isEmpty()) {
-//                throw new IllegalNomeException("cor não pode ser vazia");
-                this.cor = null;
-            } else if (cor.length() > 16) {
-                throw new IllegalNomeException("cor não pode conter mais do que 16 caracteres");
-            }
-            this.cor = cor;
-        }
-    }
-    
-    public String getCor() {
-        return this.cor;
-    }
-    
+    // raca
     public void setRaca(String raca){
         if (raca == null) {
             throw new IllegalNomeException("raça não pode ser nula");
@@ -157,6 +127,7 @@ public final class Pet {
         return this.raca;
     }
     
+    // sexo
     public void setSexo(Sexo sexo) {
         if (sexo == null) {
             throw new IllegalSexoException("sexo não pode ser nulo");
@@ -169,14 +140,7 @@ public final class Pet {
         return this.sexo;
     }
     
-    public void setCastrado(boolean eCastrado) {
-        this.eCastrado = eCastrado;
-    }
-    
-    public boolean getECastrado() {
-        return this.eCastrado;
-    }
-    
+    // porte
     public void setPorte(Porte porte) {
         if (porte == null) {
             throw new IllegalPorteException("porte não pode ser nulo");
@@ -185,7 +149,7 @@ public final class Pet {
         }
     }
     
-//    public void setPorte(String porte) {
+    //    public void setPorte(String porte) {
 //        if (porte == null) {
 ////            throw new IllegalPorteException("porte não pode ser nulo");
 //            this.porte = null;
@@ -209,6 +173,7 @@ public final class Pet {
         return this.porte.getTexto();
     }
     
+    // comportamento
     public void setComportamento(String comportamento) {
         if (comportamento == null) {
 //            throw new IllegalNomeException("comportamento não pode ser nulo");
@@ -229,47 +194,91 @@ public final class Pet {
         return this.comportamento;
     }
     
+    // e_castrado
+    public void setCastrado(boolean eCastrado) {
+        this.eCastrado = eCastrado;
+    }
+    
+    public boolean getECastrado() {
+        return this.eCastrado;
+    }
+    
+    // caminho_cartao_vacinacao
     public void setCaminhoCartaoVacinacao(String caminho) {
         if (caminho == null) {
 //            throw new IllegalCaminhoCartaoVacinacaoException("caminho do cartão de vacinação não pode ser nulo");
-            this.caminhoCartaoVacinacao = null;
+            this.caminho_cartao_vacinacao = null;
         } else {
             caminho = caminho.trim();
             if (caminho.isEmpty()) {
 //                throw new IllegalCaminhoCartaoVacinacaoException("caminho do cartão de vacinação não pode ser vazia");
-                this.caminhoCartaoVacinacao = null;
+                this.caminho_cartao_vacinacao = null;
             } else if (caminho.length() > 255) {
                 throw new IllegalCaminhoCartaoVacinacaoException("caminho do cartão de vacinação não pode conter mais do que 255 caracteres");
             }
-            this.caminhoCartaoVacinacao = caminho;
+            this.caminho_cartao_vacinacao = caminho;
         }
     }
     
     public String getCaminhoCartaoVacinacao() {
-        return this.caminhoCartaoVacinacao;
+        return this.caminho_cartao_vacinacao;
     }
     
+    // estado_saude
     public void setEstadoSaude(String estado) {
         if (estado == null) {
 //            throw new IllegalNomeException("estado de saúde não pode ser nulo");
-            this.estadoSaude = null;
+            this.estado_saude = null;
         } else {
             estado = estado.trim();
             if (estado.isEmpty()) {
 //                throw new IllegalNomeException("estado de saúde não pode ser vazia");
-                this.estadoSaude = null;
-            } else if (estado.length() > 255) {
+                this.estado_saude = null;
+            } else if (estado.length() > 80) {
                 throw new IllegalNomeException("estado de saúde não pode conter mais do que 255 caracteres");
             }
-            this.estadoSaude = estado;
+            this.estado_saude = estado;
         }
     }
     
     public String getEstadoSaude() {
-        return this.estadoSaude;
+        return this.estado_saude;
     }
     
+    // cor
+    public void setCor(String cor) {
+        if (cor == null) {
+//            throw new IllegalNomeException("cor não pode ser nulo");
+            this.cor = null;
+        } else {
+            cor = cor.trim();
+            if (cor.isEmpty()) {
+//                throw new IllegalNomeException("cor não pode ser vazia");
+                this.cor = null;
+            } else if (cor.length() > 16) {
+                throw new IllegalNomeException("cor não pode conter mais do que 16 caracteres");
+            }
+            this.cor = cor;
+        }
+    }
     
+    public String getCor() {
+        return this.cor;
+    }
+    
+    // id_cliente
+    public void setDono(Cliente dono) {
+        if (dono == null) {
+            throw new IllegalClienteException("cliente não pode ser nulo");
+        } else {
+            this.dono = dono;
+        }
+    }
+    
+    public Cliente getDono() {
+        return this.dono;
+    }
+
     @Override
     public String toString() {
         return String.format("NOME: %s | DONO: %s | RAÇA: %s | SEXO: %s | É CASTRADO: %s", getNome(), getDono().getNome(), getRaca(), getSexo().PET, ((getECastrado()) ? "SIM" : "NÃO"));
