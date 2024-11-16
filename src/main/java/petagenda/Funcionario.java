@@ -301,7 +301,7 @@ public final class Funcionario {
             throw new IllegalBairroException("Bairro não pode ser nulo ou vazio.");
         }
         else if (bairro.length() > 32) {
-            throw new IllegalBairroException("Bairro não pode ultrapassar 8 caracteres.");
+            throw new IllegalBairroException("Bairro não pode ultrapassar 32 caracteres.");
         }
         
         this.bairro = bairro;
@@ -318,7 +318,7 @@ public final class Funcionario {
             throw new IllegalCidadeException("Cidade não pode ser nulo ou vazio.");
         }
         else if (cidade.length() > 32) {
-            throw new IllegalCidadeException("Cidade não pode ultrapassar 8 caracteres.");
+            throw new IllegalCidadeException("Cidade não pode ultrapassar 32 caracteres.");
         }
         
         this.cidade = cidade;

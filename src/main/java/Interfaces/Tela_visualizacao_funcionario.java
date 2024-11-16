@@ -5,6 +5,7 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,7 +14,11 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
 import petagenda.bd.BD;
 import petagenda.Funcionario;
 import ui.custom.RoundedCornerBorder;
@@ -31,7 +36,9 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
     public Tela_visualizacao_funcionario() {
         initComponents();
         initMenuPanel();
+        AjustarColuna();
         carregarDadosTabela();
+        
     }
 
     /**
@@ -76,7 +83,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
             }
         });
         btn_cadastrarFuncionario.setUI(new RoundedCornerButtonUI());
-        getContentPane().add(btn_cadastrarFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 620, -1, -1));
+        getContentPane().add(btn_cadastrarFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 630, -1, -1));
 
         jPanel_tabela.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_tabela.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -165,6 +172,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtbl_funcionarios.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jtbl_funcionarios.setPreferredSize(new java.awt.Dimension(830, 1200));
         jtbl_funcionarios.setRowHeight(30);
         jtbl_funcionarios.setShowHorizontalLines(true);
@@ -205,7 +213,41 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_cadastrarFuncionarioActionPerformed
+    
+    // Personaliza a "width" da coluna em geral.
+    private void AjustarColuna() {
+        // Centraliza a coluna.
+        DefaultTableCellRenderer rendererCentro = new DefaultTableCellRenderer();
+        rendererCentro.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        // Alinha a coluna a direita.
+        DefaultTableCellRenderer rendererDireita = new DefaultTableCellRenderer();  
+        rendererDireita.setHorizontalAlignment(SwingConstants.RIGHT);
+        
+        // Alinha a coluna a esquerda.
+        DefaultTableCellRenderer rendererEsquerda = new DefaultTableCellRenderer();  
+        rendererEsquerda.setHorizontalAlignment(SwingConstants.LEFT);  
 
+        // Define o tamanho do cabeçalho.
+        JTableHeader header = jtbl_funcionarios.getTableHeader();   
+        header.setPreferredSize(new Dimension(0, 30));
+        TableColumnModel modeloDaColuna = jtbl_funcionarios.getColumnModel();  
+
+        // Organiza a tabela de acordo com os parametros.
+        modeloDaColuna.getColumn(0).setCellRenderer(rendererEsquerda); // Nome
+        modeloDaColuna.getColumn(1).setCellRenderer(rendererCentro); // CPF
+        modeloDaColuna.getColumn(2).setCellRenderer(rendererCentro); // Telefone
+        modeloDaColuna.getColumn(3).setCellRenderer(rendererCentro); // Serviço Prestado
+        modeloDaColuna.getColumn(4).setCellRenderer(rendererCentro); // Endereço
+
+        // Define o tamanho das colunas na tabela.
+        modeloDaColuna.getColumn(0).setMaxWidth(300); // Nome
+        modeloDaColuna.getColumn(1).setMaxWidth(120); // CPF
+        modeloDaColuna.getColumn(2).setMaxWidth(130); // Telefone
+        modeloDaColuna.getColumn(3).setMaxWidth(180); // Serviço Prestado
+        modeloDaColuna.getColumn(4).setMaxWidth(100); // Endereço
+    }
+    
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
         jPanel_menu.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
