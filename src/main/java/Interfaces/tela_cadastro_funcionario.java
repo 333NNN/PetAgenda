@@ -38,6 +38,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         if (Usuario.getAtual() != null) {
             initComponents();
             initMenuPanel();
+            /*
             Servico[] servicosCadastrados = BD.Servico.selectAll();
             if (servicosCadastrados != null) {
                 for (Servico s : servicosCadastrados) {
@@ -46,6 +47,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Nenhum Serviço disponível recebido do banco de dados.");
             }
+            */
 
             //setFieldsInfo(BD.Usuario.selectLast()); // Recebe o último Usuario do banco e preenche os campos com ele
         } else {
@@ -114,7 +116,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
             novoFuncionario = new Funcionario(nome, cpf, telefone, rua, cep, numero, bairro, cidade);
         } catch (IllegalArgumentsException exs) {
             exsCadastro.addCause(exs.getCauses());
-          
+            /*
             // Conectando ao banco de dados e inserindo os dados do novo funcionário
             Connection conexao = BD.getConnection();
             String sql = "INSERT INTO funcionario (nome, cpf, telefone, rua, cep, numero, bairro, cidade) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -140,6 +142,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
                     }
                 }
             }
+            */
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -219,7 +222,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         lbl_cadastrarFuncinario.setForeground(new java.awt.Color(0, 0, 0));
         lbl_cadastrarFuncinario.setText("Cadastrar funcionário");
         lbl_cadastrarFuncinario.setPreferredSize(new java.awt.Dimension(486, 45));
-        jPanel1.add(lbl_cadastrarFuncinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 390, -1));
+        jPanel1.add(lbl_cadastrarFuncinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 330, -1));
 
         jlbl_nome_funcionario.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_nome_funcionario.setForeground(new java.awt.Color(0, 0, 0));

@@ -10,10 +10,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.table.DefaultTableModel;
 import petagenda.bd.BD;
+import petagenda.Funcionario;
 import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
 
@@ -43,10 +45,10 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
 
         jPanel_menu = new javax.swing.JPanel();
         btn_cadastrarFuncionario = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        lbl_funcionarios = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel_tabela = new javax.swing.JPanel();
+        jScroll_tabela = new javax.swing.JScrollPane();
         jtbl_funcionarios = new javax.swing.JTable();
+        lbl_funcionarios = new javax.swing.JLabel();
         jlbl_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -76,103 +78,116 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         btn_cadastrarFuncionario.setUI(new RoundedCornerButtonUI());
         getContentPane().add(btn_cadastrarFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 620, -1, -1));
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jPanel6.setMinimumSize(new java.awt.Dimension(905, 560));
-        jPanel6.setOpaque(false);
-        jPanel6.setPreferredSize(new java.awt.Dimension(905, 560));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel_tabela.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_tabela.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jPanel_tabela.setMinimumSize(new java.awt.Dimension(905, 560));
+        jPanel_tabela.setOpaque(false);
+        jPanel_tabela.setPreferredSize(new java.awt.Dimension(830, 480));
+        jPanel_tabela.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_funcionarios.setBackground(new java.awt.Color(255, 255, 255));
-        lbl_funcionarios.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
-        lbl_funcionarios.setText("Funcionários");
-        jPanel6.add(lbl_funcionarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(307, 20, -1, -1));
+        jScroll_tabela.setPreferredSize(new java.awt.Dimension(830, 480));
+        jScroll_tabela.setVerifyInputWhenFocusTarget(false);
 
         jtbl_funcionarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jtbl_funcionarios.setFont(new java.awt.Font("Merriweather", 0, 16)); // NOI18N
         jtbl_funcionarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nome", "CPF", "Telefone", "Serviço Prestado"
+                "Nome", "CPF", "Telefone", "Serviço Prestado", "Endereço"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
             };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        jtbl_funcionarios.setPreferredSize(new java.awt.Dimension(830, 1200));
+        jtbl_funcionarios.setRowHeight(30);
         jtbl_funcionarios.setShowHorizontalLines(true);
         jtbl_funcionarios.setShowVerticalLines(true);
         jtbl_funcionarios.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jtbl_funcionarios);
+        jScroll_tabela.setViewportView(jtbl_funcionarios);
+        if (jtbl_funcionarios.getColumnModel().getColumnCount() > 0) {
+            jtbl_funcionarios.getColumnModel().getColumn(0).setResizable(false);
+            jtbl_funcionarios.getColumnModel().getColumn(1).setResizable(false);
+            jtbl_funcionarios.getColumnModel().getColumn(2).setResizable(false);
+            jtbl_funcionarios.getColumnModel().getColumn(3).setResizable(false);
+            jtbl_funcionarios.getColumnModel().getColumn(4).setResizable(false);
+        }
 
-        jPanel6.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 910, 480));
+        jPanel_tabela.add(jScroll_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 51, -1, -1));
+        getContentPane().add(jPanel_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(323, 103, -1, -1));
+
+        lbl_funcionarios.setBackground(new java.awt.Color(255, 255, 255));
+        lbl_funcionarios.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
+        lbl_funcionarios.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_funcionarios.setText("Funcionários");
+        getContentPane().add(lbl_funcionarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, -1, -1));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         jlbl_background.setText(" ");
@@ -197,6 +212,28 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
     }
 
     private void carregarDadosTabela() {
+        Funcionario[] funcionarios = BD.Funcionario.selectAll();
+        
+        DefaultTableModel modelo = (DefaultTableModel) jtbl_funcionarios.getModel();
+        modelo.setNumRows(0);
+            
+        if (funcionarios != null) {
+            // Preenche cada linha com cada funcionário dentro de funcionários.
+            for (Funcionario funcionario : funcionarios) {
+                String endereco = funcionario.getRua() + ", " + funcionario.getNumero() + " - " + funcionario.getBairro() + " - " + funcionario.getCidade() + " - " + funcionario.getCep();
+                Object[] linha = {
+                        funcionario.getNome(),
+                        funcionario.getCpf().toString(),
+                        funcionario.getTelefone(),
+                        "Dog Walking/Pet Sitting",
+                        //"Ver",
+                        endereco
+                    };
+                modelo.addRow(linha); // Adiciona a linha a tabela.
+            }
+        }
+
+        /*
         DefaultTableModel modelo = (DefaultTableModel) jtbl_funcionarios.getModel();
         modelo.setRowCount(0);
 
@@ -223,6 +260,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao carregar dados: " + e.getMessage());
         }
+        */
     }
 
     /**
@@ -252,7 +290,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and displjScroll_tabela*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Tela_visualizacao_funcionario().setVisible(true);
@@ -262,9 +300,9 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cadastrarFuncionario;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel_menu;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel_tabela;
+    private javax.swing.JScrollPane jScroll_tabela;
     private javax.swing.JLabel jlbl_background;
     private javax.swing.JTable jtbl_funcionarios;
     private javax.swing.JLabel lbl_funcionarios;
