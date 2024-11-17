@@ -266,8 +266,8 @@ public final class Funcionario {
         if (cep == null || cep.isEmpty()) {
             throw new IllegalCepException("Cep não pode ser nulo ou vazio.");
         }
-        else if (cep.length() > 8) {
-            throw new IllegalCepException("Cep não pode ultrapassar 8 caracteres.");
+        else if (cep.length() > 8 || cep.length() < 8) {
+            throw new IllegalCepException("Cep inválido");
         }
         
         this.cep = cep;

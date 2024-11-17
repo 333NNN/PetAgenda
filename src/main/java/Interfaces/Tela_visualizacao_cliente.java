@@ -5,6 +5,7 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,8 +13,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
+import petagenda.Cliente;
+import petagenda.Funcionario;
+import petagenda.bd.BD;
 import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
 
@@ -26,36 +34,12 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
     /**
      * Creates new form tela_cadastro_cliente
      */
-    public void PopularTabela (String sql){
-        try {
-            Connection con = (Connection)DriverManager.getConnection("jdbc:mysql://localhost/pet_agenda","root","");
-            PreparedStatement banco = (PreparedStatement)con.prepareStatement(sql);
-            banco.execute();
-            
-            ResultSet resultado = banco.executeQuery(sql);
-            
-            DefaultTableModel model =(DefaultTableModel)jtbl_clientes_cadastrados.getModel();
-            model.setNumRows(0);
-            
-            while(resultado.next()){
-                model.addRow(new Object[]
-                {
-                    //Criar a view para preencher a tabela do sistema
-                   resultado.getString("id"),
-                   resultado.getString("nome"),
-                   resultado.getString("cpf")
-                });
-            }
-            banco.close();
-            con.close();
-        }catch (SQLException e){
-            System.out.println("o erro foi:"+e);
-        }
-
-    }
+    
     public Tela_visualizacao_cliente() {
         initComponents();
         initMenuPanel();
+        AjustarColuna();
+        carregarDadosTabela();
     }
 
     /**
@@ -97,23 +81,15 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
 
         jtbl_clientes_cadastrados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nome do cliente", "CPF", "Telefone", "Endereço"
+                "Nome do cliente", "CPF", "Telefone", "Serviço Contratado", "Endereço"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         jtbl_clientes_cadastrados.getTableHeader().setReorderingAllowed(false);
         jScrollPane_clientes_cadastrados.setViewportView(jtbl_clientes_cadastrados);
 
@@ -141,7 +117,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
                 jbtn_cadastrarClienteActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtn_cadastrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 620, -1, -1));
+        getContentPane().add(jbtn_cadastrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 620, -1, -1));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         jlbl_background.setText(" ");
@@ -161,11 +137,68 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jbtn_cadastrarClienteActionPerformed
 
+    // Personaliza a "width" da coluna em geral.
+    private void AjustarColuna() {
+        // Centraliza a coluna.
+        DefaultTableCellRenderer rendererCentro = new DefaultTableCellRenderer();
+        rendererCentro.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        // Alinha a coluna a direita.
+        DefaultTableCellRenderer rendererDireita = new DefaultTableCellRenderer();  
+        rendererDireita.setHorizontalAlignment(SwingConstants.RIGHT);
+        
+        // Alinha a coluna a esquerda.
+        DefaultTableCellRenderer rendererEsquerda = new DefaultTableCellRenderer();  
+        rendererEsquerda.setHorizontalAlignment(SwingConstants.LEFT);  
+
+        // Define o tamanho do cabeçalho.
+        JTableHeader header = jtbl_clientes_cadastrados.getTableHeader();   
+        header.setPreferredSize(new Dimension(0, 30));
+        TableColumnModel modeloDaColuna = jtbl_clientes_cadastrados.getColumnModel();  
+
+        // Organiza a tabela de acordo com os parametros.
+        modeloDaColuna.getColumn(0).setCellRenderer(rendererEsquerda); // Nome
+        modeloDaColuna.getColumn(1).setCellRenderer(rendererCentro); // CPF
+        modeloDaColuna.getColumn(2).setCellRenderer(rendererCentro); // Telefone
+        modeloDaColuna.getColumn(3).setCellRenderer(rendererCentro); // Serviço Contratado
+        modeloDaColuna.getColumn(4).setCellRenderer(rendererCentro); // Endereço
+
+        // Define o tamanho das colunas na tabela.
+        modeloDaColuna.getColumn(0).setMaxWidth(300); // Nome
+        modeloDaColuna.getColumn(1).setMaxWidth(120); // CPF
+        modeloDaColuna.getColumn(2).setMaxWidth(130); // Telefone
+        modeloDaColuna.getColumn(3).setMaxWidth(180); // Serviço Contratado
+        modeloDaColuna.getColumn(4).setMaxWidth(100); // Endereço
+    }
+    
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
         jPanel_menu.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
     }
 
+    private void carregarDadosTabela() {
+        Cliente[] clientes = BD.Cliente.selectAll();
+        
+        DefaultTableModel modelo = (DefaultTableModel) jtbl_clientes_cadastrados.getModel();
+        modelo.setNumRows(0);
+            
+        if (clientes != null) {
+            // Preenche cada linha com cada funcionário dentro de funcionários.
+            for (Cliente cliente : clientes) {
+                String endereco = cliente.getRua() + ", " + cliente.getNumero() + " - " + cliente.getBairro() + " - " + cliente.getCidade() + " - " + cliente.getCep();
+                Object[] linha = {
+                        cliente.getNome(),
+                        cliente.getCpf().toString(),
+                        cliente.getTelefone(),
+                        "Dog Walking/Pet Sitting", // TEMPORARIO
+                        //"Ver",
+                        endereco
+                    };
+                modelo.addRow(linha); // Adiciona a linha a tabela.
+            }
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
