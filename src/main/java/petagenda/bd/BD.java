@@ -563,6 +563,7 @@ public class BD {
                         insert.setString(6, cliente.getBairro()); // bairro
                         insert.setString(7, cliente.getCidade()); // cidade
                         insert.setString(8, cliente.getCep()); // cep
+                        System.out.println(cliente.getBuscarPetCom());
                         insert.setString(9, cliente.getBuscarPetCom()); // buscar_com
                         insert.setString(10, cliente.getDevolverPetPara()); // devolver_para
 

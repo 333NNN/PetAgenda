@@ -42,10 +42,13 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
      */
     public tela_cadastro_funcionario() {
         // Validação de login
-        if (Usuario.getAtual() != null) {
-            initComponents();
-            initMenuPanel();
-            AlinhaJField();
+        initComponents();
+        initMenuPanel();
+        AlinhaJField();
+        
+        
+        //if (Usuario.getAtual() != null) {
+            
             /*
             Servico[] servicosCadastrados = BD.Servico.selectAll();
             if (servicosCadastrados != null) {
@@ -58,11 +61,11 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
             */
 
             //setFieldsInfo(BD.Usuario.selectLast()); // Recebe o último Usuario do banco e preenche os campos com ele
-        } else {
-            JOptionPane.showMessageDialog(null, "É necessário estar logado para acessar esta funcionalidade.");
-            super.dispose();
-            System.exit(0);
-        }
+        //} else {
+            //JOptionPane.showMessageDialog(null, "É necessário estar logado para acessar esta funcionalidade.");
+            //super.dispose();
+            //System.exit(0);
+        //}
     }
 
     // Define as informações dos campos usando um objeto do tipo petagenda.Usuario
@@ -118,11 +121,11 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         field_cidade.setBorder(border);
     }
     
-    // Recebe as informações dos campos em um novo objeto do tipo petagenda.Usuario
+    // Recebe as informações dos campos em um novo objeto do tipo petagenda.Funcionario
     private Funcionario getFieldsInfo() throws SQLException {
         Funcionario novoFuncionario = null;
         String nome, cpf, telefone, cep, numero, rua, bairro, cidade;
-        Servico servicoPresta;
+        //Servico servicoPresta;
 
         nome = field_nome_funcionario.getText();
         cpf = field_cpf.getText();
@@ -141,35 +144,6 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
             novoFuncionario = new Funcionario(nome, cpf, telefone, rua, cep, numero, bairro, cidade);
         } catch (IllegalArgumentsException exs) {
             exsCadastro.addCause(exs.getCauses());
-            /*
-            // Conectando ao banco de dados e inserindo os dados do novo funcionário
-            Connection conexao = BD.getConnection();
-            String sql = "INSERT INTO funcionario (nome, cpf, telefone, rua, cep, numero, bairro, cidade) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-            try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                stmt.setString(1, nome);
-                stmt.setString(2, cpf);
-                stmt.setString(3, telefone);
-                stmt.setString(4, rua);
-                stmt.setString(5, cep);
-                stmt.setString(6, numero);
-                stmt.setString(7, bairro);
-                stmt.setString(8, cidade);
-
-                int rowsInserted = stmt.executeUpdate();
-
-                if (rowsInserted > 0) {
-                    try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                        if (generatedKeys.next()) {
-                            int id_func = generatedKeys.getInt(1);  // Obtém o ID gerado pelo banco
-                            novoFuncionario = new Funcionario(id_func, nome, cpf, telefone, rua, cep, numero, bairro, cidade);
-                        }
-                    }
-                }
-            }
-            */
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
         // Se houver exceções de validação, exibe as mensagens
@@ -179,7 +153,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
 
             StringBuilder erros = new StringBuilder();
             for (Throwable c : todasCauses) {
-                if (c != null && !(c instanceof IllegalLocalAtuacaoException) && !(c instanceof IllegalEnderecoException)) {
+                if (c != null) {
                     erros.append(c.getMessage());
                     erros.append("\n");
                 }
@@ -257,7 +231,6 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
 
         field_nome_funcionario.setBackground(new java.awt.Color(255, 255, 255));
         field_nome_funcionario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        field_nome_funcionario.setText("dsadasdas");
         field_nome_funcionario.setToolTipText("");
         field_nome_funcionario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_nome_funcionario.setMinimumSize(new java.awt.Dimension(550, 50));

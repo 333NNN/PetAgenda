@@ -359,8 +359,8 @@ public final class Cliente {
         if (cep == null || cep.isEmpty()) {
             throw new IllegalCepException("Cep não pode ser nulo ou vazio.");
         }
-        else if (cep.length() > 8) {
-            throw new IllegalCepException("Cep não pode ultrapassar 8 caracteres.");
+        else if (cep.length() > 8 || cep.length() < 8) {
+            throw new IllegalCepException("Cep inválido.");
         }
         
         this.cep = cep;
@@ -373,8 +373,7 @@ public final class Cliente {
     // Buscar_com
     public void setBuscarPetCom(String pessoa) {
         if (pessoa == null) {
-//            throw new IllegalNomeException("pessoa não pode ser nulo");
-            this.buscar_com = null;
+            throw new IllegalNomeException("pessoa não pode ser nulo");
         } else {
             pessoa = pessoa.trim();
             if (pessoa.isEmpty()) {
