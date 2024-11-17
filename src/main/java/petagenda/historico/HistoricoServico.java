@@ -62,12 +62,12 @@ public final class HistoricoServico {
     
     public HistoricoServico(Agendamento agendamento, LocalDateTime dataHoraFinalizado) {
         this(agendamento, dataHoraFinalizado, 1);
-        this.setDuracao(agendamento.getServico().getDuracao());
+        //this.setDuracao(agendamento.getServico().getDuracao());
     }
     
     public HistoricoServico(int id, Agendamento agendamento, LocalDateTime dataHoraFinalizado) {
         this(id ,agendamento, dataHoraFinalizado, 1);
-        this.setDuracao(agendamento.getServico().getDuracao());
+        //this.setDuracao(agendamento.getServico().getDuracao());
     }
     
     public HistoricoServico(Agendamento agendamento, LocalDateTime dataHoraFinalizado, int duracao) {
