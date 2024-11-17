@@ -95,7 +95,6 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         jScroll_tabela.setPreferredSize(new java.awt.Dimension(830, 480));
         jScroll_tabela.setVerifyInputWhenFocusTarget(false);
 
-        jtbl_funcionarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jtbl_funcionarios.setFont(new java.awt.Font("Merriweather", 0, 16)); // NOI18N
         jtbl_funcionarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -381,7 +381,7 @@ public final class Cliente {
             } else if (pessoa.length() > 64) {
                 throw new IllegalNomeException("pessoa não pode conter mais do que 64 caracteres");
             }
-            this.nome = pessoa;
+            this.buscar_com = pessoa;
         }
     }
     

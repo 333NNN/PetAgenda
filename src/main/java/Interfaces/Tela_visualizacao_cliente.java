@@ -79,8 +79,65 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
 
         jScrollPane_clientes_cadastrados.setPreferredSize(new java.awt.Dimension(895, 480));
 
+        jtbl_clientes_cadastrados.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jtbl_clientes_cadastrados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -89,9 +146,29 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
             new String [] {
                 "Nome do cliente", "CPF", "Telefone", "Serviço Contratado", "Endereço"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtbl_clientes_cadastrados.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jtbl_clientes_cadastrados.setPreferredSize(new java.awt.Dimension(895, 480));
+        jtbl_clientes_cadastrados.setRowHeight(30);
+        jtbl_clientes_cadastrados.setShowHorizontalLines(true);
+        jtbl_clientes_cadastrados.setShowVerticalLines(true);
         jtbl_clientes_cadastrados.getTableHeader().setReorderingAllowed(false);
         jScrollPane_clientes_cadastrados.setViewportView(jtbl_clientes_cadastrados);
+        if (jtbl_clientes_cadastrados.getColumnModel().getColumnCount() > 0) {
+            jtbl_clientes_cadastrados.getColumnModel().getColumn(0).setResizable(false);
+            jtbl_clientes_cadastrados.getColumnModel().getColumn(1).setResizable(false);
+            jtbl_clientes_cadastrados.getColumnModel().getColumn(2).setResizable(false);
+            jtbl_clientes_cadastrados.getColumnModel().getColumn(3).setResizable(false);
+            jtbl_clientes_cadastrados.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         jPanel_tabela_clientes.add(jScrollPane_clientes_cadastrados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
