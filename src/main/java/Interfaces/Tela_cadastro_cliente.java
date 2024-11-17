@@ -357,8 +357,6 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         
         if (cadastrar != null) {
             int r = BD.Cliente.insert(cadastrar);
-            System.out.println("----");
-            System.out.println(cadastrar);
             if (r > 0) { // Foi cadastrado.
                 clearFieldsInfo();
                 JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
