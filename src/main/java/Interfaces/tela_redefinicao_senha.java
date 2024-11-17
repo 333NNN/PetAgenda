@@ -72,7 +72,7 @@ public class tela_redefinicao_senha extends javax.swing.JFrame {
         jlbl_cpf.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_cpf.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_cpf.setText("Login:");
-        jPanel1.add(jlbl_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(69, 99, -1, -1));
+        jPanel1.add(jlbl_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 98, -1, -1));
 
         jfield_cpf.setBackground(new java.awt.Color(217, 217, 217));
         jfield_cpf.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -89,7 +89,7 @@ public class tela_redefinicao_senha extends javax.swing.JFrame {
         jlbl_nova_senha.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_nova_senha.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_nova_senha.setText("Nova senha:");
-        jPanel1.add(jlbl_nova_senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(69, 188, -1, -1));
+        jPanel1.add(jlbl_nova_senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 188, -1, -1));
 
         jfield_nova_senha.setBackground(new java.awt.Color(217, 217, 217));
         jfield_nova_senha.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -101,7 +101,7 @@ public class tela_redefinicao_senha extends javax.swing.JFrame {
         jlbl_confirmacao_nova_senha.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_confirmacao_nova_senha.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_confirmacao_nova_senha.setText("Confirme a nova senha:");
-        jPanel1.add(jlbl_confirmacao_nova_senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(69, 277, -1, -1));
+        jPanel1.add(jlbl_confirmacao_nova_senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 279, -1, -1));
 
         jfield_confirmacao_nova_senha.setBackground(new java.awt.Color(217, 217, 217));
         jfield_confirmacao_nova_senha.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N

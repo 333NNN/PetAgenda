@@ -5,7 +5,6 @@ import petagenda.exception.IllegalDuracaoException;
 import petagenda.exception.IllegalIdException;
 import petagenda.exception.IllegalNomeException;
 import petagenda.exception.IllegalPrecoException;
-import petagenda.exception.IllegalTipoServicoException;
 import petagenda.exception.IllegalDescricaoException;
 
 import java.util.ArrayList;
@@ -15,38 +14,39 @@ import java.util.ArrayList;
  * @author Thiago M. Baiense
  */
 public final class Servico {
-    private int id;
+    private int id_servico;
     private String nome;
-    private int duracao;
     private double preco;
     private String descricao;
     
     public static final int NULL_ID = -1;
     
-    public Servico(String nome, int duracao, double preco) {
-        this(1, nome, duracao, preco, null);
-        this.id = NULL_ID;
+    public Servico(String nome, double preco) {
+        this(1, nome, preco, null);
+        this.id_servico = NULL_ID;
     }
     
-    public Servico(int id, String nome, int duracao, double preco) {
-        this(id, nome, duracao, preco, null);
+    public Servico(int id_servico, String nome, double preco) {
+        this(id_servico, nome, preco, null);
     }
     
-    public Servico(String nome, int duracao, double preco, String descricao) {
-        this(1, nome, duracao, preco, descricao);
-        this.id = NULL_ID;
+    public Servico(String nome, double preco, String descricao) {
+        this(1, nome, preco, descricao);
+        this.id_servico = NULL_ID;
     }
     
-    public Servico(int id, String nome, int duracao, double preco, String descricao) {
+    public Servico(int id_servico, String nome, double preco, String descricao) {
         ArrayList<Throwable> cList = null; // Armazena as cause a serem adicionadas ao construtor
         
+        // id_servico
         try {
-            this.setId(id);
+            this.setId(id_servico);
         } catch (IllegalIdException ex) {
             cList = new ArrayList<Throwable>();
             cList.add(ex);
         }
         
+        // nome
         try {
             this.setNome(nome);
         } catch (IllegalNomeException ex) {
@@ -55,16 +55,8 @@ public final class Servico {
             }
             cList.add(ex);
         }
-        
-        try {
-            this.setDuracao(duracao);
-        } catch (IllegalDuracaoException ex) {
-            if (cList == null) {
-                cList = new ArrayList<Throwable>();
-            }
-            cList.add(ex);
-        }
-        
+
+        // preco
         try {
             this.setPreco(preco);
         } catch (IllegalPrecoException ex) {
@@ -74,6 +66,7 @@ public final class Servico {
             cList.add(ex);
         }
         
+        // descricao
         try {
             this.setDescricao(descricao);
         } catch (IllegalDescricaoException ex) {
@@ -83,6 +76,7 @@ public final class Servico {
             cList.add(ex);
         }
         
+        // Mostra os erros.
         if (cList != null && !cList.isEmpty()) {
             Throwable[] tArray = new Throwable[cList.size()];
             cList.toArray(tArray);
@@ -90,22 +84,25 @@ public final class Servico {
         }
     }
     
+    // Verifica se o funcionário já é existente.
     public boolean isNew() {
         return this.getId() == NULL_ID;
     }
     
-    public void setId(int id) {
-        if (id < 1) {
+    // id_servico
+    public void setId(int id_servico) {
+        if (id_servico < 1) {
             throw new IllegalIdException();
         }
         
-        this.id = id;
+        this.id_servico = id_servico;
     }
     
     public int getId() {
-        return this.id;
+        return this.id_servico;
     }
     
+    // nome
     public void setNome(String nome) {
         if (nome == null) {
             throw new IllegalNomeException("nome não pode ser nulo");
@@ -126,18 +123,7 @@ public final class Servico {
         return this.nome;
     }
 
-    public void setDuracao(int duracao) {
-        if (duracao < 1) {
-            throw new IllegalDuracaoException();
-        }
-        
-        this.duracao = duracao;
-    }
-    
-    public int getDuracao() {
-        return this.duracao;
-    }
-    
+    // preco
     public void setPreco(double preco) {
         if (preco < 0) {
             throw new IllegalPrecoException("preço não pode ser inferior a 0");
@@ -150,15 +136,14 @@ public final class Servico {
         return this.preco;
     }
     
+    // descricao
     public void setDescricao(String desc) {
         if (desc == null) {
-//            throw new IllegalDescricaoException("descrição não pode ser nula");
             this.descricao = null;
         } else {
             desc = desc.trim();
         
             if (desc.isEmpty()) {
-//                throw new IllegalDescricaoException("descrição não pode ser vazia");
                 this.descricao = null;
             } else if (desc.length() > 200) {
                 throw new IllegalDescricaoException("descrição não pode conter mais de 200 caracteres");

@@ -19,6 +19,7 @@ import petagenda.servico.Servico;
 import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,23 +45,11 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         // Validação de login
         initComponents();
         initMenuPanel();
+        jcbox_Selecao_servico.setEnabled(false);
         AlinhaJField();
-        
         
         //if (Usuario.getAtual() != null) {
             
-            /*
-            Servico[] servicosCadastrados = BD.Servico.selectAll();
-            if (servicosCadastrados != null) {
-                for (Servico s : servicosCadastrados) {
-                    jcbox_Selecao_servico.addItem(s);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Nenhum Serviço disponível recebido do banco de dados.");
-            }
-            */
-
-            //setFieldsInfo(BD.Usuario.selectLast()); // Recebe o último Usuario do banco e preenche os campos com ele
         //} else {
             //JOptionPane.showMessageDialog(null, "É necessário estar logado para acessar esta funcionalidade.");
             //super.dispose();
@@ -68,36 +57,11 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         //}
     }
 
-    // Define as informações dos campos usando um objeto do tipo petagenda.Usuario
-    /*
-    // Preenche o campo de cadastro de funcionário com o último funcionário cadastrado.
-    private void setFieldsInfo(Usuario usuario) {
-        if (usuario != null) {
-            field_nome_funcionario.setText(usuario.getNome());
-            field_cpf.setText(usuario.getCpf().toString());
-            field_telefone.setText(usuario.getTelefone());
-            Servico servUsuario = usuario.getServico();
-            for (int i=0; i < jcbox_Selecao_servico.getItemCount(); i++) {
-                Servico servCBox = (Servico)jcbox_Selecao_servico.getItemAt(i);
-                if (servCBox.equals(servUsuario)) {
-                    jcbox_Selecao_servico.setSelectedIndex(i);
-                }
-            }
-            field_cep.setText(usuario.getEndereco().CEP);
-            field_numero.setText(usuario.getEndereco().NUMERO);
-            field_rua.setText(usuario.getEndereco().RUA);
-            field_bairro.setText(usuario.getEndereco().BAIRRO);
-            field_cidade.setText(usuario.getEndereco().CIDADE);
-        }
-    }
-     */
-    
     // Limpa as informações dos campos de Usuario
     private void clearFieldsInfo() {
         field_nome_funcionario.setText(null);
         field_cpf.setText(null);
         field_telefone.setText(null);
-        //jcbox_Selecao_servico.setSelectedIndex(0);
         field_cep.setText(null);
         field_numero.setText(null);
         field_rua.setText(null);
@@ -121,16 +85,46 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         field_cidade.setBorder(border);
     }
     
+    private static boolean Duplicado(String str) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        // String de conexão com o banco de dados (substitua com seus dados)
+        String banco = "jdbc:mysql://localhost:3306/pet_agenda";
+        String usuario = "root";
+        String senha = "";
+
+        try {
+            conn = DriverManager.getConnection(banco, usuario, senha);
+
+            String sql = "SELECT COUNT(*) FROM cliente WHERE cpf = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, str);
+
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+    
     // Recebe as informações dos campos em um novo objeto do tipo petagenda.Funcionario
     private Funcionario getFieldsInfo() throws SQLException {
         Funcionario novoFuncionario = null;
         String nome, cpf, telefone, cep, numero, rua, bairro, cidade;
-        //Servico servicoPresta;
+        boolean cpf_duplicado;
 
         nome = field_nome_funcionario.getText();
         cpf = field_cpf.getText();
         telefone = field_telefone.getText();
-        //servicoPresta = (Servico) jcbox_Selecao_servico.getSelectedItem();
         rua = field_rua.getText();
         cep = field_cep.getText();
         numero = field_numero.getText();
@@ -141,7 +135,13 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
 
         // Criação do funcionario
         try {
-            novoFuncionario = new Funcionario(nome, cpf, telefone, rua, cep, numero, bairro, cidade);
+            cpf_duplicado = Duplicado(cpf);
+            if (!cpf_duplicado) {
+                novoFuncionario = new Funcionario(nome, cpf, telefone, rua, cep, numero, bairro, cidade);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "CPF já cadastrado.", "CPF inválido", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (IllegalArgumentsException exs) {
             exsCadastro.addCause(exs.getCauses());
         }
@@ -184,7 +184,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jlbl_telefone = new javax.swing.JLabel();
         field_telefone = new javax.swing.JTextField();
         jlbl_servico_prestado = new javax.swing.JLabel();
-        jcbox_Selecao_servico = new javax.swing.JComboBox<>();
+        jcbox_Selecao_servico = new javax.swing.JComboBox();
         jlbl_cep = new javax.swing.JLabel();
         field_cep = new javax.swing.JTextField();
         jlbl_numero = new javax.swing.JLabel();
@@ -229,7 +229,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jlbl_nome_funcionario.setPreferredSize(new java.awt.Dimension(165, 20));
         jPanel1.add(jlbl_nome_funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, 20));
 
-        field_nome_funcionario.setBackground(new java.awt.Color(255, 255, 255));
+        field_nome_funcionario.setBackground(new java.awt.Color(217, 217, 217));
         field_nome_funcionario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         field_nome_funcionario.setToolTipText("");
         field_nome_funcionario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -247,7 +247,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jlbl_cpf.setText("CPF:");
         jPanel1.add(jlbl_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 174, -1, -1));
 
-        field_cpf.setBackground(new java.awt.Color(255, 255, 255));
+        field_cpf.setBackground(new java.awt.Color(217, 217, 217));
         field_cpf.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_cpf.setMinimumSize(new java.awt.Dimension(250, 50));
         field_cpf.setPreferredSize(new java.awt.Dimension(250, 50));
@@ -261,7 +261,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jlbl_telefone.setPreferredSize(new java.awt.Dimension(71, 20));
         jPanel1.add(jlbl_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 174, -1, -1));
 
-        field_telefone.setBackground(new java.awt.Color(255, 255, 255));
+        field_telefone.setBackground(new java.awt.Color(217, 217, 217));
         field_telefone.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_telefone.setMinimumSize(new java.awt.Dimension(250, 50));
         field_telefone.setPreferredSize(new java.awt.Dimension(250, 50));
@@ -277,8 +277,9 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jlbl_servico_prestado.setText("Serviço prestado:");
         jPanel1.add(jlbl_servico_prestado, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 263, -1, -1));
 
-        jcbox_Selecao_servico.setBackground(new java.awt.Color(255, 255, 255));
+        jcbox_Selecao_servico.setBackground(new java.awt.Color(217, 217, 217));
         jcbox_Selecao_servico.setFont(new java.awt.Font("Merriweather", 0, 14)); // NOI18N
+        jcbox_Selecao_servico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONAR", "Dog Walking/Pet Sitting" }));
         jcbox_Selecao_servico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jcbox_Selecao_servico.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jcbox_Selecao_servico.addActionListener(new java.awt.event.ActionListener() {
@@ -293,7 +294,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jlbl_cep.setText("CEP:");
         jPanel1.add(jlbl_cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(329, 263, -1, -1));
 
-        field_cep.setBackground(new java.awt.Color(255, 255, 255));
+        field_cep.setBackground(new java.awt.Color(217, 217, 217));
         field_cep.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_cep.setMinimumSize(new java.awt.Dimension(150, 50));
         field_cep.setPreferredSize(new java.awt.Dimension(150, 50));
@@ -304,7 +305,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jlbl_numero.setText("N°:");
         jPanel1.add(jlbl_numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(519, 263, -1, -1));
 
-        field_numero.setBackground(new java.awt.Color(255, 255, 255));
+        field_numero.setBackground(new java.awt.Color(217, 217, 217));
         field_numero.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_numero.setPreferredSize(new java.awt.Dimension(90, 50));
         jPanel1.add(field_numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(501, 282, -1, -1));
@@ -314,7 +315,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jlbl_rua.setText("Rua:");
         jPanel1.add(jlbl_rua, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 350, -1, -1));
 
-        field_rua.setBackground(new java.awt.Color(255, 255, 255));
+        field_rua.setBackground(new java.awt.Color(217, 217, 217));
         field_rua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_rua.setMinimumSize(new java.awt.Dimension(550, 50));
         field_rua.setPreferredSize(new java.awt.Dimension(550, 50));
@@ -330,7 +331,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jlbl_bairro.setText("Bairro:");
         jPanel1.add(jlbl_bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 443, -1, -1));
 
-        field_bairro.setBackground(new java.awt.Color(255, 255, 255));
+        field_bairro.setBackground(new java.awt.Color(217, 217, 217));
         field_bairro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_bairro.setMinimumSize(new java.awt.Dimension(270, 50));
         field_bairro.setPreferredSize(new java.awt.Dimension(270, 50));
@@ -341,7 +342,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jlbl_cidade.setText("Cidade:");
         jPanel1.add(jlbl_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 443, -1, -1));
 
-        field_cidade.setBackground(new java.awt.Color(255, 255, 255));
+        field_cidade.setBackground(new java.awt.Color(217, 217, 217));
         field_cidade.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_cidade.setMinimumSize(new java.awt.Dimension(250, 50));
         field_cidade.setPreferredSize(new java.awt.Dimension(250, 50));
@@ -459,7 +460,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JButton jbtn_cadastrarFuncionario;
-    private javax.swing.JComboBox<petagenda.servico.Servico> jcbox_Selecao_servico;
+    private javax.swing.JComboBox jcbox_Selecao_servico;
     private javax.swing.JLabel jlbl_background;
     private javax.swing.JLabel jlbl_bairro;
     private javax.swing.JLabel jlbl_cep;
