@@ -1426,9 +1426,64 @@ public class BD {
         }
     }
 
-    //static public class ClienteContrataServico() {
+    static public class ClienteContrataServico {
         
-    //}
+        public static final String TABLE = "cliente_contrata_servico";
+        
+        public static int insert(petagenda.Cliente_servico cliente_servico) {
+            int r = 0;
+            
+            if (cliente_servico == null) {
+                throw new NullPointerException("Serviço não pode ser nulo.");
+            }
+            else {
+                Connection conn = BD.getConnection();
+                if (conn == null) { //Se o banco de dados for inacessível.
+                    return r;
+                }
+                else {
+                    // Criação do statement.
+                    PreparedStatement insert = null;
+                    try {
+                        insert = conn.prepareStatement(String.format("INSERT INTO %s(id_servico, id_cliente) VALUES(?, ?)", TABLE));
+                        
+                        insert.setInt(1, cliente_servico.getIdServico()); // id_servico
+                        insert.setInt(2, cliente_servico.getIdCliente()); // id_cliente
+                        
+                        r = insert.executeUpdate();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de execução do insert", JOptionPane.ERROR_MESSAGE);
+                        r = -1;
+                    }
+                    
+                    if (insert != null) { // Se preparedStatement não falhou.
+                        try {
+                            insert.close();
+                        }
+                        catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                        }
+                        finally {
+                            insert = null;
+                        }
+                    }
+                    
+                    try {
+                        conn.close();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                    }
+                    finally {
+                        conn = null;
+                    }
+                }
+            }
+            
+            return r;
+        }
+    }
     
     static public class Funcionario {
         public static final String TABLE = "funcionario";

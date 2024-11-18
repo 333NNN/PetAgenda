@@ -20,6 +20,7 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import petagenda.Cliente;
+import petagenda.Cliente_servico;
 import petagenda.Usuario;
 import petagenda.bd.BD;
 import petagenda.dados.Endereco;
@@ -189,6 +190,54 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         }
         
         return novo_cliente;
+    }
+    
+    private Cliente_servico getClienteServico() {
+        Cliente_servico novo_cadastro = null; // Será o cadastro do Cliente_contrata_servico.
+        Cliente ultimo_cliente = null;
+        
+        Servico servico;
+        String nome_servico;
+        
+        int id_servico, id_cliente;
+        
+        // Pega o id_servico de acordo com o nome do serviço.
+        nome_servico = jcbox_Selecao_servico.getSelectedItem().toString();
+        servico = BD.Servico.selectByName(nome_servico.trim()); // Pega as informações do serviço de acordo com o nome do serviço.
+        id_servico = servico.getId(); // Pega o id_servico.
+        
+        // Pega o id_cliente de acordo com o último cliente cadastrado.
+        ultimo_cliente = BD.Cliente.selectLast(); // Pega o último cliente cadastrado.
+        id_cliente = ultimo_cliente.getId(); // Pega o id_cliente.
+        
+        IllegalArgumentsException exsCadastro = new IllegalArgumentsException();
+        
+        // Criação do Cliente_servico.
+        try {
+            novo_cadastro = new Cliente_servico(id_servico, id_cliente);
+        }
+        catch (IllegalArgumentsException exs) {
+            exsCadastro.addCause(exs.getCauses());
+        }
+        
+        // Se houver exceções de validação, exibe as mensagens.
+        if (exsCadastro.size() > 0) {
+            Throwable[] todasCauses = exsCadastro.getCauses();
+            Arrays.sort(todasCauses);
+            
+            StringBuilder erros = new StringBuilder();
+            
+            for (Throwable c: todasCauses) {
+                if (c != null) {
+                    erros.append(c.getMessage());
+                    erros.append("\n");
+                }
+            }
+            
+            JOptionPane.showMessageDialog(null, erros.toString(), "Campos inválidos", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return novo_cadastro;
     }
     
     // Limpa as informações dos campos de Usuario
@@ -411,22 +460,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
     private void jbtn_Cadastrar_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_Cadastrar_clienteActionPerformed
         // TODO add your handling code here:
         Cliente cadastrar = null;
-        
-        // Cliente.
-        Cliente ultimo_cliente = null;
-        
-        // Serviço.
-        Servico servico;
-        String nome_servico;
-        int id_servico = -1;
-        int id_cliente = -1;
-        
-        // cliente_contrata_servico
-        
-        // id_servico
-        nome_servico = jcbox_Selecao_servico.getSelectedItem().toString();
-        servico = BD.Servico.selectByName(nome_servico.trim()); // Cria um Objeto servico.
-        id_servico = servico.getId(); // Pega o id_servico.
+        Cliente_servico cadastro_contratado = null;
 
         // Cadastro do cliente.
         try {
@@ -437,11 +471,13 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         }
         
         if (cadastrar != null) {
-            int r = BD.Cliente.insert(cadastrar); // Dando insert no cliente.
+            int cl = BD.Cliente.insert(cadastrar); // Dando insert no cliente.
             
-            ultimo_cliente = BD.Cliente.selectLast(); // Pega o último cliente cadastrado.
-            id_cliente = ultimo_cliente.getId(); // Pega o id_cliente.
-            if (r > 0) { // Foi cadastrado.
+            // cliente_contrata_servico.
+            cadastro_contratado = getClienteServico();
+            int cc = BD.ClienteContrataServico.insert(cadastro_contratado);
+            
+            if (cl > 0 && cc > 0) { // Foi cadastrado cliente e cliente_contrata_servico.
                 clearFieldsInfo();
                 JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
             }

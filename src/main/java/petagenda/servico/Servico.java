@@ -167,6 +167,6 @@ public final class Servico {
     @Override
     public String toString() {
         //return this.getNome();
-        return String.format("id_servico: %d | nome: %s", getId(), getNome());
+        return String.format("id_servico: %d | nome: %s | preco: %.2f | descricao: %s", getId(), getNome(), getPreco(), getDescricao());
     }
 }
