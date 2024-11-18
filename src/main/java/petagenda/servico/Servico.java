@@ -1,7 +1,6 @@
 package petagenda.servico;
 
 import petagenda.exception.IllegalArgumentsException;
-import petagenda.exception.IllegalDuracaoException;
 import petagenda.exception.IllegalIdException;
 import petagenda.exception.IllegalNomeException;
 import petagenda.exception.IllegalPrecoException;
@@ -167,6 +166,7 @@ public final class Servico {
     
     @Override
     public String toString() {
-        return this.getNome();
+        //return this.getNome();
+        return String.format("id_servico: %d | nome: %s", getId(), getNome());
     }
 }
