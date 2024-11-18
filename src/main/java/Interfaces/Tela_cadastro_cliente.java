@@ -68,6 +68,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
 
         initComponents();
         initMenuPanel();
+        PreencherJCombobox();
         AlinhaJField();
     }
     
@@ -92,7 +93,6 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        // String de conexão com o banco de dados (substitua com seus dados)
         String banco = "jdbc:mysql://localhost:3306/pet_agenda";
         String usuario = "root";
         String senha = "";
@@ -118,6 +118,22 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         return false;
     }
     
+    // Preenche ComboBox com os serviços.
+    private void PreencherJCombobox() {
+        Servico[] servicos = BD.Servico.selectAll();
+        int id_servico;
+        String nome;
+        
+        if (servicos != null) {
+            // Preenche o combobox com os itens.
+            for (Servico servico : servicos) {
+                id_servico = servico.getId();
+                nome = servico.getNome();
+                jcbox_Selecao_servico.addItem(nome);
+            }
+        }
+    }
+
     // Recebe as informações dos campos em um novo objeto do tipo petagenda.Cliente
     private Cliente getFieldInfo() throws SQLException {
         Cliente novo_cliente = null;
@@ -206,7 +222,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jtxtf_campo_telefone = new javax.swing.JTextField();
         jlbl_telefone = new javax.swing.JLabel();
         jlbl_servico_contratado = new javax.swing.JLabel();
-        jcbox_Selecao_servico = new javax.swing.JComboBox<>();
+        jcbox_Selecao_servico = new javax.swing.JComboBox();
         jtxtf_campo_cep = new javax.swing.JTextField();
         jlbl_cep = new javax.swing.JLabel();
         jtxtf_campo_num = new javax.swing.JTextField();
@@ -249,8 +265,9 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jPanel1.add(jtxtf_campo_nome_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 106, -1, 52));
 
         jlbl_nome_cliente.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        jlbl_nome_cliente.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_nome_cliente.setText("Nome completo do cliente:");
-        jPanel1.add(jlbl_nome_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 85, 200, 20));
+        jPanel1.add(jlbl_nome_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 85, 180, 20));
 
         jtxtf_campo_cpf.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_campo_cpf.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -259,6 +276,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jPanel1.add(jtxtf_campo_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 195, -1, -1));
 
         jlbl_cpf.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        jlbl_cpf.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_cpf.setText("CPF:");
         jPanel1.add(jlbl_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 176, -1, -1));
 
@@ -273,14 +291,16 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jPanel1.add(jtxtf_campo_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 195, 270, 50));
 
         jlbl_telefone.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        jlbl_telefone.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_telefone.setText("Telefone:");
         jPanel1.add(jlbl_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 176, -1, -1));
 
         jlbl_servico_contratado.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        jlbl_servico_contratado.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_servico_contratado.setText("Serviço contratado:");
         jlbl_servico_contratado.setMinimumSize(new java.awt.Dimension(150, 15));
         jlbl_servico_contratado.setPreferredSize(new java.awt.Dimension(150, 15));
-        jPanel1.add(jlbl_servico_contratado, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 265, 150, 15));
+        jPanel1.add(jlbl_servico_contratado, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 265, 130, 15));
 
         jcbox_Selecao_servico.setBackground(new java.awt.Color(217, 217, 217));
         jcbox_Selecao_servico.setFont(new java.awt.Font("Merriweather", 0, 14)); // NOI18N
@@ -301,6 +321,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jPanel1.add(jtxtf_campo_cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 284, 150, 50));
 
         jlbl_cep.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        jlbl_cep.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_cep.setText("CEP:");
         jPanel1.add(jlbl_cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 265, -1, -1));
 
@@ -310,6 +331,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jPanel1.add(jtxtf_campo_num, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 284, 90, 50));
 
         jlbl_rua.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        jlbl_rua.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_rua.setText("Rua:");
         jPanel1.add(jlbl_rua, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 354, -1, -1));
 
@@ -319,9 +341,10 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jPanel1.add(jtxtf_campo_rua, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 373, 550, 50));
 
         jlbl_bairro.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        jlbl_bairro.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_bairro.setText("Bairro:");
         jlbl_bairro.setPreferredSize(new java.awt.Dimension(52, 15));
-        jPanel1.add(jlbl_bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 443, -1, -1));
+        jPanel1.add(jlbl_bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 443, 50, -1));
 
         jtxtf_campo_bairro.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_campo_bairro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -335,6 +358,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jPanel1.add(jtxtf_campo_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 462, 250, 50));
 
         jlbl_cidade.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        jlbl_cidade.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_cidade.setText("Cidade:");
         jlbl_cidade.setPreferredSize(new java.awt.Dimension(56, 15));
         jPanel1.add(jlbl_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 443, -1, -1));
@@ -349,6 +373,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jPanel1.add(jlbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 350, 45));
 
         jlbl_num.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        jlbl_num.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_num.setText("N°");
         jPanel1.add(jlbl_num, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 265, -1, -1));
 
@@ -387,17 +412,35 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         Cliente cadastrar = null;
         
+        // Cliente.
+        Cliente ultimo_cliente = null;
         
+        // Serviço.
+        Servico servico;
+        String nome_servico;
+        int id_servico = -1;
+        int id_cliente = -1;
+        
+        // cliente_contrata_servico
+        
+        // id_servico
+        nome_servico = jcbox_Selecao_servico.getSelectedItem().toString();
+        servico = BD.Servico.selectByName(nome_servico.trim()); // Cria um Objeto servico.
+        id_servico = servico.getId(); // Pega o id_servico.
+
+        // Cadastro do cliente.
         try {
             cadastrar = getFieldInfo(); // Retornara null se informações não forem válidas.
-            
         }
         catch (SQLException ex) {
             Logger.getLogger(Tela_cadastro_cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         if (cadastrar != null) {
-            int r = BD.Cliente.insert(cadastrar);
+            int r = BD.Cliente.insert(cadastrar); // Dando insert no cliente.
+            
+            ultimo_cliente = BD.Cliente.selectLast(); // Pega o último cliente cadastrado.
+            id_cliente = ultimo_cliente.getId(); // Pega o id_cliente.
             if (r > 0) { // Foi cadastrado.
                 clearFieldsInfo();
                 JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
@@ -449,7 +492,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JButton jbtn_Cadastrar_cliente;
-    private javax.swing.JComboBox<petagenda.servico.Servico> jcbox_Selecao_servico;
+    private javax.swing.JComboBox jcbox_Selecao_servico;
     private javax.swing.JLabel jlbl_background;
     private javax.swing.JLabel jlbl_bairro;
     private javax.swing.JLabel jlbl_cep;

@@ -764,6 +764,50 @@ public class BD {
             }
             return cliente;
         }
+        
+        public static petagenda.Cliente selectByCpf(CPF cpf) {
+            petagenda.Cliente cliente = null;
+
+            if (cpf != null) {
+                Connection conn = BD.getConnection();
+                if (conn != null) { // Se banco for acessível
+                    // Criação do statement
+                    PreparedStatement select = null;
+                    try {
+                        select = conn.prepareStatement(String.format("SELECT id_cliente, nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_para FROM %s WHERE cpf = ?", TABLE));
+                        select.setString(1, cpf.toString());
+
+                        ResultSet rs = select.executeQuery();
+                        petagenda.Cliente[] selected = parse(rs);
+
+                        if (selected != null) {
+                            cliente = selected[0];
+                        }
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro na execução da query", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    if (select != null) { // Se preparedStatement não falhou
+                        try {
+                            select.close();
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                        } finally {
+                            select = null;
+                        }
+                    }
+
+                    try {
+                        conn.close();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                    } finally {
+                        conn = null;
+                    }
+                }
+            }
+            return cliente;
+        }
 
         public static petagenda.Cliente[] selectAll() {
             petagenda.Cliente[] clientes = null;
@@ -1211,6 +1255,50 @@ public class BD {
             }
             return servico;
         }
+        
+        public static petagenda.servico.Servico selectByName(String nome_servico) {
+            petagenda.servico.Servico servico = null;
+
+            if (nome_servico != null) {
+                Connection conn = BD.getConnection();
+                if (conn != null) { // Se banco for acessível
+                    // Criação do statement
+                    PreparedStatement select = null;
+                    try {
+                        select = conn.prepareStatement(String.format("SELECT id_servico, nome, preco, descricao FROM %s WHERE nome = ?", TABLE));
+                        select.setString(1, nome_servico);
+
+                        ResultSet rs = select.executeQuery();
+                        petagenda.servico.Servico[] selected = parse(rs);
+
+                        if (selected != null) {
+                            servico = selected[0];
+                        }
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro na execução da query", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    if (select != null) { // Se preparedStatement não falhou
+                        try {
+                            select.close();
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                        } finally {
+                            select = null;
+                        }
+                    }
+
+                    try {
+                        conn.close();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                    } finally {
+                        conn = null;
+                    }
+                }
+            }
+            return servico;
+        }
 
         public static petagenda.servico.Servico[] selectAll() {
             petagenda.servico.Servico[] servicos = null;
@@ -1305,6 +1393,8 @@ public class BD {
                         String nome, descricao;
                         double preco;
 
+                        // Dados ResultSet.
+                        
                         id_servico = rs.getInt("id_servico");
                         nome = rs.getString("nome");
                         preco = rs.getDouble("preco");
@@ -1315,7 +1405,7 @@ public class BD {
                             s = new petagenda.servico.Servico(id_servico, nome, preco, descricao);
                             sList.add(s);
                         } catch (IllegalArgumentsException exs) {
-                            StringBuilder strEx = new StringBuilder(String.format("Erro ao receber Servico (id_servico= %d):\n", id_servico));
+                            StringBuilder strEx = new StringBuilder(String.format("Erro ao receber Servico (id_servico = %d):\n", id_servico));
                             for (Throwable c : exs.getCauses()) {
                                 strEx.append(c.getMessage());
                                 strEx.append("\n");
@@ -1336,6 +1426,10 @@ public class BD {
         }
     }
 
+    //static public class ClienteContrataServico() {
+        
+    //}
+    
     static public class Funcionario {
         public static final String TABLE = "funcionario";
         
