@@ -41,9 +41,12 @@ public class TELA_CADASTRO_USUARIO extends javax.swing.JFrame {
         jtxt_nome = new javax.swing.JTextField();
         lbl_Cpf = new javax.swing.JLabel();
         jtxt_CPF = new javax.swing.JTextField();
-        lbl_Senha = new javax.swing.JLabel();
         jtxt_senha = new javax.swing.JTextField();
         jbtn_CadastrarUsuario = new javax.swing.JButton();
+        jtxt_senha1 = new javax.swing.JTextField();
+        lbl_Senha1 = new javax.swing.JLabel();
+        jtxt_senha2 = new javax.swing.JTextField();
+        lbl_Senha2 = new javax.swing.JLabel();
         jlbl_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -90,7 +93,7 @@ public class TELA_CADASTRO_USUARIO extends javax.swing.JFrame {
         lbl_Cpf.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         lbl_Cpf.setForeground(new java.awt.Color(0, 0, 0));
         lbl_Cpf.setText("CPF (Será utilizado como Login):");
-        jPanel1.add(lbl_Cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 165, -1, -1));
+        jPanel1.add(lbl_Cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 163, -1, -1));
 
         jtxt_CPF.setBackground(new java.awt.Color(217, 217, 217));
         jtxt_CPF.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -105,11 +108,6 @@ public class TELA_CADASTRO_USUARIO extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jtxt_CPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 184, 550, 50));
-
-        lbl_Senha.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
-        lbl_Senha.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_Senha.setText("SENHA (8 dígitos, incluindo números e caracteres especiais):");
-        jPanel1.add(lbl_Senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 251, -1, -1));
 
         jtxt_senha.setBackground(new java.awt.Color(217, 217, 217));
         jtxt_senha.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -139,9 +137,47 @@ public class TELA_CADASTRO_USUARIO extends javax.swing.JFrame {
             }
         });
         jbtn_CadastrarUsuario.setUI(new RoundedCornerButtonUI());
-        jPanel1.add(jbtn_CadastrarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(201, 368, 240, 50));
+        jPanel1.add(jbtn_CadastrarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 460, 240, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(362, 120, 643, 451));
+        jtxt_senha1.setBackground(new java.awt.Color(217, 217, 217));
+        jtxt_senha1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtxt_senha1.setForeground(new java.awt.Color(0, 0, 0));
+        jtxt_senha1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jtxt_senha1.setCaretColor(new java.awt.Color(0, 0, 0));
+        jtxt_senha1.setMinimumSize(new java.awt.Dimension(464, 42));
+        jtxt_senha1.setPreferredSize(new java.awt.Dimension(550, 50));
+        jtxt_senha1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxt_senha1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jtxt_senha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 273, 550, 50));
+
+        lbl_Senha1.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        lbl_Senha1.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_Senha1.setText("Senha (8 dígitos, incluindo números e caracteres especiais):");
+        jPanel1.add(lbl_Senha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 251, -1, -1));
+
+        jtxt_senha2.setBackground(new java.awt.Color(217, 217, 217));
+        jtxt_senha2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtxt_senha2.setForeground(new java.awt.Color(0, 0, 0));
+        jtxt_senha2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jtxt_senha2.setCaretColor(new java.awt.Color(0, 0, 0));
+        jtxt_senha2.setMinimumSize(new java.awt.Dimension(464, 42));
+        jtxt_senha2.setPreferredSize(new java.awt.Dimension(550, 50));
+        jtxt_senha2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxt_senha2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jtxt_senha2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 550, 50));
+
+        lbl_Senha2.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        lbl_Senha2.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_Senha2.setText("Confirme a senha:");
+        jPanel1.add(lbl_Senha2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(362, 120, 643, 540));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         jlbl_background.setLabelFor(jlbl_background);
@@ -182,6 +218,14 @@ public class TELA_CADASTRO_USUARIO extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_jbtn_CadastrarUsuarioActionPerformed
+
+    private void jtxt_senha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxt_senha1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxt_senha1ActionPerformed
+
+    private void jtxt_senha2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxt_senha2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxt_senha2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,8 +274,11 @@ public class TELA_CADASTRO_USUARIO extends javax.swing.JFrame {
     private javax.swing.JTextField jtxt_CPF;
     private javax.swing.JTextField jtxt_nome;
     private javax.swing.JTextField jtxt_senha;
+    private javax.swing.JTextField jtxt_senha1;
+    private javax.swing.JTextField jtxt_senha2;
     private javax.swing.JLabel lbl_Cpf;
-    private javax.swing.JLabel lbl_Senha;
+    private javax.swing.JLabel lbl_Senha1;
+    private javax.swing.JLabel lbl_Senha2;
     // End of variables declaration//GEN-END:variables
 
     private void limparCampos() {

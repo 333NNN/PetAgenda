@@ -13,11 +13,27 @@ import petagenda.exception.IllegalArgumentsException;
 import petagenda.exception.*;
 
 public final class Cliente_servico {
+    private int id_cliente_contrata_servico;
     private int id_servico;
     private int id_cliente;
     
-    public Cliente_servico (int id_servico, int id_cliente) {
+    public static final int NULL_ID = -1;
+    
+    public Cliente_servico(int id_servico, int id_cliente) {
+        this(1, id_servico, id_cliente);
+        this.id_cliente_contrata_servico = NULL_ID;
+    }
+    
+    public Cliente_servico(int id_cliente_contrata_servico, int id_servico, int id_cliente) {
         IllegalArgumentsException exs = new IllegalArgumentsException();
+        
+        // id_cliente_contrata_servico
+        try {
+            setId(id_cliente_contrata_servico);
+        }
+        catch (IllegalIdException ex) {
+            exs.addCause(ex);
+        }
         
         // id_servico
         try {
@@ -38,6 +54,20 @@ public final class Cliente_servico {
         if (exs.size() > 0) { // Alguma exceção ocorreu.
             throw exs;
         }
+    }
+    
+    // id_cliente_contrata_servico
+    public void setId(int id_cliente_contrata_servico) {
+        if (id_cliente_contrata_servico < 0) {
+            throw new IllegalIdException("Id não pode ser inferior a zero.");
+        }
+        else {
+            this.id_cliente_contrata_servico = id_cliente_contrata_servico;
+        }
+    }
+    
+    public int getId() {
+        return this.id_cliente_contrata_servico;
     }
     
     // id_servico

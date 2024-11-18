@@ -1483,6 +1483,96 @@ public class BD {
             
             return r;
         }
+        
+        public static petagenda.Cliente_servico[] selectAll() {
+            petagenda.Cliente_servico[] clientes_servicos = null;
+            
+            Connection conn = BD.getConnection();
+            if (conn != null) { // Se o banco for acessível.
+                // Criação do statement.
+                PreparedStatement select = null;
+                try {
+                    select = conn.prepareStatement(String.format("SELECT id_cliente_contrata_servico, id_servico, id_cliente FROM %s", TABLE));
+                    
+                    ResultSet rs = select.executeQuery();
+                    clientes_servicos = parse(rs);
+                }
+                catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro na execução da query", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                if (select != null) { // Se preparedStatement não falhou.
+                    try {
+                        select.close();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                    }
+                    finally {
+                        select = null;
+                    }
+                }
+                
+                try {
+                    conn.close();
+                }
+                catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                }
+                finally {
+                    conn = null;
+                }
+            }
+            
+            return clientes_servicos;
+        }
+        
+        public static petagenda.Cliente_servico[] parse(ResultSet rs) {
+            if (rs == null) {
+                throw new NullPointerException("ResultSet não pode ser nulo.");
+            }
+            else {
+                ArrayList<petagenda.Cliente_servico> cList = new ArrayList<petagenda.Cliente_servico>();
+                petagenda.Cliente_servico[] cArray = null;
+                
+                try {
+                    while (rs.next()) {
+                        petagenda.Cliente_servico c;
+                        int id_cliente_contrata_servico, id_servico, id_cliente;
+                        
+                        // Recebimento dos dados do ResultSet.
+                        id_cliente_contrata_servico = rs.getInt("id_cliente_contrata_servico");
+                        id_servico = rs.getInt("id_servico");
+                        id_cliente = rs.getInt("id_cliente");
+                        
+                        // Verificação dos dados e criação do objeto.
+                        try {
+                            c = new petagenda.Cliente_servico(id_cliente_contrata_servico, id_servico, id_cliente);
+                            
+                            cList.add(c);
+                        }
+                        catch (IllegalArgumentsException exs) {
+                            StringBuilder strEx = new StringBuilder(String.format("Erro ao receber cliente_contrata_servico (id_cliente_contrata_servico = %d):\n", id_cliente_contrata_servico));
+                            for (Throwable cause : exs.getCauses()) {
+                                strEx.append(cause.getMessage());
+                                strEx.append("\n");
+                            }
+                            System.out.println(strEx.toString());
+                        }
+                    }
+                    
+                    if (!cList.isEmpty()) {
+                        cArray = new petagenda.Cliente_servico[cList.size()];
+                        cArray = cList.toArray(cArray);
+                    }
+                }
+                catch (SQLException e) {
+                    System.out.printf("Erro ao fazer parse de ResultSet contendo Cliente_servico: %s", e.getMessage());
+                }
+                
+                return cArray;
+            }
+        }
     }
     
     static public class Funcionario {

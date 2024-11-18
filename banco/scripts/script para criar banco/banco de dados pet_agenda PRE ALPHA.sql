@@ -46,6 +46,7 @@ CREATE TABLE cliente (
 );
 
 CREATE TABLE cliente_contrata_servico (
+	id_cliente_contrata_servico INT PRIMARY KEY AUTO_INCREMENT,
 	id_servico INT,
     id_cliente INT,
     FOREIGN KEY (id_servico) REFERENCES servico(id_servico),

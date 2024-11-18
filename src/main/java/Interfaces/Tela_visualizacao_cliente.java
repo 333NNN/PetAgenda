@@ -20,8 +20,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 import petagenda.Cliente;
+import petagenda.Cliente_servico;
 import petagenda.Funcionario;
 import petagenda.bd.BD;
+import petagenda.servico.Servico;
 import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
 
@@ -237,7 +239,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         modeloDaColuna.getColumn(0).setCellRenderer(rendererEsquerda); // Nome
         modeloDaColuna.getColumn(1).setCellRenderer(rendererCentro); // CPF
         modeloDaColuna.getColumn(2).setCellRenderer(rendererCentro); // Telefone
-        modeloDaColuna.getColumn(3).setCellRenderer(rendererCentro); // Serviço Contratado
+        modeloDaColuna.getColumn(3).setCellRenderer(rendererEsquerda); // Serviço Contratado
         modeloDaColuna.getColumn(4).setCellRenderer(rendererCentro); // Endereço
 
         // Define o tamanho das colunas na tabela.
@@ -254,24 +256,33 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
     }
 
     private void carregarDadosTabela() {
-        Cliente[] clientes = BD.Cliente.selectAll();
+        Cliente_servico[] clientes_contrata_servicos = BD.ClienteContrataServico.selectAll(); // Cliente_contrata_servico.
+        Cliente cliente; // Cliente.
+        Servico servico; // Serviço.
         
         DefaultTableModel modelo = (DefaultTableModel) jtbl_clientes_cadastrados.getModel();
         modelo.setNumRows(0);
             
-        if (clientes != null) {
-            // Preenche cada linha com cada funcionário dentro de funcionários.
-            for (Cliente cliente : clientes) {
+        if (clientes_contrata_servicos != null) {
+            // Preenche cada linha com cada cliente dentro de cliente e seus respectivos serviços contratados.
+            for (Cliente_servico cliente_contrata_servico : clientes_contrata_servicos) { // Passa por cada cliente_contrata_servico registrado.
+                cliente = BD.Cliente.selectById(cliente_contrata_servico.getIdCliente()); // Pega os dados do cliente com base no ID.
+                
+                servico = BD.Servico.selectById(cliente_contrata_servico.getIdServico()); // Pega os dados do serviço com base no ID.
+                
+                // Pegando os dados para escrever na tabela.
                 String endereco = cliente.getRua() + ", " + cliente.getNumero() + " - " + cliente.getBairro() + " - " + cliente.getCidade() + " - " + cliente.getCep();
                 Object[] linha = {
                         cliente.getNome(),
                         cliente.getCpf().toString(),
                         cliente.getTelefone(),
-                        "Dog Walking/Pet Sitting", // TEMPORARIO
+                        servico.getNome(),
                         //"Ver",
                         endereco
                     };
                 modelo.addRow(linha); // Adiciona a linha a tabela.
+                
+                System.out.println(cliente_contrata_servico);
             }
         }
     }
