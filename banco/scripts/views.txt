@@ -18,3 +18,25 @@ LEFT JOIN
     incidente ON historico_servico.id_incidente = incidente.id_incidente
 LEFT JOIN 
     servico ON incidente.id_servico = servico.id_servico;
+
+
+
+-- Serve para visualizar as informações do cliente, juntamente com o serviço contratado.
+
+CREATE VIEW visualizacao_cliente AS
+SELECT
+    cliente.nome AS nome_cliente,
+    cliente.cpf,
+    cliente.telefone,
+    servico.nome AS nome_servico,
+    cliente.rua, 
+    cliente.numero, 
+    cliente.bairro, 
+    cliente.cidade, 
+    cliente.cep
+FROM
+	cliente_contrata_servico
+JOIN
+	cliente ON cliente.id_cliente = cliente_contrata_servico.id_cliente
+JOIN
+	servico ON servico.id_servico = cliente_contrata_servico.id_servico;
