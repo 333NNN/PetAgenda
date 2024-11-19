@@ -155,6 +155,7 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
         Tela_incidentes incidente = new Tela_incidentes();
         incidente.setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_jbtn_cadastrarIncidenteActionPerformed
 
     private void jtbl_historico_servicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_historico_servicoMouseClicked
@@ -162,7 +163,6 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
         int col = jtbl_historico_servico.getSelectedColumn();
         int row = jtbl_historico_servico.getSelectedRow();
         Object valor = jtbl_historico_servico.getValueAt(row, col);
-        Tela_incidentes frame = new Tela_incidentes();
         String data = "";
         String descricao = "";
         String emergencia = "";
