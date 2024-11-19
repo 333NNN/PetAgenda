@@ -247,7 +247,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         modeloDaColuna.getColumn(1).setMaxWidth(120); // CPF
         modeloDaColuna.getColumn(2).setMaxWidth(130); // Telefone
         modeloDaColuna.getColumn(3).setMaxWidth(180); // Serviço Contratado
-        modeloDaColuna.getColumn(4).setMaxWidth(100); // Endereço
+        modeloDaColuna.getColumn(4).setMaxWidth(165); // Endereço
     }
     
     private void initMenuPanel() {
@@ -256,34 +256,40 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
     }
 
     private void carregarDadosTabela() {
-        Cliente_servico[] clientes_contrata_servicos = BD.ClienteContrataServico.selectAll(); // Cliente_contrata_servico.
-        Cliente cliente; // Cliente.
-        Servico servico; // Serviço.
+        // Conexão com o banco.
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        String banco = "jdbc:mysql://localhost:3306/pet_agenda";
+        String usuario = "root";
+        String senha = "";
         
+        // Tabela.
         DefaultTableModel modelo = (DefaultTableModel) jtbl_clientes_cadastrados.getModel();
         modelo.setNumRows(0);
-            
-        if (clientes_contrata_servicos != null) {
-            // Preenche cada linha com cada cliente dentro de cliente e seus respectivos serviços contratados.
-            for (Cliente_servico cliente_contrata_servico : clientes_contrata_servicos) { // Passa por cada cliente_contrata_servico registrado.
-                cliente = BD.Cliente.selectById(cliente_contrata_servico.getIdCliente()); // Pega os dados do cliente com base no ID.
-                
-                servico = BD.Servico.selectById(cliente_contrata_servico.getIdServico()); // Pega os dados do serviço com base no ID.
-                
-                // Pegando os dados para escrever na tabela.
-                String endereco = cliente.getRua() + ", " + cliente.getNumero() + " - " + cliente.getBairro() + " - " + cliente.getCidade() + " - " + cliente.getCep();
+
+        try {
+            conn = DriverManager.getConnection(banco, usuario, senha); // Iniciando a conexão com o banco.
+
+            String sql = "SELECT * FROM visualizacao_cliente";
+            stmt = conn.prepareStatement(sql);
+
+            rs = stmt.executeQuery();
+            System.out.println(rs);
+            while (rs.next()) {
                 Object[] linha = {
-                        cliente.getNome(),
-                        cliente.getCpf().toString(),
-                        cliente.getTelefone(),
-                        servico.getNome(),
-                        //"Ver",
-                        endereco
+                        rs.getString("nome_cliente"),
+                        rs.getString("cpf"),
+                        rs.getString("telefone"),
+                        rs.getString("nome_servico"),
+                        (rs.getString("rua")) + ", " + (rs.getString("numero")) + " - " + (rs.getString("bairro")) + " - " + (rs.getString("cidade")) + " - " + (rs.getString("cep"))
                     };
                 modelo.addRow(linha); // Adiciona a linha a tabela.
-                
-                System.out.println(cliente_contrata_servico);
             }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     
