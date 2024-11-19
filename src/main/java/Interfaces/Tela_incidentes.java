@@ -33,12 +33,9 @@ public class Tela_incidentes extends javax.swing.JFrame {
         jbtn_cadastrar = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         lbl_historico_servicos = new javax.swing.JLabel();
-        jlbl_Servico_contratado = new javax.swing.JLabel();
         jtxtf_campo_nome_pet = new javax.swing.JTextField();
         jspnnr_Grupo = new javax.swing.JSpinner();
         jlbl_descricao_incidente = new javax.swing.JLabel();
-        jckBox_petSitter = new javax.swing.JCheckBox();
-        jckBox_dogWalker = new javax.swing.JCheckBox();
         jlbl_Grupo1 = new javax.swing.JLabel();
         jlbl_emergencia_medica = new javax.swing.JLabel();
         jckBox_Sim1 = new javax.swing.JCheckBox();
@@ -78,10 +75,6 @@ public class Tela_incidentes extends javax.swing.JFrame {
         lbl_historico_servicos.setText("Cadastro de Incidente");
         jPanel6.add(lbl_historico_servicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
 
-        jlbl_Servico_contratado.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
-        jlbl_Servico_contratado.setText("Serviço Contratado:");
-        jPanel6.add(jlbl_Servico_contratado, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 140, 20));
-
         jtxtf_campo_nome_pet.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_campo_nome_pet.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtf_campo_nome_pet.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -92,35 +85,19 @@ public class Tela_incidentes extends javax.swing.JFrame {
         jPanel6.add(jtxtf_campo_nome_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 220, 52));
 
         jspnnr_Grupo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jPanel6.add(jspnnr_Grupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 70, 50));
+        jPanel6.add(jspnnr_Grupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 150, 50));
 
         jlbl_descricao_incidente.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_descricao_incidente.setText("Descrição do Incidente:");
         jPanel6.add(jlbl_descricao_incidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 170, 20));
 
-        jckBox_petSitter.setText("Pet Sitter");
-        jckBox_petSitter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jckBox_petSitterActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jckBox_petSitter, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 140, -1, -1));
-
-        jckBox_dogWalker.setText("Dog Walker");
-        jckBox_dogWalker.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jckBox_dogWalkerActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jckBox_dogWalker, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, -1, -1));
-
         jlbl_Grupo1.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
-        jlbl_Grupo1.setText("Grupo:");
-        jPanel6.add(jlbl_Grupo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, 50, 20));
+        jlbl_Grupo1.setText("Id do agendamento:");
+        jPanel6.add(jlbl_Grupo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 150, 20));
 
         jlbl_emergencia_medica.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_emergencia_medica.setText("Emergência Médica:");
-        jPanel6.add(jlbl_emergencia_medica, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 140, 20));
+        jPanel6.add(jlbl_emergencia_medica, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, 140, 20));
 
         jckBox_Sim1.setText("Sim");
         jckBox_Sim1.addActionListener(new java.awt.event.ActionListener() {
@@ -128,7 +105,7 @@ public class Tela_incidentes extends javax.swing.JFrame {
                 jckBox_Sim1ActionPerformed(evt);
             }
         });
-        jPanel6.add(jckBox_Sim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, -1, -1));
+        jPanel6.add(jckBox_Sim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, -1, -1));
 
         jckBox_Nao1.setText("Não");
         jckBox_Nao1.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +113,7 @@ public class Tela_incidentes extends javax.swing.JFrame {
                 jckBox_Nao1ActionPerformed(evt);
             }
         });
-        jPanel6.add(jckBox_Nao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, -1, -1));
+        jPanel6.add(jckBox_Nao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 120, -1, -1));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -162,14 +139,6 @@ public class Tela_incidentes extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jckBox_dogWalkerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jckBox_dogWalkerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jckBox_dogWalkerActionPerformed
-
-    private void jckBox_petSitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jckBox_petSitterActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jckBox_petSitterActionPerformed
 
     private void jckBox_Sim1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jckBox_Sim1ActionPerformed
         // TODO add your handling code here:
@@ -233,10 +202,7 @@ public class Tela_incidentes extends javax.swing.JFrame {
     private javax.swing.JButton jbtn_cadastrar;
     private javax.swing.JCheckBox jckBox_Nao1;
     private javax.swing.JCheckBox jckBox_Sim1;
-    private javax.swing.JCheckBox jckBox_dogWalker;
-    private javax.swing.JCheckBox jckBox_petSitter;
     private javax.swing.JLabel jlbl_Grupo1;
-    private javax.swing.JLabel jlbl_Servico_contratado;
     private javax.swing.JLabel jlbl_background;
     private javax.swing.JLabel jlbl_descricao_incidente;
     private javax.swing.JLabel jlbl_emergencia_medica;
