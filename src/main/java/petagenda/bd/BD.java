@@ -564,7 +564,6 @@ public class BD {
                         insert.setString(6, cliente.getBairro()); // bairro
                         insert.setString(7, cliente.getCidade()); // cidade
                         insert.setString(8, cliente.getCep()); // cep
-                        System.out.println(cliente.getBuscarPetCom());
                         insert.setString(9, cliente.getBuscarPetCom()); // buscar_com
                         insert.setString(10, cliente.getDevolverPetPara()); // devolver_para
 
@@ -1879,4 +1878,70 @@ public class BD {
             }
         }
      }
+    
+    static public class Pet {
+        public static final String TABLE = "pet";
+        
+        public static int insert(petagenda.Pet pet) {
+            int r = 0;
+            
+            if (pet == null) {
+                throw new NullPointerException("Pet não pode ser nulo.");
+            }
+            else {
+                Connection conn = BD.getConnection();
+                if (conn == null) { // Se o banco for inacessível retorna 0.
+                    return r;
+                }
+                else {
+                    // Criação do statement.
+                    PreparedStatement insert = null;
+                    try {
+                        insert = conn.prepareStatement(String.format("INSERT INTO %s(nome, raca, sexo, porte, comportamento, e_castrado, caminho_cartao_vacinacao, estado_saude, cor, id_cliente) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", TABLE));
+                    
+                        insert.setString(1, pet.getNome()); // nome
+                        insert.setString(2, pet.getRaca()); // raca
+                        insert.setString(3, pet.getSexo().toString()); // sexo
+                        insert.setString(4, pet.getPorte().toString()); // porte
+                        insert.setString(5, pet.getComportamento()); // comportamento
+                        insert.setBoolean(6, pet.getECastrado()); // e_castrado
+                        insert.setString(7, pet.getCaminhoCartaoVacinacao()); // caminho_cartao_vacinacao
+                        insert.setString(8, pet.getEstadoSaude()); // estado_saude
+                        insert.setString(9, pet.getCor()); // cor
+                        insert.setInt(10, pet.getDono()); // id_cliente
+                        
+                        r = insert.executeUpdate();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de execução do insert", JOptionPane.ERROR_MESSAGE);
+                        r = -1;
+                    }
+                    
+                    if (insert != null) { // Se preparedStatement não falhou
+                        try {
+                            insert.close();
+                        }
+                        catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                        }
+                        finally {
+                            insert = null;
+                        }
+                    }
+                    
+                    try {
+                        conn.close();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                    }
+                    finally {
+                        conn = null;
+                    }
+                }
+            }
+            
+            return r;
+        }
+    }
 }

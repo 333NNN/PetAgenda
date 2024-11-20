@@ -5,6 +5,7 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
+import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,13 +14,18 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import petagenda.dados.Porte;
 import petagenda.dados.Sexo;
 import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
 import petagenda.Cliente;
+import petagenda.Pet;
 import petagenda.bd.BD;
 
 /**
@@ -32,9 +38,53 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
      * Creates new form tela_cadastro_pet
      */
     public tela_cadastro_pet() {
+        // Validação de login.
+        /*
+        if (Usuario.getAtual() != null) {
+
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "É necessário estar logado para acessar esta funcionalidade.");
+            super.dispose();
+            System.exit(0);
+        }
+        */
+        
         initComponents();
         initMenuPanel();
+        jtxtf_nome_cliente.setEnabled(false);
+        AlinhaJField();
     }
+    
+    private void AlinhaJField() {
+        Border line = BorderFactory.createLineBorder(Color.BLACK, 2);
+        Border empty = new EmptyBorder(0, 5, 0, 0);
+        CompoundBorder border = new CompoundBorder(line, empty);
+
+        jtxtf_nome_pet.setBorder(border);
+        jtxtf_nome_cliente.setBorder(border);
+        txtf_Raca.setBorder(border);
+        jcmbBx_Porte.setBorder(border);
+        txtf_Cor.setBorder(border);
+        jcmbBx_sexo.setBorder(border);
+        jtxtarea_comportamento.setBorder(border);
+        jtxtarea_saude.setBorder(border);
+    }
+    
+    private Pet getFieldInfo() {
+        Pet novo_pet = null;
+        
+        String nome, raca, comportamento, caminho_cartao_vacinacao, estado_saude, cor;
+        boolean eCastrado;
+        Sexo sexo;
+        Porte porte;
+        int id_cliente;
+        
+        nome = jtxtf_nome_pet.getText();
+        
+        return novo_pet;
+    }
+    
     public class ConexaoMySQL {
         private static final String URL = "jdbc:mysql://localhost:3306/pet_agenda";
         private static final String USER = "root";
@@ -140,8 +190,10 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         label_nome_do_pet.setText("Nome do Dono:");
         jpanel_cadastrar_pet.add(label_nome_do_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 84, -1, -1));
 
+        jtxtf_nome_cliente.setEditable(false);
         jtxtf_nome_cliente.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_nome_cliente.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtxtf_nome_cliente.setForeground(new java.awt.Color(0, 0, 0));
         jtxtf_nome_cliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jtxtf_nome_cliente.setMinimumSize(new java.awt.Dimension(250, 50));
         jtxtf_nome_cliente.setPreferredSize(new java.awt.Dimension(250, 50));
@@ -378,6 +430,8 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
 
     private void jbtn_cadastrarPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_cadastrarPetActionPerformed
         // TODO add your handling code here:
+        
+        /*
         String sql = "INSERT INTO pet (nome, raca, sexo, porte, comportamento, e_castrado, caminho_cartao_vacinacao, estado_saude, cor, id_cliente) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = ConexaoMySQL.conectar();
@@ -412,6 +466,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         } catch (SQLException e) {
             System.out.println("Erro ao inserir pessoa: " + e.getMessage());
         }
+        */
     }//GEN-LAST:event_jbtn_cadastrarPetActionPerformed
 
     private void chkBx_SimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBx_SimActionPerformed
