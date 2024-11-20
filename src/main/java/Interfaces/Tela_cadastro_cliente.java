@@ -466,7 +466,6 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
             Logger.getLogger(Tela_cadastro_cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        System.out.println(cadastrar);
         String strCpf = cadastrar.getCpf().toString();
         duplicado = Duplicado(strCpf);
         
