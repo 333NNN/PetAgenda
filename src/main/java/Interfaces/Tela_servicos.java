@@ -53,7 +53,6 @@ public class Tela_servicos extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tbl_Servicos.setBackground(new java.awt.Color(217, 217, 217));
-        tbl_Servicos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         tbl_Servicos.setFont(new java.awt.Font("Merriweather", 0, 16)); // NOI18N
         tbl_Servicos.setForeground(new java.awt.Color(0, 0, 0));
         tbl_Servicos.setModel(new javax.swing.table.DefaultTableModel(
@@ -86,8 +85,8 @@ public class Tela_servicos extends javax.swing.JFrame {
         lbl_title.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
         lbl_title.setForeground(new java.awt.Color(0, 0, 0));
         lbl_title.setText("Histórico de Serviços");
-        lbl_title.setPreferredSize(new java.awt.Dimension(463, 50));
-        getContentPane().add(lbl_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
+        lbl_title.setPreferredSize(new java.awt.Dimension(466, 50));
+        getContentPane().add(lbl_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -108,7 +107,7 @@ public class Tela_servicos extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tbl_Servicos.getModel();
         modelo.setRowCount(0);
 
-        String sql = "SELECT * FROM vw_detalhes_servico";
+        String sql = "SELECT * FROM vw_agendamento_detalhado";
 
         try (Connection conn = BD.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 

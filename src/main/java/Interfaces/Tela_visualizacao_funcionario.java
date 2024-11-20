@@ -92,6 +92,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         jPanel_tabela.setPreferredSize(new java.awt.Dimension(830, 480));
         jPanel_tabela.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jScroll_tabela.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScroll_tabela.setPreferredSize(new java.awt.Dimension(830, 480));
         jScroll_tabela.setVerifyInputWhenFocusTarget(false);
 

@@ -221,7 +221,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         lbl_cadastrarFuncinario.setForeground(new java.awt.Color(0, 0, 0));
         lbl_cadastrarFuncinario.setText("Cadastrar funcionário");
         lbl_cadastrarFuncinario.setPreferredSize(new java.awt.Dimension(486, 45));
-        jPanel1.add(lbl_cadastrarFuncinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 330, -1));
+        jPanel1.add(lbl_cadastrarFuncinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
 
         jlbl_nome_funcionario.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_nome_funcionario.setForeground(new java.awt.Color(0, 0, 0));
