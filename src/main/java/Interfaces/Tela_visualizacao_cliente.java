@@ -276,7 +276,6 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
             stmt = conn.prepareStatement(sql);
 
             rs = stmt.executeQuery();
-            System.out.println(rs);
             while (rs.next()) {
                 Object[] linha = {
                         rs.getString("nome_cliente"),

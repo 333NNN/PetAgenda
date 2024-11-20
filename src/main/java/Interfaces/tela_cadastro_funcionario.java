@@ -398,7 +398,6 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
             Logger.getLogger(tela_cadastro_funcionario.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        System.out.println(cadastrar);
         String strCpf = cadastrar.getCpf().toString();
         duplicado = Duplicado(strCpf);
         
