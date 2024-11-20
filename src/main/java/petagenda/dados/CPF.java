@@ -108,7 +108,7 @@ public class CPF {
         } else if (str.length() < TAM_CPF) {
                 return false;
         }
-        
+
         str = str.trim();
         if (str.length() < TAM_CPF || str.length() > TAM_CPF) {
                 return false;

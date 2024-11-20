@@ -409,23 +409,9 @@ public final class Cliente {
         return this.devolver_para;
     }
 
-    /*
-    public void setServico(Servico servico) {
-        if (servico == null) {
-            throw new IllegalServicoException("serviço não pode ser nulo");
-        } else {
-            this.servicoSolicita = servico;
-        }
-    }
-    
-    public Servico getServico() {
-        return this.servicoSolicita;
-    }
-    */
-    
     @Override
     public String toString() {
-        return String.format("%s" /*SERVIÇO SOL.: %s"*/, getNome()/*, getEndereco().toString(), getTelefone(), getServico().getNome()*/);
+        return String.format("NOME: %s | CPF: %s" /*SERVIÇO SOL.: %s"*/, getNome(), getCpf()/*, getEndereco().toString(), getTelefone(), getServico().getNome()*/);
                                    //ENDERECO: %s 
     }
 }

@@ -23,12 +23,10 @@ import petagenda.Cliente;
 import petagenda.Cliente_servico;
 import petagenda.Usuario;
 import petagenda.bd.BD;
-import petagenda.dados.Endereco;
-import petagenda.dados.LocalAtuacao;
+import petagenda.dados.CPF;
 import petagenda.exception.IllegalArgumentsException;
 import petagenda.servico.Servico;
 import ui.custom.RoundedCornerButtonUI;
-import ui.custom.RoundedCornerBorder;
 
 /**
  *
@@ -89,36 +87,6 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jtxtf_campo_cidade.setBorder(border);
     }
     
-    private static boolean Duplicado(String str) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        String banco = "jdbc:mysql://localhost:3306/pet_agenda";
-        String usuario = "root";
-        String senha = "";
-
-        try {
-            conn = DriverManager.getConnection(banco, usuario, senha);
-
-            String sql = "SELECT COUNT(*) FROM cliente WHERE cpf = ?";
-            stmt = conn.prepareStatement(sql);
-            stmt.setString(1, str);
-
-            rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                int count = rs.getInt(1);
-                return count > 0;
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
-    
     // Preenche ComboBox com os serviços.
     private void PreencherJCombobox() {
         Servico[] servicos = BD.Servico.selectAll();
@@ -139,7 +107,6 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
     private Cliente getFieldInfo() throws SQLException {
         Cliente novo_cliente = null;
         String nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_pet_para;
-        boolean cpf_duplicado;
         
         nome = jtxtf_campo_nome_cliente.getText();
         cpf = jtxtf_campo_cpf.getText();
@@ -159,14 +126,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         
         // Criação do cliente.
         try {
-            cpf_duplicado = Duplicado(cpf);
-            if (!cpf_duplicado){
-                novo_cliente = new Cliente(nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_pet_para);
-            }
-            else {
-                JOptionPane.showMessageDialog(null, "CPF já cadastrado.", "CPF inválido", JOptionPane.ERROR_MESSAGE);
-            }
-            
+            novo_cliente = new Cliente(nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_pet_para);  
         }
         catch (IllegalArgumentsException exs) {
             exsCadastro.addCause(exs.getCauses());
@@ -190,6 +150,40 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         }
         
         return novo_cliente;
+    }
+    
+    private static boolean Duplicado(String strCpf) { // Verifica se o cpf já existe no banco de dados
+        int count;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        String banco = "jdbc:mysql://localhost:3306/pet_agenda";
+        String usuario = "root";
+        String senha = "";
+        
+        // Verifica se o CPF já existe no banco de dados.
+        try {
+            conn = DriverManager.getConnection(banco, usuario, senha);
+
+            String sql = "SELECT COUNT(*) FROM cliente WHERE cpf = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, strCpf);
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                count = rs.getInt(1);
+                if (count > 0) {
+                    return true;
+                }
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return false;
     }
     
     private Cliente_servico getClienteServico() {
@@ -245,7 +239,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jtxtf_campo_nome_cliente.setText(null);
         jtxtf_campo_cpf.setText(null);
         jtxtf_campo_telefone.setText(null);
-        //jcbox_Selecao_servico.setBorder(border);
+        jcbox_Selecao_servico.setSelectedItem(0);
         jtxtf_campo_cep.setText(null);
         jtxtf_campo_num.setText(null);
         jtxtf_campo_rua.setText(null);
@@ -461,7 +455,9 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         Cliente cadastrar = null;
         Cliente_servico cadastro_contratado = null;
-
+        
+        boolean duplicado = false;
+        
         // Cadastro do cliente.
         try {
             cadastrar = getFieldInfo(); // Retornara null se informações não forem válidas.
@@ -470,17 +466,26 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
             Logger.getLogger(Tela_cadastro_cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if (cadastrar != null) {
-            int cl = BD.Cliente.insert(cadastrar); // Dando insert no cliente.
-            
-            // cliente_contrata_servico.
-            cadastro_contratado = getClienteServico();
-            int cc = BD.ClienteContrataServico.insert(cadastro_contratado);
-            
-            if (cl > 0 && cc > 0) { // Foi cadastrado cliente e cliente_contrata_servico.
-                clearFieldsInfo();
-                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+        System.out.println(cadastrar);
+        String strCpf = cadastrar.getCpf().toString();
+        duplicado = Duplicado(strCpf);
+        
+        if (duplicado == false) {
+            if (cadastrar != null) {
+                int cl = BD.Cliente.insert(cadastrar); // Dando insert no cliente.
+
+                // cliente_contrata_servico.
+                cadastro_contratado = getClienteServico();
+                int cc = BD.ClienteContrataServico.insert(cadastro_contratado);
+
+                if (cl > 0 && cc > 0) { // Foi cadastrado cliente e cliente_contrata_servico.
+                    clearFieldsInfo();
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                }
             }
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "CPF já cadastrado.", "CPF inválido", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbtn_Cadastrar_clienteActionPerformed
 

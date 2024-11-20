@@ -85,34 +85,37 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         field_cidade.setBorder(border);
     }
     
-    private static boolean Duplicado(String str) {
+    private static boolean Duplicado(String strCpf) { // Verifica se o cpf já existe no banco de dados
+        int count;
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        // String de conexão com o banco de dados (substitua com seus dados)
         String banco = "jdbc:mysql://localhost:3306/pet_agenda";
         String usuario = "root";
         String senha = "";
-
+        
+        // Verifica se o CPF já existe no banco de dados.
         try {
             conn = DriverManager.getConnection(banco, usuario, senha);
 
-            String sql = "SELECT COUNT(*) FROM cliente WHERE cpf = ?";
+            String sql = "SELECT COUNT(*) FROM funcionario WHERE cpf = ?";
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, str);
+            stmt.setString(1, strCpf);
 
             rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                int count = rs.getInt(1);
-                return count > 0;
+            while (rs.next()) {
+                count = rs.getInt(1);
+                if (count > 0) {
+                    return true;
+                }
             }
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
-
+        
         return false;
     }
     
@@ -135,13 +138,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
 
         // Criação do funcionario
         try {
-            cpf_duplicado = Duplicado(cpf);
-            if (!cpf_duplicado) {
-                novoFuncionario = new Funcionario(nome, cpf, telefone, rua, cep, numero, bairro, cidade);
-            }
-            else {
-                JOptionPane.showMessageDialog(null, "CPF já cadastrado.", "CPF inválido", JOptionPane.ERROR_MESSAGE);
-            }
+            novoFuncionario = new Funcionario(nome, cpf, telefone, rua, cep, numero, bairro, cidade);
         } catch (IllegalArgumentsException exs) {
             exsCadastro.addCause(exs.getCauses());
         }
@@ -391,17 +388,32 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
 
     private void jbtn_cadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_cadastrarFuncionarioActionPerformed
         Funcionario cadastrar = null;
+        
+        boolean duplicado = false;
+        
         try {
             cadastrar = getFieldsInfo(); // Retorna null se informações forem inválidas
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) {
             Logger.getLogger(tela_cadastro_funcionario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (cadastrar != null) {
-            int r = BD.Funcionario.insert(cadastrar);
-            if (r > 0) { // Insert funcionou
-                clearFieldsInfo();
-                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-            }
+        
+        System.out.println(cadastrar);
+        String strCpf = cadastrar.getCpf().toString();
+        duplicado = Duplicado(strCpf);
+        
+        if (duplicado == false) {
+           if (cadastrar != null) {
+                int r = BD.Funcionario.insert(cadastrar);
+                
+                if (r > 0) { // Insert funcionou
+                    clearFieldsInfo();
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                }
+            } 
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "CPF já cadastrado.", "CPF inválido", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbtn_cadastrarFuncionarioActionPerformed
 

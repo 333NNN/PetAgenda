@@ -273,35 +273,6 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
                 modelo.addRow(linha); // Adiciona a linha a tabela.
             }
         }
-
-        /*
-        DefaultTableModel modelo = (DefaultTableModel) jtbl_funcionarios.getModel();
-        modelo.setRowCount(0);
-
-        String sql = "SELECT u.nome, u.cpf, u.telefone, ts.nome AS servico "
-                   + "FROM usuario u "
-                   + "JOIN tipo_servico ts ON u.id_servico_presta = ts.id";
-
-        try (Connection conn = BD.getConnection(); 
-             PreparedStatement stmt = conn.prepareStatement(sql); 
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                Object[] linha = {
-                    rs.getString("nome"),
-                    rs.getString("cpf"),
-                    rs.getString("telefone"),
-                    rs.getString("servico"),
-                    
-                };
-                modelo.addRow(linha); // Adiciona cada linha de dados na tabela
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao carregar dados: " + e.getMessage());
-        }
-        */
     }
 
     /**
