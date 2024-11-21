@@ -5,7 +5,6 @@ package petagenda.dados;
  * @author t.baiense
  */
 public enum Porte {
-    SEL ("SELECIONAR"),
     PEQUENO ("Pequeno"),
     MEDIO ("Médio"),
     GRANDE ("Grande");

@@ -95,7 +95,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         Sexo sexo;
         Porte porte;
         int id_cliente, index_cliente;
-        
+
         nome = jtxtf_nome_pet.getText(); // nome
         raca = jtxtf_Raca.getText(); // raca
         sexo = (Sexo) jcmbBx_sexo.getSelectedItem(); // sexo
@@ -110,6 +110,9 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         {
             eCastrado = false;
         }
+        else {
+            
+        }
         
         // caminho_cartao_vacinacao
         estado_saude = jtxtarea_saude.getText(); // estado_saude
@@ -123,7 +126,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         System.out.println(id_cliente);
         
         IllegalArgumentsException exsCadastro = new IllegalArgumentsException();
-        
+         
         // Criação do pet.
         try {
             novo_pet = new Pet(nome, raca, sexo, porte, comportamento, eCastrado, "TEMPORARIO", estado_saude, cor, id_cliente);
@@ -131,21 +134,18 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         catch (IllegalArgumentsException exs) {
             exsCadastro.addCause(exs.getCauses());
         }
-        
         // Se houver exceções de validação, exibe as mensagens.
         if (exsCadastro.size() > 0) {
             Throwable[] todasCauses = exsCadastro.getCauses();
-            Arrays.sort(todasCauses); // Ordena as mensagens de exceção usando order_index das exceções.
+            Arrays.sort(todasCauses);
             
             StringBuilder erros = new StringBuilder();
-            
-            for (Throwable c : todasCauses) {
+            for (Throwable c: todasCauses) {
                 if (c != null) {
                     erros.append(c.getMessage());
                     erros.append("\n");
                 }
             }
-            
             JOptionPane.showMessageDialog(null, erros.toString(), "Campos inválidos", JOptionPane.ERROR_MESSAGE);
         }
         

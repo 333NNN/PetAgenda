@@ -2,12 +2,9 @@ package petagenda;
 
 //import java.util.Arrays;
 import petagenda.exception.IllegalPorteException;
-import petagenda.dados.Endereco;
 import petagenda.dados.Porte;
 import petagenda.exception.*;
 import petagenda.dados.Sexo;
-//import petagenda.servico.Servico;
-//import petagenda.servico.TipoServico;
 
 /**
  *
@@ -20,18 +17,20 @@ public final class Pet {
     private Sexo sexo;
     private Porte porte;
     private String comportamento;
-    private boolean eCastrado;
+    private Boolean eCastrado;
     private String caminho_cartao_vacinacao;
     private String estado_saude;
     private String cor;
     private int id_cliente;
     
-    public Pet(String nome, String raca, Sexo sexo, Porte porte, String comportamento, boolean eCastrado, String caminho_cartao_vacinacao, String estado_saude, String cor, int id_cliente) {
+    public static final int NULL_ID = -1;
+    
+    public Pet(String nome, String raca, Sexo sexo, Porte porte, String comportamento, Boolean eCastrado, String caminho_cartao_vacinacao, String estado_saude, String cor, int id_cliente) {
         this(1, nome, raca, sexo, porte, comportamento, eCastrado, caminho_cartao_vacinacao, estado_saude, cor, id_cliente);
-        this.id_pet = -1;
+        this.id_pet = NULL_ID;
     }
     
-    public Pet(int id_pet, String nome, String raca, Sexo sexo, Porte porte, String comportamento, boolean eCastrado, String caminho_cartao_vacinacao, String estado_saude, String cor, int id_cliente) {
+    public Pet(int id_pet, String nome, String raca, Sexo sexo, Porte porte, String comportamento, Boolean eCastrado, String caminho_cartao_vacinacao, String estado_saude, String cor, int id_cliente) {
         IllegalArgumentsException exs = new IllegalArgumentsException();
         
         // id_pet
@@ -78,8 +77,13 @@ public final class Pet {
         }
         
         // e_castrado
-        setCastrado(eCastrado);
-        
+        try {
+            setCastrado(eCastrado);
+        }
+        catch (IllegalECastradoException ex) {
+            exs.addCause(ex);
+        }
+
         // caminho_cartao_vacinacao
         try {
             setCaminhoCartaoVacinacao(caminho_cartao_vacinacao);
@@ -112,7 +116,7 @@ public final class Pet {
             exs.addCause(ex);
         }
         
-        if (exs.size() > 0) {
+        if (exs.size() > 0) { // Alguma exceção ocorreu.
             throw exs;
         }
     }
@@ -140,9 +144,9 @@ public final class Pet {
                 throw new IllegalNomeException("nome não pode ser vazio");
             } else if (nome.length() > 64) {
                 throw new IllegalNomeException("nome não pode conter mais do que 45 caracteres");
-            }
-            this.nome = nome;
+            }  
         }
+        this.nome = nome;
     }
     
     public String getNome() {
@@ -152,13 +156,13 @@ public final class Pet {
     // raca
     public void setRaca(String raca){
         if (raca == null) {
-            throw new IllegalNomeException("raça não pode ser nula");
+            throw new IllegalRacaException("raça não pode ser nula");
         }
         raca = raca.trim();
         if (raca.isEmpty()) {
-            throw new IllegalNomeException("raça não pode ser vazia");
+            throw new IllegalRacaException("raça não pode ser vazia");
         } else if (raca.length() > 45) {
-            throw new IllegalNomeException("raça não pode conter mais do que 45 caracteres");
+            throw new IllegalRacaException("raça não pode conter mais do que 45 caracteres");
         }
         this.raca = raca;
     }
@@ -200,16 +204,16 @@ public final class Pet {
     // comportamento
     public void setComportamento(String comportamento) {
         if (comportamento == null) {
-            throw new IllegalNomeException("comportamento não pode ser nulo");
+            throw new IllegalComportamentoPetException("comportamento não pode ser nulo");
         } else {
             comportamento = comportamento.trim();
             if (comportamento.isEmpty()) {
-                throw new IllegalNomeException("comportamento não pode ser vazia");
+                throw new IllegalComportamentoPetException("comportamento não pode ser vazia");
             } else if (comportamento.length() > 80) {
-                throw new IllegalNomeException("comportamento não pode conter mais do que 80 caracteres");
-            }
-            this.comportamento = comportamento;
+                throw new IllegalComportamentoPetException("comportamento não pode conter mais do que 80 caracteres");
+            }  
         }
+        this.comportamento = comportamento;
     }
     
     public String getComportamento() {
@@ -217,8 +221,13 @@ public final class Pet {
     }
     
     // e_castrado
-    public void setCastrado(boolean eCastrado) {
-        this.eCastrado = eCastrado;
+    public void setCastrado(Boolean eCastrado) {
+        if (eCastrado == null) {
+            throw new IllegalECastradoException("Castrado não pode ser nulo");
+        }
+        else {
+            this.eCastrado = eCastrado;
+        }
     }
     
     public boolean getECastrado() {
@@ -235,9 +244,9 @@ public final class Pet {
                 throw new IllegalCaminhoCartaoVacinacaoException("caminho do cartão de vacinação não pode ser vazia");
             } else if (caminho.length() > 255) {
                 throw new IllegalCaminhoCartaoVacinacaoException("caminho do cartão de vacinação não pode conter mais do que 255 caracteres");
-            }
-            this.caminho_cartao_vacinacao = caminho;
+            }  
         }
+        this.caminho_cartao_vacinacao = caminho;
     }
     
     public String getCaminhoCartaoVacinacao() {
@@ -247,16 +256,16 @@ public final class Pet {
     // estado_saude
     public void setEstadoSaude(String estado) {
         if (estado == null) {
-            throw new IllegalNomeException("estado de saúde não pode ser nulo");
+            throw new IllegalEstadoSaudeException("estado de saúde não pode ser nulo");
         } else {
             estado = estado.trim();
             if (estado.isEmpty()) {
-                throw new IllegalNomeException("estado de saúde não pode ser vazia");
+                throw new IllegalEstadoSaudeException("estado de saúde não pode ser vazia");
             } else if (estado.length() > 80) {
-                throw new IllegalNomeException("estado de saúde não pode conter mais do que 255 caracteres");
-            }
-            this.estado_saude = estado;
+                throw new IllegalEstadoSaudeException("estado de saúde não pode conter mais do que 255 caracteres");
+            }  
         }
+        this.estado_saude = estado;
     }
     
     public String getEstadoSaude() {
@@ -266,16 +275,16 @@ public final class Pet {
     // cor
     public void setCor(String cor) {
         if (cor == null) {
-            throw new IllegalNomeException("cor não pode ser nulo");
+            throw new IllegalCorException("cor não pode ser nulo");
         } else {
             cor = cor.trim();
             if (cor.isEmpty()) {
-                throw new IllegalNomeException("cor não pode ser vazia");
+                throw new IllegalCorException("cor não pode ser vazia");
             } else if (cor.length() > 16) {
-                throw new IllegalNomeException("cor não pode conter mais do que 16 caracteres");
+                throw new IllegalCorException("cor não pode conter mais do que 16 caracteres");
             }
-            this.cor = cor;
         }
+        this.cor = cor;
     }
     
     public String getCor() {
@@ -285,7 +294,7 @@ public final class Pet {
     // id_cliente
     public void setDono(int id_cliente) {
         if (id_cliente < 0) {
-            throw new IllegalClienteException("cliente não pode ser nulo");
+            throw new IllegalIdException("cliente não pode ser nulo");
         } else {
             this.id_cliente = id_cliente;
         }
