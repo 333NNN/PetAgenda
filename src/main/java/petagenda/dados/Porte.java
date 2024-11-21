@@ -6,9 +6,9 @@ package petagenda.dados;
  */
 public enum Porte {
     SEL ("SELECIONAR"),
-    PEQUENO ("Pequeno (<35cm)"),
-    MEDIO ("Médio (<50cm)"),
-    GRANDE ("Grande (>50cm)");
+    PEQUENO ("Pequeno"),
+    MEDIO ("Médio"),
+    GRANDE ("Grande");
     
     public final String texto;
     
