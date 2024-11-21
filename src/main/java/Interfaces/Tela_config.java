@@ -70,6 +70,9 @@ public class Tela_config extends javax.swing.JFrame {
 
     private void btn_alteraSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_alteraSenhaActionPerformed
         // TODO add your handling code here:
+        tela_redefinicao_senha telaSenha = new tela_redefinicao_senha();
+        telaSenha.setVisible(true);
+        this.dispose();
         
     }//GEN-LAST:event_btn_alteraSenhaActionPerformed
 

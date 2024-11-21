@@ -107,7 +107,7 @@ public class TELA_LOGIN extends javax.swing.JFrame {
         jButton_ENTRAR.setBorder(null);
         jButton_ENTRAR.setBorderPainted(false);
         jButton_ENTRAR.setContentAreaFilled(false);
-        jButton_ENTRAR.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton_ENTRAR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_ENTRAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_ENTRARActionPerformed(evt);
