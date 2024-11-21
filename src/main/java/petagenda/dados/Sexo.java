@@ -5,8 +5,8 @@ package petagenda.dados;
  * @author thiago
  */
 public enum Sexo {
-    M ("Macho", "Masculino"),
-    F ("Fêmea", "Feminino");
+    M ("M", "Masculino"),
+    F ("F", "Feminino");
 
     public final String PET;
     public final String HUMANO;

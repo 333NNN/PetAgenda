@@ -14,6 +14,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -27,6 +30,7 @@ import ui.custom.RoundedCornerButtonUI;
 import petagenda.Cliente;
 import petagenda.Pet;
 import petagenda.bd.BD;
+import petagenda.exception.IllegalArgumentsException;
 
 /**
  *
@@ -52,7 +56,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         
         initComponents();
         initMenuPanel();
-        jtxtf_nome_cliente.setEnabled(false);
+        //jtxtf_nome_cliente.setEnabled(false);
         AlinhaJField();
     }
     
@@ -62,8 +66,8 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         CompoundBorder border = new CompoundBorder(line, empty);
 
         jtxtf_nome_pet.setBorder(border);
-        jtxtf_nome_cliente.setBorder(border);
-        txtf_Raca.setBorder(border);
+        jcombBox_nome_dono.setBorder(border);
+        jtxtf_Raca.setBorder(border);
         jcmbBx_Porte.setBorder(border);
         txtf_Cor.setBorder(border);
         jcmbBx_sexo.setBorder(border);
@@ -71,16 +75,79 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         jtxtarea_saude.setBorder(border);
     }
     
-    private Pet getFieldInfo() {
+    private void clearFieldsInfo() {
+        jtxtf_nome_pet.setText(null);
+        jtxtf_Raca.setText(null);
+        jcmbBx_sexo.setSelectedItem(0);
+        jcmbBx_Porte.setSelectedItem(0);
+        jtxtarea_comportamento.setText(null);
+        chkBx_Sim.setSelected(false);
+        chkBx_Nao.setSelected(false);
+        jtxtarea_saude.setText(null);  
+        txtf_Cor.setText(null);
+    }
+    
+    private Pet getFieldInfo() throws SQLException{
         Pet novo_pet = null;
         
         String nome, raca, comportamento, caminho_cartao_vacinacao, estado_saude, cor;
-        boolean eCastrado;
+        Boolean eCastrado = null;
         Sexo sexo;
         Porte porte;
-        int id_cliente;
+        int id_cliente, index_cliente;
         
-        nome = jtxtf_nome_pet.getText();
+        nome = jtxtf_nome_pet.getText(); // nome
+        raca = jtxtf_Raca.getText(); // raca
+        sexo = (Sexo) jcmbBx_sexo.getSelectedItem(); // sexo
+        porte = (Porte) jcmbBx_Porte.getSelectedItem(); // porte
+        comportamento = jtxtarea_comportamento.getText(); // comportamento
+        
+        // Define se é castrado ou não.
+        if (chkBx_Sim.isSelected()) {
+            eCastrado = true;
+        }
+        else if (chkBx_Nao.isSelected())
+        {
+            eCastrado = false;
+        }
+        
+        // caminho_cartao_vacinacao
+        estado_saude = jtxtarea_saude.getText(); // estado_saude
+        cor = txtf_Cor.getText(); // cor
+        
+        // id_cliente
+        Cliente[] nome_clientes = BD.Cliente.selectAll();
+        index_cliente = jcombBox_nome_dono.getSelectedIndex();
+        id_cliente = nome_clientes[index_cliente].getId();
+        
+        System.out.println(id_cliente);
+        
+        IllegalArgumentsException exsCadastro = new IllegalArgumentsException();
+        
+        // Criação do pet.
+        try {
+            novo_pet = new Pet(nome, raca, sexo, porte, comportamento, eCastrado, "TEMPORARIO", estado_saude, cor, id_cliente);
+        }
+        catch (IllegalArgumentsException exs) {
+            exsCadastro.addCause(exs.getCauses());
+        }
+        
+        // Se houver exceções de validação, exibe as mensagens.
+        if (exsCadastro.size() > 0) {
+            Throwable[] todasCauses = exsCadastro.getCauses();
+            Arrays.sort(todasCauses); // Ordena as mensagens de exceção usando order_index das exceções.
+            
+            StringBuilder erros = new StringBuilder();
+            
+            for (Throwable c : todasCauses) {
+                if (c != null) {
+                    erros.append(c.getMessage());
+                    erros.append("\n");
+                }
+            }
+            
+            JOptionPane.showMessageDialog(null, erros.toString(), "Campos inválidos", JOptionPane.ERROR_MESSAGE);
+        }
         
         return novo_pet;
     }
@@ -115,14 +182,13 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         label_nome_do_pet1 = new javax.swing.JLabel();
         jtxtf_nome_pet = new javax.swing.JTextField();
         label_nome_do_pet = new javax.swing.JLabel();
-        jtxtf_nome_cliente = new javax.swing.JTextField();
         lbl_Castrado = new javax.swing.JLabel();
         chkBx_Sim = new javax.swing.JCheckBox("Sim");
         chkBx_Nao = new javax.swing.JCheckBox("Não");
         lbl_Vacinas = new javax.swing.JLabel();
         jbtn_AddVacinas = new javax.swing.JButton();
         javax.swing.JLabel label_raca = new javax.swing.JLabel();
-        txtf_Raca = new javax.swing.JTextField();
+        jtxtf_Raca = new javax.swing.JTextField();
         label_porte = new javax.swing.JLabel();
         jcmbBx_Porte = new javax.swing.JComboBox<Porte>(Porte.values());
         label_cor = new javax.swing.JLabel();
@@ -136,6 +202,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         jtxtArea_Saude = new javax.swing.JScrollPane();
         jtxtarea_saude = new javax.swing.JTextArea();
         jbtn_cadastrarPet = new javax.swing.JButton();
+        jcombBox_nome_dono = new javax.swing.JComboBox<>();
         jlbl_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -189,20 +256,6 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         label_nome_do_pet.setForeground(new java.awt.Color(0, 0, 0));
         label_nome_do_pet.setText("Nome do Dono:");
         jpanel_cadastrar_pet.add(label_nome_do_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 84, -1, -1));
-
-        jtxtf_nome_cliente.setEditable(false);
-        jtxtf_nome_cliente.setBackground(new java.awt.Color(217, 217, 217));
-        jtxtf_nome_cliente.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jtxtf_nome_cliente.setForeground(new java.awt.Color(0, 0, 0));
-        jtxtf_nome_cliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jtxtf_nome_cliente.setMinimumSize(new java.awt.Dimension(250, 50));
-        jtxtf_nome_cliente.setPreferredSize(new java.awt.Dimension(250, 50));
-        jtxtf_nome_cliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxtf_nome_clienteActionPerformed(evt);
-            }
-        });
-        jpanel_cadastrar_pet.add(jtxtf_nome_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 103, -1, -1));
 
         lbl_Castrado.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         lbl_Castrado.setForeground(new java.awt.Color(0, 0, 0));
@@ -278,17 +331,17 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         label_raca.setText("Raça:");
         jpanel_cadastrar_pet.add(label_raca, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 179, -1, -1));
 
-        txtf_Raca.setBackground(new java.awt.Color(217, 217, 217));
-        txtf_Raca.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtf_Raca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        txtf_Raca.setMinimumSize(new java.awt.Dimension(200, 50));
-        txtf_Raca.setPreferredSize(new java.awt.Dimension(240, 50));
-        txtf_Raca.addActionListener(new java.awt.event.ActionListener() {
+        jtxtf_Raca.setBackground(new java.awt.Color(217, 217, 217));
+        jtxtf_Raca.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtxtf_Raca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jtxtf_Raca.setMinimumSize(new java.awt.Dimension(200, 50));
+        jtxtf_Raca.setPreferredSize(new java.awt.Dimension(240, 50));
+        jtxtf_Raca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtf_RacaActionPerformed(evt);
+                jtxtf_RacaActionPerformed(evt);
             }
         });
-        jpanel_cadastrar_pet.add(txtf_Raca, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 240, -1));
+        jpanel_cadastrar_pet.add(jtxtf_Raca, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 240, -1));
 
         label_porte.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         label_porte.setForeground(new java.awt.Color(0, 0, 0));
@@ -415,6 +468,11 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         jbtn_cadastrarPet.setUI(new RoundedCornerButtonUI());
         jpanel_cadastrar_pet.add(jbtn_cadastrarPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 530, 240, 50));
 
+        jcombBox_nome_dono.setBackground(new java.awt.Color(217, 217, 217));
+        jcombBox_nome_dono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jcombBox_nome_dono.setPreferredSize(new java.awt.Dimension(250, 50));
+        jpanel_cadastrar_pet.add(jcombBox_nome_dono, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 103, -1, -1));
+
         getContentPane().add(jpanel_cadastrar_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 41, -1, -1));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
@@ -424,49 +482,26 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtxtf_nome_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_nome_clienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtxtf_nome_clienteActionPerformed
-
     private void jbtn_cadastrarPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_cadastrarPetActionPerformed
         // TODO add your handling code here:
+        Pet cadastrar = null;
         
-        /*
-        String sql = "INSERT INTO pet (nome, raca, sexo, porte, comportamento, e_castrado, caminho_cartao_vacinacao, estado_saude, cor, id_cliente) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
-        try (Connection conn = ConexaoMySQL.conectar();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
-            
-            String nomePet = jtxtf_nome_pet.getText(); // nome
-            String raca = txtf_Raca.getText();
-            String sexo = jcmbBx_sexo.getSelectedItem().toString();
-            String porte = jcmbBx_Porte.getSelectedItem().toString();
-            String comportamento = jtxtarea_comportamento.getText();
-            
-            
-            String cor = txtf_Cor.getText();
-            
-            
-            String saude = jtxtarea_saude.getText();
-            
-            if (nomePet == null || raca == null || porte == null || comportamento == null || saude == null || cor == null || sexo == null) {
-                JOptionPane.showMessageDialog(this, "Não podemos cadastrar, todas as informações devem ser preenchidas.");
-            }else{
-                stmt.setString(1, nomePet);
-                stmt.setString(3, raca);
-                stmt.setString(4, porte);
-                stmt.setString(5, cor);
-                stmt.setString(6, sexo);
-                stmt.setString(7, comportamento);
-                stmt.setString(8, saude);
-                stmt.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
-            }
-        } catch (SQLException e) {
-            System.out.println("Erro ao inserir pessoa: " + e.getMessage());
+        // Cadastro do cliente.
+        try {
+            cadastrar = getFieldInfo(); // Retornara null se informações não forem válidas.
         }
-        */
+        catch (SQLException ex) {
+            Logger.getLogger(tela_cadastro_pet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (cadastrar != null) {
+            int r = BD.Pet.insert(cadastrar);
+            
+            if (r > 0) { // Insert funcionou
+                clearFieldsInfo();
+                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+            }
+        }
     }//GEN-LAST:event_jbtn_cadastrarPetActionPerformed
 
     private void chkBx_SimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBx_SimActionPerformed
@@ -477,9 +512,9 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtn_AddVacinasActionPerformed
 
-    private void txtf_RacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtf_RacaActionPerformed
+    private void jtxtf_RacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtf_RacaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtf_RacaActionPerformed
+    }//GEN-LAST:event_jtxtf_RacaActionPerformed
 
     private void jbtn_cadastrarPetMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtn_cadastrarPetMouseMoved
         // TODO add your handling code here:
@@ -511,8 +546,6 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtf_nome_petActionPerformed
     
-    
-    
     private void chkBx_SimStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chkBx_SimStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_chkBx_SimStateChanged
@@ -520,13 +553,13 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         
-        Cliente nomeCliente = BD.Cliente.selectLast();
+        Cliente[] nome_clientes = BD.Cliente.selectAll();
         
-        System.out.println(nomeCliente);
-        
-        jtxtf_nome_cliente.setText(nomeCliente.toString());
-     
+        for (Cliente nome_cliente : nome_clientes) {
+            jcombBox_nome_dono.addItem(nome_cliente.getNome());
+        }
     }//GEN-LAST:event_formWindowOpened
+    
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
         jPanel_menu.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
@@ -581,13 +614,14 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
     private javax.swing.JButton jbtn_cadastrarPet;
     private javax.swing.JComboBox<Porte> jcmbBx_Porte;
     private javax.swing.JComboBox<Sexo> jcmbBx_sexo;
+    private javax.swing.JComboBox<String> jcombBox_nome_dono;
     private javax.swing.JLabel jlbl_background;
     private javax.swing.JPanel jpanel_cadastrar_pet;
     private javax.swing.JScrollPane jtxtArea_Comportamento;
     private javax.swing.JScrollPane jtxtArea_Saude;
     private javax.swing.JTextArea jtxtarea_comportamento;
     private javax.swing.JTextArea jtxtarea_saude;
-    private javax.swing.JTextField jtxtf_nome_cliente;
+    private javax.swing.JTextField jtxtf_Raca;
     private javax.swing.JTextField jtxtf_nome_pet;
     private javax.swing.JLabel label_comportamento_do_pet;
     private javax.swing.JLabel label_cor;
@@ -600,6 +634,5 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_Saude;
     private javax.swing.JLabel lbl_Vacinas;
     private javax.swing.JTextField txtf_Cor;
-    private javax.swing.JTextField txtf_Raca;
     // End of variables declaration//GEN-END:variables
 }
