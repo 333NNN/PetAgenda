@@ -5,26 +5,24 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollBar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComponent;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
-import petagenda.Cliente;
-import petagenda.Cliente_servico;
-import petagenda.Funcionario;
-import petagenda.bd.BD;
-import petagenda.servico.Servico;
-import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
 
 /**
@@ -42,6 +40,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         initMenuPanel();
         AjustarColuna();
         carregarDadosTabela();
+        mostrarEndereco();
     }
 
     /**
@@ -76,10 +75,11 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         jPanel_tabela_clientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jPanel_tabela_clientes.setMinimumSize(new java.awt.Dimension(905, 560));
         jPanel_tabela_clientes.setOpaque(false);
-        jPanel_tabela_clientes.setPreferredSize(new java.awt.Dimension(895, 480));
+        jPanel_tabela_clientes.setPreferredSize(new java.awt.Dimension(915, 480));
         jPanel_tabela_clientes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jScrollPane_clientes_cadastrados.setPreferredSize(new java.awt.Dimension(895, 480));
+        jScrollPane_clientes_cadastrados.setHorizontalScrollBar(null);
+        jScrollPane_clientes_cadastrados.setPreferredSize(new java.awt.Dimension(915, 480));
 
         jtbl_clientes_cadastrados.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jtbl_clientes_cadastrados.setModel(new javax.swing.table.DefaultTableModel(
@@ -246,8 +246,8 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         modeloDaColuna.getColumn(0).setMaxWidth(300); // Nome
         modeloDaColuna.getColumn(1).setMaxWidth(120); // CPF
         modeloDaColuna.getColumn(2).setMaxWidth(130); // Telefone
-        modeloDaColuna.getColumn(3).setMaxWidth(180); // Serviço Contratado
-        modeloDaColuna.getColumn(4).setMaxWidth(165); // Endereço
+        modeloDaColuna.getColumn(3).setMaxWidth(145); // Serviço Contratado
+        modeloDaColuna.getColumn(4).setMaxWidth(199); // Endereço
     }
     
     private void initMenuPanel() {
@@ -290,6 +290,35 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    private void mostrarEndereco () {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Tela_visualizacao_cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // Adicionando MouseListener
+        jtbl_clientes_cadastrados.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // Obter a linha em que o mouse está passando
+                int row = jtbl_clientes_cadastrados.rowAtPoint(e.getPoint());
+                
+                // Exibir conteúdo da linha quando o mouse entra
+                if (row != -1) {
+                    String endereco = (String) jtbl_clientes_cadastrados.getValueAt(row, 4);
+
+                    jtbl_clientes_cadastrados.setToolTipText(endereco);
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Remover o Tooltip quando o mouse sair da linha
+                jtbl_clientes_cadastrados.setToolTipText(null);
+            }
+        });
     }
     
     /**
