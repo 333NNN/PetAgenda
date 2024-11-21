@@ -217,14 +217,14 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         lbl_cadastrarFuncinario.setFont(new java.awt.Font("Merriweather", 0, 35)); // NOI18N
         lbl_cadastrarFuncinario.setForeground(new java.awt.Color(0, 0, 0));
         lbl_cadastrarFuncinario.setText("Cadastrar funcionário");
-        lbl_cadastrarFuncinario.setPreferredSize(new java.awt.Dimension(486, 45));
-        jPanel1.add(lbl_cadastrarFuncinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
+        lbl_cadastrarFuncinario.setPreferredSize(new java.awt.Dimension(340, 45));
+        jPanel1.add(lbl_cadastrarFuncinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
 
         jlbl_nome_funcionario.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_nome_funcionario.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_nome_funcionario.setText("Nome do funcionário:");
         jlbl_nome_funcionario.setPreferredSize(new java.awt.Dimension(165, 20));
-        jPanel1.add(jlbl_nome_funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, 20));
+        jPanel1.add(jlbl_nome_funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
 
         field_nome_funcionario.setBackground(new java.awt.Color(217, 217, 217));
         field_nome_funcionario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -279,12 +279,13 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jcbox_Selecao_servico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONAR", "Dog Walking/Pet Sitting" }));
         jcbox_Selecao_servico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jcbox_Selecao_servico.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jcbox_Selecao_servico.setPreferredSize(new java.awt.Dimension(250, 50));
         jcbox_Selecao_servico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbox_Selecao_servicoActionPerformed(evt);
             }
         });
-        jPanel1.add(jcbox_Selecao_servico, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 284, 250, 50));
+        jPanel1.add(jcbox_Selecao_servico, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 284, -1, -1));
 
         jlbl_cep.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_cep.setForeground(new java.awt.Color(0, 0, 0));
@@ -361,7 +362,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jbtn_cadastrarFuncionario.setUI(new RoundedCornerButtonUI());
         jPanel1.add(jbtn_cadastrarFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 557, 240, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 40, 670, 640));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 40, 630, 640));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         jlbl_background.setText("   ");

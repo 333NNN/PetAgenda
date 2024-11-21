@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -62,17 +63,19 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
     
     private void AlinhaJField() {
         Border line = BorderFactory.createLineBorder(Color.BLACK, 2);
-        Border empty = new EmptyBorder(0, 5, 0, 0);
-        CompoundBorder border = new CompoundBorder(line, empty);
+        Border emptyJfield = new EmptyBorder(0, 5, 0, 0);
+        Border emptyJText = new EmptyBorder(5, 5, 0, 0);
+        CompoundBorder border_field = new CompoundBorder(line, emptyJfield);
+        CompoundBorder border_text = new CompoundBorder(line, emptyJText);
 
-        jtxtf_nome_pet.setBorder(border);
-        jcombBox_nome_dono.setBorder(border);
-        jtxtf_Raca.setBorder(border);
-        jcmbBx_Porte.setBorder(border);
-        txtf_Cor.setBorder(border);
-        jcmbBx_sexo.setBorder(border);
-        jtxtarea_comportamento.setBorder(border);
-        jtxtarea_saude.setBorder(border);
+        jtxtf_nome_pet.setBorder(border_field);
+        jcombBox_nome_dono.setBorder(border_field);
+        jtxtf_Raca.setBorder(border_field);
+        jcmbBx_Porte.setBorder(border_field);
+        txtf_Cor.setBorder(border_field);
+        jcmbBx_sexo.setBorder(border_field);
+        jtxtarea_comportamento.setBorder(border_text);
+        jtxtarea_saude.setBorder(border_text);
     }
     
     private void clearFieldsInfo() {
@@ -145,7 +148,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
                     erros.append(c.getMessage());
                     erros.append("\n");
                 }
-            }
+            } 
             JOptionPane.showMessageDialog(null, erros.toString(), "Campos inválidos", JOptionPane.ERROR_MESSAGE);
         }
         
@@ -552,7 +555,6 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        
         Cliente[] nome_clientes = BD.Cliente.selectAll();
         
         for (Cliente nome_cliente : nome_clientes) {
