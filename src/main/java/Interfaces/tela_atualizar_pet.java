@@ -5,7 +5,12 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
+import java.awt.Color;
+import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import petagenda.dados.Porte;
 import petagenda.dados.Sexo;
 import ui.custom.RoundedCornerBorder;
@@ -23,8 +28,38 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
     public tela_atualizar_pet() {
         initComponents();
         initMenuPanel();
+        AlinhaJField();
     }
 
+    private void AlinhaJField() {
+        Border line = BorderFactory.createLineBorder(Color.BLACK, 2);
+        Border emptyJfield = new EmptyBorder(0, 5, 0, 0);
+        Border emptyJText = new EmptyBorder(5, 5, 0, 0);
+        CompoundBorder border_field = new CompoundBorder(line, emptyJfield);
+        CompoundBorder border_text = new CompoundBorder(line, emptyJText);
+
+        JTxtF_nome_pet.setBorder(border_field);
+        JTxtF_nome_dono.setBorder(border_field);
+        JTxtF_raca.setBorder(border_field);
+        jcmbBx_Porte.setBorder(border_field);
+        JTxtF_cor.setBorder(border_field);
+        jcmbBx_sexo.setBorder(border_field);
+        jtxtarea_comportamento.setBorder(border_text);
+        jtxtarea_saude.setBorder(border_text);
+    }
+    
+    private void clearFieldsInfo() {
+        JTxtF_nome_pet.setText(null);
+        JTxtF_raca.setText(null);
+        jcmbBx_sexo.setSelectedItem(0);
+        jcmbBx_Porte.setSelectedItem(0);
+        jtxtarea_comportamento.setText(null);
+        chkBx_Sim.setSelected(false);
+        chkBx_Nao.setSelected(false);
+        jtxtarea_saude.setText(null);  
+        JTxtF_cor.setText(null);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -333,10 +368,10 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
-        jlbl_background.setPreferredSize(new java.awt.Dimension(1366, 768));
         getContentPane().add(jlbl_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void JTxtF_corActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTxtF_corActionPerformed
