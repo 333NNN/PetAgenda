@@ -126,7 +126,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         index_cliente = jcombBox_nome_dono.getSelectedIndex();
         id_cliente = nome_clientes[index_cliente].getId();
         
-        System.out.println(id_cliente);
+        System.out.println("Id_cliente" + id_cliente);
         
         IllegalArgumentsException exsCadastro = new IllegalArgumentsException();
          
