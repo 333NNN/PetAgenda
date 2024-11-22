@@ -40,7 +40,6 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         initMenuPanel();
         AjustarColuna();
         carregarDadosTabela();
-        mostrarEndereco();
     }
 
     /**
@@ -163,6 +162,11 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         jtbl_clientes_cadastrados.setShowHorizontalLines(true);
         jtbl_clientes_cadastrados.setShowVerticalLines(true);
         jtbl_clientes_cadastrados.getTableHeader().setReorderingAllowed(false);
+        jtbl_clientes_cadastrados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jtbl_clientes_cadastradosMouseEntered(evt);
+            }
+        });
         jScrollPane_clientes_cadastrados.setViewportView(jtbl_clientes_cadastrados);
         if (jtbl_clientes_cadastrados.getColumnModel().getColumnCount() > 0) {
             jtbl_clientes_cadastrados.getColumnModel().getColumn(0).setResizable(false);
@@ -215,6 +219,11 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         telaCadCliente.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jbtn_cadastrarClienteActionPerformed
+
+    private void jtbl_clientes_cadastradosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_clientes_cadastradosMouseEntered
+        // TODO add your handling code here:
+        mostrarEndereco();
+    }//GEN-LAST:event_jtbl_clientes_cadastradosMouseEntered
 
     // Personaliza a "width" da coluna em geral.
     private void AjustarColuna() {
@@ -293,11 +302,6 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
     }
     
     private void mostrarEndereco () {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Tela_visualizacao_cliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
         // Adicionando MouseListener
         jtbl_clientes_cadastrados.addMouseListener(new MouseAdapter() {
             @Override
@@ -312,11 +316,12 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
                     jtbl_clientes_cadastrados.setToolTipText(endereco);
                 }
             }
-
+            
             @Override
             public void mouseExited(MouseEvent e) {
                 // Remover o Tooltip quando o mouse sair da linha
                 jtbl_clientes_cadastrados.setToolTipText(null);
+                
             }
         });
     }

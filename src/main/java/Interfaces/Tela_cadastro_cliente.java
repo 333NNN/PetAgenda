@@ -257,7 +257,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel_menu = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel_cadastrar_cliente = new javax.swing.JPanel();
         jtxtf_campo_nome_cliente = new javax.swing.JTextField();
         jlbl_nome_cliente = new javax.swing.JLabel();
         jtxtf_campo_cpf = new javax.swing.JTextField();
@@ -295,33 +295,33 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jPanel_menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel_cadastrar_cliente.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_cadastrar_cliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jPanel_cadastrar_cliente.setPreferredSize(new java.awt.Dimension(630, 640));
+        jPanel_cadastrar_cliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jtxtf_campo_nome_cliente.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_campo_nome_cliente.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtf_campo_nome_cliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jtxtf_campo_nome_cliente.setCaretColor(new java.awt.Color(255, 255, 255));
         jtxtf_campo_nome_cliente.setMinimumSize(new java.awt.Dimension(550, 50));
         jtxtf_campo_nome_cliente.setPreferredSize(new java.awt.Dimension(550, 50));
-        jPanel1.add(jtxtf_campo_nome_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 106, -1, 52));
+        jPanel_cadastrar_cliente.add(jtxtf_campo_nome_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 106, -1, 52));
 
         jlbl_nome_cliente.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_nome_cliente.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_nome_cliente.setText("Nome completo do cliente:");
-        jPanel1.add(jlbl_nome_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 85, 180, 20));
+        jPanel_cadastrar_cliente.add(jlbl_nome_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 85, 180, 20));
 
         jtxtf_campo_cpf.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_campo_cpf.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtf_campo_cpf.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jtxtf_campo_cpf.setPreferredSize(new java.awt.Dimension(250, 50));
-        jPanel1.add(jtxtf_campo_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 195, -1, -1));
+        jPanel_cadastrar_cliente.add(jtxtf_campo_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 195, -1, -1));
 
         jlbl_cpf.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_cpf.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_cpf.setText("CPF:");
-        jPanel1.add(jlbl_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 176, -1, -1));
+        jPanel_cadastrar_cliente.add(jlbl_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 176, -1, -1));
 
         jtxtf_campo_telefone.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_campo_telefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -331,19 +331,19 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
                 jtxtf_campo_telefoneActionPerformed(evt);
             }
         });
-        jPanel1.add(jtxtf_campo_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 195, 270, 50));
+        jPanel_cadastrar_cliente.add(jtxtf_campo_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 195, 270, 50));
 
         jlbl_telefone.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_telefone.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_telefone.setText("Telefone:");
-        jPanel1.add(jlbl_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 176, -1, -1));
+        jPanel_cadastrar_cliente.add(jlbl_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 176, -1, -1));
 
         jlbl_servico_contratado.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_servico_contratado.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_servico_contratado.setText("Serviço contratado:");
         jlbl_servico_contratado.setMinimumSize(new java.awt.Dimension(150, 15));
         jlbl_servico_contratado.setPreferredSize(new java.awt.Dimension(150, 15));
-        jPanel1.add(jlbl_servico_contratado, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 265, 130, 15));
+        jPanel_cadastrar_cliente.add(jlbl_servico_contratado, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 265, 130, 15));
 
         jcbox_Selecao_servico.setBackground(new java.awt.Color(217, 217, 217));
         jcbox_Selecao_servico.setFont(new java.awt.Font("Merriweather", 0, 14)); // NOI18N
@@ -355,56 +355,56 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
                 jcbox_Selecao_servicoActionPerformed(evt);
             }
         });
-        jPanel1.add(jcbox_Selecao_servico, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 284, 250, 50));
+        jPanel_cadastrar_cliente.add(jcbox_Selecao_servico, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 284, 250, 50));
 
         jtxtf_campo_cep.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_campo_cep.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtf_campo_cep.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jtxtf_campo_cep.setPreferredSize(new java.awt.Dimension(150, 50));
-        jPanel1.add(jtxtf_campo_cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 284, 150, 50));
+        jPanel_cadastrar_cliente.add(jtxtf_campo_cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 284, 150, 50));
 
         jlbl_cep.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_cep.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_cep.setText("CEP:");
-        jPanel1.add(jlbl_cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 265, -1, -1));
+        jPanel_cadastrar_cliente.add(jlbl_cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 265, -1, -1));
 
         jtxtf_campo_num.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_campo_num.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtf_campo_num.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jPanel1.add(jtxtf_campo_num, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 284, 90, 50));
+        jPanel_cadastrar_cliente.add(jtxtf_campo_num, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 284, 90, 50));
 
         jlbl_rua.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_rua.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_rua.setText("Rua:");
-        jPanel1.add(jlbl_rua, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 354, -1, -1));
+        jPanel_cadastrar_cliente.add(jlbl_rua, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 354, -1, -1));
 
         jtxtf_campo_rua.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_campo_rua.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtf_campo_rua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jPanel1.add(jtxtf_campo_rua, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 373, 550, 50));
+        jPanel_cadastrar_cliente.add(jtxtf_campo_rua, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 373, 550, 50));
 
         jlbl_bairro.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_bairro.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_bairro.setText("Bairro:");
         jlbl_bairro.setPreferredSize(new java.awt.Dimension(52, 15));
-        jPanel1.add(jlbl_bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 443, 50, -1));
+        jPanel_cadastrar_cliente.add(jlbl_bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 443, 50, -1));
 
         jtxtf_campo_bairro.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_campo_bairro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtf_campo_bairro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jPanel1.add(jtxtf_campo_bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 462, 270, 50));
+        jPanel_cadastrar_cliente.add(jtxtf_campo_bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 462, 270, 50));
 
         jtxtf_campo_cidade.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_campo_cidade.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtf_campo_cidade.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jtxtf_campo_cidade.setPreferredSize(new java.awt.Dimension(300, 60));
-        jPanel1.add(jtxtf_campo_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 462, 250, 50));
+        jPanel_cadastrar_cliente.add(jtxtf_campo_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 462, 250, 50));
 
         jlbl_cidade.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_cidade.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_cidade.setText("Cidade:");
         jlbl_cidade.setPreferredSize(new java.awt.Dimension(56, 15));
-        jPanel1.add(jlbl_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 443, -1, -1));
+        jPanel_cadastrar_cliente.add(jlbl_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 443, -1, -1));
 
         jlbl_titulo.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_titulo.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
@@ -413,12 +413,12 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jlbl_titulo.setMaximumSize(new java.awt.Dimension(377, 45));
         jlbl_titulo.setMinimumSize(new java.awt.Dimension(377, 45));
         jlbl_titulo.setPreferredSize(new java.awt.Dimension(377, 45));
-        jPanel1.add(jlbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 350, 45));
+        jPanel_cadastrar_cliente.add(jlbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 350, 45));
 
         jlbl_num.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_num.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_num.setText("N°");
-        jPanel1.add(jlbl_num, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 265, -1, -1));
+        jPanel_cadastrar_cliente.add(jlbl_num, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 265, -1, -1));
 
         jbtn_Cadastrar_cliente.setBackground(new java.awt.Color(77, 120, 63));
         jbtn_Cadastrar_cliente.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
@@ -433,9 +433,9 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         });
         // Aplicando a UI personalizada
         jbtn_Cadastrar_cliente.setUI(new RoundedCornerButtonUI());
-        jPanel1.add(jbtn_Cadastrar_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 557, 240, 50));
+        jPanel_cadastrar_cliente.add(jbtn_Cadastrar_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 557, 240, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 40, 630, 640));
+        getContentPane().add(jPanel_cadastrar_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 40, -1, -1));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         jlbl_background.setFocusable(false);
@@ -529,7 +529,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel_cadastrar_cliente;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JButton jbtn_Cadastrar_cliente;
     private javax.swing.JComboBox jcbox_Selecao_servico;
