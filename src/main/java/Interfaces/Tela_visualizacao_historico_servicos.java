@@ -39,9 +39,14 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
                 model.addRow(new Object[]
                 {
                     //Criar a view para preencher a tabela do sistema
-                   resultado.getString("id"),
-                   resultado.getString("nome"),
-                   resultado.getString("cpf")
+                   resultado.getString("Id Agendamento"),
+                   resultado.getString("Pets"),
+                   resultado.getString("Nome do Funcionário"),
+                   resultado.getString("Data"),
+                   resultado.getString("Horário"),
+                   resultado.getString("Serviço Prestado"),
+                   resultado.getString("Incidente")
+                        
                 });
             }
             banco.close();
@@ -162,33 +167,48 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
         // TODO add your handling code here:
         int col = jtbl_historico_servico.getSelectedColumn();
         int row = jtbl_historico_servico.getSelectedRow();
+        
+        if (row == -1 || col == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleciona um registro válido.");
+            return;
+        }
+        
         Object valor = jtbl_historico_servico.getValueAt(row, col);
-        String data = "";
-        String descricao = "";
-        String emergencia = "";
-        String nome = "";
+        
         
         if (col == 6) {
-            Object IdAgendamento = jtbl_historico_servico.getValueAt(row,(col-6));
-            if (valor.equals("Houve")) {
+            Object IdAgendamento = jtbl_historico_servico.getValueAt(row,(0));
+            if ("Houve".equals(valor)) {
                 try {
                     Connection con = (Connection)DriverManager.getConnection("jdbc:mysql://localhost/pet_agenda","root","");
-                    String sql = "SELECT i.data_hora, i.descricao, i.e_emergencia, p.nome FROM incidente AS i INNER JOIN pet AS p i.id_pet = p.id_pet WHERE i.id_agendamento ="+IdAgendamento;
+                    String sql = "SELECT i.data_hora, i.descricao, i.e_emergencia, p.nome "
+                                + "FROM incidente AS i "
+                                + "INNER JOIN pet AS p "
+                                + "ON i.id_pet = p.id_pet "
+                                + "WHERE i.id_agendamento = ?";
                     PreparedStatement banco = (PreparedStatement)con.prepareStatement(sql);
-                    banco.execute();
+                    
+                    banco.setObject(1, IdAgendamento);
             
-                    ResultSet resultado = banco.executeQuery(sql);
-                    
-                    while (resultado.next()) {
-                        data = resultado.getString("i.data_hora");
-                        descricao = resultado.getString("i.descricao");
-                        emergencia = resultado.getString("i.e_emergencia");
-                        nome = resultado.getString("p.nome");
+                    try (ResultSet resultado = banco.executeQuery(sql)) {
+                        if (resultado.next()) {
+                            String data = resultado.getString("i.data_hora");
+                            String descricao = resultado.getString("i.descricao");
+                            String emergencia = resultado.getString("i.e_emergencia");
+                            String nome = resultado.getString("p.nome");
+                            
+                            JOptionPane.showMessageDialog(null,
+                                "Nome:"+nome+"\n" +
+                                "Data:"+data+"\n" + 
+                                "Emergência Médica:"+emergencia+"\n" + 
+                                "Descrição:"+descricao, 
+                                "Incidente",JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Nenhum incidente encontrado para este serviço.");
+                        }
                     }
-                    
-                    JOptionPane.showMessageDialog(null,"Nome:"+nome+"\nData:"+data+"\nEmergência Médica:"+emergencia+"\nDescrição:"+descricao, "Incidente",JOptionPane.INFORMATION_MESSAGE);
-                    
-                }catch (SQLException e) {
+                    banco.execute();
+                } catch (SQLException e) {
                     JOptionPane.showMessageDialog(null, "ERRO:"+e.getMessage());
                 }
             } else if (valor.equals("Não houve")) {
