@@ -33,22 +33,13 @@ CREATE TABLE `agendamento` (
   `dta_hr_finalizado` datetime NOT NULL,
   `check_entrega` tinyint(4) NOT NULL,
   `observacao` varchar(255) DEFAULT NULL,
-  `pet_buscar_com` varchar(64) DEFAULT NULL,
-  `pet_devolver_para` varchar(64) DEFAULT NULL,
-  `local_cuidado` varchar(255) DEFAULT NULL,
   `id_servico` int(11) DEFAULT NULL,
-  `id_pet` int(11) DEFAULT NULL,
   `id_func` int(11) DEFAULT NULL,
-  `id_cliente` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_agendamento`),
   KEY `id_servico` (`id_servico`),
-  KEY `id_pet` (`id_pet`),
   KEY `id_func` (`id_func`),
-  KEY `id_cliente` (`id_cliente`),
   CONSTRAINT `agendamento_ibfk_1` FOREIGN KEY (`id_servico`) REFERENCES `servico` (`id_servico`),
-  CONSTRAINT `agendamento_ibfk_2` FOREIGN KEY (`id_pet`) REFERENCES `pet` (`id_pet`),
-  CONSTRAINT `agendamento_ibfk_3` FOREIGN KEY (`id_func`) REFERENCES `funcionario` (`id_func`),
-  CONSTRAINT `agendamento_ibfk_4` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`)
+  CONSTRAINT `agendamento_ibfk_2` FOREIGN KEY (`id_func`) REFERENCES `funcionario` (`id_func`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -73,13 +64,11 @@ CREATE TABLE `cliente` (
   `nome` varchar(64) NOT NULL,
   `cpf` char(11) NOT NULL,
   `telefone` varchar(15) NOT NULL,
-  `rua` varchar(45) NOT NULL,
+  `rua` varchar(64) NOT NULL,
   `numero` varchar(16) NOT NULL,
-  `bairro` varchar(32) NOT NULL,
-  `cidade` varchar(32) NOT NULL,
+  `bairro` varchar(64) NOT NULL,
+  `cidade` varchar(64) NOT NULL,
   `cep` char(8) NOT NULL,
-  `buscar_com` varchar(64) DEFAULT NULL,
-  `devolver_para` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id_cliente`),
   UNIQUE KEY `cpf` (`cpf`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -91,7 +80,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'Kamilly Luciana Flávia Rocha','08697159920','(63) 2560-8749','Rua A','385','Jardim dos Ipês II','Araguaína','77820188','Kamilly Luciana Flávia Rocha','Kamilly Luciana Flávia Rocha'),(2,'Isabelle Hadassa Araújo','88032398988','(32) 3875-3202','Rua Santa Luzia','235','Horto Florestal','Cataguases','36773474','Isabelle Hadassa Araújo','Isabelle Hadassa Araújo'),(3,'Leandro Thales Freitas','87805172269','(96) 3656-6042','Rua Joaquim Magalhaes dos Santos','551','Novo Horizonte','Macapá','68909793','Leandro Thales Freitas','Leandro Thales Freitas'),(4,'Flávia Fernanda Nogueira','65484243793','(67) 3806-2789','Rua Dardanellos','301','Jardim Petrópolis','Campo Grande','79102330','Flávia Fernanda Nogueira','Flávia Fernanda Nogueira'),(5,'Yasmin Clara Dias','82688250736','(21) 3665-1150','Rua Trinta e Dois','377','Cordeirinho (Ponta Negra)','Maricá','24921520','Yasmin Clara Dias','Yasmin Clara Dias'),(6,'Pedro Francisco Lucca Costa','20953441628','(31) 2915-8295','Rua Santa Inês do Alto','172','Santa Cecília Vale','Belo Horizonte','30668200','Pedro Francisco Lucca Costa','Pedro Francisco Lucca Costa');
+INSERT INTO `cliente` VALUES (1,'Andrea Lavínia Melissa da Mata','02039476903','(62) 2964-9797','Rua 82','343','Setor Central','Goiânia','74015095'),(2,'Flávia Ester Hadassa da Conceição','82736160100','(96) 2839-8602','Rua Iraci Nunes Nadior','738','Santa Inês','Macapá','68901380'),(3,'Luiz Luan Gael Souza','18973207792','(82) 2856-5469','Rua C-64','618','Benedito Bentes','Maceió','57085062'),(4,'Marlene Mariah Jesus','37827110177','(51) 2511-0744','Rua Jacob Schaan Filho','393','Teresópolis','Porto Alegre','91720050'),(5,'Heitor Raul Pires','65428724935','(88) 3933-4992','Travessa Tenente Antonio João','866','Vila Alta','Crato','63119013'),(6,'Mariane Rayssa da Rosa','24064752040','(86) 3945-7855','Rua Júlio Mendes','848','Fátima','Teresina','64049320');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,7 +107,7 @@ CREATE TABLE `cliente_contrata_servico` (
 
 LOCK TABLES `cliente_contrata_servico` WRITE;
 /*!40000 ALTER TABLE `cliente_contrata_servico` DISABLE KEYS */;
-INSERT INTO `cliente_contrata_servico` VALUES (2,1),(1,2),(1,3),(3,4),(1,5),(1,6);
+INSERT INTO `cliente_contrata_servico` VALUES (2,1),(2,2),(1,3),(2,4),(1,5),(1,6);
 /*!40000 ALTER TABLE `cliente_contrata_servico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,11 +123,11 @@ CREATE TABLE `funcionario` (
   `nome` varchar(64) NOT NULL,
   `cpf` char(11) NOT NULL,
   `telefone` varchar(15) NOT NULL,
-  `rua` varchar(45) NOT NULL,
+  `rua` varchar(64) NOT NULL,
   `cep` char(8) NOT NULL,
   `numero` varchar(16) NOT NULL,
-  `bairro` varchar(32) NOT NULL,
-  `cidade` varchar(32) NOT NULL,
+  `bairro` varchar(64) NOT NULL,
+  `cidade` varchar(64) NOT NULL,
   PRIMARY KEY (`id_func`),
   UNIQUE KEY `cpf` (`cpf`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -150,7 +139,7 @@ CREATE TABLE `funcionario` (
 
 LOCK TABLES `funcionario` WRITE;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` VALUES (1,'Giovanna Regina Novaes','92462365800','(98) 3895-8852','Avenida Presidente Geisel','65066847','746','Chácara Brasil','São Luís'),(2,'Eloá Sabrina Castro','18096444026','(61) 2825-5116','Quadra SHIGS 712 Bloco E','70361755','922','Asa Sul','Brasília'),(3,'Olivia Maria Sales','70319432300','(61) 3545-5323','Quadra QNN 6 Conjunto K','72220071','625','Ceilândia Sul','Brasília'),(4,'Esther Natália Rebeca Duarte','27302753636','(82) 2909-9155','Quadra M-N','57017248','706','Bom Parto','Maceió'),(5,'Pietra Isis da Conceição','11165774291','(34) 2933-7853','Rua General Osório','38081090','385','Conjunto Frei Eugênio','Uberaba'),(6,'Antonella Rosângela Betina Pires','04456118555','(68) 2849-6612','Rua Thaumaturgo de Azevedo','69900336','825','Ipase','Rio Branco');
+INSERT INTO `funcionario` VALUES (1,'Cauê Cláudio Thales Moraes','10959433910','(96) 3615-2792','Avenida Maria Cavalcante de Azevedo Picanço','68908076','688','Infraero','Macapá'),(2,'Daniel Bernardo Lima','97145275546','(82) 2935-2875','Rua Sombra dos Eucaliptos','57081004','260','Tabuleiro do Martins','Maceió'),(3,'Caleb Martin Yago da Cunha','27910388250','(12) 2981-1532','Rua João Gonçalves da Costa','12609030','921','Parque Mondesir','Lorena'),(4,'Patrícia Olivia Elza Galvão','16531388315','(33) 3669-2439','Rua Desembargador Eustáquio Peixoto','39803007','217','São Diogo','Teófilo Otoni'),(5,'Raquel Vanessa Márcia Baptista','59391414630','(84) 2777-9087','Rua Bogotá','59072020','136','Felipe Camarão','Natal'),(6,'Pietra Silvana Fogaça','13962051015','(95) 2533-2343','Avenida Sebastião Correia Lira','69317472','853','Cidade Satélite','Boa Vista');
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,6 +238,32 @@ LOCK TABLES `pet` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `pet_agendamento`
+--
+
+DROP TABLE IF EXISTS `pet_agendamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `pet_agendamento` (
+  `id_agendamento_pet` int(11) DEFAULT NULL,
+  `id_pet_agend` int(11) DEFAULT NULL,
+  KEY `id_agendamento_pet` (`id_agendamento_pet`),
+  KEY `id_pet_agend` (`id_pet_agend`),
+  CONSTRAINT `pet_agendamento_ibfk_1` FOREIGN KEY (`id_agendamento_pet`) REFERENCES `agendamento` (`id_agendamento`),
+  CONSTRAINT `pet_agendamento_ibfk_2` FOREIGN KEY (`id_pet_agend`) REFERENCES `pet` (`id_pet`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pet_agendamento`
+--
+
+LOCK TABLES `pet_agendamento` WRITE;
+/*!40000 ALTER TABLE `pet_agendamento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pet_agendamento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `remedio_agend`
 --
 
@@ -289,7 +304,7 @@ CREATE TABLE `servico` (
   `preco` decimal(8,2) NOT NULL,
   `descricao` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id_servico`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -298,7 +313,7 @@ CREATE TABLE `servico` (
 
 LOCK TABLES `servico` WRITE;
 /*!40000 ALTER TABLE `servico` DISABLE KEYS */;
-INSERT INTO `servico` VALUES (1,'Dog Walking',80.00,'Caminhas com um grupo de pets.'),(2,'Pet Sitting',100.00,'Atendimento doméstico'),(3,'Cuidados Especiais',100.00,'Vacinações, encaminhar a consultas e tratamentos de saúde');
+INSERT INTO `servico` VALUES (1,'Dog Walking',80.00,'Caminhada com um grupo de cachorros'),(2,'Pet Sitting',100.00,'Atendimento doméstico\'');
 /*!40000 ALTER TABLE `servico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -315,8 +330,10 @@ CREATE TABLE `usuario` (
   `nome_usuario` varchar(45) NOT NULL,
   `senha_usuario` varchar(25) NOT NULL,
   `permissao` enum('1','2','3') NOT NULL,
+  `codigo_recup` varchar(4) NOT NULL,
   PRIMARY KEY (`id_usuario`),
-  UNIQUE KEY `cpf` (`cpf`)
+  UNIQUE KEY `cpf` (`cpf`),
+  UNIQUE KEY `codigo_recup` (`codigo_recup`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -326,7 +343,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'88784449012','administrador','1234','1');
+INSERT INTO `usuario` VALUES (1,'88784449012','administrador','1234','1','4528');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -377,4 +394,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-20 15:42:04
+-- Dump completed on 2024-11-23 13:18:28
