@@ -156,6 +156,20 @@ public final class Cliente {
         }
     }
     
+    // Verifica se uma String possui numeros, se não possuir retorna true.
+    private boolean verificaString(String str) {
+        boolean e_string = true;
+        
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if ('0' <= c && c <= '9') {
+                return false;
+            }
+        }
+        
+        return e_string;
+    }
+    
     // Verifica se o cliente já é existente.
     public boolean isNew() {
         return this.getId() == NULL_ID;
@@ -184,7 +198,11 @@ public final class Cliente {
         nome = nome.trim();
         if (nome.isEmpty()) {
             throw new IllegalNomeException("Nome não pode ser vazio");
-        } else if (nome.length() > 64) {
+        } 
+        else if (!verificaString(nome)) {
+            throw new IllegalNomeException("Nome não pode conter números");
+        }
+        else if (nome.length() > 64) {
             throw new IllegalNomeException("Nome não pode conter mais do que 64 caracteres");
         }
         this.nome = nome;
@@ -329,7 +347,6 @@ public final class Cliente {
     
     @Override
     public String toString() {
-        return String.format("NOME: %s | CPF: %s" /*SERVIÇO SOL.: %s"*/, getNome(), getCpf()/*, getEndereco().toString(), getTelefone(), getServico().getNome()*/);
-                                   //ENDERECO: %s 
+        return String.format("NOME: %s | CPF: %s | TELEFONE: %s | RUA: %s | NUMERO: %s | BAIRRO: %s | CIDADE: %s | CEP: %s", getNome(), getCpf(), getTelefone(), getRua(), getNumero(), getBairro(), getCidade(), getCep());             
     }
 }

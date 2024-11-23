@@ -5,6 +5,7 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -38,7 +39,8 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         initMenuPanel();
         AjustarColuna();
         carregarDadosTabela();
-        
+        jPanel_deletar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
+        jPanel_editar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
     }
 
     /**
@@ -50,12 +52,16 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel_menu = new javax.swing.JPanel();
-        btn_cadastrarFuncionario = new javax.swing.JButton();
+        lbl_funcionarios = new javax.swing.JLabel();
         jPanel_tabela = new javax.swing.JPanel();
         jScroll_tabela = new javax.swing.JScrollPane();
         jtbl_funcionarios = new javax.swing.JTable();
-        lbl_funcionarios = new javax.swing.JLabel();
+        jPanel_deletar = new javax.swing.JPanel();
+        jlbl_deletar = new javax.swing.JLabel();
+        jPanel_editar = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        btn_cadastrarFuncionario = new javax.swing.JButton();
+        jPanel_menu = new javax.swing.JPanel();
         jlbl_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,27 +69,11 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
-        jPanel_menu.setForeground(new java.awt.Color(124, 115, 101));
-        jPanel_menu.setFont(new java.awt.Font("Merriweather", 0, 12)); // NOI18N
-        jPanel_menu.setMinimumSize(new java.awt.Dimension(205, 768));
-        jPanel_menu.setPreferredSize(new java.awt.Dimension(205, 768));
-        jPanel_menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
-
-        btn_cadastrarFuncionario.setBackground(new java.awt.Color(77, 120, 63));
-        btn_cadastrarFuncionario.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
-        btn_cadastrarFuncionario.setForeground(new java.awt.Color(255, 255, 255));
-        btn_cadastrarFuncionario.setText("Cadastrar Funcionário");
-        btn_cadastrarFuncionario.setBorder(null);
-        btn_cadastrarFuncionario.setPreferredSize(new java.awt.Dimension(240, 50));
-        btn_cadastrarFuncionario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cadastrarFuncionarioActionPerformed(evt);
-            }
-        });
-        btn_cadastrarFuncionario.setUI(new RoundedCornerButtonUI());
-        getContentPane().add(btn_cadastrarFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 630, -1, -1));
+        lbl_funcionarios.setBackground(new java.awt.Color(255, 255, 255));
+        lbl_funcionarios.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
+        lbl_funcionarios.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_funcionarios.setText("Funcionários");
+        getContentPane().add(lbl_funcionarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, -1, -1));
 
         jPanel_tabela.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_tabela.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -191,11 +181,45 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
 
         getContentPane().add(jPanel_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(323, 103, -1, -1));
 
-        lbl_funcionarios.setBackground(new java.awt.Color(255, 255, 255));
-        lbl_funcionarios.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
-        lbl_funcionarios.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_funcionarios.setText("Funcionários");
-        getContentPane().add(lbl_funcionarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, -1, -1));
+        jPanel_deletar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_deletar.setPreferredSize(new java.awt.Dimension(42, 42));
+        jPanel_deletar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jlbl_deletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon deletar.png"))); // NOI18N
+        jPanel_deletar.add(jlbl_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 9, -1, -1));
+
+        getContentPane().add(jPanel_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1216, 533, -1, -1));
+
+        jPanel_editar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_editar.setPreferredSize(new java.awt.Dimension(42, 42));
+        jPanel_editar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon editar.png"))); // NOI18N
+        jPanel_editar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 9, -1, -1));
+
+        getContentPane().add(jPanel_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1258, 533, -1, -1));
+
+        btn_cadastrarFuncionario.setBackground(new java.awt.Color(77, 120, 63));
+        btn_cadastrarFuncionario.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
+        btn_cadastrarFuncionario.setForeground(new java.awt.Color(255, 255, 255));
+        btn_cadastrarFuncionario.setText("Cadastrar Funcionário");
+        btn_cadastrarFuncionario.setBorder(null);
+        btn_cadastrarFuncionario.setPreferredSize(new java.awt.Dimension(240, 50));
+        btn_cadastrarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cadastrarFuncionarioActionPerformed(evt);
+            }
+        });
+        btn_cadastrarFuncionario.setUI(new RoundedCornerButtonUI());
+        getContentPane().add(btn_cadastrarFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 630, -1, -1));
+
+        jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
+        jPanel_menu.setForeground(new java.awt.Color(124, 115, 101));
+        jPanel_menu.setFont(new java.awt.Font("Merriweather", 0, 12)); // NOI18N
+        jPanel_menu.setMinimumSize(new java.awt.Dimension(205, 768));
+        jPanel_menu.setPreferredSize(new java.awt.Dimension(205, 768));
+        jPanel_menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         jlbl_background.setText(" ");
@@ -313,10 +337,14 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cadastrarFuncionario;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel_deletar;
+    private javax.swing.JPanel jPanel_editar;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JPanel jPanel_tabela;
     private javax.swing.JScrollPane jScroll_tabela;
     private javax.swing.JLabel jlbl_background;
+    private javax.swing.JLabel jlbl_deletar;
     private javax.swing.JTable jtbl_funcionarios;
     private javax.swing.JLabel lbl_funcionarios;
     // End of variables declaration//GEN-END:variables
