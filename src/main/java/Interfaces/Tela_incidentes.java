@@ -72,8 +72,9 @@ public class Tela_incidentes extends javax.swing.JFrame {
 
         lbl_historico_servicos.setBackground(new java.awt.Color(255, 255, 255));
         lbl_historico_servicos.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
+        lbl_historico_servicos.setForeground(new java.awt.Color(0, 0, 0));
         lbl_historico_servicos.setText("Cadastro de Incidente");
-        jPanel6.add(lbl_historico_servicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+        jPanel6.add(lbl_historico_servicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
 
         jtxtf_campo_nome_pet.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_campo_nome_pet.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -88,41 +89,50 @@ public class Tela_incidentes extends javax.swing.JFrame {
         jPanel6.add(jspnnr_Grupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 150, 50));
 
         jlbl_descricao_incidente.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        jlbl_descricao_incidente.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_descricao_incidente.setText("Descrição do Incidente:");
         jPanel6.add(jlbl_descricao_incidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 170, 20));
 
         jlbl_Grupo1.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        jlbl_Grupo1.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_Grupo1.setText("Id do agendamento:");
         jPanel6.add(jlbl_Grupo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 150, 20));
 
         jlbl_emergencia_medica.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        jlbl_emergencia_medica.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_emergencia_medica.setText("Emergência Médica:");
-        jPanel6.add(jlbl_emergencia_medica, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, 140, 20));
+        jPanel6.add(jlbl_emergencia_medica, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 160, 40));
 
+        jckBox_Sim1.setFont(new java.awt.Font("Merriweather", 0, 12)); // NOI18N
+        jckBox_Sim1.setForeground(new java.awt.Color(0, 0, 0));
         jckBox_Sim1.setText("Sim");
         jckBox_Sim1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jckBox_Sim1ActionPerformed(evt);
             }
         });
-        jPanel6.add(jckBox_Sim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, -1, -1));
+        jPanel6.add(jckBox_Sim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 120, -1, -1));
 
+        jckBox_Nao1.setFont(new java.awt.Font("Merriweather", 0, 12)); // NOI18N
+        jckBox_Nao1.setForeground(new java.awt.Color(0, 0, 0));
         jckBox_Nao1.setText("Não");
         jckBox_Nao1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jckBox_Nao1ActionPerformed(evt);
             }
         });
-        jPanel6.add(jckBox_Nao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 120, -1, -1));
+        jPanel6.add(jckBox_Nao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, -1, -1));
 
+        jTextArea1.setBackground(new java.awt.Color(217, 217, 217));
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jTextArea1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jScrollPane1.setViewportView(jTextArea1);
 
         jPanel6.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 680, 170));
 
         jlbl_nome_cpet1.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
+        jlbl_nome_cpet1.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_nome_cpet1.setText("Nome do Pet:");
         jPanel6.add(jlbl_nome_cpet1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 100, 20));
 
