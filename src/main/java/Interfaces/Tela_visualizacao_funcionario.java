@@ -7,13 +7,8 @@ package Interfaces;
 import com.mycompany.petagenda.MenuPanel;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Arrays;
-import javax.swing.JOptionPane;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import javax.swing.JScrollBar;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -22,7 +17,6 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 import petagenda.bd.BD;
 import petagenda.Funcionario;
-import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
 
 /**
@@ -39,6 +33,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         initMenuPanel();
         AjustarColuna();
         carregarDadosTabela();
+        moveHeader();
         jPanel_deletar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
         jPanel_editar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
     }
@@ -79,76 +74,16 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         jPanel_tabela.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jPanel_tabela.setMinimumSize(new java.awt.Dimension(905, 560));
         jPanel_tabela.setOpaque(false);
-        jPanel_tabela.setPreferredSize(new java.awt.Dimension(830, 480));
+        jPanel_tabela.setPreferredSize(new java.awt.Dimension(915, 480));
         jPanel_tabela.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jScroll_tabela.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScroll_tabela.setPreferredSize(new java.awt.Dimension(830, 480));
+        jScroll_tabela.setPreferredSize(new java.awt.Dimension(915, 480));
         jScroll_tabela.setVerifyInputWhenFocusTarget(false);
 
         jtbl_funcionarios.setFont(new java.awt.Font("Merriweather", 0, 16)); // NOI18N
         jtbl_funcionarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Nome", "CPF", "Telefone", "Serviço Prestado", "Endereço"
@@ -163,7 +98,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
             }
         });
         jtbl_funcionarios.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jtbl_funcionarios.setPreferredSize(new java.awt.Dimension(830, 1200));
+        jtbl_funcionarios.setPreferredSize(new java.awt.Dimension(1400, 480));
         jtbl_funcionarios.setRowHeight(30);
         jtbl_funcionarios.setShowHorizontalLines(true);
         jtbl_funcionarios.setShowVerticalLines(true);
@@ -179,7 +114,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
 
         jPanel_tabela.add(jScroll_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        getContentPane().add(jPanel_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(323, 103, -1, -1));
+        getContentPane().add(jPanel_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 103, -1, -1));
 
         jPanel_deletar.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_deletar.setPreferredSize(new java.awt.Dimension(42, 42));
@@ -188,7 +123,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         jlbl_deletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon deletar.png"))); // NOI18N
         jPanel_deletar.add(jlbl_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 9, -1, -1));
 
-        getContentPane().add(jPanel_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1216, 533, -1, -1));
+        getContentPane().add(jPanel_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1216, 530, -1, -1));
 
         jPanel_editar.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_editar.setPreferredSize(new java.awt.Dimension(42, 42));
@@ -197,7 +132,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon editar.png"))); // NOI18N
         jPanel_editar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 9, -1, -1));
 
-        getContentPane().add(jPanel_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1258, 533, -1, -1));
+        getContentPane().add(jPanel_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1258, 530, -1, -1));
 
         btn_cadastrarFuncionario.setBackground(new java.awt.Color(77, 120, 63));
         btn_cadastrarFuncionario.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
@@ -211,7 +146,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
             }
         });
         btn_cadastrarFuncionario.setUI(new RoundedCornerButtonUI());
-        getContentPane().add(btn_cadastrarFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 630, -1, -1));
+        getContentPane().add(btn_cadastrarFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 620, -1, -1));
 
         jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
         jPanel_menu.setForeground(new java.awt.Color(124, 115, 101));
@@ -253,7 +188,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         rendererEsquerda.setHorizontalAlignment(SwingConstants.LEFT);  
 
         // Define o tamanho do cabeçalho.
-        JTableHeader header = jtbl_funcionarios.getTableHeader();   
+        JTableHeader header = jtbl_funcionarios.getTableHeader();  
         header.setPreferredSize(new Dimension(0, 30));
         TableColumnModel modeloDaColuna = jtbl_funcionarios.getColumnModel();  
 
@@ -262,19 +197,33 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         modeloDaColuna.getColumn(1).setCellRenderer(rendererCentro); // CPF
         modeloDaColuna.getColumn(2).setCellRenderer(rendererCentro); // Telefone
         modeloDaColuna.getColumn(3).setCellRenderer(rendererCentro); // Serviço Prestado
-        modeloDaColuna.getColumn(4).setCellRenderer(rendererCentro); // Endereço
+        modeloDaColuna.getColumn(4).setCellRenderer(rendererEsquerda); // Endereço
 
         // Define o tamanho das colunas na tabela.
-        modeloDaColuna.getColumn(0).setMaxWidth(300); // Nome
-        modeloDaColuna.getColumn(1).setMaxWidth(120); // CPF
-        modeloDaColuna.getColumn(2).setMaxWidth(130); // Telefone
-        modeloDaColuna.getColumn(3).setMaxWidth(180); // Serviço Prestado
-        modeloDaColuna.getColumn(4).setMaxWidth(100); // Endereço
+        modeloDaColuna.getColumn(0).setPreferredWidth(300); // Nome
+        modeloDaColuna.getColumn(1).setPreferredWidth(120); // CPF
+        modeloDaColuna.getColumn(2).setPreferredWidth(130); // Telefone
+        modeloDaColuna.getColumn(3).setPreferredWidth(180); // Serviço Prestado
+        modeloDaColuna.getColumn(4).setPreferredWidth(710); // Endereço
     }
     
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
         jPanel_menu.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
+    }
+    
+    private void moveHeader() {
+        // Cabeçalho da tabela e o JScrollPane
+        JTableHeader header = jtbl_funcionarios.getTableHeader();
+        JScrollBar horizontalScrollBar = jScroll_tabela.getHorizontalScrollBar();
+
+        // Sincroniza a rolagem da JTable com o header
+        horizontalScrollBar.addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                header.setLocation(-e.getValue(), header.getY());
+            }
+        });
     }
 
     private void carregarDadosTabela() {

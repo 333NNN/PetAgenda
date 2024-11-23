@@ -152,22 +152,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         
         return novo_pet;
     }
-    
-    public class ConexaoMySQL {
-        private static final String URL = "jdbc:mysql://localhost:3306/pet_agenda";
-        private static final String USER = "root";
-        private static final String PASSWORD = "";
-
-        public static Connection conectar() {
-            try {
-                return DriverManager.getConnection(URL, USER, PASSWORD);
-            } catch (SQLException e) {
-                System.out.println("Erro ao conectar: " + e.getMessage());
-                return null;
-            }
-        }
-    }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -524,8 +509,22 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
             int r = BD.Pet.insert(cadastrar);
             
             if (r > 0) { // Insert funcionou
-                clearFieldsInfo();
                 JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                
+                Object[] opcoes = {"Sim", "Não"};
+
+                // Exibe a caixa de diálogo com "Sim" e "Não"
+                int resposta = JOptionPane.showOptionDialog(null, "Cadastrar outro pet?", "Confirmação", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
+
+                // Verifica a resposta
+                if (resposta == 0) { // Se o usuário clicar em 'sim', continua na mesma tela, só limpa os campos.
+                    clearFieldsInfo();
+                }
+                else { // Se não usuário respondeu 'não', volta para o inicio.
+                    Tela_Inicial tela_inicial = new Tela_Inicial();
+                    tela_inicial.setVisible(true);
+                    this.dispose();
+                }
             }
         }
     }//GEN-LAST:event_jbtn_cadastrarPetActionPerformed

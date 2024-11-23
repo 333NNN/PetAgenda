@@ -8,6 +8,8 @@ import com.mycompany.petagenda.MenuPanel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
@@ -18,6 +20,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
+import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -41,6 +44,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         initMenuPanel();
         AjustarColuna();
         carregarDadosTabela();
+        moveHeader();
         jPanel_deletar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
         jPanel_editar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
     }
@@ -56,7 +60,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
 
         lbl_clientes = new javax.swing.JLabel();
         jPanel_tabela_clientes = new javax.swing.JPanel();
-        jScrollPane_clientes_cadastrados = new javax.swing.JScrollPane();
+        jScroll_tabela = new javax.swing.JScrollPane();
         jtbl_clientes_cadastrados = new javax.swing.JTable();
         jPanel_deletar = new javax.swing.JPanel();
         jlbl_deletar = new javax.swing.JLabel();
@@ -84,75 +88,16 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         jPanel_tabela_clientes.setPreferredSize(new java.awt.Dimension(915, 480));
         jPanel_tabela_clientes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jScrollPane_clientes_cadastrados.setHorizontalScrollBar(null);
-        jScrollPane_clientes_cadastrados.setPreferredSize(new java.awt.Dimension(915, 480));
+        jScroll_tabela.setPreferredSize(new java.awt.Dimension(915, 480));
+        jScroll_tabela.setVerifyInputWhenFocusTarget(false);
 
-        jtbl_clientes_cadastrados.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jtbl_clientes_cadastrados.setFont(new java.awt.Font("Merriweather", 0, 16)); // NOI18N
         jtbl_clientes_cadastrados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Nome do cliente", "CPF", "Telefone", "Serviço Contratado", "Endereço"
+                "Nome", "CPF", "Telefone", "Serviço Contratado", "Endereço"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -164,26 +109,14 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
             }
         });
         jtbl_clientes_cadastrados.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jtbl_clientes_cadastrados.setPreferredSize(new java.awt.Dimension(895, 480));
+        jtbl_clientes_cadastrados.setPreferredSize(new java.awt.Dimension(1400, 480));
         jtbl_clientes_cadastrados.setRowHeight(30);
         jtbl_clientes_cadastrados.setShowHorizontalLines(true);
         jtbl_clientes_cadastrados.setShowVerticalLines(true);
         jtbl_clientes_cadastrados.getTableHeader().setReorderingAllowed(false);
-        jtbl_clientes_cadastrados.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jtbl_clientes_cadastradosMouseEntered(evt);
-            }
-        });
-        jScrollPane_clientes_cadastrados.setViewportView(jtbl_clientes_cadastrados);
-        if (jtbl_clientes_cadastrados.getColumnModel().getColumnCount() > 0) {
-            jtbl_clientes_cadastrados.getColumnModel().getColumn(0).setResizable(false);
-            jtbl_clientes_cadastrados.getColumnModel().getColumn(1).setResizable(false);
-            jtbl_clientes_cadastrados.getColumnModel().getColumn(2).setResizable(false);
-            jtbl_clientes_cadastrados.getColumnModel().getColumn(3).setResizable(false);
-            jtbl_clientes_cadastrados.getColumnModel().getColumn(4).setResizable(false);
-        }
+        jScroll_tabela.setViewportView(jtbl_clientes_cadastrados);
 
-        jPanel_tabela_clientes.add(jScrollPane_clientes_cadastrados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel_tabela_clientes.add(jScroll_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(jPanel_tabela_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 103, -1, -1));
 
@@ -194,7 +127,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         jlbl_deletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon deletar.png"))); // NOI18N
         jPanel_deletar.add(jlbl_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 9, -1, -1));
 
-        getContentPane().add(jPanel_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1216, 533, -1, -1));
+        getContentPane().add(jPanel_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1216, 530, -1, -1));
 
         jPanel_editar.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_editar.setPreferredSize(new java.awt.Dimension(42, 42));
@@ -203,7 +136,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon editar.png"))); // NOI18N
         jPanel_editar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 9, -1, -1));
 
-        getContentPane().add(jPanel_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1258, 533, -1, -1));
+        getContentPane().add(jPanel_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1258, 530, -1, -1));
 
         jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
         jPanel_menu.setForeground(new java.awt.Color(124, 115, 101));
@@ -225,7 +158,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
                 jbtn_cadastrarClienteActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtn_cadastrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 620, -1, -1));
+        getContentPane().add(jbtn_cadastrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 620, -1, -1));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         jlbl_background.setText(" ");
@@ -244,11 +177,6 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         telaCadCliente.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jbtn_cadastrarClienteActionPerformed
-
-    private void jtbl_clientes_cadastradosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_clientes_cadastradosMouseEntered
-        // TODO add your handling code here:
-        mostrarEndereco();
-    }//GEN-LAST:event_jtbl_clientes_cadastradosMouseEntered
 
     // Personaliza a "width" da coluna em geral.
     private void AjustarColuna() {
@@ -273,20 +201,34 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         modeloDaColuna.getColumn(0).setCellRenderer(rendererEsquerda); // Nome
         modeloDaColuna.getColumn(1).setCellRenderer(rendererCentro); // CPF
         modeloDaColuna.getColumn(2).setCellRenderer(rendererCentro); // Telefone
-        modeloDaColuna.getColumn(3).setCellRenderer(rendererEsquerda); // Serviço Contratado
-        modeloDaColuna.getColumn(4).setCellRenderer(rendererCentro); // Endereço
+        modeloDaColuna.getColumn(3).setCellRenderer(rendererCentro); // Serviço Contratado
+        modeloDaColuna.getColumn(4).setCellRenderer(rendererEsquerda); // Endereço
 
         // Define o tamanho das colunas na tabela.
-        modeloDaColuna.getColumn(0).setMaxWidth(300); // Nome
-        modeloDaColuna.getColumn(1).setMaxWidth(120); // CPF
-        modeloDaColuna.getColumn(2).setMaxWidth(130); // Telefone
-        modeloDaColuna.getColumn(3).setMaxWidth(145); // Serviço Contratado
-        modeloDaColuna.getColumn(4).setMaxWidth(199); // Endereço
+        modeloDaColuna.getColumn(0).setPreferredWidth(300); // Nome
+        modeloDaColuna.getColumn(1).setPreferredWidth(120); // CPF
+        modeloDaColuna.getColumn(2).setPreferredWidth(130); // Telefone
+        modeloDaColuna.getColumn(3).setPreferredWidth(120); // Serviço Contratado
+        modeloDaColuna.getColumn(4).setPreferredWidth(770); // Endereço
     }
     
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
         jPanel_menu.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
+    }
+    
+    private void moveHeader() {
+        // Cabeçalho da tabela e o JScrollPane
+        JTableHeader header = jtbl_clientes_cadastrados.getTableHeader();
+        JScrollBar horizontalScrollBar = jScroll_tabela.getHorizontalScrollBar();
+
+        // Sincroniza a rolagem da JTable com o header
+        horizontalScrollBar.addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                header.setLocation(-e.getValue(), header.getY());
+            }
+        });
     }
 
     private void carregarDadosTabela() {
@@ -325,32 +267,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
-    private void mostrarEndereco () {
-        // Adicionando MouseListener
-        jtbl_clientes_cadastrados.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                // Obter a linha em que o mouse está passando
-                int row = jtbl_clientes_cadastrados.rowAtPoint(e.getPoint());
-                
-                // Exibir conteúdo da linha quando o mouse entra
-                if (row != -1) {
-                    String endereco = (String) jtbl_clientes_cadastrados.getValueAt(row, 4);
 
-                    jtbl_clientes_cadastrados.setToolTipText(endereco);
-                }
-            }
-            
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // Remover o Tooltip quando o mouse sair da linha
-                jtbl_clientes_cadastrados.setToolTipText(null);
-                
-            }
-        });
-    }
-    
     /**
      * @param args the command line arguments
      */
@@ -395,7 +312,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_editar;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JPanel jPanel_tabela_clientes;
-    private javax.swing.JScrollPane jScrollPane_clientes_cadastrados;
+    private javax.swing.JScrollPane jScroll_tabela;
     private javax.swing.JButton jbtn_cadastrarCliente;
     private javax.swing.JLabel jlbl_background;
     private javax.swing.JLabel jlbl_deletar;

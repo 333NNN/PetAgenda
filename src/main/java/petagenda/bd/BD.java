@@ -1864,5 +1864,132 @@ public class BD {
 
             return r;
         }
+        
+        public static petagenda.Pet[] selectAll() {
+            petagenda.Pet[] pets = null;
+            
+            Connection conn = BD.getConnection();
+            
+            if (conn != null) { // Se o banco for acessível.
+                // Criação do statement.
+                PreparedStatement select = null;
+                try {
+                    select = conn.prepareStatement(String.format("SELECT id_pet, nome, raca, sexo, porte, comportamento, e_castrado, caminho_cartao_vacinacao, estado_saude, cor, id_cliente FROM %s", TABLE));
+                    
+                    ResultSet rs = select.executeQuery();
+                    pets = parse(rs);
+                }
+                catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro na execução da query", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                if (select != null) { // Se preparedStatement não falhou.
+                    try {
+                        select.close();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                    }
+                    finally {
+                        select = null;
+                    }
+                }
+                
+                try {
+                    conn.close();
+                }
+                catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                }
+                finally {
+                    conn = null;
+                }
+            }
+            
+            return pets;
+        }
+        
+        public static petagenda.Pet[] parse(ResultSet rs) {
+            if (rs == null) {
+                throw new NullPointerException("ResultSet não pode ser nulo");
+            }
+            else {
+                ArrayList<petagenda.Pet> pList = new ArrayList<petagenda.Pet>();
+                petagenda.Pet[] pArray = null;
+                
+                try {
+                    while (rs.next()) {
+                        petagenda.Pet p;
+                        int id_pet, id_cliente;
+                        String nome, raca, comportamento, caminho_cartao_vacinacao, estado_saude, cor;
+                        Sexo sexo;
+                        Porte porte;
+                        Boolean eCastrado;
+                        
+                        // Recebimento dos dados do ResultSet
+                        id_pet = rs.getInt("id_pet");
+                        nome = rs.getString("nome");
+                        raca = rs.getString("raca");
+                        
+                        String strSexo = rs.getString("sexo");
+                        if (strSexo == null) {
+                            sexo = null;
+                        }
+                        else {
+                            sexo = Sexo.valueOf(strSexo);
+                        }
+                        
+                        String strPorte = rs.getString("porte");
+                        if (strPorte == null) {
+                            porte = null;
+                        }
+                        else {
+                            porte = Porte.valueOf(strPorte);
+                        }
+                        
+                        comportamento = rs.getString("comportamento");
+                        eCastrado = rs.getBoolean("e_castrado");
+                        caminho_cartao_vacinacao = rs.getString("caminho_cartao_vacina");
+                        estado_saude = rs.getString("estado_saude");
+                        cor = rs.getString("cor");
+                        id_cliente = rs.getInt("id_cliente");
+                        
+                        // Verificação dos dados e criação do objeto
+                        try {
+                            p = new petagenda.Pet(nome, raca, sexo, porte, comportamento, eCastrado, caminho_cartao_vacinacao, estado_saude, cor, id_cliente);
+                            
+                            if (sexo != null) {
+                                p.setSexo(sexo);
+                            }
+                            
+                            if (porte != null) {
+                                p.setPorte(porte);
+                            }
+                            
+                            pList.add(p);
+                        }
+                        catch (IllegalArgumentsException exs) {
+                            StringBuilder strEx = new StringBuilder(String.format("Erro ao receber Pet (id_pet = %d): \n", id_pet));
+                            for (Throwable cause : exs.getCauses()) {
+                                strEx.append(cause.getMessage());
+                                strEx.append("\n");
+                            }
+                            
+                            System.out.println(strEx.toString());
+                        }
+                    }
+                    
+                    if (!pList.isEmpty()) {
+                        pArray = new petagenda.Pet[pList.size()];
+                        pArray = pList.toArray(pArray);
+                    }
+                }
+                catch (SQLException e) {
+                    System.out.printf("Erro ao fazer parse de ResultSet contendo Pet: %s", e.getMessage());
+                }
+                
+                return pArray;
+            }
+        }
     }
 }
