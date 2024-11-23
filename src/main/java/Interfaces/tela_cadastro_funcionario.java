@@ -402,7 +402,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         jbtn_cadastrarFuncionario.setUI(new RoundedCornerButtonUI());
         jPanel1.add(jbtn_cadastrarFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 557, 240, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 40, -1, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, -1, -1));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         jlbl_background.setText("   ");
