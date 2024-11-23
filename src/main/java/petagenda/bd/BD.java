@@ -540,17 +540,8 @@ public class BD {
                     // Criação do statement
                     PreparedStatement insert = null;
                     try {
-                        insert = conn.prepareStatement(String.format("INSERT INTO %s(nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_para) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", TABLE));
+                        insert = conn.prepareStatement(String.format("INSERT INTO %s(nome, cpf, telefone, rua, numero, bairro, cidade, cep) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", TABLE));
 
-                        //petagenda.dados.Endereco endereco = cliente.getEndereco();
-                        //int id_endereco;
-//                        if (endereco.isNew()) {
-                        //BD.Endereco.insert(endereco);
-                        //id_endereco = BD.Endereco.selectLast().getId();
-//                        } else {
-//                            id_endereco = endereco.getId();
-//                        }
-                        //insert.setInt(1, id_endereco);
                         insert.setString(1, cliente.getNome()); // nome_cliente
 
                         petagenda.dados.CPF cpf = cliente.getCpf();
@@ -568,8 +559,6 @@ public class BD {
                         insert.setString(6, cliente.getBairro()); // bairro
                         insert.setString(7, cliente.getCidade()); // cidade
                         insert.setString(8, cliente.getCep()); // cep
-                        insert.setString(9, cliente.getBuscarPetCom()); // buscar_com
-                        insert.setString(10, cliente.getDevolverPetPara()); // devolver_para
 
                         r = insert.executeUpdate();
                     } catch (SQLException e) {
@@ -660,7 +649,7 @@ public class BD {
                     // Criação do statement
                     PreparedStatement insert = null;
                     try {
-                        insert = conn.prepareStatement(String.format("UPDATE %s SET nome = ?, cpf = ?, telefone = ?, rua = ?, numero = ?, bairro = ?, cidade = ?, cep = ?, buscar_com = ?, devolver_para = ? WHERE id_cliente = ?", TABLE));
+                        insert = conn.prepareStatement(String.format("UPDATE %s SET nome = ?, cpf = ?, telefone = ?, rua = ?, numero = ?, bairro = ?, cidade = ?, cep = ? WHERE id_cliente = ?", TABLE));
 
                         //petagenda.dados.Endereco enderecoCliente = cliente.getEndereco();
                         // Atualização do endereco do cliente se mudou
@@ -690,8 +679,6 @@ public class BD {
                         insert.setString(6, cliente.getBairro()); // bairro
                         insert.setString(7, cliente.getCidade()); // cidade
                         insert.setString(8, cliente.getCep()); // cep
-                        insert.setString(9, cliente.getBuscarPetCom()); // buscar_com
-                        insert.setString(10, cliente.getDevolverPetPara()); // devolver_para
                         insert.setInt(11, cliente.getId());
 
                         r = insert.executeUpdate();
@@ -731,7 +718,7 @@ public class BD {
                     // Criação do statement
                     PreparedStatement select = null;
                     try {
-                        select = conn.prepareStatement(String.format("SELECT id_cliente, nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_para FROM %s WHERE id_cliente = ?", TABLE));
+                        select = conn.prepareStatement(String.format("SELECT id_cliente, nome, cpf, telefone, rua, numero, bairro, cidade, cep FROM %s WHERE id_cliente = ?", TABLE));
                         select.setInt(1, id_cliente);
 
                         ResultSet rs = select.executeQuery();
@@ -775,7 +762,7 @@ public class BD {
                     // Criação do statement
                     PreparedStatement select = null;
                     try {
-                        select = conn.prepareStatement(String.format("SELECT id_cliente, nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_para FROM %s WHERE cpf = ?", TABLE));
+                        select = conn.prepareStatement(String.format("SELECT id_cliente, nome, cpf, telefone, rua, numero, bairro, cidade, cep FROM %s WHERE cpf = ?", TABLE));
                         select.setString(1, cpf.toString());
 
                         ResultSet rs = select.executeQuery();
@@ -818,7 +805,7 @@ public class BD {
                 // Criação do statement
                 PreparedStatement select = null;
                 try {
-                    select = conn.prepareStatement(String.format("SELECT id_cliente, nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_para FROM %s", TABLE));
+                    select = conn.prepareStatement(String.format("SELECT id_cliente, nome, cpf, telefone, rua, numero, bairro, cidade, cep FROM %s", TABLE));
 
                     ResultSet rs = select.executeQuery();
                     clientes = parse(rs);
@@ -855,7 +842,7 @@ public class BD {
                 // Criação do statement
                 PreparedStatement select = null;
                 try {
-                    select = conn.prepareStatement(String.format("SELECT id_cliente, nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_para FROM %s ORDER BY id_cliente DESC LIMIT 1", TABLE));
+                    select = conn.prepareStatement(String.format("SELECT id_cliente, nome, cpf, telefone, rua, numero, bairro, cidade, cep FROM %s ORDER BY id_cliente DESC LIMIT 1", TABLE));
 
                     ResultSet rs = select.executeQuery();
                     petagenda.Cliente[] selected = parse(rs);
@@ -899,17 +886,13 @@ public class BD {
                 try {
                     while (rs.next()) {
                         petagenda.Cliente c;
-                        int id_cliente, id_servico_solicita, id_endereco;
-                        String nome, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_para;
-                        petagenda.servico.Servico servicoSolicita;
-                        petagenda.dados.Endereco endereco;
+                        int id_cliente;
+                        String nome, telefone, rua, numero, bairro, cidade, cep;
                         petagenda.dados.CPF cpf;
 
                         // Recebimento dos dados do ResultSet
                         id_cliente = rs.getInt("id_cliente");
                         nome = rs.getString("nome");
-                        //id_endereco = rs.getInt("id_endereco");
-                        //endereco = BD.Endereco.selectById(id_endereco); // Null, se não encontrar
 
                         String strCpf = rs.getString("cpf");
                         if (strCpf == null) {
@@ -924,25 +907,13 @@ public class BD {
                         bairro = rs.getString("bairro");
                         cidade = rs.getString("cidade");
                         cep = rs.getString("cep");
-                        buscar_com = rs.getString("buscar_com");
-                        devolver_para = rs.getString("devolver_para");
 
-                        //id_servico_solicita = rs.getInt("id_servico_solicita");
-                        //servicoSolicita = BD.Servico.selectById(id_servico_solicita); // Null, se não encontrar
                         // Verificação dos dados e criação do objeto
                         try {
-                            c = new petagenda.Cliente(id_cliente, nome, strCpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_para);
+                            c = new petagenda.Cliente(id_cliente, nome, strCpf, telefone, rua, numero, bairro, cidade, cep);
 
                             if (cpf != null) {
                                 c.setCpf(cpf);
-                            }
-
-                            if (buscar_com != null) {
-                                c.setBuscarPetCom(buscar_com);
-                            }
-
-                            if (devolver_para != null) {
-                                c.setDevolverPetPara(devolver_para);
                             }
 
                             cList.add(c);

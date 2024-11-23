@@ -23,8 +23,6 @@ public final class Cliente {
     private String cidade;
     private String cep;
     //private Servico servicoSolicita;
-    private String buscar_com;
-    private String devolver_para;
     
     public static final int NULL_ID = -1;
     
@@ -76,18 +74,13 @@ public final class Cliente {
         
     }
     
-    /*
-    public Cliente(int id_cliente, String nome, String cpf, String telefone, String rua, String numero, String bairro, String cidade, String cep, String buscarPetCom, String devolverPetPara) {
-        this(id_cliente, nome, cpf, telefone, rua, numero, bairro, cidade, cep, null, null);
-    }
-    */
     
-    public Cliente(String nome, String cpf, String telefone, String rua, String numero, String bairro, String cidade, String cep, String buscarPetCom, String devolverPetPara) {
-        this(1, nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscarPetCom, devolverPetPara);
+    public Cliente(String nome, String cpf, String telefone, String rua, String numero, String bairro, String cidade, String cep) {
+        this(1, nome, cpf, telefone, rua, numero, bairro, cidade, cep);
         this.id_cliente = NULL_ID;
     }
     
-    public Cliente(int id_cliente, String nome, String cpf, String telefone, String rua, String numero, String bairro, String cidade, String cep, String buscarPetCom, String devolverPetPara) {
+    public Cliente(int id_cliente, String nome, String cpf, String telefone, String rua, String numero, String bairro, String cidade, String cep) {
         IllegalArgumentsException exs = new IllegalArgumentsException();
         
         // Id
@@ -157,38 +150,6 @@ public final class Cliente {
         catch (IllegalCepException ex) {
             exs.addCause(ex);
         }
-        
-        // Buscar_com
-        try {
-            setBuscarPetCom(buscarPetCom);
-        } catch (IllegalNomeException ex) {
-            exs.addCause(ex);
-        }
-        
-        // devolver_para
-        try {
-            setDevolverPetPara(devolverPetPara);
-        } catch (IllegalNomeException ex) {
-            exs.addCause(ex);
-        }
- 
-        // Endereço
-        /*
-        try {
-            setEndereco(endereco);
-        } catch (IllegalEnderecoException ex) {
-            exs.addCause(ex);
-        }
-        */
-
-        // Serviço solicitado
-        /*
-        try {
-            setServico(servicoSolicita);
-        } catch (IllegalServicoException ex) {
-            exs.addCause(ex);
-        }
-        */
 
         if (exs.size() > 0) { // Alguma exceção ocorreu
             throw exs;
@@ -200,6 +161,8 @@ public final class Cliente {
         return this.getId() == NULL_ID;
     }
     
+    
+    // id_cliente
     public void setId(int id_cliente) {
         if (id_cliente < 0) {
             throw new IllegalIdException("id não pode ser inferior a zero");
@@ -212,16 +175,17 @@ public final class Cliente {
         return this.id_cliente;
     }
     
+    
     // Nome
     public void setNome(String nome) {
         if (nome == null) {
-            throw new IllegalNomeException("nome não pode ser nulo");
+            throw new IllegalNomeException("Nome não pode ser nulo");
         }
         nome = nome.trim();
         if (nome.isEmpty()) {
-            throw new IllegalNomeException("nome não pode ser vazio");
+            throw new IllegalNomeException("Nome não pode ser vazio");
         } else if (nome.length() > 64) {
-            throw new IllegalNomeException("nome não pode conter mais do que 64 caracteres");
+            throw new IllegalNomeException("Nome não pode conter mais do que 64 caracteres");
         }
         this.nome = nome;
     }
@@ -230,19 +194,6 @@ public final class Cliente {
         return this.nome;
     }
     
-    /*
-    public void setEndereco(Endereco endereco) {
-        if (endereco == null) {
-            throw new IllegalEnderecoException("Endereço não pode ser nulo");
-        } else {
-            this.endereco = endereco;
-        }
-    }
-    
-    public Endereco getEndereco() {
-        return this.endereco;
-    }
-    */
     
     // Cpf
     public void setCpf(String strCpf) {
@@ -267,16 +218,17 @@ public final class Cliente {
         return this.cpf;
     }
     
+    
     // Telefone
     public void setTelefone(String tel) {
         if (tel == null) {
-            throw new IllegalTelefoneException("telefone não pode ser nulo");
+            throw new IllegalTelefoneException("Telefone não pode ser nulo");
         }
         tel = tel.trim();
         if (tel.isEmpty()) {
-            throw new IllegalTelefoneException("telefone não pode ser vazio");
+            throw new IllegalTelefoneException("Telefone não pode ser vazio");
         } else if (tel.length() > 15) {
-            throw new IllegalTelefoneException("telefone não pode conter mais do que 12 caracteres");
+            throw new IllegalTelefoneException("Telefone não pode conter mais do que 15 caracteres");
         }
         this.telefone = tel;
     }
@@ -285,14 +237,15 @@ public final class Cliente {
         return this.telefone;
     }
     
+    
     // Rua
     public void setRua(String rua) {
         rua = rua.trim(); // Tira os espaços em branco do início e final.
         if (rua == null || rua.isEmpty()) {
             throw new IllegalRuaException("Rua não pode ser nulo ou vazio.");
         }
-        else if (rua.length() > 45) {
-            throw new IllegalRuaException("Rua não pode ultrapassar 45 caracteres.");
+        else if (rua.length() > 64) {
+            throw new IllegalRuaException("Rua não pode ultrapassar 64 caracteres.");
         }
         
         this.rua = rua;
@@ -301,6 +254,7 @@ public final class Cliente {
     public String getRua () {
         return this.rua;
     }
+    
     
     // Numero
     public void setNumero(String numero) {
@@ -319,14 +273,15 @@ public final class Cliente {
         return this.numero;
     }
     
+    
     // Bairro
     public void setBairro(String bairro) {
         bairro = bairro.trim(); // Tira os espaços em branco do início e final.
         if (bairro == null || bairro.isEmpty()) {
             throw new IllegalBairroException("Bairro não pode ser nulo ou vazio.");
         }
-        else if (bairro.length() > 32) {
-            throw new IllegalBairroException("Bairro não pode ultrapassar 8 caracteres.");
+        else if (bairro.length() > 64) {
+            throw new IllegalBairroException("Bairro não pode ultrapassar 64 caracteres.");
         }
         
         this.bairro = bairro;
@@ -336,14 +291,15 @@ public final class Cliente {
         return this.bairro;
     }
     
+    
     // Cidade
     public void setCidade(String cidade) {
         cidade = cidade.trim(); // Tira os espaços em branco do início e final.
         if (cidade == null || cidade.isEmpty()) {
             throw new IllegalCidadeException("Cidade não pode ser nulo ou vazio.");
         }
-        else if (cidade.length() > 32) {
-            throw new IllegalCidadeException("Cidade não pode ultrapassar 8 caracteres.");
+        else if (cidade.length() > 64) {
+            throw new IllegalCidadeException("Cidade não pode ultrapassar 64 caracteres.");
         }
         
         this.cidade = cidade;
@@ -352,6 +308,7 @@ public final class Cliente {
     public String getCidade () {
         return this.cidade;
     }
+    
     
     // Cep
     public void setCep(String cep) {
@@ -370,45 +327,6 @@ public final class Cliente {
         return this.cep;
     }
     
-    // Buscar_com
-    public void setBuscarPetCom(String pessoa) {
-        if (pessoa == null) {
-            throw new IllegalNomeException("pessoa não pode ser nulo");
-        } else {
-            pessoa = pessoa.trim();
-            if (pessoa.isEmpty()) {
-                throw new IllegalNomeException("pessoa não pode ser vazio");
-            } else if (pessoa.length() > 64) {
-                throw new IllegalNomeException("pessoa não pode conter mais do que 64 caracteres");
-            }
-            this.buscar_com = pessoa;
-        }
-    }
-    
-    public String getBuscarPetCom() {
-        return this.buscar_com;
-    }
-    
-    // Devolver_para
-    public void setDevolverPetPara(String pessoa) {
-        if (pessoa == null) {
-//            throw new IllegalNomeException("pessoa não pode ser nulo");
-            this.devolver_para = null;
-        } else {
-            pessoa = pessoa.trim();
-            if (pessoa.isEmpty()) {
-                throw new IllegalNomeException("pessoa não pode ser vazio");
-            } else if (pessoa.length() > 64) {
-                throw new IllegalNomeException("pessoa não pode conter mais do que 64 caracteres");
-            }
-            this.devolver_para = pessoa;
-        }
-    }
-    
-    public String getDevolverPetPara() {
-        return this.devolver_para;
-    }
-
     @Override
     public String toString() {
         return String.format("NOME: %s | CPF: %s" /*SERVIÇO SOL.: %s"*/, getNome(), getCpf()/*, getEndereco().toString(), getTelefone(), getServico().getNome()*/);

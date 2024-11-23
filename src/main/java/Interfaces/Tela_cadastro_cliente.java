@@ -126,7 +126,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         
         // Criação do cliente.
         try {
-            novo_cliente = new Cliente(nome, cpf, telefone, rua, numero, bairro, cidade, cep, buscar_com, devolver_pet_para);  
+            novo_cliente = new Cliente(nome, cpf, telefone, rua, numero, bairro, cidade, cep);  
         }
         catch (IllegalArgumentsException exs) {
             exsCadastro.addCause(exs.getCauses());
@@ -466,8 +466,11 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
             Logger.getLogger(Tela_cadastro_cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        String strCpf = cadastrar.getCpf().toString();
-        duplicado = Duplicado(strCpf);
+        if (cadastrar != null) {
+           String strCpf = cadastrar.getCpf().toString();
+            duplicado = Duplicado(strCpf); 
+        }
+        
         
         if (duplicado == false) {
             if (cadastrar != null) {
