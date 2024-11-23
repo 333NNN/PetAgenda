@@ -225,7 +225,7 @@ CREATE TABLE `pet` (
   PRIMARY KEY (`id_pet`),
   KEY `id_cliente` (`id_cliente`),
   CONSTRAINT `pet_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -234,6 +234,7 @@ CREATE TABLE `pet` (
 
 LOCK TABLES `pet` WRITE;
 /*!40000 ALTER TABLE `pet` DISABLE KEYS */;
+INSERT INTO `pet` VALUES (1,'Soffia','Vira-lata','F','Médio','Meio nervosa',_binary '','TEMPORARIO','Já teve pneumonia','Preto',6),(2,'Exterminador de mundos','pinscher','M','Pequeno','Super agressivo',_binary '\0','TEMPORARIO','Intocável','Preto e marrom',3),(3,'Lara','Pinscher','F','Pequeno','Carente e obediente',_binary '','TEMPORARIO','Perfeito','Branco',6),(4,'Suzi','Poodle','F','Grande','Obediente',_binary '\0','TEMPORARIO','Velha, mas com saúde boa.','Caramelo',2),(5,'Gorducha','Vira-lata','F','Médio','Não obedece ninguém.',_binary '','TEMPORARIO','Perfeito.','Cinza e preto',5);
 /*!40000 ALTER TABLE `pet` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -394,4 +395,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-23 13:18:28
+-- Dump completed on 2024-11-23 16:32:53
