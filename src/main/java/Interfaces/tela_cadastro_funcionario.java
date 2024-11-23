@@ -26,11 +26,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+<<<<<<< HEAD
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+=======
+>>>>>>> 6f25249b0cf08ccf233185d8dc9c23a401333132
 
 /**
  *
@@ -69,6 +72,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         field_cidade.setText(null);
     }
 
+<<<<<<< HEAD
     private void AlinhaJField() {
         Border line = BorderFactory.createLineBorder(Color.BLACK, 2);
         Border empty = new EmptyBorder(0, 5, 0, 0);
@@ -120,6 +124,9 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
     }
     
     // Recebe as informações dos campos em um novo objeto do tipo petagenda.Funcionario
+=======
+    // Recebe as informações dos campos em um novo objeto do tipo petagenda.Usuario
+>>>>>>> 6f25249b0cf08ccf233185d8dc9c23a401333132
     private Funcionario getFieldsInfo() throws SQLException {
         Funcionario novoFuncionario = null;
         String nome, cpf, telefone, cep, numero, rua, bairro, cidade;
@@ -216,8 +223,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         lbl_cadastrarFuncinario.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
         lbl_cadastrarFuncinario.setForeground(new java.awt.Color(0, 0, 0));
         lbl_cadastrarFuncinario.setText("Cadastrar funcionário");
-        lbl_cadastrarFuncinario.setPreferredSize(new java.awt.Dimension(340, 45));
-        jPanel1.add(lbl_cadastrarFuncinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 440, -1));
+        jPanel1.add(lbl_cadastrarFuncinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
 
         jlbl_nome_funcionario.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_nome_funcionario.setForeground(new java.awt.Color(0, 0, 0));
@@ -388,6 +394,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
 
     private void jbtn_cadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_cadastrarFuncionarioActionPerformed
         Funcionario cadastrar = null;
+<<<<<<< HEAD
         
         boolean duplicado = false;
         
@@ -413,6 +420,19 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         }
         else {
             JOptionPane.showMessageDialog(null, "CPF já cadastrado.", "CPF inválido", JOptionPane.ERROR_MESSAGE);
+=======
+        try {
+            cadastrar = getFieldsInfo(); // Retorna null se informações forem inválidas
+        } catch (SQLException ex) {
+            Logger.getLogger(tela_cadastro_funcionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (cadastrar != null) {
+            int r = BD.Funcionario.insert(cadastrar);
+            if (r > 0) { // Insert funcionou
+                clearFieldsInfo();
+                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+            }
+>>>>>>> 6f25249b0cf08ccf233185d8dc9c23a401333132
         }
     }//GEN-LAST:event_jbtn_cadastrarFuncionarioActionPerformed
 

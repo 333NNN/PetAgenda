@@ -128,12 +128,6 @@ public class MenuPanel extends JPanel {
                 btn_clientesActionPerformed(evt);
             }
         });
-        btn_clientes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                btn_clientesActionPerformed(evt);
-            }
-        });
         btn_clientes.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             @Override
             public void mouseMoved(java.awt.event.MouseEvent evt) {
