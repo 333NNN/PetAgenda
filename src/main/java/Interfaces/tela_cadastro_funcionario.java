@@ -26,14 +26,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-<<<<<<< HEAD
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-=======
->>>>>>> 6f25249b0cf08ccf233185d8dc9c23a401333132
 
 /**
  *
@@ -71,8 +68,16 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         field_bairro.setText(null);
         field_cidade.setText(null);
     }
+    
+    // não deixa o usuario digitar números, somente caracteres.
+    private void VerificaString(java.awt.event.KeyEvent evt) {
+        String caracteres = "123456789!@#$%&*()-_+=";
+        if (caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
 
-<<<<<<< HEAD
+    // Alinha todos os campos.
     private void AlinhaJField() {
         Border line = BorderFactory.createLineBorder(Color.BLACK, 2);
         Border empty = new EmptyBorder(0, 5, 0, 0);
@@ -123,10 +128,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         return false;
     }
     
-    // Recebe as informações dos campos em um novo objeto do tipo petagenda.Funcionario
-=======
     // Recebe as informações dos campos em um novo objeto do tipo petagenda.Usuario
->>>>>>> 6f25249b0cf08ccf233185d8dc9c23a401333132
     private Funcionario getFieldsInfo() throws SQLException {
         Funcionario novoFuncionario = null;
         String nome, cpf, telefone, cep, numero, rua, bairro, cidade;
@@ -240,6 +242,11 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         field_nome_funcionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 field_nome_funcionarioActionPerformed(evt);
+            }
+        });
+        field_nome_funcionario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                field_nome_funcionarioKeyTyped(evt);
             }
         });
         jPanel1.add(field_nome_funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 104, -1, -1));
@@ -394,7 +401,6 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
 
     private void jbtn_cadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_cadastrarFuncionarioActionPerformed
         Funcionario cadastrar = null;
-<<<<<<< HEAD
         
         boolean duplicado = false;
         
@@ -405,8 +411,11 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
             Logger.getLogger(tela_cadastro_funcionario.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        String strCpf = cadastrar.getCpf().toString();
-        duplicado = Duplicado(strCpf);
+        if (cadastrar != null) {
+            String strCpf = cadastrar.getCpf().toString();
+            duplicado = Duplicado(strCpf);
+        }
+        
         
         if (duplicado == false) {
            if (cadastrar != null) {
@@ -420,25 +429,17 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         }
         else {
             JOptionPane.showMessageDialog(null, "CPF já cadastrado.", "CPF inválido", JOptionPane.ERROR_MESSAGE);
-=======
-        try {
-            cadastrar = getFieldsInfo(); // Retorna null se informações forem inválidas
-        } catch (SQLException ex) {
-            Logger.getLogger(tela_cadastro_funcionario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (cadastrar != null) {
-            int r = BD.Funcionario.insert(cadastrar);
-            if (r > 0) { // Insert funcionou
-                clearFieldsInfo();
-                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-            }
->>>>>>> 6f25249b0cf08ccf233185d8dc9c23a401333132
         }
     }//GEN-LAST:event_jbtn_cadastrarFuncionarioActionPerformed
 
     private void jcbox_Selecao_servicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbox_Selecao_servicoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbox_Selecao_servicoActionPerformed
+
+    private void field_nome_funcionarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field_nome_funcionarioKeyTyped
+        // TODO add your handling code here:
+        VerificaString(evt);
+    }//GEN-LAST:event_field_nome_funcionarioKeyTyped
     
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();

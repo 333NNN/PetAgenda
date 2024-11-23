@@ -2,14 +2,15 @@ CREATE DATABASE pet_agenda;
 
 USE pet_agenda;
 
-DROP DATABASE pet_agenda;
+-- DROP DATABASE pet_agenda;
 
 CREATE TABLE usuario (
 	id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     cpf CHAR(11) NOT NULL UNIQUE,
     nome_usuario VARCHAR(45) NOT NULL,
     senha_usuario VARCHAR(25) NOT NULL,
-    permissao ENUM('1', '2', '3') NOT NULL
+    permissao ENUM('1', '2', '3') NOT NULL,
+    codigo_recup VARCHAR(4) NOT NULL UNIQUE
 );
 
 CREATE TABLE funcionario (
@@ -17,11 +18,11 @@ CREATE TABLE funcionario (
     nome VARCHAR(64) NOT NULL,
     cpf CHAR(11) NOT NULL UNIQUE,
     telefone VARCHAR(15) NOT NULL,
-    rua VARCHAR(45) NOT NULL,
+    rua VARCHAR(64) NOT NULL,
     cep CHAR(8) NOT NULL,
     numero VARCHAR(16) NOT NULL,
-    bairro VARCHAR(32) NOT NULL,
-    cidade VARCHAR(32) NOT NULL
+    bairro VARCHAR(64) NOT NULL,
+    cidade VARCHAR(64) NOT NULL
 );
 
 CREATE TABLE servico (
@@ -36,17 +37,14 @@ CREATE TABLE cliente (
     nome VARCHAR(64) NOT NULL,
     cpf CHAR(11) NOT NULL UNIQUE,
     telefone VARCHAR(15) NOT NULL,
-    rua VARCHAR(45) NOT NULL,
+    rua VARCHAR(64) NOT NULL,
     numero VARCHAR(16) NOT NULL,
-    bairro VARCHAR(32) NOT NULL,
-    cidade VARCHAR(32) NOT NULL,
-    cep CHAR(8) NOT NULL,
-    buscar_com VARCHAR(64),
-    devolver_para VARCHAR(64)
+    bairro VARCHAR(64) NOT NULL,
+    cidade VARCHAR(64) NOT NULL,
+    cep CHAR(8) NOT NULL
 );
 
 CREATE TABLE cliente_contrata_servico (
-	id_cliente_contrata_servico INT PRIMARY KEY AUTO_INCREMENT,
 	id_servico INT,
     id_cliente INT,
     FOREIGN KEY (id_servico) REFERENCES servico(id_servico),
@@ -77,17 +75,17 @@ CREATE TABLE agendamento (
     dta_hr_finalizado DATETIME NOT NULL,
     check_entrega TINYINT NOT NULL,
     observacao VARCHAR(255),
-    pet_buscar_com VARCHAR(64),
-    pet_devolver_para VARCHAR(64),
-    local_cuidado VARCHAR(255),
     id_servico INT,
-    id_pet INT,
     id_func INT,
-    id_cliente INT,
     FOREIGN KEY (id_servico) REFERENCES servico(id_servico),
-    FOREIGN KEY (id_pet) REFERENCES pet(id_pet),
-    FOREIGN KEY (id_func) REFERENCES funcionario(id_func),
-    FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
+    FOREIGN KEY (id_func) REFERENCES funcionario(id_func)
+);
+
+CREATE TABLE pet_agendamento (
+	id_agendamento_pet INT,
+    id_pet_agend INT,
+    FOREIGN KEY (id_agendamento_pet) REFERENCES agendamento(id_agendamento),
+    FOREIGN KEY (id_pet_agend) REFERENCES pet(id_pet)
 );
 
 CREATE TABLE remedio_agend (

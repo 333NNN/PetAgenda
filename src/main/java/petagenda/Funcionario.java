@@ -25,27 +25,7 @@ public final class Funcionario {
     private String cidade;
     
     public static final int NULL_ID = -1;
-   
-    /*
-    public Funcionario (int id_func, String nome, CPF cpf, String telefone, String rua, String cep, String numero, String bairro, String cidade) {
-        this.id_func = id_func;
-    private String rua;
-    private String bairro;
-    private String cidade;
-    
-    public Funcionario (int id, String nome, CPF cpf, String telefone, String servico_prestado, String rua,String cep, String numero, String bairro, String cidade) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
-        this.rua = rua;
-        this.cep = cep;
-        this.numero = numero;
-        this.bairro = bairro;
-        this.cidade = cidade;
-    }
-    */
-    
+
     public Funcionario(String nome, String cpf, String telefone, String rua, String cep, String numero, String bairro, String cidade) {
         this(1, nome, cpf, telefone, rua, cep, numero, bairro, cidade);
         this.id_func = NULL_ID;
@@ -131,28 +111,28 @@ public final class Funcionario {
         }
     }
     
-    /*public static void insert(Funcionario funcionario) {
-        BD.Funcionario.insert(funcionario);
+    private boolean verificaString(String str) {
+        boolean e_string = true;
+        
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if ('0' <= c && c <= '9') {
+                return false;
+            }
+        }
+        
+        return e_string;
     }
-
-    public static void update(Funcionario funcionario) {
-        BD.Funcionario.update(funcionario);
-    }
-
-    public static void delete(Funcionario funcionario) {
-        BD.Funcionario.delete(funcionario);
-    }
-    */
-
+    
     // Verifica se o funcionário já é existente.
     public boolean isNew() {
         return this.getId() == NULL_ID;
     }
 
-
+    
     // Getters e Setters
 
-
+    
     // id_func
     public void setId(int id_func) {
         if (id_func < 0) {
@@ -166,11 +146,15 @@ public final class Funcionario {
         return this.id_func;
     }
 
+    
     // nome
     public void setNome(String nome) {
         nome = nome.trim(); // Tira os espaços em branco do início e final.
         if (nome == null || nome.isEmpty()) {
             throw new IllegalNomeException("Nome não pode ser nulo ou vazio.");
+        }
+        else if (!verificaString(nome)) {
+            throw new IllegalNomeException("Nome não pode conter números ou caracteres especiais");
         }
         else if (nome.length() > 64) {
             throw new IllegalNomeException("Nome não pode ultrapassar 64 caracteres.");
@@ -182,26 +166,6 @@ public final class Funcionario {
         return this.nome;
     }
     
-    /*
-    
-   // Cpf
-    public void setCpf(String strCpf) {
-        if (strCpf == null) {
-            this.setCpf((CPF)null); // Meus olhos choram sangue de ter que fazer isso (ಥ﹏ಥ) 
-        } else {
-            this.setCpf(new CPF(strCpf)); // Dá throw de IllegalCpfException se for inválido e NullPointerException se for nulo
-        }
-    }
-    
-    public void setCpf(CPF cpf) {
-        if (cpf == null) {
-//          throw new IllegalCpfException("CPF não pode ser nulo");
-            this.cpf = null;
-        } else {
-            this.cpf = cpf;
-        }
-    }
-    */
     
     // CPF
     public void setCpf(String strCpf) {
@@ -227,6 +191,7 @@ public final class Funcionario {
         return this.cpf;
     }
     
+    
     // Telefone
     public void setTelefone (String telefone) {
         telefone = telefone.trim(); // Tira os espaços em branco do início e final.
@@ -234,7 +199,7 @@ public final class Funcionario {
             throw new IllegalTelefoneException("Telefone não pode ser nulo ou vazio.");
         }
         else if (telefone.length() > 15) {
-            throw new IllegalNomeException("Nome não pode ultrapassar 64 caracteres.");
+            throw new IllegalNomeException("Telefone não pode ultrapassar 15 caracteres.");
         }
         this.telefone = telefone; // Criando objeto CPF
     }
@@ -243,14 +208,15 @@ public final class Funcionario {
         return this.telefone;
     }
     
+    
     // Rua
     public void setRua(String rua) {
         rua = rua.trim(); // Tira os espaços em branco do início e final.
         if (rua == null || rua.isEmpty()) {
             throw new IllegalRuaException("Rua não pode ser nulo ou vazio.");
         }
-        else if (rua.length() > 45) {
-            throw new IllegalRuaException("Rua não pode ultrapassar 45 caracteres.");
+        else if (rua.length() > 64) {
+            throw new IllegalRuaException("Rua não pode ultrapassar 64 caracteres.");
         }
         
         this.rua = rua;
@@ -300,8 +266,8 @@ public final class Funcionario {
         if (bairro == null || bairro.isEmpty()) {
             throw new IllegalBairroException("Bairro não pode ser nulo ou vazio.");
         }
-        else if (bairro.length() > 32) {
-            throw new IllegalBairroException("Bairro não pode ultrapassar 32 caracteres.");
+        else if (bairro.length() > 64) {
+            throw new IllegalBairroException("Bairro não pode ultrapassar 64 caracteres.");
         }
         
         this.bairro = bairro;
@@ -317,8 +283,8 @@ public final class Funcionario {
         if (cidade == null || cidade.isEmpty()) {
             throw new IllegalCidadeException("Cidade não pode ser nulo ou vazio.");
         }
-        else if (cidade.length() > 32) {
-            throw new IllegalCidadeException("Cidade não pode ultrapassar 32 caracteres.");
+        else if (cidade.length() > 64) {
+            throw new IllegalCidadeException("Cidade não pode ultrapassar 64 caracteres.");
         }
         
         this.cidade = cidade;
