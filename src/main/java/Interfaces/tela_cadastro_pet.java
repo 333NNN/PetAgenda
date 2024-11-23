@@ -57,7 +57,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         
         initComponents();
         initMenuPanel();
-        //jtxtf_nome_cliente.setEnabled(false);
+        //jcombBox_nome_dono.setEnabled(false);
         AlinhaJField();
     }
     
@@ -81,8 +81,8 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
     private void clearFieldsInfo() {
         jtxtf_nome_pet.setText(null);
         jtxtf_Raca.setText(null);
-        jcmbBx_sexo.setSelectedItem(0);
-        jcmbBx_Porte.setSelectedItem(0);
+        jcmbBx_sexo.setSelectedIndex(0);
+        jcmbBx_Porte.setSelectedIndex(0);
         jtxtarea_comportamento.setText(null);
         chkBx_Sim.setSelected(false);
         chkBx_Nao.setSelected(false);
@@ -113,18 +113,16 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         {
             eCastrado = false;
         }
-        else {
-            
-        }
         
         // caminho_cartao_vacinacao
+        
         estado_saude = jtxtarea_saude.getText(); // estado_saude
         cor = txtf_Cor.getText(); // cor
         
         // id_cliente
-        Cliente[] nome_clientes = BD.Cliente.selectAll();
+        Cliente[] clientes = BD.Cliente.selectAll();
         index_cliente = jcombBox_nome_dono.getSelectedIndex();
-        id_cliente = nome_clientes[index_cliente].getId();
+        id_cliente = clientes[index_cliente].getId();
         
         System.out.println("Id_cliente" + id_cliente);
         
@@ -253,6 +251,11 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
                 jtxtf_nome_petActionPerformed(evt);
             }
         });
+        jtxtf_nome_pet.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtf_nome_petKeyTyped(evt);
+            }
+        });
         jpanel_cadastrar_pet.add(jtxtf_nome_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 103, -1, -1));
 
         label_nome_do_pet.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -344,6 +347,11 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
                 jtxtf_RacaActionPerformed(evt);
             }
         });
+        jtxtf_Raca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtf_RacaKeyTyped(evt);
+            }
+        });
         jpanel_cadastrar_pet.add(jtxtf_Raca, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 240, -1));
 
         label_porte.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -375,6 +383,11 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         txtf_Cor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtf_CorActionPerformed(evt);
+            }
+        });
+        txtf_Cor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtf_CorKeyTyped(evt);
             }
         });
         jpanel_cadastrar_pet.add(txtf_Cor, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 200, -1, -1));
@@ -418,6 +431,11 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         jtxtarea_comportamento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jtxtarea_comportamento.setOpaque(false);
         jtxtarea_comportamento.setPreferredSize(null);
+        jtxtarea_comportamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtarea_comportamentoKeyTyped(evt);
+            }
+        });
         jtxtArea_Comportamento.setViewportView(jtxtarea_comportamento);
 
         jpanel_cadastrar_pet.add(jtxtArea_Comportamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
@@ -441,6 +459,11 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         jtxtarea_saude.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jtxtarea_saude.setOpaque(false);
         jtxtarea_saude.setPreferredSize(null);
+        jtxtarea_saude.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtarea_saudeKeyTyped(evt);
+            }
+        });
         jtxtArea_Saude.setViewportView(jtxtarea_saude);
 
         jpanel_cadastrar_pet.add(jtxtArea_Saude, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 409, -1, -1));
@@ -507,6 +530,22 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtn_cadastrarPetActionPerformed
 
+    // não deixa o usuario digitar números, somente caracteres.
+    private void VerificaString(java.awt.event.KeyEvent evt) {
+        String caracteres = "áéíóúàèìòùâêîôûãõäëïöüåñçøÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕÄËÏÖÜÅÑÇØabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ- ";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
+    
+    // não deixa o usuario digitar simbolos, somente caracteres e números.
+    private void verificaStringNum(java.awt.event.KeyEvent evt) {
+        String caracteres = "123456789áéíóúàèìòùâêîôûãõäëïöüåñçøÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕÄËÏÖÜÅÑÇØabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-., ";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
+    
     private void chkBx_SimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBx_SimActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chkBx_SimActionPerformed
@@ -555,12 +594,52 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        Cliente[] nome_clientes = BD.Cliente.selectAll();
+        Cliente[] clientes = BD.Cliente.selectAll(); // Todos os clientes.
+        Cliente ultimo_cadastrado = BD.Cliente.selectLast(); // Último cliente.
         
-        for (Cliente nome_cliente : nome_clientes) {
-            jcombBox_nome_dono.addItem(nome_cliente.getNome());
+        for (Cliente cliente : clientes) {
+            jcombBox_nome_dono.addItem(cliente.getNome());
+        }
+        
+        if (ultimo_cadastrado != null) {
+            String cpf_ultimo_cliente = ultimo_cadastrado.getCpf().toString();
+            
+            // Verifica por cada posição do combobox até encontrar o cpf do último cadastrado.
+            for (int i = 0; i < jcombBox_nome_dono.getItemCount(); i++) {
+                
+                // Verifica se cliente tem o mesmo cpf que o último cliente.
+                if ((clientes[i].getCpf().toString()).equals(cpf_ultimo_cliente)) { 
+                    jcombBox_nome_dono.setSelectedIndex(i); // Coloca o comboBox selecionado na posição que foi achado.
+                    break;
+                }
+            }
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void jtxtf_nome_petKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_nome_petKeyTyped
+        // TODO add your handling code here:
+        verificaStringNum(evt);
+    }//GEN-LAST:event_jtxtf_nome_petKeyTyped
+
+    private void jtxtf_RacaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_RacaKeyTyped
+        // TODO add your handling code here:
+        VerificaString(evt);
+    }//GEN-LAST:event_jtxtf_RacaKeyTyped
+
+    private void txtf_CorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtf_CorKeyTyped
+        // TODO add your handling code here:
+        VerificaString(evt);
+    }//GEN-LAST:event_txtf_CorKeyTyped
+
+    private void jtxtarea_comportamentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtarea_comportamentoKeyTyped
+        // TODO add your handling code here:
+        verificaStringNum(evt);
+    }//GEN-LAST:event_jtxtarea_comportamentoKeyTyped
+
+    private void jtxtarea_saudeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtarea_saudeKeyTyped
+        // TODO add your handling code here:
+        verificaStringNum(evt);
+    }//GEN-LAST:event_jtxtarea_saudeKeyTyped
     
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
