@@ -5,6 +5,7 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
@@ -40,6 +41,8 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         initMenuPanel();
         AjustarColuna();
         carregarDadosTabela();
+        jPanel_deletar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
+        jPanel_editar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
     }
 
     /**
@@ -55,6 +58,10 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         jPanel_tabela_clientes = new javax.swing.JPanel();
         jScrollPane_clientes_cadastrados = new javax.swing.JScrollPane();
         jtbl_clientes_cadastrados = new javax.swing.JTable();
+        jPanel_deletar = new javax.swing.JPanel();
+        jlbl_deletar = new javax.swing.JLabel();
+        jPanel_editar = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel_menu = new javax.swing.JPanel();
         jbtn_cadastrarCliente = new javax.swing.JButton();
         jlbl_background = new javax.swing.JLabel();
@@ -179,6 +186,24 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         jPanel_tabela_clientes.add(jScrollPane_clientes_cadastrados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(jPanel_tabela_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 103, -1, -1));
+
+        jPanel_deletar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_deletar.setPreferredSize(new java.awt.Dimension(42, 42));
+        jPanel_deletar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jlbl_deletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon deletar.png"))); // NOI18N
+        jPanel_deletar.add(jlbl_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 9, -1, -1));
+
+        getContentPane().add(jPanel_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1216, 533, -1, -1));
+
+        jPanel_editar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_editar.setPreferredSize(new java.awt.Dimension(42, 42));
+        jPanel_editar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon editar.png"))); // NOI18N
+        jPanel_editar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 9, -1, -1));
+
+        getContentPane().add(jPanel_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1258, 533, -1, -1));
 
         jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
         jPanel_menu.setForeground(new java.awt.Color(124, 115, 101));
@@ -365,11 +390,15 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel_deletar;
+    private javax.swing.JPanel jPanel_editar;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JPanel jPanel_tabela_clientes;
     private javax.swing.JScrollPane jScrollPane_clientes_cadastrados;
     private javax.swing.JButton jbtn_cadastrarCliente;
     private javax.swing.JLabel jlbl_background;
+    private javax.swing.JLabel jlbl_deletar;
     private javax.swing.JTable jtbl_clientes_cadastrados;
     private javax.swing.JLabel lbl_clientes;
     // End of variables declaration//GEN-END:variables

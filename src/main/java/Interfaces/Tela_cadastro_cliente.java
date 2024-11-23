@@ -64,7 +64,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
             System.exit(0);
         }
         */
-
+        
         initComponents();
         initMenuPanel();
         PreencherJCombobox();
@@ -239,7 +239,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jtxtf_campo_nome_cliente.setText(null);
         jtxtf_campo_cpf.setText(null);
         jtxtf_campo_telefone.setText(null);
-        jcbox_Selecao_servico.setSelectedItem(0);
+        jcbox_Selecao_servico.setSelectedIndex(0);
         jtxtf_campo_cep.setText(null);
         jtxtf_campo_num.setText(null);
         jtxtf_campo_rua.setText(null);
@@ -305,6 +305,11 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jtxtf_campo_nome_cliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jtxtf_campo_nome_cliente.setMinimumSize(new java.awt.Dimension(550, 50));
         jtxtf_campo_nome_cliente.setPreferredSize(new java.awt.Dimension(550, 50));
+        jtxtf_campo_nome_cliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtf_campo_nome_clienteKeyTyped(evt);
+            }
+        });
         jPanel_cadastrar_cliente.add(jtxtf_campo_nome_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 106, -1, 52));
 
         jlbl_nome_cliente.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -316,6 +321,11 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jtxtf_campo_cpf.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtf_campo_cpf.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jtxtf_campo_cpf.setPreferredSize(new java.awt.Dimension(250, 50));
+        jtxtf_campo_cpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtf_campo_cpfKeyTyped(evt);
+            }
+        });
         jPanel_cadastrar_cliente.add(jtxtf_campo_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 195, -1, -1));
 
         jlbl_cpf.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -329,6 +339,11 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jtxtf_campo_telefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtf_campo_telefoneActionPerformed(evt);
+            }
+        });
+        jtxtf_campo_telefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtf_campo_telefoneKeyTyped(evt);
             }
         });
         jPanel_cadastrar_cliente.add(jtxtf_campo_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 195, 270, 50));
@@ -361,6 +376,11 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jtxtf_campo_cep.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtf_campo_cep.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jtxtf_campo_cep.setPreferredSize(new java.awt.Dimension(150, 50));
+        jtxtf_campo_cep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtf_campo_cepKeyTyped(evt);
+            }
+        });
         jPanel_cadastrar_cliente.add(jtxtf_campo_cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 284, 150, 50));
 
         jlbl_cep.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -371,6 +391,11 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jtxtf_campo_num.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_campo_num.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtf_campo_num.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jtxtf_campo_num.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtf_campo_numKeyTyped(evt);
+            }
+        });
         jPanel_cadastrar_cliente.add(jtxtf_campo_num, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 284, 90, 50));
 
         jlbl_rua.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -381,6 +406,11 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jtxtf_campo_rua.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_campo_rua.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtf_campo_rua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jtxtf_campo_rua.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtf_campo_ruaKeyTyped(evt);
+            }
+        });
         jPanel_cadastrar_cliente.add(jtxtf_campo_rua, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 373, 550, 50));
 
         jlbl_bairro.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -392,12 +422,22 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jtxtf_campo_bairro.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_campo_bairro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtf_campo_bairro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jtxtf_campo_bairro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtf_campo_bairroKeyTyped(evt);
+            }
+        });
         jPanel_cadastrar_cliente.add(jtxtf_campo_bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 462, 270, 50));
 
         jtxtf_campo_cidade.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_campo_cidade.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtf_campo_cidade.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jtxtf_campo_cidade.setPreferredSize(new java.awt.Dimension(300, 60));
+        jtxtf_campo_cidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtf_campo_cidadeKeyTyped(evt);
+            }
+        });
         jPanel_cadastrar_cliente.add(jtxtf_campo_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 462, 250, 50));
 
         jlbl_cidade.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -435,7 +475,7 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         jbtn_Cadastrar_cliente.setUI(new RoundedCornerButtonUI());
         jPanel_cadastrar_cliente.add(jbtn_Cadastrar_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 557, 240, 50));
 
-        getContentPane().add(jPanel_cadastrar_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 40, -1, -1));
+        getContentPane().add(jPanel_cadastrar_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, -1, -1));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         jlbl_background.setFocusable(false);
@@ -491,9 +531,73 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtn_Cadastrar_clienteActionPerformed
 
+    // não deixa o usuario digitar números, somente caracteres.
+    private void VerificaString(java.awt.event.KeyEvent evt) {
+        String caracteres = "áéíóúàèìòùâêîôûãõäëïöüåñçøÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕÄËÏÖÜÅÑÇØabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
+    
+    // não deixa o usuario digitar caracteres, somente números.
+    private void VerificaNum(java.awt.event.KeyEvent evt) {
+        String caracteres = "123456789 ";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
+    
+    // não deixa o usuario digitar simbolos, somente caracteres e números.
+    private void verificaStringNum(java.awt.event.KeyEvent evt) {
+        String caracteres = "123456789áéíóúàèìòùâêîôûãõäëïöüåñçøÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕÄËÏÖÜÅÑÇØabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ- ";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
+    
     private void jcbox_Selecao_servicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbox_Selecao_servicoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbox_Selecao_servicoActionPerformed
+
+    private void jtxtf_campo_cpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_campo_cpfKeyTyped
+        // TODO add your handling code here:
+        VerificaNum(evt);
+    }//GEN-LAST:event_jtxtf_campo_cpfKeyTyped
+
+    private void jtxtf_campo_nome_clienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_campo_nome_clienteKeyTyped
+        // TODO add your handling code here:
+        VerificaString(evt);
+    }//GEN-LAST:event_jtxtf_campo_nome_clienteKeyTyped
+
+    private void jtxtf_campo_telefoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_campo_telefoneKeyTyped
+        // TODO add your handling code here:
+        VerificaNum(evt);
+    }//GEN-LAST:event_jtxtf_campo_telefoneKeyTyped
+
+    private void jtxtf_campo_cepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_campo_cepKeyTyped
+        // TODO add your handling code here:
+        VerificaNum(evt);
+    }//GEN-LAST:event_jtxtf_campo_cepKeyTyped
+
+    private void jtxtf_campo_numKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_campo_numKeyTyped
+        // TODO add your handling code here:
+        VerificaNum(evt);
+    }//GEN-LAST:event_jtxtf_campo_numKeyTyped
+
+    private void jtxtf_campo_ruaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_campo_ruaKeyTyped
+        // TODO add your handling code here:
+        verificaStringNum(evt);
+    }//GEN-LAST:event_jtxtf_campo_ruaKeyTyped
+
+    private void jtxtf_campo_bairroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_campo_bairroKeyTyped
+        // TODO add your handling code here:
+        verificaStringNum(evt);
+    }//GEN-LAST:event_jtxtf_campo_bairroKeyTyped
+
+    private void jtxtf_campo_cidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtf_campo_cidadeKeyTyped
+        // TODO add your handling code here:
+        verificaStringNum(evt);
+    }//GEN-LAST:event_jtxtf_campo_cidadeKeyTyped
 
     /**
      * @param args the command line arguments

@@ -68,14 +68,7 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         field_bairro.setText(null);
         field_cidade.setText(null);
     }
-    
-    // não deixa o usuario digitar números, somente caracteres.
-    private void VerificaString(java.awt.event.KeyEvent evt) {
-        String caracteres = "123456789!@#$%&*()-_+=";
-        if (caracteres.contains(evt.getKeyChar() + "")) {
-            evt.consume();
-        }
-    }
+ 
 
     // Alinha todos os campos.
     private void AlinhaJField() {
@@ -260,6 +253,11 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         field_cpf.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_cpf.setMinimumSize(new java.awt.Dimension(250, 50));
         field_cpf.setPreferredSize(new java.awt.Dimension(250, 50));
+        field_cpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                field_cpfKeyTyped(evt);
+            }
+        });
         jPanel1.add(field_cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 193, -1, -1));
 
         jlbl_telefone.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -277,6 +275,11 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         field_telefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 field_telefoneActionPerformed(evt);
+            }
+        });
+        field_telefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                field_telefoneKeyTyped(evt);
             }
         });
         jPanel1.add(field_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(341, 193, -1, -1));
@@ -308,6 +311,11 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         field_cep.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_cep.setMinimumSize(new java.awt.Dimension(150, 50));
         field_cep.setPreferredSize(new java.awt.Dimension(150, 50));
+        field_cep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                field_cepKeyTyped(evt);
+            }
+        });
         jPanel1.add(field_cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 282, -1, -1));
 
         jlbl_numero.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -318,6 +326,11 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         field_numero.setBackground(new java.awt.Color(217, 217, 217));
         field_numero.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_numero.setPreferredSize(new java.awt.Dimension(90, 50));
+        field_numero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                field_numeroKeyTyped(evt);
+            }
+        });
         jPanel1.add(field_numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(501, 282, -1, -1));
 
         jlbl_rua.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -334,6 +347,11 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
                 field_ruaActionPerformed(evt);
             }
         });
+        field_rua.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                field_ruaKeyTyped(evt);
+            }
+        });
         jPanel1.add(field_rua, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, -1, -1));
 
         jlbl_bairro.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -345,6 +363,11 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         field_bairro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_bairro.setMinimumSize(new java.awt.Dimension(270, 50));
         field_bairro.setPreferredSize(new java.awt.Dimension(270, 50));
+        field_bairro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                field_bairroKeyTyped(evt);
+            }
+        });
         jPanel1.add(field_bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 462, -1, -1));
 
         jlbl_cidade.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -356,6 +379,11 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         field_cidade.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         field_cidade.setMinimumSize(new java.awt.Dimension(250, 50));
         field_cidade.setPreferredSize(new java.awt.Dimension(250, 50));
+        field_cidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                field_cidadeKeyTyped(evt);
+            }
+        });
         jPanel1.add(field_cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(341, 462, -1, -1));
 
         jbtn_cadastrarFuncionario.setBackground(new java.awt.Color(77, 120, 63));
@@ -432,6 +460,32 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtn_cadastrarFuncionarioActionPerformed
 
+    
+    // não deixa o usuario digitar números, somente caracteres.
+    private void VerificaString(java.awt.event.KeyEvent evt) {
+        String caracteres = "áéíóúàèìòùâêîôûãõäëïöüåñçøÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕÄËÏÖÜÅÑÇØabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
+    
+    // não deixa o usuario digitar caracteres, somente números.
+    private void VerificaNum(java.awt.event.KeyEvent evt) {
+        String caracteres = "123456789 ";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
+    
+    // não deixa o usuario digitar simbolos, somente caracteres e números.
+    private void verificaStringNum(java.awt.event.KeyEvent evt) {
+        String caracteres = "123456789áéíóúàèìòùâêîôûãõäëïöüåñçøÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕÄËÏÖÜÅÑÇØabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ- ";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
+    
+    
     private void jcbox_Selecao_servicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbox_Selecao_servicoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbox_Selecao_servicoActionPerformed
@@ -440,6 +494,41 @@ public class tela_cadastro_funcionario extends javax.swing.JFrame {
         // TODO add your handling code here:
         VerificaString(evt);
     }//GEN-LAST:event_field_nome_funcionarioKeyTyped
+
+    private void field_cpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field_cpfKeyTyped
+        // TODO add your handling code here:
+        VerificaNum(evt);
+    }//GEN-LAST:event_field_cpfKeyTyped
+
+    private void field_telefoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field_telefoneKeyTyped
+        // TODO add your handling code here:
+        VerificaNum(evt);
+    }//GEN-LAST:event_field_telefoneKeyTyped
+
+    private void field_cepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field_cepKeyTyped
+        // TODO add your handling code here:
+        VerificaNum(evt);
+    }//GEN-LAST:event_field_cepKeyTyped
+
+    private void field_numeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field_numeroKeyTyped
+        // TODO add your handling code here:
+        VerificaNum(evt);
+    }//GEN-LAST:event_field_numeroKeyTyped
+
+    private void field_ruaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field_ruaKeyTyped
+        // TODO add your handling code here:
+        verificaStringNum(evt);
+    }//GEN-LAST:event_field_ruaKeyTyped
+
+    private void field_bairroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field_bairroKeyTyped
+        // TODO add your handling code here:
+        verificaStringNum(evt);
+    }//GEN-LAST:event_field_bairroKeyTyped
+
+    private void field_cidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field_cidadeKeyTyped
+        // TODO add your handling code here:
+        verificaStringNum(evt);
+    }//GEN-LAST:event_field_cidadeKeyTyped
     
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();

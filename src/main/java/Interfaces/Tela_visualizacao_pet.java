@@ -5,6 +5,7 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -30,6 +31,8 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
     public Tela_visualizacao_pet() {
         initComponents();
         initMenuPanel();
+        jPanel_deletar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
+        jPanel_editar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
     }
 
     /**
@@ -47,6 +50,10 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         jPanel_tabela_pet = new javax.swing.JPanel();
         jScrollPane_tabela_visualizacao_pet = new javax.swing.JScrollPane();
         jtbl_visualizacao_pet = new javax.swing.JTable();
+        jPanel_deletar = new javax.swing.JPanel();
+        jlbl_deletar = new javax.swing.JLabel();
+        jPanel_editar = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jlbl_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,6 +127,24 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         jPanel_tabela_pet.add(jScrollPane_tabela_visualizacao_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(jPanel_tabela_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(341, 106, -1, -1));
+
+        jPanel_deletar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_deletar.setPreferredSize(new java.awt.Dimension(42, 42));
+        jPanel_deletar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jlbl_deletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon deletar.png"))); // NOI18N
+        jPanel_deletar.add(jlbl_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 9, -1, -1));
+
+        getContentPane().add(jPanel_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1216, 533, -1, -1));
+
+        jPanel_editar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_editar.setPreferredSize(new java.awt.Dimension(42, 42));
+        jPanel_editar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon editar.png"))); // NOI18N
+        jPanel_editar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 9, -1, -1));
+
+        getContentPane().add(jPanel_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1258, 533, -1, -1));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         jlbl_background.setText(" ");
@@ -214,11 +239,15 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel_deletar;
+    private javax.swing.JPanel jPanel_editar;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JPanel jPanel_tabela_pet;
     private javax.swing.JScrollPane jScrollPane_tabela_visualizacao_pet;
     private javax.swing.JButton jbtn_cadastrarPet;
     private javax.swing.JLabel jlbl_background;
+    private javax.swing.JLabel jlbl_deletar;
     private javax.swing.JTable jtbl_visualizacao_pet;
     // End of variables declaration//GEN-END:variables
 

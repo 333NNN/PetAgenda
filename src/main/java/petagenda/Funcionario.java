@@ -111,6 +111,7 @@ public final class Funcionario {
         }
     }
     
+    // Verifica se uma String possui numeros, se não possuir retorna true.
     private boolean verificaString(String str) {
         boolean e_string = true;
         
@@ -154,7 +155,7 @@ public final class Funcionario {
             throw new IllegalNomeException("Nome não pode ser nulo ou vazio.");
         }
         else if (!verificaString(nome)) {
-            throw new IllegalNomeException("Nome não pode conter números ou caracteres especiais");
+            throw new IllegalNomeException("Nome não pode conter números");
         }
         else if (nome.length() > 64) {
             throw new IllegalNomeException("Nome não pode ultrapassar 64 caracteres.");
