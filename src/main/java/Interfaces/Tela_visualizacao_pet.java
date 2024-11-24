@@ -4,16 +4,21 @@
  */
 package Interfaces;
 
+import static Interfaces.Tela_visualizacao_funcionario.id_funcionario;
 import com.mycompany.petagenda.MenuPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.SwingConstants;
@@ -39,10 +44,16 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
     /**
      * Creates new form tela_cadastro_funcionario
      */
+    public static int id_pet; // id do pet, vai ser acessado pela tela de atualização de funcionario.
+    private static int linha_selecionada_pet; // Linha selecionada, usada para achar o id_pet.
+    private static final ArrayList<Integer> todos_ids_pet = new ArrayList<>();  // todos os ids da tabela.
+    
     public Tela_visualizacao_pet() {
         initComponents();
         initMenuPanel();
         AjustarColuna();
+        linha_selecionada_pet = -1;
+        todos_ids_pet.clear();
         carregarDadosTabela();
         moveHeader();
         jPanel_deletar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
@@ -142,6 +153,11 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         jtbl_visualizacao_pet.setShowHorizontalLines(true);
         jtbl_visualizacao_pet.setShowVerticalLines(true);
         jtbl_visualizacao_pet.getTableHeader().setReorderingAllowed(false);
+        jtbl_visualizacao_pet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jtbl_visualizacao_petMouseEntered(evt);
+            }
+        });
         jScroll_tabela.setViewportView(jtbl_visualizacao_pet);
         if (jtbl_visualizacao_pet.getColumnModel().getColumnCount() > 0) {
             jtbl_visualizacao_pet.getColumnModel().getColumn(0).setResizable(false);
@@ -158,6 +174,7 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         getContentPane().add(jPanel_tabela_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 103, -1, -1));
 
         jPanel_deletar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_deletar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel_deletar.setPreferredSize(new java.awt.Dimension(42, 42));
         jPanel_deletar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -167,7 +184,13 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         getContentPane().add(jPanel_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1216, 530, -1, -1));
 
         jPanel_editar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_editar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel_editar.setPreferredSize(new java.awt.Dimension(42, 42));
+        jPanel_editar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel_editarMouseClicked(evt);
+            }
+        });
         jPanel_editar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon editar.png"))); // NOI18N
@@ -234,6 +257,34 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
+
+    private void jPanel_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_editarMouseClicked
+        // TODO add your handling code here:
+        if (linha_selecionada_pet > -1) { // Pega o id_pet com base em todos os ids e linha_selecionada.
+            id_pet = todos_ids_pet.get(linha_selecionada_pet);
+            System.out.println("id_pet: " + id_pet);
+
+            tela_atualizar_pet tela_atualizar = new tela_atualizar_pet();
+            tela_atualizar.setVisible(true);
+            this.dispose();
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha para ser editada", "Linha inválida", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jPanel_editarMouseClicked
+
+    private void jtbl_visualizacao_petMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_visualizacao_petMouseEntered
+        // TODO add your handling code here:
+        // MouseListener para capturar o clique na tabela
+        jtbl_visualizacao_pet.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // Pega a linha selecionada
+                linha_selecionada_pet = jtbl_visualizacao_pet.rowAtPoint(e.getPoint());
+            }
+        });
+    }//GEN-LAST:event_jtbl_visualizacao_petMouseEntered
+    
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
         jPanel_menu.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
@@ -267,6 +318,7 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         if (pets != null) {
             // Preenche cada linha com cada pet dentro de pets.
             for (Pet pet : pets) {
+                todos_ids_pet.add(pet.getId());
                 if (pet.getSexo().PET.equals("M")) {
                     sexo = "Macho";
                 }

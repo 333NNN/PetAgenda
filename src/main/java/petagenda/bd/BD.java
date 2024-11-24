@@ -6,14 +6,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import petagenda.exception.IllegalArgumentsException;
-import petagenda.exception.IllegalServicoException;
 
 //import petagenda.servico.*;
 import petagenda.dados.*;
-import petagenda.exception.IllegalUsuarioException;
 
 /**
  * Representa a API principal do software com o driver do SGBD. Contém os
@@ -1956,7 +1957,7 @@ public class BD {
                         
                         // Verificação dos dados e criação do objeto
                         try {
-                            p = new petagenda.Pet(nome, raca, sexo, porte, comportamento, eCastrado, caminho_cartao_vacinacao, estado_saude, cor, id_cliente);
+                            p = new petagenda.Pet(id_pet, nome, raca, sexo, porte, comportamento, eCastrado, caminho_cartao_vacinacao, estado_saude, cor, id_cliente);
                             
                             if (sexo != null) {
                                 p.setSexo(sexo);
@@ -1990,6 +1991,204 @@ public class BD {
                 
                 return pArray;
             }
+        }
+    }
+    
+    static public class agendamento {
+        
+        public static final String TABLE = "agendamento";
+        
+        public static int insert(petagenda.agendamento.Agendamento agendamento) {
+            int r = 0;
+            
+            if (agendamento == null) {
+                throw new NullPointerException("Agendamento não pode ser nulo");
+            }
+            else {
+                Connection conn = BD.getConnection();
+                
+                if (conn == null) { // Se banco for inacessível.
+                    return r;
+                }
+                else {
+                    // Criação do statement.
+                    PreparedStatement insert = null;
+                    try {
+                        insert = conn.prepareStatement(String.format("INSERT INTO %s (dt_hr_marcada, qnt_passeios, dta_hr_iniciado, dta_hr_finalizado, check_entrega, observacao, id_servico, id_funcionario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", TABLE));
+                    
+                        // data e hora
+                        LocalDateTime dataHoraMarcada = agendamento.getDataHoraMarcada();
+                        LocalDateTime dataHoraIniciado = agendamento.getDataHoraIniciado();
+                        LocalDateTime dataHoraFinalizado = agendamento.getDataHoraFinalizado();
+                        
+                        Timestamp timestamp_maracada = Timestamp.valueOf(dataHoraMarcada);
+                        Timestamp timestamp_iniciado = Timestamp.valueOf(dataHoraIniciado);
+                        Timestamp timestamp_finalizado = Timestamp.valueOf(dataHoraFinalizado);
+                        
+                        insert.setTimestamp(1, timestamp_maracada); // dt_hr_marcada
+                        insert.setInt(2, agendamento.getQntPasseios()); // qnt_passeios
+                        insert.setTimestamp(3, timestamp_iniciado); // dta_hr_iniciado
+                        insert.setTimestamp(4, timestamp_finalizado); // dta_hr_finalizado
+                        insert.setInt(5, agendamento.getCheckEntrega()); // check_entrega
+                        insert.setString(6, agendamento.getObservacao()); // observacao
+                        insert.setInt(7, agendamento.getIdServico()); // id_servico
+                        insert.setInt(8, agendamento.getIdFuncionario()); // id_funcionario
+                        
+                        r = insert.executeUpdate();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de execução do insert", JOptionPane.ERROR_MESSAGE);
+                        r = -1;
+                    }
+                    
+                    if (insert != null) { // Se preparedStatement não falhou
+                        try {
+                            insert.close();
+                        }
+                        catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                        }
+                        finally {
+                            insert = null;
+                        }
+                    }
+                    
+                    try {
+                        conn.close();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                    }
+                    finally {
+                        conn = null;
+                    }
+                }
+            }
+            
+            return r;
+        }
+    }
+    
+    static public class remedio {
+        
+        public static final String TABLE = "remedio_agend";
+        
+        public static int insert(petagenda.agendamento.Remedio remedio) {
+            int r = 0;
+            
+            if (remedio == null) {
+                throw new NullPointerException("Remedio não pode ser nulo");
+            }
+            else {
+                Connection conn = BD.getConnection();
+                
+                if (conn == null) { // Se banco for inacessível.
+                    return r;
+                }
+                else {
+                    // Criação do statement.
+                    PreparedStatement insert = null;
+                    try {
+                        insert = conn.prepareStatement(String.format("INSERT INTO %s (nome_remedio, hr_administrar, instrucoes, id_agendamento) VALUES (?, ?, ?, ?)", TABLE));
+                        
+                        // data e hora
+                        LocalTime hr_administrar = remedio.getHoraAdministrar();
+                       
+                        
+                        insert.setString(1, remedio.getNome()); // nome_remedio
+                        insert.setTime(2, java.sql.Time.valueOf(hr_administrar)); // hr_administrar
+                        insert.setString(3, remedio.getInstrucoes()); // instrucoes
+                        insert.setInt(4, remedio.getIdAgendamento()); // id_agendamento
+                        
+                        r = insert.executeUpdate();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de execução do insert", JOptionPane.ERROR_MESSAGE);
+                        r = -1;
+                    }
+                    
+                    if (insert != null) { // Se preparedStatement não falhou
+                        try {
+                            insert.close();
+                        }
+                        catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                        } 
+                        finally {
+                            insert = null;
+                        }
+                    }
+                    
+                    try {
+                        conn.close();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                    } finally {
+                        conn = null;
+                    }
+                }
+            }
+            
+            return r;
+        }
+    }
+    
+    static public class alimentacao {
+        
+        public static final String TABLE = "hr_alim_agend";
+        
+        public static int insert(petagenda.agendamento.alimentacao alimentacao) {
+            int r = 0;
+            
+            if (alimentacao == null) {
+                throw new NullPointerException("Alimentacao não pode ser nulo");
+            }
+            else {
+                Connection conn = BD.getConnection();
+                
+                if (conn == null) { // Se banco for inacessível.
+                    return r;
+                }
+                else {
+                    // Criação do statement.
+                    PreparedStatement insert = null;
+                    try {
+                        insert = conn.prepareStatement(String.format("INSERT INTO %s (horario, id_agendamento) VALUES (?, ?)", TABLE));
+                        
+                        // data e hora
+                        LocalTime horario = alimentacao.getHorario();
+                        
+                        insert.setTime(1, java.sql.Time.valueOf(horario));
+                        insert.setInt(2, alimentacao.getIdAgendamento());
+                        
+                        r = insert.executeUpdate();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de execução do insert", JOptionPane.ERROR_MESSAGE);
+                        r = -1;
+                    }
+                    
+                    if (insert != null) { // Se preparedStatement não falhou.
+                        try {
+                            insert.close();
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                        } finally {
+                            insert = null;
+                        }
+                    }
+                    
+                    try {
+                        conn.close();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                    } finally {
+                        conn = null;
+                    }
+                }
+            }
+            
+            return r;
         }
     }
 }
