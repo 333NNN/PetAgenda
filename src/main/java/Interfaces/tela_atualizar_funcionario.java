@@ -10,6 +10,9 @@ import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import petagenda.Cliente;
+import petagenda.Funcionario;
+import petagenda.bd.BD;
 import ui.custom.RoundedCornerButtonUI;
 
 /**
@@ -25,6 +28,7 @@ public class tela_atualizar_funcionario extends javax.swing.JFrame {
         initComponents();
         initMenuPanel();
         AlinhaJField();
+        carregar_tela();
         jcbox_Selecao_servico.setEnabled(false);
     }
 
@@ -38,6 +42,12 @@ public class tela_atualizar_funcionario extends javax.swing.JFrame {
         field_rua.setText(null);
         field_bairro.setText(null);
         field_cidade.setText(null);
+    }
+    
+    private void carregar_tela() {
+        // Funcionario funcionario = BD.Funcionario.selectById(Tela_visualizacao_funcionario.id_funcionario);
+        
+        // field_nome_funcionario.setText(funcionario.getNome());
     }
 
     private void AlinhaJField() {
@@ -257,7 +267,6 @@ public class tela_atualizar_funcionario extends javax.swing.JFrame {
         getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
-        jlbl_background.setPreferredSize(new java.awt.Dimension(1366, 768));
         getContentPane().add(jlbl_background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();

@@ -11,6 +11,8 @@ import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import petagenda.Cliente;
+import petagenda.bd.BD;
 import petagenda.dados.Porte;
 import petagenda.dados.Sexo;
 import ui.custom.RoundedCornerBorder;
@@ -28,7 +30,7 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
     public tela_atualizar_pet() {
         initComponents();
         initMenuPanel();
-        AlinhaJField();
+        AlinhaJField();      
     }
 
     private void AlinhaJField() {
@@ -39,7 +41,7 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         CompoundBorder border_text = new CompoundBorder(line, emptyJText);
 
         JTxtF_nome_pet.setBorder(border_field);
-        JTxtF_nome_dono.setBorder(border_field);
+        jcombBox_nome_dono.setBorder(border_field);
         JTxtF_raca.setBorder(border_field);
         jcmbBx_Porte.setBorder(border_field);
         JTxtF_cor.setBorder(border_field);
@@ -60,6 +62,8 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         JTxtF_cor.setText(null);
     }
     
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,7 +78,6 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         jlbl_nome_pet = new javax.swing.JLabel();
         JTxtF_nome_pet = new javax.swing.JTextField();
         jlbl_nome_dono = new javax.swing.JLabel();
-        JTxtF_nome_dono = new javax.swing.JTextField();
         jlbl_castrado = new javax.swing.JLabel();
         chkBx_Sim = new javax.swing.JCheckBox("Sim");
         chkBx_Nao = new javax.swing.JCheckBox("Não");
@@ -95,6 +98,7 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         jtxtArea_Saude = new javax.swing.JScrollPane();
         jtxtarea_saude = new javax.swing.JTextArea();
         jbtn_atualizarPet = new javax.swing.JButton();
+        jcombBox_nome_dono = new javax.swing.JComboBox<>();
         jPanel_menu = new javax.swing.JPanel();
         jlbl_background = new javax.swing.JLabel();
 
@@ -132,18 +136,6 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         jlbl_nome_dono.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_nome_dono.setText("Nome do dono:");
         jpanel_atualizar_pet.add(jlbl_nome_dono, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 84, -1, -1));
-
-        JTxtF_nome_dono.setBackground(new java.awt.Color(217, 217, 217));
-        JTxtF_nome_dono.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        JTxtF_nome_dono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        JTxtF_nome_dono.setMinimumSize(new java.awt.Dimension(250, 50));
-        JTxtF_nome_dono.setPreferredSize(new java.awt.Dimension(250, 50));
-        JTxtF_nome_dono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JTxtF_nome_donoActionPerformed(evt);
-            }
-        });
-        jpanel_atualizar_pet.add(JTxtF_nome_dono, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 103, -1, -1));
 
         jlbl_castrado.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jlbl_castrado.setForeground(new java.awt.Color(0, 0, 0));
@@ -357,6 +349,11 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         jbtn_atualizarPet.setUI(new RoundedCornerButtonUI());
         jpanel_atualizar_pet.add(jbtn_atualizarPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 530, 240, 50));
 
+        jcombBox_nome_dono.setBackground(new java.awt.Color(217, 217, 217));
+        jcombBox_nome_dono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jcombBox_nome_dono.setPreferredSize(new java.awt.Dimension(250, 50));
+        jpanel_atualizar_pet.add(jcombBox_nome_dono, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 103, -1, -1));
+
         getContentPane().add(jpanel_atualizar_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 41, -1, -1));
 
         jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
@@ -381,10 +378,6 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
     private void JTxtF_nome_petActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTxtF_nome_petActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_JTxtF_nome_petActionPerformed
-
-    private void JTxtF_nome_donoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTxtF_nome_donoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JTxtF_nome_donoActionPerformed
 
     private void JTxtF_racaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTxtF_racaActionPerformed
         // TODO add your handling code here:
@@ -471,7 +464,6 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField JTxtF_cor;
-    private javax.swing.JTextField JTxtF_nome_dono;
     private javax.swing.JTextField JTxtF_nome_pet;
     private javax.swing.JTextField JTxtF_raca;
     private javax.swing.JCheckBox chkBx_Nao;
@@ -481,6 +473,7 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
     private javax.swing.JButton jbtn_atualizarPet;
     private javax.swing.JComboBox<Porte> jcmbBx_Porte;
     private javax.swing.JComboBox<Sexo> jcmbBx_sexo;
+    private javax.swing.JComboBox<String> jcombBox_nome_dono;
     private javax.swing.JLabel jlbl_atualizar_pet;
     private javax.swing.JLabel jlbl_background;
     private javax.swing.JLabel jlbl_castrado;
