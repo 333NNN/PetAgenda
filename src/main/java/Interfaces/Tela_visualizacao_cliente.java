@@ -6,7 +6,6 @@ package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
@@ -17,11 +16,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JComponent;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -39,12 +36,17 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
      * Creates new form tela_cadastro_cliente
      */
     
+    public static int id_cliente; // id do cliente, vai ser acessado pela tela de atualização de cliente.
+    private static int linha_selecionada; // Linha selecionada, usada para achar o id_cliente.
+    private static final ArrayList<Integer> todos_ids = new ArrayList<>();  // todos os ids da tabela.
+    
     public Tela_visualizacao_cliente() {
         initComponents();
         initMenuPanel();
         AjustarColuna();
         carregarDadosTabela();
         moveHeader();
+        linha_selecionada = -1;
         jPanel_deletar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
         jPanel_editar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
     }
@@ -114,6 +116,11 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         jtbl_clientes_cadastrados.setShowHorizontalLines(true);
         jtbl_clientes_cadastrados.setShowVerticalLines(true);
         jtbl_clientes_cadastrados.getTableHeader().setReorderingAllowed(false);
+        jtbl_clientes_cadastrados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jtbl_clientes_cadastradosMouseEntered(evt);
+            }
+        });
         jScroll_tabela.setViewportView(jtbl_clientes_cadastrados);
 
         jPanel_tabela_clientes.add(jScroll_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -121,6 +128,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         getContentPane().add(jPanel_tabela_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 103, -1, -1));
 
         jPanel_deletar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_deletar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel_deletar.setPreferredSize(new java.awt.Dimension(42, 42));
         jPanel_deletar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -130,7 +138,13 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         getContentPane().add(jPanel_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1216, 530, -1, -1));
 
         jPanel_editar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_editar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel_editar.setPreferredSize(new java.awt.Dimension(42, 42));
+        jPanel_editar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel_editarMouseClicked(evt);
+            }
+        });
         jPanel_editar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon editar.png"))); // NOI18N
@@ -177,6 +191,33 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         telaCadCliente.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jbtn_cadastrarClienteActionPerformed
+
+    private void jPanel_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_editarMouseClicked
+        // TODO add your handling code here:
+        if (linha_selecionada > -1) { // Pega o id_cliente com base em todos os ids e linha_selecionada.
+            id_cliente = todos_ids.get(linha_selecionada);
+            System.out.println("id_cliente: " + id_cliente);
+
+            tela_atualizar_cliente tela_atualizar = new tela_atualizar_cliente();
+            tela_atualizar.setVisible(true);
+            this.dispose();
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha para ser editada", "Linha inválida", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jPanel_editarMouseClicked
+
+    private void jtbl_clientes_cadastradosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_clientes_cadastradosMouseEntered
+        // TODO add your handling code here:
+        // MouseListener para capturar o clique na tabela
+        jtbl_clientes_cadastrados.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // Pega a linha selecionada
+                linha_selecionada = jtbl_clientes_cadastrados.rowAtPoint(e.getPoint());
+            }
+        });
+    }//GEN-LAST:event_jtbl_clientes_cadastradosMouseEntered
 
     // Personaliza a "width" da coluna em geral.
     private void AjustarColuna() {
@@ -253,6 +294,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
 
             rs = stmt.executeQuery();
             while (rs.next()) {
+                todos_ids.add(rs.getInt("id_cliente")); // Adiciona os ids para ser usado na área de atualização.
                 Object[] linha = {
                         rs.getString("nome_cliente"),
                         rs.getString("cpf"),

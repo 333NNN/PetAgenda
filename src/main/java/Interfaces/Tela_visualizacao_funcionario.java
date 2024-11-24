@@ -4,11 +4,16 @@
  */
 package Interfaces;
 
+import static Interfaces.Tela_visualizacao_cliente.id_cliente;
 import com.mycompany.petagenda.MenuPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -28,12 +33,18 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
     /**
      * Creates new form tela_cadastro_funcionario
      */
+    
+    public static int id_funcionario; // id do funcionario, vai ser acessado pela tela de atualização de funcionario.
+    private static int linha_selecionada; // Linha selecionada, usada para achar o id_funcionario.
+    private static final ArrayList<Integer> todos_ids = new ArrayList<>();  // todos os ids da tabela.
+    
     public Tela_visualizacao_funcionario() {
         initComponents();
         initMenuPanel();
         AjustarColuna();
         carregarDadosTabela();
         moveHeader();
+        linha_selecionada = -1;
         jPanel_deletar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
         jPanel_editar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
     }
@@ -103,6 +114,11 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         jtbl_funcionarios.setShowHorizontalLines(true);
         jtbl_funcionarios.setShowVerticalLines(true);
         jtbl_funcionarios.getTableHeader().setReorderingAllowed(false);
+        jtbl_funcionarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jtbl_funcionariosMouseEntered(evt);
+            }
+        });
         jScroll_tabela.setViewportView(jtbl_funcionarios);
         if (jtbl_funcionarios.getColumnModel().getColumnCount() > 0) {
             jtbl_funcionarios.getColumnModel().getColumn(0).setResizable(false);
@@ -117,6 +133,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         getContentPane().add(jPanel_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 103, -1, -1));
 
         jPanel_deletar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_deletar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel_deletar.setPreferredSize(new java.awt.Dimension(42, 42));
         jPanel_deletar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -126,7 +143,13 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         getContentPane().add(jPanel_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1216, 530, -1, -1));
 
         jPanel_editar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_editar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel_editar.setPreferredSize(new java.awt.Dimension(42, 42));
+        jPanel_editar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel_editarMouseClicked(evt);
+            }
+        });
         jPanel_editar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon editar.png"))); // NOI18N
@@ -172,6 +195,33 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_cadastrarFuncionarioActionPerformed
+
+    private void jPanel_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_editarMouseClicked
+        // TODO add your handling code here:
+        if (linha_selecionada > -1) { // Pega o id_cliente com base em todos os ids e linha_selecionada.
+            id_funcionario = todos_ids.get(linha_selecionada);
+            System.out.println("id_cliente: " + id_funcionario);
+
+            tela_atualizar_funcionario tela_atualizar = new tela_atualizar_funcionario();
+            tela_atualizar.setVisible(true);
+            this.dispose();
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha para ser editada", "Linha inválida", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jPanel_editarMouseClicked
+
+    private void jtbl_funcionariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_funcionariosMouseEntered
+        // TODO add your handling code here:
+        // MouseListener para capturar o clique na tabela
+        jtbl_funcionarios.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // Pega a linha selecionada
+                linha_selecionada = jtbl_funcionarios.rowAtPoint(e.getPoint());
+            }
+        });
+    }//GEN-LAST:event_jtbl_funcionariosMouseEntered
     
     // Personaliza a "width" da coluna em geral.
     private void AjustarColuna() {
@@ -236,6 +286,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
             // Preenche cada linha com cada funcionário dentro de funcionários.
             for (Funcionario funcionario : funcionarios) {
                 String endereco = funcionario.getRua() + ", " + funcionario.getNumero() + " - " + funcionario.getBairro() + " - " + funcionario.getCidade() + " - " + funcionario.getCep();
+                todos_ids.add(funcionario.getId());
                 Object[] linha = {
                         funcionario.getNome(),
                         funcionario.getCpf().toString(),

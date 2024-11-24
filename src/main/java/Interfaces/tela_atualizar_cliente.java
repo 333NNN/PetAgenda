@@ -10,6 +10,8 @@ import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import petagenda.Cliente;
+import petagenda.bd.BD;
 import ui.custom.RoundedCornerButtonUI;
 
 /**
@@ -25,6 +27,7 @@ public class tela_atualizar_cliente extends javax.swing.JFrame {
         initComponents();
         initMenuPanel();
         AlinhaJField();
+        carregar_tela();
     }
     
     private void AlinhaJField() {
@@ -54,6 +57,20 @@ public class tela_atualizar_cliente extends javax.swing.JFrame {
         jtxtf_campo_rua.setText(null);
         jtxtf_campo_bairro.setText(null);
         jtxtf_campo_cidade.setText(null);
+    }
+    
+    private void carregar_tela() {
+        Cliente cliente = BD.Cliente.selectById(Tela_visualizacao_cliente.id_cliente);
+        
+        jtxtf_campo_nome_cliente.setText(cliente.getNome());
+        jtxtf_campo_cpf.setText(cliente.getCpf().toString());
+        jtxtf_campo_telefone.setText(cliente.getTelefone());
+        //Serviço contratado está faltando.
+        jtxtf_campo_cep.setText(cliente.getCep());
+        jtxtf_campo_num.setText(cliente.getNumero());
+        jtxtf_campo_rua.setText(cliente.getRua());
+        jtxtf_campo_bairro.setText(cliente.getBairro());
+        jtxtf_campo_cidade.setText(cliente.getCidade());
     }
     /**
      * This method is called from within the constructor to initialize the form.

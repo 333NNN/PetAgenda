@@ -158,6 +158,7 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         getContentPane().add(jPanel_tabela_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 103, -1, -1));
 
         jPanel_deletar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_deletar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel_deletar.setPreferredSize(new java.awt.Dimension(42, 42));
         jPanel_deletar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -167,7 +168,13 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         getContentPane().add(jPanel_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1216, 530, -1, -1));
 
         jPanel_editar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_editar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel_editar.setPreferredSize(new java.awt.Dimension(42, 42));
+        jPanel_editar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel_editarMouseClicked(evt);
+            }
+        });
         jPanel_editar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon editar.png"))); // NOI18N
@@ -234,6 +241,14 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
+
+    private void jPanel_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_editarMouseClicked
+        // TODO add your handling code here:
+        tela_atualizar_pet tela_atualizar = new tela_atualizar_pet();
+        tela_atualizar.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel_editarMouseClicked
+    
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
         jPanel_menu.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
