@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import petagenda.exception.IllegalAgendamentoException;
 import petagenda.exception.IllegalArgumentsException;
 import petagenda.exception.IllegalHoraAdministrarException;
+import petagenda.exception.IllegalIdException;
 import petagenda.exception.IllegalInstrucoesException;
 import petagenda.exception.IllegalNomeException;
 
@@ -12,39 +13,54 @@ import petagenda.exception.IllegalNomeException;
  * @author thiago
  */
 public final class Remedio {
-    private Agendamento agendamento;
+    private int id_remedio_agend;
     private String nome;
     private LocalTime horaAdministrar;
     private String instrucoes;
+    private int id_agendamento;
     
-    public Remedio (Agendamento agendamento, String nome, LocalTime horaAdministrar) {
-        this(agendamento, nome, horaAdministrar, null);
+    public static final int NULL_ID = -1;
+    
+    public Remedio (String nome, LocalTime horaAdministrar, String instrucoes, int id_agendamento) {
+        this(1, nome, horaAdministrar, instrucoes, id_agendamento);
+        this.id_remedio_agend = NULL_ID;
     }
     
-    public Remedio (Agendamento agendamento, String nome, LocalTime horaAdministrar, String instrucoes) {
+    public Remedio (int id_remedio_agend, String nome, LocalTime horaAdministrar, String instrucoes, int id_agendamento) {
         IllegalArgumentsException exs = new IllegalArgumentsException();
     
+        // id_remedio_agend
         try {
-            setAgendamento(agendamento);
-        } catch (IllegalAgendamentoException ex) {
+            setId(id_remedio_agend);
+        } catch (IllegalIdException ex) {
             exs.addCause(ex);
         }
         
+        // nome_remedio
         try {
             setNome(nome);
         } catch (IllegalNomeException ex) {
             exs.addCause(ex);
         }
         
+        // hr_administrar
         try {
             setHoraAdministrar(horaAdministrar);
         } catch (IllegalHoraAdministrarException ex) {
             exs.addCause(ex);
         }
         
+        // instrucoes
         try {
             setInstrucoes(instrucoes);
         } catch (IllegalInstrucoesException ex) {
+            exs.addCause(ex);
+        }
+        
+        // id_agendamento
+        try {
+            setIdAgendamento(id_agendamento);
+        } catch (IllegalIdException ex) {
             exs.addCause(ex);
         }
         
@@ -53,18 +69,20 @@ public final class Remedio {
         }
     }
     
-    public void setAgendamento(Agendamento agendamento) {
-        if (agendamento == null) {
-            throw new IllegalAgendamentoException("agendamento não pode ser nulo");
+    // id_remedio_agend
+    public void setId(int id_remedio_agend) {
+        if (id_remedio_agend < 0) {
+            throw new IllegalIdException("id_remedio_agend não pode ser inferior a zero");
         } else {
-            this.agendamento = agendamento;
+            this.id_remedio_agend = id_remedio_agend;
         }
     }
     
-    public Agendamento getAgendamento() {
-        return this.agendamento;
+    public int getId() {
+        return this.id_remedio_agend;
     }
     
+    // nome_remedio
     public void setNome(String nome) {
         if (nome == null) {
             throw new IllegalNomeException("nome não pode ser nulo");
@@ -84,6 +102,7 @@ public final class Remedio {
         return this.nome;
     }
     
+    // hr_administrar
     public void setHoraAdministrar(LocalTime hr) {
         if (hr == null) {
             throw new IllegalHoraAdministrarException("hora de adminstrar o remédio não pode ser nula");
@@ -96,6 +115,7 @@ public final class Remedio {
         return this.horaAdministrar;
     }
     
+    // instrucoes
     public void setInstrucoes(String instrucoes) {
         if (instrucoes == null) {
             this.instrucoes = null;
@@ -113,5 +133,25 @@ public final class Remedio {
     
     public String getInstrucoes() {
         return this.instrucoes;
+    }
+    
+    // id_agendamento
+    public void setIdAgendamento(int id_agendamento) {
+        if (id_agendamento < 0) {
+            throw new IllegalIdException("id_agendamento não pode ser inferior a zero");
+        } else {
+            this.id_agendamento = id_agendamento;
+        }
+    }
+    
+    public int getIdAgendamento() {
+        return this.id_agendamento;
+    }
+    
+    
+    @Override
+    public String toString() {
+        return String.format("ID_REMEDIO_AGEND: %d | NOME_REMEDIO: %s | HR_ADMINISTRAR: %s | INSTRUCOES: %s | ID_AGENDAMENTO: %d", 
+               getId(), getNome(), getHoraAdministrar().toString(), getInstrucoes(), getIdAgendamento());
     }
 }
