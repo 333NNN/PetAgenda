@@ -4,7 +4,6 @@
  */
 package Interfaces;
 
-import static Interfaces.Tela_visualizacao_cliente.id_cliente;
 import com.mycompany.petagenda.MenuPanel;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -35,16 +34,17 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
      */
     
     public static int id_funcionario; // id do funcionario, vai ser acessado pela tela de atualização de funcionario.
-    private static int linha_selecionada; // Linha selecionada, usada para achar o id_funcionario.
-    private static final ArrayList<Integer> todos_ids = new ArrayList<>();  // todos os ids da tabela.
+    private static int linha_selecionada_funcionario; // Linha selecionada, usada para achar o id_funcionario.
+    private static final ArrayList<Integer> todos_ids_funcionario = new ArrayList<>();  // todos os ids da tabela.
     
     public Tela_visualizacao_funcionario() {
         initComponents();
         initMenuPanel();
         AjustarColuna();
+        linha_selecionada_funcionario = -1;
+        todos_ids_funcionario.clear();
         carregarDadosTabela();
         moveHeader();
-        linha_selecionada = -1;
         jPanel_deletar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
         jPanel_editar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
     }
@@ -198,9 +198,9 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
 
     private void jPanel_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_editarMouseClicked
         // TODO add your handling code here:
-        if (linha_selecionada > -1) { // Pega o id_cliente com base em todos os ids e linha_selecionada.
-            id_funcionario = todos_ids.get(linha_selecionada);
-            System.out.println("id_cliente: " + id_funcionario);
+        if (linha_selecionada_funcionario > -1) { // Pega o id_funcionario com base em todos os ids e linha_selecionada.
+            id_funcionario = todos_ids_funcionario.get(linha_selecionada_funcionario);
+            System.out.println("id_funcionario: " + id_funcionario);
 
             tela_atualizar_funcionario tela_atualizar = new tela_atualizar_funcionario();
             tela_atualizar.setVisible(true);
@@ -218,7 +218,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 // Pega a linha selecionada
-                linha_selecionada = jtbl_funcionarios.rowAtPoint(e.getPoint());
+                linha_selecionada_funcionario = jtbl_funcionarios.rowAtPoint(e.getPoint());
             }
         });
     }//GEN-LAST:event_jtbl_funcionariosMouseEntered
@@ -286,7 +286,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
             // Preenche cada linha com cada funcionário dentro de funcionários.
             for (Funcionario funcionario : funcionarios) {
                 String endereco = funcionario.getRua() + ", " + funcionario.getNumero() + " - " + funcionario.getBairro() + " - " + funcionario.getCidade() + " - " + funcionario.getCep();
-                todos_ids.add(funcionario.getId());
+                todos_ids_funcionario.add(funcionario.getId());
                 Object[] linha = {
                         funcionario.getNome(),
                         funcionario.getCpf().toString(),
