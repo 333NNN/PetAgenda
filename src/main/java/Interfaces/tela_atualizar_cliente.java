@@ -100,10 +100,10 @@ public class tela_atualizar_cliente extends javax.swing.JFrame {
         jlbl_titulo.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
         jlbl_titulo.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_titulo.setText("Atualizar cliente");
-        jlbl_titulo.setMaximumSize(new java.awt.Dimension(320, 45));
-        jlbl_titulo.setMinimumSize(new java.awt.Dimension(320, 45));
-        jlbl_titulo.setPreferredSize(new java.awt.Dimension(320, 45));
-        jPanel_atualizar_cliente.add(jlbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+        jlbl_titulo.setMaximumSize(new java.awt.Dimension(380, 45));
+        jlbl_titulo.setMinimumSize(new java.awt.Dimension(380, 45));
+        jlbl_titulo.setPreferredSize(new java.awt.Dimension(380, 45));
+        jPanel_atualizar_cliente.add(jlbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
 
         jlbl_nome_cliente.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_nome_cliente.setForeground(new java.awt.Color(0, 0, 0));

@@ -64,24 +64,24 @@ public class MenuPanel extends JPanel {
             }
         });
 
-        btn_agenda = createButton("Agenda", "/icon_agenda.png");
-        btn_agenda.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                btn_agendaActionPerformed(evt);
-            }
-        });
-        btn_agenda.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                btn_agendaPetMouseMoved(evt);
-            }
-        });
-        btn_agenda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_agendaPetMouseExited(evt);
-            }
-        });
+//        btn_agenda = createButton("Agenda", "/icon_agenda.png");
+//        btn_agenda.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//                btn_agendaActionPerformed(evt);
+//            }
+//        });
+//        btn_agenda.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+//            @Override
+//            public void mouseMoved(java.awt.event.MouseEvent evt) {
+//                btn_agendaPetMouseMoved(evt);
+//            }
+//        });
+//        btn_agenda.addMouseListener(new java.awt.event.MouseAdapter() {
+//            public void mouseExited(java.awt.event.MouseEvent evt) {
+//                btn_agendaPetMouseExited(evt);
+//            }
+//        });
 
         btn_servicos = createButton("Serviços", "/icon_servico.png");
         btn_servicos.addActionListener(new ActionListener() {
@@ -217,7 +217,7 @@ public class MenuPanel extends JPanel {
         });
 
         add(btn_Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 193, -1));
-        add(btn_agenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 248, 205, 60));
+//        add(btn_agenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 248, 205, 60));
         add(btn_servicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 308, 205, 60));
         add(btn_financeiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 368, 205, 60));
         add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 428, 205, 60));
@@ -267,21 +267,21 @@ public class MenuPanel extends JPanel {
     }
     
     //Botão Agenda
-    private void btn_agendaActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        Tela_de_visualizacao_do_mes telaVisualizaMes = new Tela_de_visualizacao_do_mes();
-        telaVisualizaMes.setVisible(true);
-        SwingUtilities.getWindowAncestor(this).dispose();
-    }
-
-    private void btn_agendaPetMouseMoved(java.awt.event.MouseEvent evt) {
-        btn_agenda.setOpaque(true);
-        btn_agenda.setBackground(new java.awt.Color(99, 90, 77));
-    }
-
-    private void btn_agendaPetMouseExited(java.awt.event.MouseEvent evt) {
-        btn_agenda.setOpaque(false);
-    }
+//    private void btn_agendaActionPerformed(java.awt.event.ActionEvent evt) {
+//        // TODO add your handling code here:
+//        Tela_de_visualizacao_do_mes telaVisualizaMes = new Tela_de_visualizacao_do_mes();
+//        telaVisualizaMes.setVisible(true);
+//        SwingUtilities.getWindowAncestor(this).dispose();
+//    }
+//
+//    private void btn_agendaPetMouseMoved(java.awt.event.MouseEvent evt) {
+//        btn_agenda.setOpaque(true);
+//        btn_agenda.setBackground(new java.awt.Color(99, 90, 77));
+//    }
+//
+//    private void btn_agendaPetMouseExited(java.awt.event.MouseEvent evt) {
+//        btn_agenda.setOpaque(false);
+//    }
     
     //Botão Serviços
     private void btn_servicosActionPerformed(java.awt.event.ActionEvent evt) {

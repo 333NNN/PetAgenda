@@ -236,7 +236,32 @@ public class Tela_config extends javax.swing.JFrame {
 
     private void btn_fazerBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fazerBackupActionPerformed
         // TODO add your handling code here:
-        
+        // Caminho para salvar o arquivo de backup
+        String backupFilePath = "backup.sql";
+
+        // Comando para executar o dump do banco de dados
+        String command = String.format("mysqldump -u %s -p%s --database %s -r %s", BD.USER, BD.USER_PWD, BD.SCHEMA, backupFilePath);
+
+        try {
+            // Executa o comando
+            ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
+            processBuilder.redirectErrorStream(true);
+            Process process = processBuilder.start();
+
+            // Aguarda a conclusão do processo
+            int processComplete = process.waitFor();
+
+            // Verifica se o processo foi concluído com sucesso
+            if (processComplete == 0) {
+                JOptionPane.showMessageDialog(this, "Backup realizado com sucesso!", "Backup", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao realizar o backup.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao executar o comando de backup. Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_btn_fazerBackupActionPerformed
 
     /**

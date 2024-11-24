@@ -138,7 +138,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton_Agenda">
+        <Component class="javax.swing.JButton" name="jButton_Servicos">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="65" green="73" red="7c" type="rgb"/>
@@ -147,7 +147,7 @@
               <Color blue="65" green="73" red="7c" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/icon_agenda.png"/>
+              <Image iconType="3" name="/icon_servico.png"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">

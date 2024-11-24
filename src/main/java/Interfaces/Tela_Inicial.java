@@ -35,7 +35,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         jPanel_Menu_layout = new javax.swing.JPanel();
         jButton_Cliente = new javax.swing.JButton();
         jButton_Funcionarios = new javax.swing.JButton();
-        jButton_Agenda = new javax.swing.JButton();
+        jButton_Servicos = new javax.swing.JButton();
         jButton_Financeiro = new javax.swing.JButton();
         jButton_ListaPets = new javax.swing.JButton();
         jButton_Configs = new javax.swing.JButton();
@@ -53,7 +53,6 @@ public class Tela_Inicial extends javax.swing.JFrame {
         jPanel_menu.setMinimumSize(new java.awt.Dimension(205, 768));
         jPanel_menu.setPreferredSize(new java.awt.Dimension(205, 768));
         jPanel_menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
 
         jPanel_Menu_layout.setBackground(new java.awt.Color(255, 255, 255));
@@ -83,11 +82,11 @@ public class Tela_Inicial extends javax.swing.JFrame {
         });
         jPanel_Menu_layout.add(jButton_Funcionarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 53, 120, 100));
 
-        jButton_Agenda.setBackground(new java.awt.Color(124, 115, 101));
-        jButton_Agenda.setForeground(new java.awt.Color(124, 115, 101));
-        jButton_Agenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon_agenda.png"))); // NOI18N
-        jButton_Agenda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jPanel_Menu_layout.add(jButton_Agenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 53, 120, 100));
+        jButton_Servicos.setBackground(new java.awt.Color(124, 115, 101));
+        jButton_Servicos.setForeground(new java.awt.Color(124, 115, 101));
+        jButton_Servicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon_servico.png"))); // NOI18N
+        jButton_Servicos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jPanel_Menu_layout.add(jButton_Servicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 53, 120, 100));
 
         jButton_Financeiro.setBackground(new java.awt.Color(124, 115, 101));
         jButton_Financeiro.setForeground(new java.awt.Color(124, 115, 101));
@@ -210,13 +209,13 @@ public class Tela_Inicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton_Agenda;
     private javax.swing.JButton jButton_Cliente;
     private javax.swing.JButton jButton_Configs;
     private javax.swing.JButton jButton_Financeiro;
     private javax.swing.JButton jButton_Funcionarios;
     private javax.swing.JButton jButton_ListaPets;
     private javax.swing.JButton jButton_Sair;
+    private javax.swing.JButton jButton_Servicos;
     private javax.swing.JPanel jPanel_Menu_layout;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JLabel jlbl_background;

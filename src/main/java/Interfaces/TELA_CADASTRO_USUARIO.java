@@ -5,8 +5,12 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.JOptionPane;
+import petagenda.bd.BD;
 import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
 
@@ -52,6 +56,7 @@ public class TELA_CADASTRO_USUARIO extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1366, 768));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
@@ -187,7 +192,7 @@ public class TELA_CADASTRO_USUARIO extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
         jPanel_menu.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
@@ -202,20 +207,65 @@ public class TELA_CADASTRO_USUARIO extends javax.swing.JFrame {
 
     private void jbtn_CadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_CadastrarUsuarioActionPerformed
         // TODO add your handling code here:
-        //Adicionar conexão com o banco de dados
-        JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja cadastrar um novo usuário?", "Novo Cadastro", JOptionPane.YES_NO_OPTION);
+        String cpf = jtxt_CPF.getText().trim();
+        String nomeUsuario = jtxt_nome.getText().trim();
+        String senha1 = jtxt_senha1.getText().trim();
+        String senha2 = jtxt_senha2.getText().trim();
 
-        if (resposta == JOptionPane.YES_OPTION) {
-        // Se o usuário quiser cadastrar outro usuário, permanece na mesma tela
-        // Neste caso, apenas limpa os campos ou reinicializa a tela, se necessário
-            limparCampos(); // Exemplo de função que você pode criar para limpar os campos
-        } 
-        else {
-        // Caso contrário, continua para a tela de login
-            TELA_LOGIN telaLogin = new TELA_LOGIN();
-            telaLogin.setVisible(true);
-            this.dispose();
+        if (cpf.isEmpty() || nomeUsuario.isEmpty() || senha1.isEmpty() || senha2.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos os campos devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!senha1.equals(senha2)) {
+            JOptionPane.showMessageDialog(this, "As senhas não conferem!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!cpf.matches("\\d{11}")) {
+            JOptionPane.showMessageDialog(this, "O CPF deve conter exatamente 11 dígitos numéricos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String codigoRecup = String.valueOf((int) (Math.random() * 9000) + 1000);
+
+        try {
+            BD bd = new BD();
+            Connection conn = bd.getConnection();
+
+            String sql = "INSERT INTO usuario (cpf, nome_usuario, senha_usuario, permissao, codigo_recup) "
+                    + "VALUES (?, ?, ?, '2', ?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, cpf);
+            pstmt.setString(2, nomeUsuario);
+            pstmt.setString(3, senha1);
+            pstmt.setString(4, codigoRecup);
+
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!");
+
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja cadastrar um novo usuário?", "Novo Cadastro", JOptionPane.YES_NO_OPTION);
+
+                if (resposta == JOptionPane.YES_OPTION) {
+                    limparCampos();
+                } else {
+                    TELA_LOGIN telaLogin = new TELA_LOGIN();
+                    telaLogin.setVisible(true);
+                    this.dispose();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao cadastrar usuário. Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+
+            pstmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            if (e.getMessage().contains("Duplicate entry")) {
+                JOptionPane.showMessageDialog(this, "O CPF ou Código de Recuperação já existe!", "Erro", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao conectar ao banco de dados: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jbtn_CadastrarUsuarioActionPerformed
 
@@ -236,8 +286,7 @@ public class TELA_CADASTRO_USUARIO extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        
-        
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

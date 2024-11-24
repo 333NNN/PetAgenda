@@ -107,7 +107,7 @@ public class Tela_servicos extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tbl_Servicos.getModel();
         modelo.setRowCount(0);
 
-        String sql = "SELECT * FROM vw_agendamento_detalhado";
+        String sql = "SELECT * FROM vw_detalhes_servico";
 
         try (Connection conn = BD.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
