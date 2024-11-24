@@ -1874,7 +1874,7 @@ public class BD {
                 // Criação do statement.
                 PreparedStatement select = null;
                 try {
-                    select = conn.prepareStatement(String.format("SELECT id_pet, nome, raca, sexo, porte, comportamento, e_castrado, caminho_cartao_vacinacao, estado_saude, cor, id_cliente FROM %s", TABLE));
+                    select = conn.prepareStatement(String.format("SELECT id_pet, nome, raca, sexo, porte, comportamento, e_castrado, caminho_cartao_vacinacao, estado_saude, cor, id_cliente FROM %s ORDER BY id_cliente", TABLE));
                     
                     ResultSet rs = select.executeQuery();
                     pets = parse(rs);
@@ -1944,12 +1944,12 @@ public class BD {
                             porte = null;
                         }
                         else {
-                            porte = Porte.valueOf(strPorte);
+                            porte = Porte.valueOf(strPorte.toUpperCase());
                         }
                         
                         comportamento = rs.getString("comportamento");
                         eCastrado = rs.getBoolean("e_castrado");
-                        caminho_cartao_vacinacao = rs.getString("caminho_cartao_vacina");
+                        caminho_cartao_vacinacao = rs.getString("caminho_cartao_vacinacao");
                         estado_saude = rs.getString("estado_saude");
                         cor = rs.getString("cor");
                         id_cliente = rs.getInt("id_cliente");

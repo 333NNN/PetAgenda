@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
+import petagenda.Cliente;
 import petagenda.Funcionario;
 import petagenda.Pet;
 import petagenda.bd.BD;
@@ -136,7 +137,7 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
             }
         });
         jtbl_visualizacao_pet.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jtbl_visualizacao_pet.setPreferredSize(new java.awt.Dimension(1400, 480));
+        jtbl_visualizacao_pet.setPreferredSize(new java.awt.Dimension(1070, 480));
         jtbl_visualizacao_pet.setRowHeight(30);
         jtbl_visualizacao_pet.setShowHorizontalLines(true);
         jtbl_visualizacao_pet.setShowVerticalLines(true);
@@ -213,21 +214,21 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
 
         // Organiza a tabela de acordo com os parametros.
         modeloDaColuna.getColumn(0).setCellRenderer(rendererEsquerda); // Nome do pet
-        modeloDaColuna.getColumn(1).setCellRenderer(rendererCentro); // Nome do dono
-        modeloDaColuna.getColumn(2).setCellRenderer(rendererCentro); // Raça
-        modeloDaColuna.getColumn(3).setCellRenderer(rendererCentro); // Cor
+        modeloDaColuna.getColumn(1).setCellRenderer(rendererEsquerda); // Nome do dono
+        modeloDaColuna.getColumn(2).setCellRenderer(rendererEsquerda); // Raça
+        modeloDaColuna.getColumn(3).setCellRenderer(rendererEsquerda); // Cor
         modeloDaColuna.getColumn(4).setCellRenderer(rendererCentro); // Porte
         modeloDaColuna.getColumn(5).setCellRenderer(rendererCentro); // Sexo
         modeloDaColuna.getColumn(6).setCellRenderer(rendererCentro); // Castrado
 
         // Define o tamanho das colunas na tabela.
-        modeloDaColuna.getColumn(0).setMaxWidth(200); // Nome do pet
-        modeloDaColuna.getColumn(1).setMaxWidth(300); // Nome do dono
-        modeloDaColuna.getColumn(2).setMaxWidth(150); // Raça
-        modeloDaColuna.getColumn(3).setMaxWidth(180); // Cor
-        modeloDaColuna.getColumn(4).setMaxWidth(100); // Porte
-        modeloDaColuna.getColumn(4).setMaxWidth(100); // Sexo
-        modeloDaColuna.getColumn(4).setMaxWidth(100); // Castrado
+        modeloDaColuna.getColumn(0).setPreferredWidth(200); // Nome do pet
+        modeloDaColuna.getColumn(1).setPreferredWidth(300); // Nome do dono
+        modeloDaColuna.getColumn(2).setPreferredWidth(150); // Raça
+        modeloDaColuna.getColumn(3).setPreferredWidth(200); // Cor
+        modeloDaColuna.getColumn(4).setPreferredWidth(80); // Porte
+        modeloDaColuna.getColumn(5).setPreferredWidth(75); // Sexo
+        modeloDaColuna.getColumn(6).setPreferredWidth(65); // Castrado
     }
     
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -253,22 +254,40 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
     }
     
     private void carregarDadosTabela() {
-        Pet[] pets = BD.Pet.selectAll();
+        Pet[] pets = BD.Pet.selectAll(); // Todos os pets.
+        Cliente[] clientes = BD.Cliente.selectAll(); // Todos os clientes.
         
+        // Modelo da tabela.
         DefaultTableModel modelo = (DefaultTableModel) jtbl_visualizacao_pet.getModel();
         modelo.setNumRows(0);
             
+        
+        String sexo, castrado;
+        
         if (pets != null) {
-            // Preenche cada linha com cada funcionário dentro de funcionários.
+            // Preenche cada linha com cada pet dentro de pets.
             for (Pet pet : pets) {
+                if (pet.getSexo().PET.equals("M")) {
+                    sexo = "Macho";
+                }
+                else {
+                    sexo = "Fêmea";
+                }
+                
+                if (pet.getECastrado()) {
+                    castrado = "Sim";
+                }
+                else {
+                    castrado = "Não";
+                }
                 Object[] linha = {
                         pet.getNome(),
-                        pet.getDono(),
+                        clientes[pet.getDono() - 1].getNome(),
                         pet.getRaca(),
                         pet.getCor(),
-                        //pet.getPorte().toString(),
-                        pet.getSexo().toString(),
-                        pet.getECastrado()
+                        pet.getPorte().toString(),
+                        sexo,
+                        castrado
                     };
                 modelo.addRow(linha); // Adiciona a linha a tabela.
             }

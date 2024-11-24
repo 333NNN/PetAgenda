@@ -6,7 +6,7 @@ package petagenda.dados;
  */
 public enum Porte {
     PEQUENO ("Pequeno"),
-    MEDIO ("Médio"),
+    MÉDIO ("Médio"),
     GRANDE ("Grande");
     
     public final String texto;
