@@ -1956,7 +1956,7 @@ public class BD {
                         
                         // Verificação dos dados e criação do objeto
                         try {
-                            p = new petagenda.Pet(nome, raca, sexo, porte, comportamento, eCastrado, caminho_cartao_vacinacao, estado_saude, cor, id_cliente);
+                            p = new petagenda.Pet(id_pet, nome, raca, sexo, porte, comportamento, eCastrado, caminho_cartao_vacinacao, estado_saude, cor, id_cliente);
                             
                             if (sexo != null) {
                                 p.setSexo(sexo);

@@ -37,16 +37,17 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
      */
     
     public static int id_cliente; // id do cliente, vai ser acessado pela tela de atualização de cliente.
-    private static int linha_selecionada; // Linha selecionada, usada para achar o id_cliente.
-    private static final ArrayList<Integer> todos_ids = new ArrayList<>();  // todos os ids da tabela.
+    private static int linha_selecionada_cliente; // Linha selecionada, usada para achar o id_cliente.
+    private static final ArrayList<Integer> todos_ids_cliente = new ArrayList<>();  // todos os ids da tabela.
     
     public Tela_visualizacao_cliente() {
         initComponents();
         initMenuPanel();
         AjustarColuna();
+        linha_selecionada_cliente = -1;
+        todos_ids_cliente.clear();
         carregarDadosTabela();
         moveHeader();
-        linha_selecionada = -1;
         jPanel_deletar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
         jPanel_editar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
     }
@@ -194,8 +195,8 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
 
     private void jPanel_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_editarMouseClicked
         // TODO add your handling code here:
-        if (linha_selecionada > -1) { // Pega o id_cliente com base em todos os ids e linha_selecionada.
-            id_cliente = todos_ids.get(linha_selecionada);
+        if (linha_selecionada_cliente > -1) { // Pega o id_cliente com base em todos os ids e linha_selecionada.
+            id_cliente = todos_ids_cliente.get(linha_selecionada_cliente);
             System.out.println("id_cliente: " + id_cliente);
 
             tela_atualizar_cliente tela_atualizar = new tela_atualizar_cliente();
@@ -214,7 +215,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 // Pega a linha selecionada
-                linha_selecionada = jtbl_clientes_cadastrados.rowAtPoint(e.getPoint());
+                linha_selecionada_cliente = jtbl_clientes_cadastrados.rowAtPoint(e.getPoint());
             }
         });
     }//GEN-LAST:event_jtbl_clientes_cadastradosMouseEntered
@@ -294,7 +295,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
 
             rs = stmt.executeQuery();
             while (rs.next()) {
-                todos_ids.add(rs.getInt("id_cliente")); // Adiciona os ids para ser usado na área de atualização.
+                todos_ids_cliente.add(rs.getInt("id_cliente")); // Adiciona os ids para ser usado na área de atualização.
                 Object[] linha = {
                         rs.getString("nome_cliente"),
                         rs.getString("cpf"),
