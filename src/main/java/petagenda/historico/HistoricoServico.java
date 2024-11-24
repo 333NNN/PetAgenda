@@ -1,19 +1,9 @@
 package petagenda.historico;
 
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
-import petagenda.Cliente;
-import petagenda.Pet;
-import petagenda.Usuario;
 import petagenda.agendamento.Agendamento;
-import petagenda.agendamento.Remedio;
-import petagenda.dados.Endereco;
-import petagenda.dados.LocalAtuacao;
-import petagenda.dados.Porte;
-import petagenda.dados.Sexo;
 import petagenda.exception.*;
-import petagenda.servico.Servico;
 /**
  *
  * @author thiago
@@ -252,9 +242,11 @@ public final class HistoricoServico {
         this.incidente = incidente;
     }
     
+    /*
     @Override
     public String toString() {
         return String.format("---- HISTORICO SERVICO ----\nSERVICO: %s | DATA HORA FINALIZADO: %s\nDURAÇÃO: %s min. | PET: %s", 
                 getAgendamento().getServico().getNome(), getDataHoraFinalizado().toString(), getDuracao(), getAgendamento().getPet().getNome());
     }
+*/
 }
