@@ -32,7 +32,7 @@ public class CPF {
             String numerico = toNumerico(str); // Retira pontuacao, se houver
             if(!eValido(numerico)) { 
                 throw new IllegalCpfException("CPF informado é inválido.");
-            }
+            } 
             this.numerico = numerico;
     }
     // Getters
@@ -63,7 +63,7 @@ public class CPF {
 
             return newStr.toString();
     }
-
+    
     // Checkers
     /** Valida uma String contendo apenas dígitos de um CPF.
      *  Para um CPF é considerado válido se conter 11 dígitos e se os dígitos 
@@ -104,7 +104,7 @@ public class CPF {
      */
     public final static boolean eValido(String str) {
         if (str == null) {
-                throw new NullPointerException("String de verificacao nao pode ser null");
+            throw new NullPointerException("String de verificacao nao pode ser null");
         } else if (str.length() < TAM_CPF) {
                 return false;
         }

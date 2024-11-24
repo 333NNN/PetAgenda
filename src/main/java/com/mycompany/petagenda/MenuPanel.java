@@ -8,6 +8,8 @@ import Interfaces.TELA_LOGIN;
 import Interfaces.Tela_Inicial;
 import Interfaces.Tela_config;
 import Interfaces.Tela_de_visualizacao_do_mes;
+import Interfaces.Tela_financeiro;
+import Interfaces.Tela_servicos;
 import Interfaces.Tela_visualizacao_cliente;
 import Interfaces.Tela_visualizacao_funcionario;
 import Interfaces.Tela_visualizacao_pet;
@@ -120,12 +122,6 @@ public class MenuPanel extends JPanel {
         });
 
         btn_clientes = createButton("Clientes", "/icon_clientes.png");
-        btn_clientes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                btn_clientesActionPerformed(evt);
-            }
-        });
         btn_clientes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -290,7 +286,9 @@ public class MenuPanel extends JPanel {
     //Botão Serviços
     private void btn_servicosActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        
+        Tela_servicos telaServicos = new Tela_servicos();
+        telaServicos.setVisible(true);
+        SwingUtilities.getWindowAncestor(this).dispose();
     }
 
     private void btn_servicosMouseMoved(java.awt.event.MouseEvent evt) {
@@ -305,6 +303,9 @@ public class MenuPanel extends JPanel {
     //Botão Financeiro
     private void btn_financeiroActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        Tela_financeiro telaFinanceiro = new Tela_financeiro();
+        telaFinanceiro.setVisible(true);
+        SwingUtilities.getWindowAncestor(this).dispose();
     }
 
     private void btn_financeiroPetMouseMoved(java.awt.event.MouseEvent evt) {

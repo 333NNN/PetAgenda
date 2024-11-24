@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `pet_agenda` /*!40100 DEFAULT CHARACTER SET utf8m
 USE `pet_agenda`;
 -- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: pet_agenda
+-- Host: localhost    Database: pet_agenda
 -- ------------------------------------------------------
 -- Server version	5.5.5-10.4.32-MariaDB
 
@@ -33,22 +33,13 @@ CREATE TABLE `agendamento` (
   `dta_hr_finalizado` datetime NOT NULL,
   `check_entrega` tinyint(4) NOT NULL,
   `observacao` varchar(255) DEFAULT NULL,
-  `pet_buscar_com` varchar(64) DEFAULT NULL,
-  `pet_devolver_para` varchar(64) DEFAULT NULL,
-  `local_cuidado` varchar(255) DEFAULT NULL,
   `id_servico` int(11) DEFAULT NULL,
-  `id_pet` int(11) DEFAULT NULL,
   `id_func` int(11) DEFAULT NULL,
-  `id_cliente` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_agendamento`),
   KEY `id_servico` (`id_servico`),
-  KEY `id_pet` (`id_pet`),
   KEY `id_func` (`id_func`),
-  KEY `id_cliente` (`id_cliente`),
   CONSTRAINT `agendamento_ibfk_1` FOREIGN KEY (`id_servico`) REFERENCES `servico` (`id_servico`),
-  CONSTRAINT `agendamento_ibfk_2` FOREIGN KEY (`id_pet`) REFERENCES `pet` (`id_pet`),
-  CONSTRAINT `agendamento_ibfk_3` FOREIGN KEY (`id_func`) REFERENCES `funcionario` (`id_func`),
-  CONSTRAINT `agendamento_ibfk_4` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`)
+  CONSTRAINT `agendamento_ibfk_2` FOREIGN KEY (`id_func`) REFERENCES `funcionario` (`id_func`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -73,13 +64,11 @@ CREATE TABLE `cliente` (
   `nome` varchar(64) NOT NULL,
   `cpf` char(11) NOT NULL,
   `telefone` varchar(15) NOT NULL,
-  `rua` varchar(45) NOT NULL,
+  `rua` varchar(64) NOT NULL,
   `numero` varchar(16) NOT NULL,
-  `bairro` varchar(32) NOT NULL,
-  `cidade` varchar(32) NOT NULL,
+  `bairro` varchar(64) NOT NULL,
+  `cidade` varchar(64) NOT NULL,
   `cep` char(8) NOT NULL,
-  `buscar_com` varchar(64) DEFAULT NULL,
-  `devolver_para` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id_cliente`),
   UNIQUE KEY `cpf` (`cpf`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -132,11 +121,11 @@ CREATE TABLE `funcionario` (
   `nome` varchar(64) NOT NULL,
   `cpf` char(11) NOT NULL,
   `telefone` varchar(15) NOT NULL,
-  `rua` varchar(45) NOT NULL,
+  `rua` varchar(64) NOT NULL,
   `cep` char(8) NOT NULL,
   `numero` varchar(16) NOT NULL,
-  `bairro` varchar(32) NOT NULL,
-  `cidade` varchar(32) NOT NULL,
+  `bairro` varchar(64) NOT NULL,
+  `cidade` varchar(64) NOT NULL,
   PRIMARY KEY (`id_func`),
   UNIQUE KEY `cpf` (`cpf`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -246,6 +235,32 @@ LOCK TABLES `pet` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `pet_agendamento`
+--
+
+DROP TABLE IF EXISTS `pet_agendamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `pet_agendamento` (
+  `id_agendamento_pet` int(11) DEFAULT NULL,
+  `id_pet_agend` int(11) DEFAULT NULL,
+  KEY `id_agendamento_pet` (`id_agendamento_pet`),
+  KEY `id_pet_agend` (`id_pet_agend`),
+  CONSTRAINT `pet_agendamento_ibfk_1` FOREIGN KEY (`id_agendamento_pet`) REFERENCES `agendamento` (`id_agendamento`),
+  CONSTRAINT `pet_agendamento_ibfk_2` FOREIGN KEY (`id_pet_agend`) REFERENCES `pet` (`id_pet`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pet_agendamento`
+--
+
+LOCK TABLES `pet_agendamento` WRITE;
+/*!40000 ALTER TABLE `pet_agendamento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pet_agendamento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `remedio_agend`
 --
 
@@ -286,7 +301,7 @@ CREATE TABLE `servico` (
   `preco` decimal(8,2) NOT NULL,
   `descricao` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id_servico`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,6 +310,7 @@ CREATE TABLE `servico` (
 
 LOCK TABLES `servico` WRITE;
 /*!40000 ALTER TABLE `servico` DISABLE KEYS */;
+INSERT INTO `servico` VALUES (1,'Dog Walking',80.00,'Caminhada com um grupo de cachorros'),(2,'Pet Sitting',100.00,'Atendimento doméstico\'');
 /*!40000 ALTER TABLE `servico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -311,8 +327,10 @@ CREATE TABLE `usuario` (
   `nome_usuario` varchar(45) NOT NULL,
   `senha_usuario` varchar(25) NOT NULL,
   `permissao` enum('1','2','3') NOT NULL,
+  `codigo_recup` varchar(4) NOT NULL,
   PRIMARY KEY (`id_usuario`),
-  UNIQUE KEY `cpf` (`cpf`)
+  UNIQUE KEY `cpf` (`cpf`),
+  UNIQUE KEY `codigo_recup` (`codigo_recup`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -322,9 +340,47 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'88784449012','administrador','1234','1');
+INSERT INTO `usuario` VALUES (1,'88784449012','administrador','1234','1','4528');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `visualizacao_cliente`
+--
+
+DROP TABLE IF EXISTS `visualizacao_cliente`;
+/*!50001 DROP VIEW IF EXISTS `visualizacao_cliente`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `visualizacao_cliente` AS SELECT 
+ 1 AS `nome_cliente`,
+ 1 AS `cpf`,
+ 1 AS `telefone`,
+ 1 AS `nome_servico`,
+ 1 AS `rua`,
+ 1 AS `numero`,
+ 1 AS `bairro`,
+ 1 AS `cidade`,
+ 1 AS `cep`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `visualizacao_cliente`
+--
+
+/*!50001 DROP VIEW IF EXISTS `visualizacao_cliente`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `visualizacao_cliente` AS select `cliente`.`nome` AS `nome_cliente`,`cliente`.`cpf` AS `cpf`,`cliente`.`telefone` AS `telefone`,`servico`.`nome` AS `nome_servico`,`cliente`.`rua` AS `rua`,`cliente`.`numero` AS `numero`,`cliente`.`bairro` AS `bairro`,`cliente`.`cidade` AS `cidade`,`cliente`.`cep` AS `cep` from ((`cliente_contrata_servico` join `cliente` on(`cliente`.`id_cliente` = `cliente_contrata_servico`.`id_cliente`)) join `servico` on(`servico`.`id_servico` = `cliente_contrata_servico`.`id_servico`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -335,4 +391,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-08 20:31:59
+-- Dump completed on 2024-11-23 10:53:52

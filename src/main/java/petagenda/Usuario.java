@@ -12,7 +12,7 @@ import petagenda.servico.*;
  */
 public final class Usuario {
     private static Usuario atual;
-    private int id;
+    private int id_usuario;
     private String nome;
     private CPF cpf;
     private String senha;
@@ -40,8 +40,8 @@ public final class Usuario {
         this.senha = senha;
     }
 
-    public Usuario(int id, String nome, CPF cpf, String senha, int permissao) {
-        this.id = id;
+    public Usuario(int id_usuario, String nome, CPF cpf, String senha, int permissao) {
+        this.id_usuario = id_usuario;
         this.nome = nome;
         this.cpf = cpf;
         this.senha = senha;
@@ -50,8 +50,8 @@ public final class Usuario {
 
     // Métodos estáticos para manipulação de dados no banco
 
-    public static Usuario selectById(int id) {
-        return BD.Usuario.selectById(id);
+    public static Usuario selectById(int id_usuario) {
+        return BD.Usuario.selectById(id_usuario);
     }
 
     public static void insert(Usuario usuario) {
@@ -86,16 +86,16 @@ public final class Usuario {
 
     // Getters e Setters
 
-    public void setId(int id) {
-        if (id < 0) {
+    public void setId(int id_usuario) {
+        if (id_usuario < 0) {
             throw new IllegalIdException("Id não pode ser inferior a zero");
         } else {
-            this.id = id;
+            this.id_usuario = id_usuario;
         }
     }
 
     public int getId() {
-        return this.id;
+        return this.id_usuario;
     }
 
     public void setNome(String nome) {
@@ -144,6 +144,6 @@ public final class Usuario {
 
     @Override
     public String toString() {
-        return String.format("ID: %-5d | NOME: %-16s | CPF: %-11s | PERMISSÃO: %d", getId(), getNome(), getCpf().toString(), getPermissao());
+        return String.format("ID_USUARIO: %-5d | NOME: %-16s | CPF: %-11s | PERMISSÃO: %d", getId(), getNome(), getCpf().toString(), getPermissao());
     }
 }

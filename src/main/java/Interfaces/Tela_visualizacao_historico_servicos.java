@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import petagenda.bd.BD;
 import ui.custom.RoundedCornerButtonUI;
@@ -23,7 +24,7 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
     /**
      * Creates new form Tela_visualizacao_historico_servicos
      */
-        public void PopularTabela (String sql){
+    public void PopularTabela (String sql){
         try {
             Connection con = (Connection)DriverManager.getConnection("jdbc:mysql://localhost/pet_agenda","root","");
             PreparedStatement banco = (PreparedStatement)con.prepareStatement(sql);
@@ -38,9 +39,14 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
                 model.addRow(new Object[]
                 {
                     //Criar a view para preencher a tabela do sistema
-                   resultado.getString("id"),
-                   resultado.getString("nome"),
-                   resultado.getString("cpf")
+                   resultado.getString("Id Agendamento"),
+                   resultado.getString("Pets"),
+                   resultado.getString("Nome do Funcionário"),
+                   resultado.getString("Data"),
+                   resultado.getString("Horário"),
+                   resultado.getString("Serviço Prestado"),
+                   resultado.getString("Incidente")
+                        
                 });
             }
             banco.close();
@@ -77,7 +83,6 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
 
         lbl_historico_servicos.setBackground(new java.awt.Color(255, 255, 255));
         lbl_historico_servicos.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
-        lbl_historico_servicos.setForeground(new java.awt.Color(0, 0, 0));
         lbl_historico_servicos.setText("Histórico de Serviços");
         getContentPane().add(lbl_historico_servicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, -1, -1));
 
@@ -92,17 +97,17 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
 
         jtbl_historico_servico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Pets", "Nome do funcionário", "Data", "Horário", "Serviço prestado", "Incidentes"
+                "Id Agendamento", "Pets", "Nome do funcionário", "Data", "Horário", "Serviço prestado", "Incidentes"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -111,9 +116,14 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
         });
         jtbl_historico_servico.setPreferredSize(new java.awt.Dimension(865, 480));
         jtbl_historico_servico.getTableHeader().setReorderingAllowed(false);
+        jtbl_historico_servico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbl_historico_servicoMouseClicked(evt);
+            }
+        });
         jScrollPane_historico_servico.setViewportView(jtbl_historico_servico);
 
-        jPanel_tabela.add(jScrollPane_historico_servico, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel_tabela.add(jScrollPane_historico_servico, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, -1));
 
         getContentPane().add(jPanel_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(309, 103, -1, -1));
 
@@ -150,7 +160,64 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
         Tela_incidentes incidente = new Tela_incidentes();
         incidente.setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_jbtn_cadastrarIncidenteActionPerformed
+
+    private void jtbl_historico_servicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbl_historico_servicoMouseClicked
+        // TODO add your handling code here:
+        int col = jtbl_historico_servico.getSelectedColumn();
+        int row = jtbl_historico_servico.getSelectedRow();
+        
+        if (row == -1 || col == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleciona um registro válido.");
+            return;
+        }
+        
+        Object valor = jtbl_historico_servico.getValueAt(row, col);
+        
+        
+        if (col == 6) {
+            Object IdAgendamento = jtbl_historico_servico.getValueAt(row,(0));
+            if ("Houve".equals(valor)) {
+                try {
+                    Connection con = (Connection)DriverManager.getConnection("jdbc:mysql://localhost/pet_agenda","root","");
+                    String sql = "SELECT i.data_hora, i.descricao, i.e_emergencia, p.nome "
+                                + "FROM incidente AS i "
+                                + "INNER JOIN pet AS p "
+                                + "ON i.id_pet = p.id_pet "
+                                + "WHERE i.id_agendamento = ?";
+                    PreparedStatement banco = (PreparedStatement)con.prepareStatement(sql);
+                    
+                    banco.setObject(1, IdAgendamento);
+            
+                    try (ResultSet resultado = banco.executeQuery(sql)) {
+                        if (resultado.next()) {
+                            String data = resultado.getString("i.data_hora");
+                            String descricao = resultado.getString("i.descricao");
+                            String emergencia = resultado.getString("i.e_emergencia");
+                            String nome = resultado.getString("p.nome");
+                            
+                            JOptionPane.showMessageDialog(null,
+                                "Nome:"+nome+"\n" +
+                                "Data:"+data+"\n" + 
+                                "Emergência Médica:"+emergencia+"\n" + 
+                                "Descrição:"+descricao, 
+                                "Incidente",JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Nenhum incidente encontrado para este serviço.");
+                        }
+                    }
+                    banco.execute();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "ERRO:"+e.getMessage());
+                }
+            } else if (valor.equals("Não houve")) {
+                JOptionPane.showMessageDialog(null, "Não houve incidente nesse serviço.");
+            } else{
+                JOptionPane.showMessageDialog(null, "Não existe nada dentro dessa linha.");
+            }
+        }
+    }//GEN-LAST:event_jtbl_historico_servicoMouseClicked
     
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();

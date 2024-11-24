@@ -5,16 +5,18 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import javax.swing.JScrollBar;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
 import petagenda.bd.BD;
-import ui.custom.RoundedCornerBorder;
+import petagenda.Funcionario;
 import ui.custom.RoundedCornerButtonUI;
 
 /**
@@ -29,7 +31,11 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
     public Tela_visualizacao_funcionario() {
         initComponents();
         initMenuPanel();
+        AjustarColuna();
         carregarDadosTabela();
+        moveHeader();
+        jPanel_deletar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
+        jPanel_editar.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
     }
 
     /**
@@ -41,12 +47,16 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel_menu = new javax.swing.JPanel();
-        btn_cadastrarFuncionario = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
         lbl_funcionarios = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel_tabela = new javax.swing.JPanel();
+        jScroll_tabela = new javax.swing.JScrollPane();
         jtbl_funcionarios = new javax.swing.JTable();
+        jPanel_deletar = new javax.swing.JPanel();
+        jlbl_deletar = new javax.swing.JLabel();
+        jPanel_editar = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        btn_cadastrarFuncionario = new javax.swing.JButton();
+        jPanel_menu = new javax.swing.JPanel();
         jlbl_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -54,13 +64,75 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
-        jPanel_menu.setForeground(new java.awt.Color(124, 115, 101));
-        jPanel_menu.setFont(new java.awt.Font("Merriweather", 0, 12)); // NOI18N
-        jPanel_menu.setMinimumSize(new java.awt.Dimension(205, 768));
-        jPanel_menu.setPreferredSize(new java.awt.Dimension(205, 768));
-        jPanel_menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
+        lbl_funcionarios.setBackground(new java.awt.Color(255, 255, 255));
+        lbl_funcionarios.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
+        lbl_funcionarios.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_funcionarios.setText("Funcionários");
+        getContentPane().add(lbl_funcionarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, -1, -1));
+
+        jPanel_tabela.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_tabela.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jPanel_tabela.setMinimumSize(new java.awt.Dimension(905, 560));
+        jPanel_tabela.setOpaque(false);
+        jPanel_tabela.setPreferredSize(new java.awt.Dimension(915, 480));
+        jPanel_tabela.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScroll_tabela.setPreferredSize(new java.awt.Dimension(915, 480));
+        jScroll_tabela.setVerifyInputWhenFocusTarget(false);
+
+        jtbl_funcionarios.setFont(new java.awt.Font("Merriweather", 0, 16)); // NOI18N
+        jtbl_funcionarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "CPF", "Telefone", "Serviço Prestado", "Endereço"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtbl_funcionarios.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jtbl_funcionarios.setPreferredSize(new java.awt.Dimension(1400, 480));
+        jtbl_funcionarios.setRowHeight(30);
+        jtbl_funcionarios.setShowHorizontalLines(true);
+        jtbl_funcionarios.setShowVerticalLines(true);
+        jtbl_funcionarios.getTableHeader().setReorderingAllowed(false);
+        jScroll_tabela.setViewportView(jtbl_funcionarios);
+        if (jtbl_funcionarios.getColumnModel().getColumnCount() > 0) {
+            jtbl_funcionarios.getColumnModel().getColumn(0).setResizable(false);
+            jtbl_funcionarios.getColumnModel().getColumn(1).setResizable(false);
+            jtbl_funcionarios.getColumnModel().getColumn(2).setResizable(false);
+            jtbl_funcionarios.getColumnModel().getColumn(3).setResizable(false);
+            jtbl_funcionarios.getColumnModel().getColumn(4).setResizable(false);
+        }
+
+        jPanel_tabela.add(jScroll_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        getContentPane().add(jPanel_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 103, -1, -1));
+
+        jPanel_deletar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_deletar.setPreferredSize(new java.awt.Dimension(42, 42));
+        jPanel_deletar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jlbl_deletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon deletar.png"))); // NOI18N
+        jPanel_deletar.add(jlbl_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 9, -1, -1));
+
+        getContentPane().add(jPanel_deletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1216, 530, -1, -1));
+
+        jPanel_editar.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_editar.setPreferredSize(new java.awt.Dimension(42, 42));
+        jPanel_editar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon editar.png"))); // NOI18N
+        jPanel_editar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 9, -1, -1));
+
+        getContentPane().add(jPanel_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1258, 530, -1, -1));
 
         btn_cadastrarFuncionario.setBackground(new java.awt.Color(77, 120, 63));
         btn_cadastrarFuncionario.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
@@ -74,104 +146,15 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
             }
         });
         btn_cadastrarFuncionario.setUI(new RoundedCornerButtonUI());
-        getContentPane().add(btn_cadastrarFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 620, -1, -1));
+        getContentPane().add(btn_cadastrarFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 620, -1, -1));
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jPanel6.setMinimumSize(new java.awt.Dimension(905, 560));
-        jPanel6.setOpaque(false);
-        jPanel6.setPreferredSize(new java.awt.Dimension(905, 560));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lbl_funcionarios.setBackground(new java.awt.Color(255, 255, 255));
-        lbl_funcionarios.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
-        lbl_funcionarios.setText("Funcionários");
-        jPanel6.add(lbl_funcionarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(307, 20, -1, -1));
-
-        jtbl_funcionarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jtbl_funcionarios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Nome", "CPF", "Telefone", "Serviço Prestado"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jtbl_funcionarios.setShowHorizontalLines(true);
-        jtbl_funcionarios.setShowVerticalLines(true);
-        jtbl_funcionarios.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jtbl_funcionarios);
-
-        jPanel6.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 910, 480));
-
-        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 51, -1, -1));
+        jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
+        jPanel_menu.setForeground(new java.awt.Color(124, 115, 101));
+        jPanel_menu.setFont(new java.awt.Font("Merriweather", 0, 12)); // NOI18N
+        jPanel_menu.setMinimumSize(new java.awt.Dimension(205, 768));
+        jPanel_menu.setPreferredSize(new java.awt.Dimension(205, 768));
+        jPanel_menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
 
         jlbl_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         jlbl_background.setText(" ");
@@ -189,38 +172,80 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_cadastrarFuncionarioActionPerformed
+    
+    // Personaliza a "width" da coluna em geral.
+    private void AjustarColuna() {
+        // Centraliza a coluna.
+        DefaultTableCellRenderer rendererCentro = new DefaultTableCellRenderer();
+        rendererCentro.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        // Alinha a coluna a direita.
+        DefaultTableCellRenderer rendererDireita = new DefaultTableCellRenderer();  
+        rendererDireita.setHorizontalAlignment(SwingConstants.RIGHT);
+        
+        // Alinha a coluna a esquerda.
+        DefaultTableCellRenderer rendererEsquerda = new DefaultTableCellRenderer();  
+        rendererEsquerda.setHorizontalAlignment(SwingConstants.LEFT);  
 
+        // Define o tamanho do cabeçalho.
+        JTableHeader header = jtbl_funcionarios.getTableHeader();  
+        header.setPreferredSize(new Dimension(0, 30));
+        TableColumnModel modeloDaColuna = jtbl_funcionarios.getColumnModel();  
+
+        // Organiza a tabela de acordo com os parametros.
+        modeloDaColuna.getColumn(0).setCellRenderer(rendererEsquerda); // Nome
+        modeloDaColuna.getColumn(1).setCellRenderer(rendererCentro); // CPF
+        modeloDaColuna.getColumn(2).setCellRenderer(rendererCentro); // Telefone
+        modeloDaColuna.getColumn(3).setCellRenderer(rendererCentro); // Serviço Prestado
+        modeloDaColuna.getColumn(4).setCellRenderer(rendererEsquerda); // Endereço
+
+        // Define o tamanho das colunas na tabela.
+        modeloDaColuna.getColumn(0).setPreferredWidth(300); // Nome
+        modeloDaColuna.getColumn(1).setPreferredWidth(120); // CPF
+        modeloDaColuna.getColumn(2).setPreferredWidth(130); // Telefone
+        modeloDaColuna.getColumn(3).setPreferredWidth(180); // Serviço Prestado
+        modeloDaColuna.getColumn(4).setPreferredWidth(710); // Endereço
+    }
+    
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
         jPanel_menu.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
     }
+    
+    private void moveHeader() {
+        // Cabeçalho da tabela e o JScrollPane
+        JTableHeader header = jtbl_funcionarios.getTableHeader();
+        JScrollBar horizontalScrollBar = jScroll_tabela.getHorizontalScrollBar();
+
+        // Sincroniza a rolagem da JTable com o header
+        horizontalScrollBar.addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                header.setLocation(-e.getValue(), header.getY());
+            }
+        });
+    }
 
     private void carregarDadosTabela() {
+        Funcionario[] funcionarios = BD.Funcionario.selectAll();
+        
         DefaultTableModel modelo = (DefaultTableModel) jtbl_funcionarios.getModel();
-        modelo.setRowCount(0);
-
-        String sql = "SELECT u.nome, u.cpf, u.telefone, ts.nome AS servico "
-                   + "FROM usuario u "
-                   + "JOIN tipo_servico ts ON u.id_servico_presta = ts.id";
-
-        try (Connection conn = BD.getConnection(); 
-             PreparedStatement stmt = conn.prepareStatement(sql); 
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
+        modelo.setNumRows(0);
+            
+        if (funcionarios != null) {
+            // Preenche cada linha com cada funcionário dentro de funcionários.
+            for (Funcionario funcionario : funcionarios) {
+                String endereco = funcionario.getRua() + ", " + funcionario.getNumero() + " - " + funcionario.getBairro() + " - " + funcionario.getCidade() + " - " + funcionario.getCep();
                 Object[] linha = {
-                    rs.getString("nome"),
-                    rs.getString("cpf"),
-                    rs.getString("telefone"),
-                    rs.getString("servico"),
-                    
-                };
-                modelo.addRow(linha); // Adiciona cada linha de dados na tabela
+                        funcionario.getNome(),
+                        funcionario.getCpf().toString(),
+                        funcionario.getTelefone(),
+                        "Dog Walking/Pet Sitting",
+                        //"Ver",
+                        endereco
+                    };
+                modelo.addRow(linha); // Adiciona a linha a tabela.
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao carregar dados: " + e.getMessage());
         }
     }
 
@@ -251,7 +276,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and displjScroll_tabela*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Tela_visualizacao_funcionario().setVisible(true);
@@ -261,10 +286,14 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cadastrarFuncionario;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel_deletar;
+    private javax.swing.JPanel jPanel_editar;
     private javax.swing.JPanel jPanel_menu;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel_tabela;
+    private javax.swing.JScrollPane jScroll_tabela;
     private javax.swing.JLabel jlbl_background;
+    private javax.swing.JLabel jlbl_deletar;
     private javax.swing.JTable jtbl_funcionarios;
     private javax.swing.JLabel lbl_funcionarios;
     // End of variables declaration//GEN-END:variables
