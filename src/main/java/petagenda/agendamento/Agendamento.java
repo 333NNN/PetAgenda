@@ -10,6 +10,7 @@ import petagenda.exception.*;
 public final class Agendamento {
     private int id_agendamento;
     private LocalDateTime dt_hr_marcada;
+    private String endereco_pet;
     private int qntPasseios;
     private LocalDateTime dta_hr_iniciado;
     private LocalDateTime dta_hr_finalizado;
@@ -21,12 +22,12 @@ public final class Agendamento {
     public static final int NULL_ID = -1;
 
     
-    public Agendamento(LocalDateTime dt_hr_marcada, int qntPasseios, LocalDateTime dta_hr_iniciado, LocalDateTime dta_hr_finalizado, int check_entrega, String observacao, int id_servico, int id_funcionario) {
-        this(1, dt_hr_marcada, qntPasseios, dta_hr_iniciado, dta_hr_finalizado, check_entrega, observacao, id_servico, id_funcionario);
+    public Agendamento(LocalDateTime dt_hr_marcada, String endereco_pet, int qntPasseios, LocalDateTime dta_hr_iniciado, LocalDateTime dta_hr_finalizado, int check_entrega, String observacao, int id_servico, int id_funcionario) {
+        this(1, dt_hr_marcada, endereco_pet, qntPasseios, dta_hr_iniciado, dta_hr_finalizado, check_entrega, observacao, id_servico, id_funcionario);
         this.id_agendamento = NULL_ID;
     }
     
-    public Agendamento(int id_agendamento, LocalDateTime dt_hr_marcada, int qntPasseios, LocalDateTime dta_hr_iniciado, LocalDateTime dta_hr_finalizado, int check_entrega, String observacao, int id_servico, int id_funcionario) {
+    public Agendamento(int id_agendamento, LocalDateTime dt_hr_marcada, String endereco_pet, int qntPasseios, LocalDateTime dta_hr_iniciado, LocalDateTime dta_hr_finalizado, int check_entrega, String observacao, int id_servico, int id_funcionario) {
         IllegalArgumentsException exs = new IllegalArgumentsException();
         
         // id_agedamento
@@ -41,6 +42,14 @@ public final class Agendamento {
         try {
             setDataHoraMarcada(dt_hr_marcada);
         } catch (IllegalDataHoraMarcadaException ex) {
+            exs.addCause(ex);
+        }
+        
+        // endereco_pet
+        try {
+            setEnderecoPet(endereco_pet);
+        }
+        catch (IllegalEnderecoPetException ex) {
             exs.addCause(ex);
         }
         
@@ -132,6 +141,23 @@ public final class Agendamento {
     
     public LocalDateTime getDataHoraMarcada() {
         return this.dt_hr_marcada;
+    }
+    
+    // endereco_pet
+    public void setEnderecoPet(String obs) {
+        if (obs != null) {
+            obs = obs.trim();
+            if (obs.length() > 255) {
+                throw new IllegalEnderecoPetException("observação não pode conter mais do que 255 caracteres.");
+            } else if (obs.isEmpty()) {
+                obs = null;
+            }
+        }
+        this.observacao = obs;
+    }
+    
+    public String getEnderecoPet() {
+        return this.observacao;
     }
     
     
@@ -329,8 +355,8 @@ public final class Agendamento {
     
     @Override
     public String toString() {
-        return String.format("ID_AGENDAMENTO: %d | DT_HR_MARCADA: %s | QNT_PASSEIOS: %d | DTA_HR_INICIADO: %s | DTA_HR_FINALIZADO: %s | CHECK_ENTREGA: %d | OBSERVACAO: %s | ID_SERVICO: %d | ID_FUNCIONARIO: %d", 
-                getId(), getDataHoraMarcada().toString(), getQntPasseios(), getDataHoraIniciado().toString(), getDataHoraFinalizado().toString(),
+        return String.format("ID_AGENDAMENTO: %d | DT_HR_MARCADA: %s | ENDERECO_PET: %s | QNT_PASSEIOS: %d | DTA_HR_INICIADO: %s | DTA_HR_FINALIZADO: %s | CHECK_ENTREGA: %d | OBSERVACAO: %s | ID_SERVICO: %d | ID_FUNCIONARIO: %d", 
+                getId(), getDataHoraMarcada().toString(), getEnderecoPet(), getQntPasseios(), getDataHoraIniciado().toString(), getDataHoraFinalizado().toString(),
                 getCheckEntrega(), getObservacao(), getIdServico(), getIdFuncionario());
     }
 }

@@ -2014,7 +2014,7 @@ public class BD {
                     // Criação do statement.
                     PreparedStatement insert = null;
                     try {
-                        insert = conn.prepareStatement(String.format("INSERT INTO %s (dt_hr_marcada, qnt_passeios, dta_hr_iniciado, dta_hr_finalizado, check_entrega, observacao, id_servico, id_funcionario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", TABLE));
+                        insert = conn.prepareStatement(String.format("INSERT INTO %s (dt_hr_marcada, endereco_pet, qnt_passeios, dta_hr_iniciado, dta_hr_finalizado, check_entrega, observacao, id_servico, id_func) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", TABLE));
                     
                         // data e hora
                         LocalDateTime dataHoraMarcada = agendamento.getDataHoraMarcada();
@@ -2026,13 +2026,14 @@ public class BD {
                         Timestamp timestamp_finalizado = Timestamp.valueOf(dataHoraFinalizado);
                         
                         insert.setTimestamp(1, timestamp_maracada); // dt_hr_marcada
-                        insert.setInt(2, agendamento.getQntPasseios()); // qnt_passeios
-                        insert.setTimestamp(3, timestamp_iniciado); // dta_hr_iniciado
-                        insert.setTimestamp(4, timestamp_finalizado); // dta_hr_finalizado
-                        insert.setInt(5, agendamento.getCheckEntrega()); // check_entrega
-                        insert.setString(6, agendamento.getObservacao()); // observacao
-                        insert.setInt(7, agendamento.getIdServico()); // id_servico
-                        insert.setInt(8, agendamento.getIdFuncionario()); // id_funcionario
+                        insert.setString(2, agendamento.getEnderecoPet()); // endereco_pet
+                        insert.setInt(3, agendamento.getQntPasseios()); // qnt_passeios
+                        insert.setTimestamp(4, timestamp_iniciado); // dta_hr_iniciado
+                        insert.setTimestamp(5, timestamp_finalizado); // dta_hr_finalizado
+                        insert.setInt(6, agendamento.getCheckEntrega()); // check_entrega
+                        insert.setString(7, agendamento.getObservacao()); // observacao
+                        insert.setInt(8, agendamento.getIdServico()); // id_servico
+                        insert.setInt(9, agendamento.getIdFuncionario()); // id_funcionario
                         
                         r = insert.executeUpdate();
                     }
@@ -2067,6 +2068,123 @@ public class BD {
             
             return r;
         }
+        /*
+        public static petagenda.Cliente[] parse(ResultSet rs) {
+            if (rs == null) {
+                throw new NullPointerException("ResultSet não pode ser nulo");
+            } else {
+                ArrayList<petagenda.agendamento.Agendamento> cList = new ArrayList<petagenda.agendamento.Agendamento>();
+                petagenda.agendamento.Agendamento[] cArray = null;
+
+                try {
+                    while (rs.next()) {
+                        petagenda.agendamento.Agendamento c;
+                        int id_agendamento, id_servico, id_funcionario;
+                        String dt_hr_marcada, endereco_pet, qnt_passeios, dta_hr_iniciado, dta_hr_finalizado, check_entrega, observacao;
+                        petagenda.dados.CPF cpf;
+
+                        // Recebimento dos dados do ResultSet
+                        id_agendamento = rs.getInt("id_agendamento");
+                        dt_hr_marcada = rs.getString("nome");
+
+                        String strCpf = rs.getString("cpf");
+                        if (strCpf == null) {
+                            cpf = null;
+                        } else {
+                            cpf = new CPF(strCpf);
+                        }
+
+                        //telefone = rs.getString("telefone");
+                        //rua = rs.getString("rua");
+                        //numero = rs.getString("numero");
+                        //bairro = rs.getString("bairro");
+                        //cidade = rs.getString("cidade");
+                        //cep = rs.getString("cep");
+
+                        // Verificação dos dados e criação do objeto
+                        
+                        try {
+                            c = new petagenda.Cliente(id_cliente, nome, strCpf, telefone, rua, numero, bairro, cidade, cep);
+
+                            if (cpf != null) {
+                                c.setCpf(cpf);
+                            }
+
+                            cList.add(c);
+                        } catch (IllegalArgumentsException exs) {
+                            StringBuilder strEx = new StringBuilder(String.format("Erro ao receber Cliente (id= %d):\n", id_cliente));
+                            for (Throwable cause : exs.getCauses()) {
+                                strEx.append(cause.getMessage());
+                                strEx.append("\n");
+                            }
+                            System.out.println(strEx.toString());
+                        }
+                    }
+                    if (!cList.isEmpty()) {
+                        cArray = new petagenda.Cliente[cList.size()];
+                        cArray = cList.toArray(cArray);
+                    }
+                } catch (SQLException e) {
+                    System.out.printf("Erro ao fazer parse de ResultSet contendo Cliente: %s", e.getMessage());
+                }
+
+                return cArray;
+            }
+        }
+*/
+    }
+    
+    static public class pet_agendamento {
+        
+        public static final String TABLE = "pet_agendamento";
+
+        public static int insert(petagenda.agendamento.Pet_agendamento pet_agendamento) {
+            int r = 0;
+
+            if (pet_agendamento == null) {
+                throw new NullPointerException("Pet_agendamento não pode ser nulo.");
+            } else {
+                Connection conn = BD.getConnection();
+                if (conn == null) { //Se o banco de dados for inacessível.
+                    return r;
+                } else {
+                    // Criação do statement.
+                    PreparedStatement insert = null;
+                    try {
+                        insert = conn.prepareStatement(String.format("INSERT INTO %s(id_agendamento, id_pet_agend) VALUES(?, ?)", TABLE));
+
+                        insert.setInt(1, pet_agendamento.getIdAgendamento()); // id_agendamento
+                        insert.setInt(2, pet_agendamento.getIdPet()); // id_pet
+
+                        r = insert.executeUpdate();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de execução do insert", JOptionPane.ERROR_MESSAGE);
+                        r = -1;
+                    }
+
+                    if (insert != null) { // Se preparedStatement não falhou.
+                        try {
+                            insert.close();
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                        } finally {
+                            insert = null;
+                        }
+                    }
+
+                    try {
+                        conn.close();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                    } finally {
+                        conn = null;
+                    }
+                }
+            }
+
+            return r;
+        }
+    
     }
     
     static public class remedio {

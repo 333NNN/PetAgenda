@@ -225,7 +225,7 @@ CREATE TABLE `pet` (
   PRIMARY KEY (`id_pet`),
   KEY `id_cliente` (`id_cliente`),
   CONSTRAINT `pet_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -234,7 +234,7 @@ CREATE TABLE `pet` (
 
 LOCK TABLES `pet` WRITE;
 /*!40000 ALTER TABLE `pet` DISABLE KEYS */;
-INSERT INTO `pet` VALUES (1,'Soffia','Vira-lata','F','Médio','Meio nervosa',_binary '','TEMPORARIO','Já teve pneumonia','Preto',6),(2,'Exterminador de mundos','pinscher','M','Pequeno','Super agressivo',_binary '\0','TEMPORARIO','Intocável','Preto e marrom',3),(3,'Lara','Pinscher','F','Pequeno','Carente e obediente',_binary '','TEMPORARIO','Perfeito','Branco',6),(4,'Suzi','Poodle','F','Grande','Obediente',_binary '\0','TEMPORARIO','Velha, mas com saúde boa.','Caramelo',2),(5,'Gorducha','Vira-lata','F','Médio','Não obedece ninguém.',_binary '','TEMPORARIO','Perfeito.','Cinza e preto',5);
+INSERT INTO `pet` VALUES (1,'Soffia','Vira-lata','F','Médio','Meio nervosa',_binary '','TEMPORARIO','Já teve pneumonia','Preto',6),(2,'Exterminador de mundos','pinscher','M','Pequeno','Super agressivo',_binary '\0','TEMPORARIO','Intocável','Preto e marrom',3),(3,'Lara','Pinscher','F','Pequeno','Carente e obediente',_binary '','TEMPORARIO','Perfeito','Branco',6),(4,'Suzi','Poodle','F','Grande','Obediente',_binary '\0','TEMPORARIO','Velha, mas com saúde boa.','Caramelo',2),(5,'Gorducha','Vira-lata','F','Médio','Não obedece ninguém.',_binary '','TEMPORARIO','Perfeito.','Cinza e preto',5),(6,'Pretinho','Vira-lata','M','Médio','Tranquilo.',_binary '','TEMPORARIO','Muito boa.','Branco',2),(7,'Rock','Vira-lata','F','Grande','Suave',_binary '','TEMPORARIO','Boa','Caramelo',5);
 /*!40000 ALTER TABLE `pet` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -357,6 +357,7 @@ DROP TABLE IF EXISTS `visualizacao_cliente`;
 SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `visualizacao_cliente` AS SELECT 
+ 1 AS `id_cliente`,
  1 AS `nome_cliente`,
  1 AS `cpf`,
  1 AS `telefone`,
@@ -367,6 +368,73 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `cidade`,
  1 AS `cep`*/;
 SET character_set_client = @saved_cs_client;
+
+--
+-- Dumping routines for database 'pet_agenda'
+--
+/*!50003 DROP PROCEDURE IF EXISTS `pet_e_dono` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pet_e_dono`(IN id_pet INT)
+BEGIN
+	SELECT
+		pet.nome AS pet,
+		cliente.nome AS dono,
+		cliente.rua, 
+		cliente.numero, 
+		cliente.bairro, 
+		cliente.cidade, 
+		cliente.cep
+	FROM 
+		cliente
+	INNER JOIN
+		pet ON pet.id_cliente = cliente.id_cliente
+	WHERE pet.id_pet = id_pet;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pet_por_servico` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pet_por_servico`(IN id_servico INT)
+BEGIN
+    SELECT
+		pet.id_pet AS id_pet,
+		cliente_contrata_servico.id_cliente AS id_cliente,
+		servico.id_servico AS id_servico,
+		servico.nome AS nome_servico,
+		pet.nome AS nome_pet
+	FROM
+		cliente_contrata_servico
+	JOIN
+		servico ON servico.id_servico = cliente_contrata_servico.id_servico
+	JOIN
+		pet ON pet.id_cliente = cliente_contrata_servico.id_cliente
+	WHERE 
+		servico.id_servico = id_servico;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Final view structure for view `visualizacao_cliente`
@@ -381,7 +449,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `visualizacao_cliente` AS select `cliente`.`nome` AS `nome_cliente`,`cliente`.`cpf` AS `cpf`,`cliente`.`telefone` AS `telefone`,`servico`.`nome` AS `nome_servico`,`cliente`.`rua` AS `rua`,`cliente`.`numero` AS `numero`,`cliente`.`bairro` AS `bairro`,`cliente`.`cidade` AS `cidade`,`cliente`.`cep` AS `cep` from ((`cliente_contrata_servico` join `cliente` on(`cliente`.`id_cliente` = `cliente_contrata_servico`.`id_cliente`)) join `servico` on(`servico`.`id_servico` = `cliente_contrata_servico`.`id_servico`)) */;
+/*!50001 VIEW `visualizacao_cliente` AS select `cliente`.`id_cliente` AS `id_cliente`,`cliente`.`nome` AS `nome_cliente`,`cliente`.`cpf` AS `cpf`,`cliente`.`telefone` AS `telefone`,`servico`.`nome` AS `nome_servico`,`cliente`.`rua` AS `rua`,`cliente`.`numero` AS `numero`,`cliente`.`bairro` AS `bairro`,`cliente`.`cidade` AS `cidade`,`cliente`.`cep` AS `cep` from ((`cliente_contrata_servico` join `cliente` on(`cliente`.`id_cliente` = `cliente_contrata_servico`.`id_cliente`)) join `servico` on(`servico`.`id_servico` = `cliente_contrata_servico`.`id_servico`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -395,4 +463,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-23 16:32:53
+-- Dump completed on 2024-11-24 21:40:17
