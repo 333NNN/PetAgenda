@@ -523,6 +523,10 @@ public class Tela_cadastro_cliente extends javax.swing.JFrame {
                 if (cl > 0 && cc > 0) { // Foi cadastrado cliente e cliente_contrata_servico.
                     clearFieldsInfo();
                     JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                    
+                    tela_cadastro_pet tela_cadastro_pet = new tela_cadastro_pet();
+                    tela_cadastro_pet.setVisible(true);
+                    this.dispose();
                 }
             }
         }
