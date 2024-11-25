@@ -72,7 +72,7 @@ CREATE TABLE `cliente` (
   `cep` char(8) NOT NULL,
   PRIMARY KEY (`id_cliente`),
   UNIQUE KEY `cpf` (`cpf`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,7 +81,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'Andrea Lavínia Melissa da Mata','02039476903','(62) 2964-9797','Rua 82','343','Setor Central','Goiânia','74015095'),(2,'Flávia Ester Hadassa da Conceição','82736160100','(96) 2839-8602','Rua Iraci Nunes Nadior','738','Santa Inês','Macapá','68901380'),(3,'Luiz Luan Gael Souza','18973207792','(82) 2856-5469','Rua C-64','618','Benedito Bentes','Maceió','57085062'),(4,'Marlene Mariah Jesus','37827110177','(51) 2511-0744','Rua Jacob Schaan Filho','393','Teresópolis','Porto Alegre','91720050'),(5,'Heitor Raul Pires','65428724935','(88) 3933-4992','Travessa Tenente Antonio João','866','Vila Alta','Crato','63119013'),(6,'Mariane Rayssa da Rosa','24064752040','(86) 3945-7855','Rua Júlio Mendes','848','Fátima','Teresina','64049320');
+INSERT INTO `cliente` VALUES (1,'Andrea Lavínia Melissa da Mata','02039476903','(62) 2964-9797','Rua 82','343','Setor Central','Goiânia','74015095'),(2,'Flávia Ester Hadassa da Conceição','82736160100','(96) 2839-8602','Rua Iraci Nunes Nadior','738','Santa Inês','Macapá','68901380'),(3,'Luiz Luan Gael Souza','18973207792','(82) 2856-5469','Rua C-64','618','Benedito Bentes','Maceió','57085062'),(4,'Marlene Mariah Jesus','37827110177','(51) 2511-0744','Rua Jacob Schaan Filho','393','Teresópolis','Porto Alegre','91720050'),(5,'Heitor Raul Pires','65428724935','(88) 3933-4992','Travessa Tenente Antonio João','866','Vila Alta','Crato','63119013'),(6,'Mariane Rayssa da Rosa','24064752040','(86) 3945-7855','Rua Júlio Mendes','848','Fátima','Teresina','64049320'),(7,'Diogo Tiago Mendes','22966292610','(92) 3976-6020','Rua Sino Azul','627','Tarumã','Manaus','69041460');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,7 +108,7 @@ CREATE TABLE `cliente_contrata_servico` (
 
 LOCK TABLES `cliente_contrata_servico` WRITE;
 /*!40000 ALTER TABLE `cliente_contrata_servico` DISABLE KEYS */;
-INSERT INTO `cliente_contrata_servico` VALUES (2,1),(2,2),(1,3),(2,4),(1,5),(1,6);
+INSERT INTO `cliente_contrata_servico` VALUES (2,1),(2,2),(1,3),(2,4),(1,5),(1,6),(2,7);
 /*!40000 ALTER TABLE `cliente_contrata_servico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -372,6 +372,23 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary view structure for view `vw_detalhes_servico`
+--
+
+DROP TABLE IF EXISTS `vw_detalhes_servico`;
+/*!50001 DROP VIEW IF EXISTS `vw_detalhes_servico`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `vw_detalhes_servico` AS SELECT 
+ 1 AS `Pet`,
+ 1 AS `NomeFuncionario`,
+ 1 AS `Data`,
+ 1 AS `Horario`,
+ 1 AS `ServicoPrestado`,
+ 1 AS `Incidente`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Dumping routines for database 'pet_agenda'
 --
 /*!50003 DROP PROCEDURE IF EXISTS `pet_e_dono` */;
@@ -455,6 +472,24 @@ DELIMITER ;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vw_detalhes_servico`
+--
+
+/*!50001 DROP VIEW IF EXISTS `vw_detalhes_servico`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_detalhes_servico` AS select `pet`.`nome` AS `Pet`,`funcionario`.`nome` AS `NomeFuncionario`,cast(`agendamento`.`dta_hr_iniciado` as date) AS `Data`,cast(`agendamento`.`dta_hr_iniciado` as time) AS `Horario`,`servico`.`nome` AS `ServicoPrestado`,`incidente`.`descricao` AS `Incidente` from (((((`agendamento` join `pet_agendamento` on(`agendamento`.`id_agendamento` = `pet_agendamento`.`id_agendamento_pet`)) join `pet` on(`pet_agendamento`.`id_pet_agend` = `pet`.`id_pet`)) join `funcionario` on(`agendamento`.`id_func` = `funcionario`.`id_func`)) left join `servico` on(`agendamento`.`id_servico` = `servico`.`id_servico`)) left join `incidente` on(`agendamento`.`id_agendamento` = `incidente`.`id_agendamento`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -465,4 +500,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-24 23:27:15
+-- Dump completed on 2024-11-24 23:36:26
