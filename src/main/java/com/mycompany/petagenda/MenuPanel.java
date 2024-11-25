@@ -21,6 +21,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -70,7 +72,11 @@ public class MenuPanel extends JPanel {
         btn_agendamento.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                btn_agendamentoActionPerformed(evt);
+                try {
+                    btn_agendamentoActionPerformed(evt);
+                } catch (SQLException ex) {
+                    Logger.getLogger(MenuPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         btn_agendamento.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
