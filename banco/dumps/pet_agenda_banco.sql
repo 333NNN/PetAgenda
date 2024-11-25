@@ -40,7 +40,7 @@ CREATE TABLE `agendamento` (
   KEY `id_func` (`id_func`),
   CONSTRAINT `agendamento_ibfk_1` FOREIGN KEY (`id_servico`) REFERENCES `servico` (`id_servico`),
   CONSTRAINT `agendamento_ibfk_2` FOREIGN KEY (`id_func`) REFERENCES `funcionario` (`id_func`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,6 +49,7 @@ CREATE TABLE `agendamento` (
 
 LOCK TABLES `agendamento` WRITE;
 /*!40000 ALTER TABLE `agendamento` DISABLE KEYS */;
+INSERT INTO `agendamento` VALUES (1,'2024-11-26 15:00:00','Caminhar em locais frescos.',5,'2024-11-26 15:00:00','2024-11-26 16:00:00',0,'Caminhar em locais frescos.',1,4),(2,'2024-11-26 17:00:00','Caminhar com calma.',0,'2024-11-26 17:00:00','2024-11-26 18:00:00',0,'Caminhar com calma.',2,3),(3,'2024-11-26 16:00:00','Gosta de brincar.',0,'2024-11-26 16:00:00','2024-11-26 17:00:00',0,'Gosta de brincar.',2,1);
 /*!40000 ALTER TABLE `agendamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -261,6 +262,7 @@ CREATE TABLE `pet_agendamento` (
 
 LOCK TABLES `pet_agendamento` WRITE;
 /*!40000 ALTER TABLE `pet_agendamento` DISABLE KEYS */;
+INSERT INTO `pet_agendamento` VALUES (1,1),(1,2),(1,3),(1,5),(1,7),(2,4),(3,4);
 /*!40000 ALTER TABLE `pet_agendamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -463,4 +465,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-24 21:40:17
+-- Dump completed on 2024-11-24 23:27:15
