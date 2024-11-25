@@ -65,7 +65,7 @@ public class tela_atualizar_cliente extends javax.swing.JFrame {
         jtxtf_campo_nome_cliente.setText(cliente.getNome());
         jtxtf_campo_cpf.setText(cliente.getCpf().toString());
         jtxtf_campo_telefone.setText(cliente.getTelefone());
-        //Serviço contratado está faltando.
+        //jcbox_Selecao_servico.setSelectedIndex();
         jtxtf_campo_cep.setText(cliente.getCep());
         jtxtf_campo_num.setText(cliente.getNumero());
         jtxtf_campo_rua.setText(cliente.getRua());
