@@ -200,7 +200,7 @@ public class tela_agendamento extends javax.swing.JFrame {
         jlbl_nomePet.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_nomePet.setText("Pet:");
         jPanel_cadastrar_agendamento.add(jlbl_nomePet);
-        jlbl_nomePet.setBounds(50, 310, 26, 20);
+        jlbl_nomePet.setBounds(50, 310, 29, 20);
 
         jtxtf_nomePet_selecionado.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_nomePet_selecionado.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -220,7 +220,7 @@ public class tela_agendamento extends javax.swing.JFrame {
         jlbl_tipoServico.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_tipoServico.setText("Tipo do serviço:");
         jPanel_cadastrar_agendamento.add(jlbl_tipoServico);
-        jlbl_tipoServico.setBounds(50, 160, 103, 20);
+        jlbl_tipoServico.setBounds(50, 160, 118, 20);
 
         jcmb_tipoServico.setBackground(new java.awt.Color(217, 217, 217));
         jcmb_tipoServico.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -239,7 +239,7 @@ public class tela_agendamento extends javax.swing.JFrame {
         jlbl_observacao.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_observacao.setText("Observação");
         jPanel_cadastrar_agendamento.add(jlbl_observacao);
-        jlbl_observacao.setBounds(50, 1660, 80, 20);
+        jlbl_observacao.setBounds(50, 1660, 85, 20);
 
         jscp_jtxta_observacao.setBackground(new java.awt.Color(217, 217, 217));
         jscp_jtxta_observacao.setBorder(null);
@@ -281,7 +281,7 @@ public class tela_agendamento extends javax.swing.JFrame {
         jlbl_enderecoPet_selecionado.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_enderecoPet_selecionado.setText("Endereço do Pet:");
         jPanel_cadastrar_agendamento.add(jlbl_enderecoPet_selecionado);
-        jlbl_enderecoPet_selecionado.setBounds(50, 522, 113, 20);
+        jlbl_enderecoPet_selecionado.setBounds(50, 522, 124, 20);
 
         jtxtf_enderecoPet_selecionado.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_enderecoPet_selecionado.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -313,13 +313,13 @@ public class tela_agendamento extends javax.swing.JFrame {
         jlbl_dtAgendada.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_dtAgendada.setText("Data agendada:");
         jPanel_cadastrar_agendamento.add(jlbl_dtAgendada);
-        jlbl_dtAgendada.setBounds(50, 1060, 103, 20);
+        jlbl_dtAgendada.setBounds(50, 1060, 111, 20);
 
         jlbl_hrAgendada.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_hrAgendada.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_hrAgendada.setText("Horário agend.:");
         jPanel_cadastrar_agendamento.add(jlbl_hrAgendada);
-        jlbl_hrAgendada.setBounds(310, 1060, 99, 20);
+        jlbl_hrAgendada.setBounds(310, 1060, 114, 20);
 
         jtxtf_hrAgendada.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_hrAgendada.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -387,7 +387,7 @@ public class tela_agendamento extends javax.swing.JFrame {
         jlbl_funcionarioAgendado.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_funcionarioAgendado.setText("Funcionário agendado:");
         jPanel_cadastrar_agendamento.add(jlbl_funcionarioAgendado);
-        jlbl_funcionarioAgendado.setBounds(470, 1060, 148, 20);
+        jlbl_funcionarioAgendado.setBounds(470, 1060, 168, 20);
 
         jcmb_funcionarioAgendado.setBackground(new java.awt.Color(217, 217, 217));
         jcmb_funcionarioAgendado.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
@@ -403,7 +403,7 @@ public class tela_agendamento extends javax.swing.JFrame {
         jlbl_donoPet_selcionado.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_donoPet_selcionado.setText("Dono do Pet:");
         jPanel_cadastrar_agendamento.add(jlbl_donoPet_selcionado);
-        jlbl_donoPet_selcionado.setBounds(485, 430, 85, 20);
+        jlbl_donoPet_selcionado.setBounds(485, 430, 94, 20);
 
         jtxtf_donoPet_selecionado.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_donoPet_selecionado.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -441,7 +441,7 @@ public class tela_agendamento extends javax.swing.JFrame {
         jlbl_img_adicionarRemedio.setText(" ");
         jlbl_img_adicionarRemedio.setToolTipText("");
         jPanel_cadastrar_agendamento.add(jlbl_img_adicionarRemedio);
-        jlbl_img_adicionarRemedio.setBounds(40, 1000, 802, 58);
+        jlbl_img_adicionarRemedio.setBounds(40, 1000, 800, 58);
 
         lbl_CadastrarPet1.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
         lbl_CadastrarPet1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Cadastrar agendamento.png"))); // NOI18N
@@ -475,28 +475,28 @@ public class tela_agendamento extends javax.swing.JFrame {
         jlbl_img_adicionarRemedio1.setText(" ");
         jlbl_img_adicionarRemedio1.setToolTipText("");
         jPanel_cadastrar_agendamento.add(jlbl_img_adicionarRemedio1);
-        jlbl_img_adicionarRemedio1.setBounds(40, 1240, 802, 58);
+        jlbl_img_adicionarRemedio1.setBounds(40, 1240, 800, 58);
 
         jlbl_img_adicionarRemedio2.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
         jlbl_img_adicionarRemedio2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/servico_agendamento.png"))); // NOI18N
         jlbl_img_adicionarRemedio2.setText(" ");
         jlbl_img_adicionarRemedio2.setToolTipText("");
         jPanel_cadastrar_agendamento.add(jlbl_img_adicionarRemedio2);
-        jlbl_img_adicionarRemedio2.setBounds(40, 100, 802, 58);
+        jlbl_img_adicionarRemedio2.setBounds(40, 100, 800, 58);
 
         jlbl_img_adicionarRemedio3.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
         jlbl_img_adicionarRemedio3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pets_agendamento.png"))); // NOI18N
         jlbl_img_adicionarRemedio3.setText(" ");
         jlbl_img_adicionarRemedio3.setToolTipText("");
         jPanel_cadastrar_agendamento.add(jlbl_img_adicionarRemedio3);
-        jlbl_img_adicionarRemedio3.setBounds(40, 252, 802, 58);
+        jlbl_img_adicionarRemedio3.setBounds(40, 252, 800, 58);
 
         jlbl_nomePet_selecionado.setBackground(new java.awt.Color(0, 0, 0));
         jlbl_nomePet_selecionado.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_nomePet_selecionado.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_nomePet_selecionado.setText("Pet:");
         jPanel_cadastrar_agendamento.add(jlbl_nomePet_selecionado);
-        jlbl_nomePet_selecionado.setBounds(50, 430, 26, 20);
+        jlbl_nomePet_selecionado.setBounds(50, 430, 29, 20);
 
         jCombBox_pet_adicionar.setBackground(new java.awt.Color(217, 217, 217));
         jCombBox_pet_adicionar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -509,7 +509,7 @@ public class tela_agendamento extends javax.swing.JFrame {
         jlbl_img_linha3.setText(" ");
         jlbl_img_linha3.setToolTipText("");
         jPanel_cadastrar_agendamento.add(jlbl_img_linha3);
-        jlbl_img_linha3.setBounds(30, 1540, 805, 10);
+        jlbl_img_linha3.setBounds(30, 1540, 803, 10);
 
         jlbl_adicionar_pet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adicionar.png"))); // NOI18N
         jlbl_adicionar_pet.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -534,7 +534,7 @@ public class tela_agendamento extends javax.swing.JFrame {
         jlbl_nomePet_selecionado1.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_nomePet_selecionado1.setText("Pet:");
         jPanel_cadastrar_agendamento.add(jlbl_nomePet_selecionado1);
-        jlbl_nomePet_selecionado1.setBounds(50, 640, 26, 20);
+        jlbl_nomePet_selecionado1.setBounds(50, 640, 29, 20);
 
         jtxtf_nomePet_selecionado1.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_nomePet_selecionado1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -554,7 +554,7 @@ public class tela_agendamento extends javax.swing.JFrame {
         jlbl_donoPet_selcionado1.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_donoPet_selcionado1.setText("Dono do Pet:");
         jPanel_cadastrar_agendamento.add(jlbl_donoPet_selcionado1);
-        jlbl_donoPet_selcionado1.setBounds(480, 640, 85, 20);
+        jlbl_donoPet_selcionado1.setBounds(480, 640, 94, 20);
 
         jtxtf_donoPet_selecionado1.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_donoPet_selecionado1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -574,7 +574,7 @@ public class tela_agendamento extends javax.swing.JFrame {
         jlbl_enderecoPet_selecionado1.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_enderecoPet_selecionado1.setText("Endereço do Pet:");
         jPanel_cadastrar_agendamento.add(jlbl_enderecoPet_selecionado1);
-        jlbl_enderecoPet_selecionado1.setBounds(50, 730, 113, 20);
+        jlbl_enderecoPet_selecionado1.setBounds(50, 730, 124, 20);
 
         jtxtf_enderecoPet_selecionado1.setBackground(new java.awt.Color(217, 217, 217));
         jtxtf_enderecoPet_selecionado1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N

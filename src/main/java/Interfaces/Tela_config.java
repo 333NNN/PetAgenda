@@ -45,8 +45,6 @@ public class Tela_config extends javax.swing.JFrame {
         btn_alteraSenha = new javax.swing.JButton();
         lbl_codigo = new javax.swing.JLabel();
         btn_exibirCodigo = new javax.swing.JButton();
-        lbl_backup = new javax.swing.JLabel();
-        btn_fazerBackup = new javax.swing.JButton();
         jPanel_menu = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -64,7 +62,7 @@ public class Tela_config extends javax.swing.JFrame {
         lbl_cadastrarUsuario.setFont(new java.awt.Font("Merriweather", 0, 18)); // NOI18N
         lbl_cadastrarUsuario.setForeground(new java.awt.Color(0, 0, 0));
         lbl_cadastrarUsuario.setText("Cadastrar novo usuário:");
-        jPanel1.add(lbl_cadastrarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        jPanel1.add(lbl_cadastrarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, -1));
 
         btn_cadastrarUsuario.setBackground(new java.awt.Color(77, 120, 63));
         btn_cadastrarUsuario.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
@@ -79,13 +77,13 @@ public class Tela_config extends javax.swing.JFrame {
             }
         });
         btn_cadastrarUsuario.setUI(new RoundedCornerButtonUI());
-        jPanel1.add(btn_cadastrarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+        jPanel1.add(btn_cadastrarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, -1));
 
         lbl_AlteraSenha.setBackground(new java.awt.Color(255, 255, 255));
         lbl_AlteraSenha.setFont(new java.awt.Font("Merriweather", 0, 18)); // NOI18N
         lbl_AlteraSenha.setForeground(new java.awt.Color(0, 0, 0));
         lbl_AlteraSenha.setText("Alterar Senha:");
-        jPanel1.add(lbl_AlteraSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+        jPanel1.add(lbl_AlteraSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, -1, -1));
 
         btn_alteraSenha.setBackground(new java.awt.Color(77, 120, 63));
         btn_alteraSenha.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
@@ -100,13 +98,13 @@ public class Tela_config extends javax.swing.JFrame {
             }
         });
         btn_alteraSenha.setUI(new RoundedCornerButtonUI());
-        jPanel1.add(btn_alteraSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
+        jPanel1.add(btn_alteraSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, -1, -1));
 
         lbl_codigo.setBackground(new java.awt.Color(255, 255, 255));
         lbl_codigo.setFont(new java.awt.Font("Merriweather", 0, 18)); // NOI18N
         lbl_codigo.setForeground(new java.awt.Color(0, 0, 0));
         lbl_codigo.setText("Código para recuperação de senha:");
-        jPanel1.add(lbl_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
+        jPanel1.add(lbl_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, -1, -1));
 
         btn_exibirCodigo.setBackground(new java.awt.Color(77, 120, 63));
         btn_exibirCodigo.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
@@ -121,28 +119,7 @@ public class Tela_config extends javax.swing.JFrame {
             }
         });
         btn_exibirCodigo.setUI(new RoundedCornerButtonUI());
-        jPanel1.add(btn_exibirCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
-
-        lbl_backup.setBackground(new java.awt.Color(255, 255, 255));
-        lbl_backup.setFont(new java.awt.Font("Merriweather", 0, 18)); // NOI18N
-        lbl_backup.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_backup.setText("Backup de Dados:");
-        jPanel1.add(lbl_backup, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, -1, -1));
-
-        btn_fazerBackup.setBackground(new java.awt.Color(77, 120, 63));
-        btn_fazerBackup.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
-        btn_fazerBackup.setForeground(new java.awt.Color(255, 255, 255));
-        btn_fazerBackup.setText("Fazer backup");
-        btn_fazerBackup.setBorder(null);
-        btn_fazerBackup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_fazerBackup.setPreferredSize(new java.awt.Dimension(240, 50));
-        btn_fazerBackup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_fazerBackupActionPerformed(evt);
-            }
-        });
-        btn_fazerBackup.setUI(new RoundedCornerButtonUI());
-        jPanel1.add(btn_fazerBackup, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, -1));
+        jPanel1.add(btn_exibirCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 103, -1, -1));
 
@@ -233,36 +210,6 @@ public class Tela_config extends javax.swing.JFrame {
         }
         return senhaCorreta;
     }//GEN-LAST:event_btn_exibirCodigoActionPerformed
-
-    private void btn_fazerBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fazerBackupActionPerformed
-        // TODO add your handling code here:
-        // Caminho para salvar o arquivo de backup
-        String backupFilePath = "backup.sql";
-
-        // Comando para executar o dump do banco de dados
-        String command = String.format("mysqldump -u %s -p%s --database %s -r %s", BD.USER, BD.USER_PWD, BD.SCHEMA, backupFilePath);
-
-        try {
-            // Executa o comando
-            ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
-            processBuilder.redirectErrorStream(true);
-            Process process = processBuilder.start();
-
-            // Aguarda a conclusão do processo
-            int processComplete = process.waitFor();
-
-            // Verifica se o processo foi concluído com sucesso
-            if (processComplete == 0) {
-                JOptionPane.showMessageDialog(this, "Backup realizado com sucesso!", "Backup", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Erro ao realizar o backup.", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao executar o comando de backup. Erro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-
-    }//GEN-LAST:event_btn_fazerBackupActionPerformed
 
     /**
      * @param args the command line arguments
@@ -358,13 +305,11 @@ public class Tela_config extends javax.swing.JFrame {
     private javax.swing.JButton btn_alteraSenha;
     private javax.swing.JButton btn_cadastrarUsuario;
     private javax.swing.JButton btn_exibirCodigo;
-    private javax.swing.JButton btn_fazerBackup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JLabel lbl_AlteraSenha;
-    private javax.swing.JLabel lbl_backup;
     private javax.swing.JLabel lbl_cadastrarUsuario;
     private javax.swing.JLabel lbl_codigo;
     // End of variables declaration//GEN-END:variables
