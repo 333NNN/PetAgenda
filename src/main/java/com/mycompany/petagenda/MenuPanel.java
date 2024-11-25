@@ -10,6 +10,7 @@ import Interfaces.Tela_config;
 import Interfaces.Tela_de_visualizacao_do_mes;
 import Interfaces.Tela_financeiro;
 import Interfaces.Tela_servicos;
+import Interfaces.Tela_visu_finance;
 import Interfaces.Tela_visualizacao_cliente;
 import Interfaces.Tela_visualizacao_funcionario;
 import Interfaces.Tela_visualizacao_pet;
@@ -311,7 +312,7 @@ public class MenuPanel extends JPanel {
     //Botão Financeiro
     private void btn_financeiroActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        Tela_financeiro telaFinanceiro = new Tela_financeiro();
+        Tela_visu_finance telaFinanceiro = new Tela_visu_finance();
         telaFinanceiro.setVisible(true);
         SwingUtilities.getWindowAncestor(this).dispose();
     }
