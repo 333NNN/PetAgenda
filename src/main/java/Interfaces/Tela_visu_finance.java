@@ -4,6 +4,15 @@
  */
 package Interfaces;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import ui.custom.RoundedCornerButtonUI;
+
 /**
  *
  * @author d.rodrigues
@@ -26,9 +35,9 @@ public class Tela_visu_finance extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jBtn_visualizar = new javax.swing.JButton();
+        jBtn_criar = new javax.swing.JButton();
+        jBtn_voltar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_telaFinance = new javax.swing.JTable();
         jLbl_BGpadrao = new javax.swing.JLabel();
@@ -37,14 +46,28 @@ public class Tela_visu_finance extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("jButton1");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 570, -1, -1));
+        jBtn_visualizar.setFont(new java.awt.Font("Merriweather", 0, 14)); // NOI18N
+        jBtn_visualizar.setText("Visualizar Registros");
+        jBtn_visualizar.setPreferredSize(new java.awt.Dimension(200, 50));
+        jBtn_visualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtn_visualizarActionPerformed(evt);
+            }
+        });
+        jBtn_visualizar.setUI(new RoundedCornerButtonUI());
+        getContentPane().add(jBtn_visualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 560, -1, -1));
 
-        jButton2.setText("jButton2");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 570, -1, -1));
+        jBtn_criar.setFont(new java.awt.Font("Merriweather", 0, 14)); // NOI18N
+        jBtn_criar.setText("Inserir Registro");
+        jBtn_criar.setPreferredSize(new java.awt.Dimension(200, 50));
+        jBtn_criar.setUI(new RoundedCornerButtonUI());
+        getContentPane().add(jBtn_criar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 560, -1, -1));
 
-        jButton3.setText("jButton3");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 630, -1, -1));
+        jBtn_voltar.setFont(new java.awt.Font("Merriweather", 0, 14)); // NOI18N
+        jBtn_voltar.setText("Voltar");
+        jBtn_voltar.setPreferredSize(new java.awt.Dimension(200, 50));
+        jBtn_voltar.setUI(new RoundedCornerButtonUI());
+        getContentPane().add(jBtn_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 630, -1, -1));
 
         jTable_telaFinance.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jTable_telaFinance.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
@@ -70,6 +93,78 @@ public class Tela_visu_finance extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    
+    public class ConexaoMySQL {
+
+        private static final String URL = "jdbc:mysql://localhost:3306/pet_agenda";
+        private static final String USER = "root";
+        private static final String PASSWORD = "";
+
+        public static Connection conectar() {
+            try {
+                return DriverManager.getConnection(URL, USER, PASSWORD);
+            } catch (SQLException e) {
+                System.out.println("Erro ao conectar: " + e.getMessage());
+                return null;
+            }
+        }
+    }
+
+    
+    private void jBtn_visualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_visualizarActionPerformed
+        String mesEscolhido = JOptionPane.showInputDialog(this, "Digite o ano e o mês (formato: aaaa-mm ou aaaa/mm):");
+
+        if (mesEscolhido == null || mesEscolhido.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, insira o mês no formato aaaa-mm ou aaaa/mm.");
+            return;
+        }
+            // Verificador de formato válido para consulta
+        if (!mesEscolhido.matches("\\d{4}[-/]\\d{2}")) {
+            JOptionPane.showMessageDialog(this, "Formato inválido. Por favor, insira o mês no formato aaaa-mm ou aaaa/mm.");
+            return;
+        }
+            
+            // converte o formato para consulta no BD
+        if (mesEscolhido.contains("/")) {
+            mesEscolhido = mesEscolhido.replace("/", "-");
+        }
+
+        DefaultTableModel model = (DefaultTableModel) jTable_telaFinance.getModel();
+        model.setRowCount(0);
+
+        try (Connection conn = ConexaoMySQL.conectar()) {
+            if (conn != null) {
+                // Consulta SQL para obter registros do mês escolhido
+                String sql = "SELECT data_registro, descricao, entrada, saida FROM financeiro WHERE DATE_FORMAT(data_registro, '%Y-%m') = ?";
+                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    stmt.setString(1, mesEscolhido);  // Passa o mês escolhido como parâmetro
+
+                    // Executa a consulta
+                    ResultSet rs = stmt.executeQuery();
+
+                    // Preenche a tabela com os dados retornados
+                    while (rs.next()) {
+                        String data = rs.getString("data_registro");
+                        String descricao = rs.getString("descricao");
+                        String entrada = rs.getString("entrada");
+                        String saida = rs.getString("saida");
+
+                        model.addRow(new Object[]{data, descricao, entrada, saida});
+                    }
+
+                    if (model.getRowCount() == 0) {
+                        JOptionPane.showMessageDialog(this, "Nenhum registro encontrado para o mês " + mesEscolhido + ".");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Falha na conexão com o banco de dados.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao buscar registros: " + e.getMessage());
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtn_visualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -107,9 +202,9 @@ public class Tela_visu_finance extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jBtn_criar;
+    private javax.swing.JButton jBtn_visualizar;
+    private javax.swing.JButton jBtn_voltar;
     private javax.swing.JLabel jLbl_BGpadrao;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_telaFinance;
