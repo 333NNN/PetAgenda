@@ -72,7 +72,7 @@ CREATE TABLE `cliente` (
   `cep` char(8) NOT NULL,
   PRIMARY KEY (`id_cliente`),
   UNIQUE KEY `cpf` (`cpf`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,7 +81,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'Andrea Lavínia Melissa da Mata','02039476903','(62) 2964-9797','Rua 82','343','Setor Central','Goiânia','74015095'),(2,'Flávia Ester Hadassa da Conceição','82736160100','(96) 2839-8602','Rua Iraci Nunes Nadior','738','Santa Inês','Macapá','68901380'),(3,'Luiz Luan Gael Souza','18973207792','(82) 2856-5469','Rua C-64','618','Benedito Bentes','Maceió','57085062'),(4,'Marlene Mariah Jesus','37827110177','(51) 2511-0744','Rua Jacob Schaan Filho','393','Teresópolis','Porto Alegre','91720050'),(5,'Heitor Raul Pires','65428724935','(88) 3933-4992','Travessa Tenente Antonio João','866','Vila Alta','Crato','63119013'),(6,'Mariane Rayssa da Rosa','24064752040','(86) 3945-7855','Rua Júlio Mendes','848','Fátima','Teresina','64049320'),(7,'Diogo Tiago Mendes','22966292610','(92) 3976-6020','Rua Sino Azul','627','Tarumã','Manaus','69041460');
+INSERT INTO `cliente` VALUES (1,'Andrea Lavínia Melissa da Mata','02039476903','(62) 2964-9797','Rua 82','343','Setor Central','Goiânia','74015095'),(2,'Flávia Ester Hadassa da Conceição','82736160100','(96) 2839-8602','Rua Iraci Nunes Nadior','738','Santa Inês','Macapá','68901380'),(3,'Luiz Luan Gael Souza','18973207792','(82) 2856-5469','Rua C-64','618','Benedito Bentes','Maceió','57085062'),(4,'Marlene Mariah Jesus','37827110177','(51) 2511-0744','Rua Jacob Schaan Filho','393','Teresópolis','Porto Alegre','91720050'),(5,'Heitor Raul Pires','65428724935','(88) 3933-4992','Travessa Tenente Antonio João','866','Vila Alta','Crato','63119013'),(6,'Mariane Rayssa da Rosa','24064752040','(86) 3945-7855','Rua Júlio Mendes','848','Fátima','Teresina','64049320'),(7,'Diogo Tiago Mendes','22966292610','(92) 3976-6020','Rua Sino Azul','627','Tarumã','Manaus','69041460'),(8,'Ayla Melissa Luciana Barros','93765414999','(65) 2537-6560','Rua das Flores','907','Novo Tempo','Cuiabá','78042320');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,8 +108,34 @@ CREATE TABLE `cliente_contrata_servico` (
 
 LOCK TABLES `cliente_contrata_servico` WRITE;
 /*!40000 ALTER TABLE `cliente_contrata_servico` DISABLE KEYS */;
-INSERT INTO `cliente_contrata_servico` VALUES (2,1),(2,2),(1,3),(2,4),(1,5),(1,6),(2,7);
+INSERT INTO `cliente_contrata_servico` VALUES (2,1),(2,2),(1,3),(2,4),(1,5),(1,6),(2,7),(1,8);
 /*!40000 ALTER TABLE `cliente_contrata_servico` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `financeiro`
+--
+
+DROP TABLE IF EXISTS `financeiro`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `financeiro` (
+  `id_financeiro` int(11) NOT NULL AUTO_INCREMENT,
+  `data_registro` date DEFAULT NULL,
+  `descricao` varchar(200) DEFAULT NULL,
+  `entrada` double DEFAULT NULL,
+  `saida` double DEFAULT NULL,
+  PRIMARY KEY (`id_financeiro`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `financeiro`
+--
+
+LOCK TABLES `financeiro` WRITE;
+/*!40000 ALTER TABLE `financeiro` DISABLE KEYS */;
+/*!40000 ALTER TABLE `financeiro` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -226,7 +252,7 @@ CREATE TABLE `pet` (
   PRIMARY KEY (`id_pet`),
   KEY `id_cliente` (`id_cliente`),
   CONSTRAINT `pet_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -235,7 +261,7 @@ CREATE TABLE `pet` (
 
 LOCK TABLES `pet` WRITE;
 /*!40000 ALTER TABLE `pet` DISABLE KEYS */;
-INSERT INTO `pet` VALUES (1,'Soffia','Vira-lata','F','Médio','Meio nervosa',_binary '','TEMPORARIO','Já teve pneumonia','Preto',6),(2,'Exterminador de mundos','pinscher','M','Pequeno','Super agressivo',_binary '\0','TEMPORARIO','Intocável','Preto e marrom',3),(3,'Lara','Pinscher','F','Pequeno','Carente e obediente',_binary '','TEMPORARIO','Perfeito','Branco',6),(4,'Suzi','Poodle','F','Grande','Obediente',_binary '\0','TEMPORARIO','Velha, mas com saúde boa.','Caramelo',2),(5,'Gorducha','Vira-lata','F','Médio','Não obedece ninguém.',_binary '','TEMPORARIO','Perfeito.','Cinza e preto',5),(6,'Pretinho','Vira-lata','M','Médio','Tranquilo.',_binary '','TEMPORARIO','Muito boa.','Branco',2),(7,'Rock','Vira-lata','F','Grande','Suave',_binary '','TEMPORARIO','Boa','Caramelo',5);
+INSERT INTO `pet` VALUES (1,'Soffia','Vira-lata','F','Médio','Meio nervosa',_binary '','TEMPORARIO','Já teve pneumonia','Preto',6),(2,'Exterminador de mundos','pinscher','M','Pequeno','Super agressivo',_binary '\0','TEMPORARIO','Intocável','Preto e marrom',3),(3,'Lara','Pinscher','F','Pequeno','Carente e obediente',_binary '','TEMPORARIO','Perfeito','Branco',6),(4,'Suzi','Poodle','F','Grande','Obediente',_binary '\0','TEMPORARIO','Velha, mas com saúde boa.','Caramelo',2),(5,'Gorducha','Vira-lata','F','Médio','Não obedece ninguém.',_binary '','TEMPORARIO','Perfeito.','Cinza e preto',5),(6,'Pretinho','Vira-lata','M','Médio','Tranquilo.',_binary '','TEMPORARIO','Muito boa.','Branco',2),(7,'Rock','Vira-lata','F','Grande','Suave',_binary '','TEMPORARIO','Boa','Caramelo',5),(9,'Bolota','Basset','F','Médio','Tranquilo.',_binary '','TEMPORARIO','Um pouco degradado.','Marrom',8),(10,'Coisinha','Basset','M','Médio','Tranquilo.',_binary '','TEMPORARIO','Boa.','Preto',8);
 /*!40000 ALTER TABLE `pet` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -500,4 +526,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-24 23:36:26
+-- Dump completed on 2024-11-24 23:49:59
