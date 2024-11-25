@@ -55,6 +55,10 @@ public class tela_agendamento extends javax.swing.JFrame {
         BloqueiaJField(jtxtf_nomePet_selecionado_tres, jtxtf_donoPet_selecionado_tres, jtxtf_enderecoPet_selecionado_tres);
         BloqueiaJField(jtxtf_nomePet_selecionado_quatro, jtxtf_donoPet_selecionado_quatro, jtxtf_enderecoPet_selecionado_quatro);
         BloqueiaJField(jtxtf_nomePet_selecionado_cinco, jtxtf_donoPet_selecionado_cinco, jtxtf_enderecoPet_selecionado_cinco);
+        jtxtf_remedio.setEnabled(false);
+        jtxtf_horarioRemedio.setEnabled(false);
+        jtxtf_intrucaoAdministracao.setEnabled(false);
+        jcmb_remediosAdicionados.setEnabled(false);
         PreencherJComboboxFuncionario();
         PreencherJComboboxServico();
     }
@@ -242,7 +246,7 @@ public class tela_agendamento extends javax.swing.JFrame {
         
         String dia_hora = data + " " + hora; // data + hora
         
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // formato esperado.
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); // formato esperado.
         
         // Tentando converter String para LocalDateTime.
         try {
@@ -251,10 +255,10 @@ public class tela_agendamento extends javax.swing.JFrame {
             System.out.println("Data e Hora formatada: " + data_hora_formatada);
             dt_hr_marcada = local_date_time;
             dta_hr_iniciado = local_date_time;
-            dta_hr_finalizado = local_date_time.plusMinutes(30);
+            dta_hr_finalizado = local_date_time.plusHours(1);
         }
         catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Certifique-se que a data e hora esta correta\nano/mes/dia hh:mm:ss", "Erro de data", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Certifique-se que a data e hora esta correta\nano/mes/dia hh:mm", "Erro de data", JOptionPane.ERROR_MESSAGE);
         }
         
         endereco_pet = "TEMPORARIO";
@@ -1067,23 +1071,45 @@ public class tela_agendamento extends javax.swing.JFrame {
             if (agendamento != null) {
                 int ag = BD.agendamento.insert(agendamento); // Dando insert no agendamento.
                 
-                int id_agendamento = agendamento.getId(); // id_agendamento.
-                
-                System.out.println(todos_ids_pets_selecionados);
-                // pet_agendamento
-                for (Integer id_pet : todos_ids_pets_selecionados) {
-                    Pet_agendamento pet_agendamento = new Pet_agendamento(id_agendamento, id_pet);
-                    System.out.println("id_agendamento: " + id_agendamento);
-                    System.out.println("id_pet: " + id_pet);
-                    
-                    int pa = BD.pet_agendamento.insert(pet_agendamento); // Dando insert no peg_agendamento.
-                    if (pa > 0) {
-                        System.out.println("pet_agendamento cadastrado com sucesso.");
-                    }
-                }
-                
                 if (ag > 0) {
                     JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                }
+            }
+            // ultimo agendamento.
+            Agendamento ultimo_agendamento = BD.agendamento.selectLast();
+            
+            int id_agendamento = ultimo_agendamento.getId(); // id_agendamento.
+            System.out.println(id_agendamento);
+                
+            // pet_agendamento
+            for (Integer id_pet : todos_ids_pets_selecionados) {
+                
+                Pet_agendamento pet_agendamento = new Pet_agendamento(id_agendamento, id_pet);
+                
+                System.out.println("id_agendamento: " + id_agendamento);
+                System.out.println("id_pet: " + id_pet);
+                    
+                int pa = BD.pet_agendamento.insert(pet_agendamento); // Dando insert no pet_agendamento.
+                if (pa > 0) {
+                    System.out.println("pet_agendamento cadastrado com sucesso.");
+                    jcmb_tipoServico.setSelectedIndex(0);
+                    jtxtf_dtAgendada.setText(null);
+                    jtxtf_hrAgendada.setText(null);
+                    jtxta_observacao.setText(null);
+                    try {
+                        
+                        LimpaJField(jtxtf_nomePet_selecionado_um, jtxtf_donoPet_selecionado_um, jtxtf_enderecoPet_selecionado_um);
+                        LimpaJField(jtxtf_nomePet_selecionado_dois, jtxtf_donoPet_selecionado_dois, jtxtf_enderecoPet_selecionado_dois);
+                        LimpaJField(jtxtf_nomePet_selecionado_tres, jtxtf_donoPet_selecionado_tres, jtxtf_enderecoPet_selecionado_tres);
+                        LimpaJField(jtxtf_nomePet_selecionado_quatro, jtxtf_donoPet_selecionado_quatro, jtxtf_enderecoPet_selecionado_quatro);
+                        LimpaJField(jtxtf_nomePet_selecionado_cinco, jtxtf_donoPet_selecionado_cinco, jtxtf_enderecoPet_selecionado_cinco);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(tela_agendamento.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    Tela_Inicial tela_inicial = new Tela_Inicial();
+                    tela_inicial.setVisible(true);
+                    this.dispose();
                 }
             }
         }

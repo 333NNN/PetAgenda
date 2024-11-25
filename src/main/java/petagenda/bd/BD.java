@@ -2068,8 +2068,54 @@ public class BD {
             
             return r;
         }
-        /*
-        public static petagenda.Cliente[] parse(ResultSet rs) {
+        
+        public static petagenda.agendamento.Agendamento selectLast() {
+            petagenda.agendamento.Agendamento agendamento = null;
+            
+            Connection conn = BD.getConnection();
+            if (conn != null) { // Se banco for acessível.
+                // Criação do statement.
+                PreparedStatement select = null;
+                try {
+                    select = conn.prepareStatement(String.format("SELECT id_agendamento, dt_hr_marcada, endereco_pet, qnt_passeios, dta_hr_iniciado, dta_hr_finalizado, check_entrega, observacao, id_servico, id_func FROM %s ORDER BY id_agendamento DESC LIMIT 1", TABLE));
+                    
+                    ResultSet rs = select.executeQuery();
+                    petagenda.agendamento.Agendamento[] selected = parse(rs);
+                    
+                    if (selected != null) {
+                        agendamento = selected[0];
+                    }
+                
+                }
+                catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro na execução da query", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                if (select != null) { // Se preparedStatement não falhou
+                    try {
+                        select.close();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                    } 
+                    finally {
+                        select = null;
+                    }
+                }
+                
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                } finally {
+                    conn = null;
+                }
+            }
+            
+            return agendamento;
+        }
+        
+        public static petagenda.agendamento.Agendamento[] parse(ResultSet rs) {
             if (rs == null) {
                 throw new NullPointerException("ResultSet não pode ser nulo");
             } else {
@@ -2078,41 +2124,47 @@ public class BD {
 
                 try {
                     while (rs.next()) {
-                        petagenda.agendamento.Agendamento c;
-                        int id_agendamento, id_servico, id_funcionario;
-                        String dt_hr_marcada, endereco_pet, qnt_passeios, dta_hr_iniciado, dta_hr_finalizado, check_entrega, observacao;
-                        petagenda.dados.CPF cpf;
+                        petagenda.agendamento.Agendamento ag;
+                        int id_agendamento, id_servico, id_funcionario, check_entrega, qnt_passeios;
+                        String endereco_pet, observacao;
+                        LocalDateTime dt_hr_marcada, dta_hr_iniciado, dta_hr_finalizado;
+                        
+                        Timestamp timestamp_maracada = null;
+                        Timestamp timestamp_iniciado = null;
+                        Timestamp timestamp_finalizado = null;
 
                         // Recebimento dos dados do ResultSet
-                        id_agendamento = rs.getInt("id_agendamento");
-                        dt_hr_marcada = rs.getString("nome");
-
-                        String strCpf = rs.getString("cpf");
-                        if (strCpf == null) {
-                            cpf = null;
-                        } else {
-                            cpf = new CPF(strCpf);
-                        }
-
-                        //telefone = rs.getString("telefone");
-                        //rua = rs.getString("rua");
-                        //numero = rs.getString("numero");
-                        //bairro = rs.getString("bairro");
-                        //cidade = rs.getString("cidade");
-                        //cep = rs.getString("cep");
+                        id_agendamento = rs.getInt("id_agendamento"); // id_agendamento
+                        
+                        // dt_hr_marcada
+                        timestamp_maracada = rs.getTimestamp("dt_hr_marcada");
+                        dt_hr_marcada = timestamp_maracada.toLocalDateTime();
+                        
+                        endereco_pet = rs.getString("endereco_pet"); // endereco_pet
+                        qnt_passeios = rs.getInt("qnt_passeios"); // qnt_passeios
+                        
+                        // dta_hr_iniciado
+                        timestamp_iniciado = rs.getTimestamp("dta_hr_iniciado");
+                        dta_hr_iniciado = timestamp_iniciado.toLocalDateTime();
+                        
+                        // dta_hr_finalizado
+                        timestamp_finalizado = rs.getTimestamp("dta_hr_finalizado");
+                        dta_hr_finalizado = timestamp_finalizado.toLocalDateTime();
+                        
+                        check_entrega = rs.getInt("check_entrega"); // check_entrega
+                        observacao = rs.getString("observacao"); // observacao
+                        
+                        id_servico = rs.getInt("id_servico");
+                        id_funcionario = rs.getInt("id_func");
 
                         // Verificação dos dados e criação do objeto
                         
                         try {
-                            c = new petagenda.Cliente(id_cliente, nome, strCpf, telefone, rua, numero, bairro, cidade, cep);
+                            ag = new petagenda.agendamento.Agendamento(id_agendamento, dt_hr_marcada, endereco_pet, qnt_passeios, dta_hr_iniciado, dta_hr_finalizado, check_entrega, observacao, id_servico, id_funcionario);
 
-                            if (cpf != null) {
-                                c.setCpf(cpf);
-                            }
-
-                            cList.add(c);
+                            cList.add(ag);
                         } catch (IllegalArgumentsException exs) {
-                            StringBuilder strEx = new StringBuilder(String.format("Erro ao receber Cliente (id= %d):\n", id_cliente));
+                            StringBuilder strEx = new StringBuilder(String.format("Erro ao receber Agendamento (id_agendamento = %d):\n", id_agendamento));
                             for (Throwable cause : exs.getCauses()) {
                                 strEx.append(cause.getMessage());
                                 strEx.append("\n");
@@ -2121,7 +2173,7 @@ public class BD {
                         }
                     }
                     if (!cList.isEmpty()) {
-                        cArray = new petagenda.Cliente[cList.size()];
+                        cArray = new petagenda.agendamento.Agendamento[cList.size()];
                         cArray = cList.toArray(cArray);
                     }
                 } catch (SQLException e) {
@@ -2131,7 +2183,6 @@ public class BD {
                 return cArray;
             }
         }
-*/
     }
     
     static public class pet_agendamento {
@@ -2151,7 +2202,7 @@ public class BD {
                     // Criação do statement.
                     PreparedStatement insert = null;
                     try {
-                        insert = conn.prepareStatement(String.format("INSERT INTO %s(id_agendamento, id_pet_agend) VALUES(?, ?)", TABLE));
+                        insert = conn.prepareStatement(String.format("INSERT INTO %s(id_agendamento_pet, id_pet_agend) VALUES(?, ?)", TABLE));
 
                         insert.setInt(1, pet_agendamento.getIdAgendamento()); // id_agendamento
                         insert.setInt(2, pet_agendamento.getIdPet()); // id_pet
