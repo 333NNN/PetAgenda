@@ -26,6 +26,9 @@ public class Tela_visu_finance extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_telaFinance = new javax.swing.JTable();
         jLbl_BGpadrao = new javax.swing.JLabel();
@@ -33,6 +36,15 @@ public class Tela_visu_finance extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setText("jButton1");
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 570, -1, -1));
+
+        jButton2.setText("jButton2");
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 570, -1, -1));
+
+        jButton3.setText("jButton3");
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 630, -1, -1));
 
         jTable_telaFinance.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jTable_telaFinance.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
@@ -95,6 +107,9 @@ public class Tela_visu_finance extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLbl_BGpadrao;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_telaFinance;

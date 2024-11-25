@@ -13,12 +13,14 @@ import Interfaces.Tela_servicos;
 import Interfaces.Tela_visualizacao_cliente;
 import Interfaces.Tela_visualizacao_funcionario;
 import Interfaces.Tela_visualizacao_pet;
+import Interfaces.tela_agendamento;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 /**
  *
@@ -27,7 +29,7 @@ import java.awt.event.MouseEvent;
 public class MenuPanel extends JPanel {
 
     private JToggleButton btn_Home;
-    private JButton btn_agenda, btn_servicos, btn_financeiro, btn_clientes, btn_funcionarios, btn_pets, btn_config, btn_sair;
+    private JButton btn_agendamento, btn_servicos, btn_financeiro, btn_clientes, btn_funcionarios, btn_pets, btn_config, btn_sair;
 
     public MenuPanel() {
         initComponents();
@@ -64,20 +66,20 @@ public class MenuPanel extends JPanel {
             }
         });
 
-        btn_agenda = createButton("Agenda", "/icon_agenda.png");
-        btn_agenda.addActionListener(new ActionListener() {
+        btn_agendamento = createButton("Agendamento", "/icon_agenda.png");
+        btn_agendamento.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                btn_agendaActionPerformed(evt);
+                btn_agendamentoActionPerformed(evt);
             }
         });
-        btn_agenda.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        btn_agendamento.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             @Override
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 btn_agendaPetMouseMoved(evt);
             }
         });
-        btn_agenda.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_agendamento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btn_agendaPetMouseExited(evt);
             }
@@ -217,7 +219,7 @@ public class MenuPanel extends JPanel {
         });
 
         add(btn_Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 193, -1));
-        add(btn_agenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 248, 205, 60));
+        add(btn_agendamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 248, 205, 60));
         add(btn_servicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 308, 205, 60));
         add(btn_financeiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 368, 205, 60));
         add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 428, 205, 60));
@@ -267,20 +269,20 @@ public class MenuPanel extends JPanel {
     }
     
     //Botão Agenda
-    private void btn_agendaActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btn_agendamentoActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         // TODO add your handling code here:
-        Tela_de_visualizacao_do_mes telaVisualizaMes = new Tela_de_visualizacao_do_mes();
-        telaVisualizaMes.setVisible(true);
+        tela_agendamento telaAgendamento = new tela_agendamento();
+        telaAgendamento.setVisible(true);
         SwingUtilities.getWindowAncestor(this).dispose();
     }
 
     private void btn_agendaPetMouseMoved(java.awt.event.MouseEvent evt) {
-        btn_agenda.setOpaque(true);
-        btn_agenda.setBackground(new java.awt.Color(99, 90, 77));
+        btn_agendamento.setOpaque(true);
+        btn_agendamento.setBackground(new java.awt.Color(99, 90, 77));
     }
 
     private void btn_agendaPetMouseExited(java.awt.event.MouseEvent evt) {
-        btn_agenda.setOpaque(false);
+        btn_agendamento.setOpaque(false);
     }
     
     //Botão Serviços
