@@ -153,11 +153,6 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         jPanel_editar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon editar.png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-        });
         jPanel_editar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 9, -1, -1));
 
         getContentPane().add(jPanel_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1258, 530, -1, -1));
@@ -203,6 +198,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
 
     private void jPanel_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_editarMouseClicked
         // TODO add your handling code here:
+        System.out.println(linha_selecionada_funcionario);
         if (linha_selecionada_funcionario > -1) { // Pega o id_funcionario com base em todos os ids e linha_selecionada.
             id_funcionario = todos_ids_funcionario.get(linha_selecionada_funcionario);
             System.out.println("id_funcionario: " + id_funcionario);
@@ -227,10 +223,6 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_jtbl_funcionariosMouseEntered
-
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel1MouseClicked
     
     // Personaliza a "width" da coluna em geral.
     private void AjustarColuna() {
