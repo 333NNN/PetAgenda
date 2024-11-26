@@ -1751,7 +1751,7 @@ public class BD {
                     // Criação do statement
                     PreparedStatement select = null;
                     try {
-                        select = conn.prepareStatement(String.format("SELECT id_func, nome, cpf, telefone, rua, cep, numero, bairro, cidade FROM %s WHERE id_func", TABLE));
+                        select = conn.prepareStatement(String.format("SELECT id_func, nome, cpf, telefone, rua, cep, numero, bairro, cidade FROM %s WHERE id_func = ?", TABLE));
                         select.setInt(1, id_func);
                         
                         ResultSet rs = select.executeQuery();
