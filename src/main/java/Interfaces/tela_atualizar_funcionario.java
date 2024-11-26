@@ -43,18 +43,26 @@ public class tela_atualizar_funcionario extends javax.swing.JFrame {
         field_bairro.setText(null);
         field_cidade.setText(null);
     }
-    
+
     private void carregar_tela() {
-        // Funcionario funcionario = BD.Funcionario.selectById(Tela_visualizacao_funcionario.id_funcionario);
-        
-        // field_nome_funcionario.setText(funcionario.getNome());
+        Funcionario funcionario = BD.Funcionario.selectById(Tela_visualizacao_funcionario.id_funcionario);
+
+        field_nome_funcionario.setText(funcionario.getNome());
+        field_cpf.setText(funcionario.getCpf().toString());
+        field_telefone.setText(funcionario.getTelefone());
+        //jcbox_Selecao_servico.setSelectedIndex();
+        field_cep.setText(funcionario.getCep());
+        field_numero.setText(funcionario.getNumero());
+        field_rua.setText(funcionario.getRua());
+        field_bairro.setText(funcionario.getBairro());
+        field_cidade.setText(funcionario.getCidade());
     }
 
     private void AlinhaJField() {
         Border line = BorderFactory.createLineBorder(Color.BLACK, 2);
         Border empty = new EmptyBorder(0, 5, 0, 0);
         CompoundBorder border = new CompoundBorder(line, empty);
-        
+
         field_nome_funcionario.setBorder(border);
         field_cpf.setBorder(border);
         field_telefone.setBorder(border);
@@ -65,7 +73,7 @@ public class tela_atualizar_funcionario extends javax.swing.JFrame {
         field_bairro.setBorder(border);
         field_cidade.setBorder(border);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -112,7 +120,7 @@ public class tela_atualizar_funcionario extends javax.swing.JFrame {
         lbl_cadastrarFuncinario.setForeground(new java.awt.Color(0, 0, 0));
         lbl_cadastrarFuncinario.setText("Atualizar funcionário");
         lbl_cadastrarFuncinario.setPreferredSize(new java.awt.Dimension(340, 45));
-        jPanel_atualizar_funcionario.add(lbl_cadastrarFuncinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 410, -1));
+        jPanel_atualizar_funcionario.add(lbl_cadastrarFuncinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 490, -1));
 
         jlbl_nome_funcionario.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_nome_funcionario.setForeground(new java.awt.Color(0, 0, 0));
@@ -318,7 +326,7 @@ public class tela_atualizar_funcionario extends javax.swing.JFrame {
         else {
             JOptionPane.showMessageDialog(null, "CPF já cadastrado.", "CPF inválido", JOptionPane.ERROR_MESSAGE);
         }
-        */
+         */
     }//GEN-LAST:event_jbtn_cadastrarFuncionarioActionPerformed
 
     /**
@@ -355,7 +363,7 @@ public class tela_atualizar_funcionario extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void initMenuPanel() {
         MenuPanel menuPanel = new MenuPanel();
         jPanel_menu.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
