@@ -42,7 +42,6 @@ public class Tela_visu_finance extends javax.swing.JFrame {
         jPanel_menu = new javax.swing.JPanel();
         jBtn_visualizar = new javax.swing.JButton();
         jBtn_criar = new javax.swing.JButton();
-        jBtn_voltar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_telaFinance = new javax.swing.JTable();
         jLbl_BGpadrao = new javax.swing.JLabel();
@@ -82,13 +81,6 @@ public class Tela_visu_finance extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jBtn_criar, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 580, -1, -1));
-
-        jBtn_voltar.setFont(new java.awt.Font("Merriweather", 0, 16)); // NOI18N
-        jBtn_voltar.setForeground(new java.awt.Color(255, 255, 255));
-        jBtn_voltar.setText("Voltar");
-        jBtn_voltar.setPreferredSize(new java.awt.Dimension(200, 50));
-        jBtn_voltar.setUI(new RoundedCornerButtonUI());
-        getContentPane().add(jBtn_voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 650, -1, -1));
 
         jTable_telaFinance.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jTable_telaFinance.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
@@ -236,7 +228,6 @@ public class Tela_visu_finance extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Erro ao inserir registro: " + e.getMessage());
         }
-        JOptionPane.showMessageDialog(this, "Registro inserido com sucesso!");
     }//GEN-LAST:event_jBtn_criarActionPerformed
 
     private void initMenuPanel() {
@@ -282,7 +273,6 @@ public class Tela_visu_finance extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtn_criar;
     private javax.swing.JButton jBtn_visualizar;
-    private javax.swing.JButton jBtn_voltar;
     private javax.swing.JLabel jLbl_BGpadrao;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JScrollPane jScrollPane1;
