@@ -1741,6 +1741,54 @@ public class BD {
 
             return funcionarios;
         }
+        
+        public static petagenda.Funcionario selectById(int id_func) {
+            petagenda.Funcionario funcionario = null;
+            
+            if (id_func != petagenda.Funcionario.NULL_ID) {
+                Connection conn = BD.getConnection();
+                if (conn != null) { // Se  banco for acessível.
+                    // Criação do statement
+                    PreparedStatement select = null;
+                    try {
+                        select = conn.prepareStatement(String.format("SELECT id_func, nome, cpf, telefone, rua, cep, numero, bairro, cidade FROM %s WHERE id_func", TABLE));
+                        select.setInt(1, id_func);
+                        
+                        ResultSet rs = select.executeQuery();
+                        petagenda.Funcionario[] selected = parse(rs);
+                        
+                        if (selected != null) {
+                            funcionario = selected[0];
+                        }
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro na execução da query", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                    if (select != null) { // Se preparedStatement não falhou.
+                        try {
+                            select.close();
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                        } finally {
+                            select = null;
+                        }
+                    }
+                    
+                    try {
+                        conn.close();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                    }
+                    finally {
+                        conn = null;
+                    }
+                }
+            }
+            
+            return funcionario;
+        }
 
         public static petagenda.Funcionario[] parse(ResultSet rs) {
             if (rs == null) {

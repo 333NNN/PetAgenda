@@ -17,6 +17,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.SwingConstants;
@@ -112,7 +114,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
             }
         });
         jtbl_clientes_cadastrados.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jtbl_clientes_cadastrados.setPreferredSize(new java.awt.Dimension(1400, 480));
+        jtbl_clientes_cadastrados.setPreferredSize(new java.awt.Dimension(1500, 480));
         jtbl_clientes_cadastrados.setRowHeight(30);
         jtbl_clientes_cadastrados.setShowHorizontalLines(true);
         jtbl_clientes_cadastrados.setShowVerticalLines(true);
@@ -131,6 +133,11 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         jPanel_deletar.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_deletar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel_deletar.setPreferredSize(new java.awt.Dimension(42, 42));
+        jPanel_deletar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel_deletarMouseClicked(evt);
+            }
+        });
         jPanel_deletar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlbl_deletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon deletar.png"))); // NOI18N
@@ -220,6 +227,43 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jtbl_clientes_cadastradosMouseEntered
 
+    private void jPanel_deletarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_deletarMouseClicked
+        // TODO add your handling code here:
+        Object[] opcoes = {"Sim", "Não"};
+        Object[] opcoes_confirmacao = {"Deletar", "Não deletar"};
+
+        // Exibe a caixa de diálogo com "Sim" e "Não"
+        int resposta = JOptionPane.showOptionDialog(null, "Deseja deletar o cliente selecionado?", "Confirmação", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
+
+        // Verifica a resposta
+        if (resposta == 0) { // Se o usuário clicar em 'sim', continua na mesma tela, só limpa os campos.
+            int resposta_confirmacao = JOptionPane.showOptionDialog(null, "Será deletado todas as informações do cliente.", "Confirmação", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes_confirmacao, opcoes_confirmacao[0]);
+            // Verifica confirmação.
+            if (resposta_confirmacao == 0) {
+                // Conexão com o banco.
+                Connection conn = null;
+                PreparedStatement stmt = null;
+                ResultSet rs = null;
+
+                String banco = "jdbc:mysql://localhost:3306/pet_agenda";
+                String usuario = "root";
+                String senha = "";
+                
+                try {
+                    conn = DriverManager.getConnection(banco, usuario, senha); // Iniciando a conexão com o banco.
+                    String sql = "SELECT * FROM visualizacao_cliente";
+                    stmt = conn.prepareStatement(sql);
+
+                    rs = stmt.executeQuery();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Tela_visualizacao_cliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                
+            }
+        }
+    }//GEN-LAST:event_jPanel_deletarMouseClicked
+
     // Personaliza a "width" da coluna em geral.
     private void AjustarColuna() {
         // Centraliza a coluna.
@@ -241,15 +285,15 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
 
         // Organiza a tabela de acordo com os parametros.
         modeloDaColuna.getColumn(0).setCellRenderer(rendererEsquerda); // Nome
-        modeloDaColuna.getColumn(1).setCellRenderer(rendererCentro); // CPF
-        modeloDaColuna.getColumn(2).setCellRenderer(rendererCentro); // Telefone
+        modeloDaColuna.getColumn(1).setCellRenderer(rendererEsquerda); // CPF
+        modeloDaColuna.getColumn(2).setCellRenderer(rendererEsquerda); // Telefone
         modeloDaColuna.getColumn(3).setCellRenderer(rendererCentro); // Serviço Contratado
         modeloDaColuna.getColumn(4).setCellRenderer(rendererEsquerda); // Endereço
 
         // Define o tamanho das colunas na tabela.
-        modeloDaColuna.getColumn(0).setPreferredWidth(300); // Nome
-        modeloDaColuna.getColumn(1).setPreferredWidth(120); // CPF
-        modeloDaColuna.getColumn(2).setPreferredWidth(130); // Telefone
+        modeloDaColuna.getColumn(0).setPreferredWidth(370); // Nome
+        modeloDaColuna.getColumn(1).setPreferredWidth(130); // CPF
+        modeloDaColuna.getColumn(2).setPreferredWidth(150); // Telefone
         modeloDaColuna.getColumn(3).setPreferredWidth(120); // Serviço Contratado
         modeloDaColuna.getColumn(4).setPreferredWidth(770); // Endereço
     }
