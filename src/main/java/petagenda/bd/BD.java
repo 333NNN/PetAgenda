@@ -1914,6 +1914,64 @@ public class BD {
             return r;
         }
         
+        public static int update(petagenda.Pet pet) {
+            int r = 0;
+            
+            if (pet == null) {
+                throw new NullPointerException("Pet não pode ser nulo.");
+            }
+            else if (!pet.isNew()) { // Só inicia conexão se Pet informado possuir id válido.
+                Connection conn = BD.getConnection();
+                if (conn == null) { // Se banco for inacessível.
+                    return r;
+                }
+                else {
+                    // Criação do statement.
+                    PreparedStatement insert = null;
+                    try {
+                        insert = conn.prepareStatement(String.format("UPDATE %s SET nome = ?, raca = ?, sexo = ?, porte = ?, comportamento = ?, e_castrado = ?, caminho_cartao_vacinacao = ?, estado_saude = ?, cor = ?, id_cliente = ? WHERE id_pet = ?", TABLE));
+                    
+                        insert.setString(1, pet.getNome()); // nome
+                        insert.setString(2, pet.getRaca()); // raca
+                        insert.setString(3, pet.getSexo().toString()); // sexo
+                        insert.setString(4, pet.getPorte().toString()); // porte        
+                        insert.setString(5, pet.getComportamento()); // comportamento   
+                        insert.setBoolean(6, pet.getECastrado()); // e_castrado
+                        insert.setString(7, pet.getCaminhoCartaoVacinacao()); // caminho_cartao_vacinacao
+                        insert.setString(8, pet.getEstadoSaude()); // estado_saude
+                        insert.setString(9, pet.getCor()); // cor
+                        insert.setInt(10, pet.getDono()); // id_cliente        
+                        
+                        r = insert.executeUpdate();
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de execução do update", JOptionPane.ERROR_MESSAGE);
+                        r = -1;
+                    }
+                    
+                    if (insert != null) { // Se preparedStatement não falhou
+                        try {
+                            insert.close();
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                        } finally {
+                            insert = null;
+                        }
+                    }
+                    
+                    try {
+                        conn.close();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                    } finally {
+                        conn = null;
+                    }
+                }
+            }
+            
+            return r;
+        }
+        
         public static petagenda.Pet[] selectAll() {
             petagenda.Pet[] pets = null;
             
@@ -1956,6 +2014,52 @@ public class BD {
             }
             
             return pets;
+        }
+        
+        public static petagenda.Pet selectById(int id_pet) {
+            petagenda.Pet pet = null;
+            
+            if (id_pet != petagenda.Pet.NULL_ID) {
+                Connection conn = BD.getConnection();
+                if (conn != null) { // Se banco for acessível.
+                    // Criação do statement.
+                    PreparedStatement select = null;
+                    try {
+                        select = conn.prepareStatement(String.format("SELECT id_pet, nome, raca, sexo, porte, comportamento, e_castrado, caminho_cartao_vacinacao, estado_saude, cor, id_cliente FROM %s WHERE id_pet = ?", TABLE));
+                        select.setInt(1, id_pet);
+                        
+                        ResultSet rs = select.executeQuery();
+                        petagenda.Pet[] selected = parse(rs);
+                        
+                        if (selected != null) {
+                            pet = selected[0];
+                        }
+                    }
+                    catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro na execução da query", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                    if (select != null) { // Se preparedStatement não falhou
+                        try {
+                            select.close();
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de PreparedStatement", JOptionPane.ERROR_MESSAGE);
+                        } finally {
+                            select = null;
+                        }
+                    }
+                    
+                    try {
+                        conn.close();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de fechamento de conexão", JOptionPane.ERROR_MESSAGE);
+                    } finally {
+                        conn = null;
+                    }
+                }
+            }
+            
+            return pet;
         }
         
         public static petagenda.Pet[] parse(ResultSet rs) {

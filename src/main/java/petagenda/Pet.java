@@ -121,7 +121,11 @@ public final class Pet {
         }
     }
     
-    // id_pet
+    public boolean isNew() {
+        return this.getId() == NULL_ID;
+    }
+
+// id_pet
     public void setId(int id_pet) {
         if (id_pet < 0) {
             throw new IllegalIdException("id não pode ser inferior a zero");

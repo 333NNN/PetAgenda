@@ -45,8 +45,10 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
      * Creates new form tela_cadastro_funcionario
      */
     public static int id_pet; // id do pet, vai ser acessado pela tela de atualização de funcionario.
+    public static int id_cliente; // id do cliente, relacionado ao pet.
     private static int linha_selecionada_pet; // Linha selecionada, usada para achar o id_pet.
     private static final ArrayList<Integer> todos_ids_pet = new ArrayList<>();  // todos os ids da tabela.
+    private static final ArrayList<Integer> todos_ids_clientes = new ArrayList<>(); // todos os ids dos clientes.
     
     public Tela_visualizacao_pet() {
         initComponents();
@@ -262,7 +264,9 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (linha_selecionada_pet > -1) { // Pega o id_pet com base em todos os ids e linha_selecionada.
             id_pet = todos_ids_pet.get(linha_selecionada_pet);
+            id_cliente = todos_ids_clientes.get(linha_selecionada_pet);
             System.out.println("id_pet: " + id_pet);
+            System.out.println("id_cliente: " + id_cliente);
 
             tela_atualizar_pet tela_atualizar = new tela_atualizar_pet();
             tela_atualizar.setVisible(true);
@@ -332,6 +336,8 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
                 else {
                     castrado = "Não";
                 }
+                
+                todos_ids_clientes.add(clientes[pet.getDono() - 1].getId());
                 Object[] linha = {
                         pet.getNome(),
                         clientes[pet.getDono() - 1].getNome(),

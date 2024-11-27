@@ -12,6 +12,7 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import petagenda.Cliente;
+import petagenda.Pet;
 import petagenda.bd.BD;
 import petagenda.dados.Porte;
 import petagenda.dados.Sexo;
@@ -30,7 +31,8 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
     public tela_atualizar_pet() {
         initComponents();
         initMenuPanel();
-        AlinhaJField();      
+        AlinhaJField();    
+        carregar_tela();
     }
 
     private void AlinhaJField() {
@@ -62,7 +64,22 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         JTxtF_cor.setText(null);
     }
     
-    
+    private void carregar_tela() {
+        Pet pet = BD.Pet.selectById(Tela_visualizacao_pet.id_pet);
+        Cliente cliente = BD.Cliente.selectById(Tela_visualizacao_pet.id_cliente);
+        
+        JTxtF_nome_pet.setText(pet.getNome());
+        jcombBox_nome_dono.setSelectedItem(cliente.getNome());
+        //chkBx_Sim
+        //chkBx_Nao
+        JTxtF_raca.setText(pet.getRaca());
+        //jcbox_Selecao_servico.setSelectedIndex();
+        jcmbBx_Porte.setSelectedIndex(1);
+        JTxtF_cor.setText(pet.getCor());
+        jcmbBx_sexo.setSelectedIndex(1);
+        jtxtarea_comportamento.setText(pet.getComportamento());
+        jtxtarea_saude.setText(pet.getEstadoSaude());
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -103,6 +120,11 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         jlbl_background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jpanel_atualizar_pet.setBackground(new java.awt.Color(255, 255, 255));
@@ -352,6 +374,11 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         jcombBox_nome_dono.setBackground(new java.awt.Color(217, 217, 217));
         jcombBox_nome_dono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jcombBox_nome_dono.setPreferredSize(new java.awt.Dimension(250, 50));
+        jcombBox_nome_dono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcombBox_nome_donoActionPerformed(evt);
+            }
+        });
         jpanel_atualizar_pet.add(jcombBox_nome_dono, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 103, -1, -1));
 
         getContentPane().add(jpanel_atualizar_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 41, -1, -1));
@@ -421,6 +448,36 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_jbtn_atualizarPetActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        Cliente[] clientes = BD.Cliente.selectAll(); // Todos os clientes.
+        Cliente ultimo_cadastrado = BD.Cliente.selectLast(); // Último cliente.
+        
+        for (Cliente cliente : clientes) {
+            jcombBox_nome_dono.addItem(cliente.getNome());
+        }
+        
+        if (ultimo_cadastrado != null) {
+            String cpf_ultimo_cliente = ultimo_cadastrado.getCpf().toString();
+            
+            // Verifica por cada posição do combobox até encontrar o cpf do último cadastrado.
+            for (int i = 0; i < jcombBox_nome_dono.getItemCount(); i++) {
+                
+                // Verifica se cliente tem o mesmo cpf que o último cliente.
+                if ((clientes[i].getCpf().toString()).equals(cpf_ultimo_cliente)) { 
+                    jcombBox_nome_dono.setSelectedIndex(i); // Coloca o comboBox selecionado na posição que foi achado.
+                    break;
+                }
+            }
+        }
+        
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jcombBox_nome_donoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcombBox_nome_donoActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jcombBox_nome_donoActionPerformed
 
     /**
      * @param args the command line arguments
