@@ -216,7 +216,7 @@
                   </TableColumnModel>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[1070, 480]"/>
+                  <Dimension value="[1240, 480]"/>
                 </Property>
                 <Property name="rowHeight" type="int" value="30"/>
                 <Property name="showHorizontalLines" type="boolean" value="true"/>

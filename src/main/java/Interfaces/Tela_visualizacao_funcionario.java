@@ -109,7 +109,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
             }
         });
         jtbl_funcionarios.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jtbl_funcionarios.setPreferredSize(new java.awt.Dimension(1400, 480));
+        jtbl_funcionarios.setPreferredSize(new java.awt.Dimension(1650, 480));
         jtbl_funcionarios.setRowHeight(30);
         jtbl_funcionarios.setShowHorizontalLines(true);
         jtbl_funcionarios.setShowVerticalLines(true);
@@ -251,11 +251,11 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         modeloDaColuna.getColumn(4).setCellRenderer(rendererEsquerda); // Endereço
 
         // Define o tamanho das colunas na tabela.
-        modeloDaColuna.getColumn(0).setPreferredWidth(300); // Nome
-        modeloDaColuna.getColumn(1).setPreferredWidth(120); // CPF
-        modeloDaColuna.getColumn(2).setPreferredWidth(130); // Telefone
-        modeloDaColuna.getColumn(3).setPreferredWidth(180); // Serviço Prestado
-        modeloDaColuna.getColumn(4).setPreferredWidth(710); // Endereço
+        modeloDaColuna.getColumn(0).setPreferredWidth(370); // Nome
+        modeloDaColuna.getColumn(1).setPreferredWidth(130); // CPF
+        modeloDaColuna.getColumn(2).setPreferredWidth(150); // Telefone
+        modeloDaColuna.getColumn(3).setPreferredWidth(240); // Serviço Prestado
+        modeloDaColuna.getColumn(4).setPreferredWidth(800); // Endereço
     }
     
     private void initMenuPanel() {

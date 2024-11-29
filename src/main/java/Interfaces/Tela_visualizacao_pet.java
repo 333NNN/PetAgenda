@@ -150,7 +150,7 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
             }
         });
         jtbl_visualizacao_pet.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jtbl_visualizacao_pet.setPreferredSize(new java.awt.Dimension(1070, 480));
+        jtbl_visualizacao_pet.setPreferredSize(new java.awt.Dimension(1240, 480));
         jtbl_visualizacao_pet.setRowHeight(30);
         jtbl_visualizacao_pet.setShowHorizontalLines(true);
         jtbl_visualizacao_pet.setShowVerticalLines(true);
@@ -247,8 +247,8 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         modeloDaColuna.getColumn(6).setCellRenderer(rendererCentro); // Castrado
 
         // Define o tamanho das colunas na tabela.
-        modeloDaColuna.getColumn(0).setPreferredWidth(200); // Nome do pet
-        modeloDaColuna.getColumn(1).setPreferredWidth(300); // Nome do dono
+        modeloDaColuna.getColumn(0).setPreferredWidth(300); // Nome do pet
+        modeloDaColuna.getColumn(1).setPreferredWidth(370); // Nome do dono
         modeloDaColuna.getColumn(2).setPreferredWidth(150); // Raça
         modeloDaColuna.getColumn(3).setPreferredWidth(200); // Cor
         modeloDaColuna.getColumn(4).setPreferredWidth(80); // Porte
