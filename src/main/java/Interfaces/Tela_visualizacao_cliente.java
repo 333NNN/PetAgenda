@@ -84,6 +84,7 @@ public class Tela_visualizacao_cliente extends javax.swing.JFrame {
         lbl_clientes.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
         lbl_clientes.setForeground(new java.awt.Color(0, 0, 0));
         lbl_clientes.setText("Clientes");
+        lbl_clientes.setPreferredSize(new java.awt.Dimension(570, 58));
         getContentPane().add(lbl_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, -1, -1));
 
         jPanel_tabela_clientes.setBackground(new java.awt.Color(255, 255, 255));

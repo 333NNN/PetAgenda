@@ -5,6 +5,11 @@
 package Interfaces;
 
 import com.mycompany.petagenda.MenuPanel;
+import java.awt.Dimension;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,7 +17,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
 import petagenda.bd.BD;
 import ui.custom.RoundedCornerBorder;
 import ui.custom.RoundedCornerButtonUI;
@@ -31,8 +40,59 @@ public class Tela_servicos extends javax.swing.JFrame {
         initComponents();
         initMenuPanel();
         carregarDadosTabela();
+        AjustarColuna();
+    }
+    
+    // Personaliza a "width" da coluna em geral.
+    private void AjustarColuna() {
+        // Centraliza a coluna.
+        DefaultTableCellRenderer rendererCentro = new DefaultTableCellRenderer();
+        rendererCentro.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        // Alinha a coluna a direita.
+        DefaultTableCellRenderer rendererDireita = new DefaultTableCellRenderer();  
+        rendererDireita.setHorizontalAlignment(SwingConstants.RIGHT);
+        
+        // Alinha a coluna a esquerda.
+        DefaultTableCellRenderer rendererEsquerda = new DefaultTableCellRenderer();  
+        rendererEsquerda.setHorizontalAlignment(SwingConstants.LEFT);  
+
+        // Define o tamanho do cabeçalho.
+        JTableHeader header = tbl_Servicos.getTableHeader();  
+        header.setPreferredSize(new Dimension(0, 30));
+        TableColumnModel modeloDaColuna = tbl_Servicos.getColumnModel();  
+
+        // Organiza a tabela de acordo com os parametros.
+        modeloDaColuna.getColumn(0).setCellRenderer(rendererEsquerda); // Pet
+        modeloDaColuna.getColumn(1).setCellRenderer(rendererEsquerda); // Nome do funcionário
+        modeloDaColuna.getColumn(2).setCellRenderer(rendererCentro); // Data
+        modeloDaColuna.getColumn(3).setCellRenderer(rendererCentro); // Horário
+        modeloDaColuna.getColumn(4).setCellRenderer(rendererEsquerda); // Serviço prestado
+        modeloDaColuna.getColumn(5).setCellRenderer(rendererEsquerda); // Incidente
+
+        // Define o tamanho das colunas na tabela.
+        modeloDaColuna.getColumn(0).setPreferredWidth(370); // Pet
+        modeloDaColuna.getColumn(1).setPreferredWidth(370); // Nome do funcionário
+        modeloDaColuna.getColumn(2).setPreferredWidth(120); // Data
+        modeloDaColuna.getColumn(3).setPreferredWidth(100); // Horário
+        modeloDaColuna.getColumn(4).setPreferredWidth(120); // Serviço prestado
+        modeloDaColuna.getColumn(5).setPreferredWidth(200); // Incidente  
     }
 
+    private void moveHeader() {
+        // Cabeçalho da tabela e o JScrollPane
+        JTableHeader header = tbl_Servicos.getTableHeader();
+        JScrollBar horizontalScrollBar = jScroll_tabela.getHorizontalScrollBar();
+
+        // Sincroniza a rolagem da JTable com o header
+        horizontalScrollBar.addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                header.setLocation(-e.getValue(), header.getY());
+            }
+        });
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,37 +102,16 @@ public class Tela_servicos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_Servicos = new javax.swing.JTable();
         jPanel_menu = new javax.swing.JPanel();
+        jPanel_tabela = new javax.swing.JPanel();
+        jScroll_tabela = new javax.swing.JScrollPane();
+        tbl_Servicos = new javax.swing.JTable();
         lbl_title = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        tbl_Servicos.setBackground(new java.awt.Color(217, 217, 217));
-        tbl_Servicos.setFont(new java.awt.Font("Merriweather", 0, 16)); // NOI18N
-        tbl_Servicos.setForeground(new java.awt.Color(0, 0, 0));
-        tbl_Servicos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Pet", "Nome do funcionário", "Data", "Horário", "Serviço prestado", "Incidente"
-            }
-        ));
-        tbl_Servicos.setPreferredSize(new java.awt.Dimension(989, 523));
-        tbl_Servicos.setSelectionBackground(new java.awt.Color(217, 217, 217));
-        tbl_Servicos.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        jScrollPane1.setViewportView(tbl_Servicos);
-        tbl_Servicos.getTableHeader().setReorderingAllowed(false);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(309, 103, 810, 480));
 
         jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
         jPanel_menu.setForeground(new java.awt.Color(124, 115, 101));
@@ -82,11 +121,57 @@ public class Tela_servicos extends javax.swing.JFrame {
         jPanel_menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jPanel_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 205, 768));
 
+        jPanel_tabela.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_tabela.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jPanel_tabela.setMinimumSize(new java.awt.Dimension(905, 560));
+        jPanel_tabela.setOpaque(false);
+        jPanel_tabela.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScroll_tabela.setPreferredSize(new java.awt.Dimension(915, 480));
+        jScroll_tabela.setVerifyInputWhenFocusTarget(false);
+
+        tbl_Servicos.setFont(new java.awt.Font("Merriweather", 0, 16)); // NOI18N
+        tbl_Servicos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Pet", "Nome do funcionário", "Data", "Horário", "Serviço prestado", "Incidente"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbl_Servicos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tbl_Servicos.setPreferredSize(new java.awt.Dimension(1280, 480));
+        tbl_Servicos.setRowHeight(30);
+        tbl_Servicos.setShowHorizontalLines(true);
+        tbl_Servicos.setShowVerticalLines(true);
+        tbl_Servicos.getTableHeader().setReorderingAllowed(false);
+        jScroll_tabela.setViewportView(tbl_Servicos);
+        if (tbl_Servicos.getColumnModel().getColumnCount() > 0) {
+            tbl_Servicos.getColumnModel().getColumn(0).setResizable(false);
+            tbl_Servicos.getColumnModel().getColumn(1).setResizable(false);
+            tbl_Servicos.getColumnModel().getColumn(2).setResizable(false);
+            tbl_Servicos.getColumnModel().getColumn(3).setResizable(false);
+            tbl_Servicos.getColumnModel().getColumn(4).setResizable(false);
+            tbl_Servicos.getColumnModel().getColumn(5).setResizable(false);
+        }
+
+        jPanel_tabela.add(jScroll_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        getContentPane().add(jPanel_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 103, -1, -1));
+
         lbl_title.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
         lbl_title.setForeground(new java.awt.Color(0, 0, 0));
         lbl_title.setText("Histórico de Serviços");
-        lbl_title.setPreferredSize(new java.awt.Dimension(466, 50));
-        getContentPane().add(lbl_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
+        lbl_title.setPreferredSize(new java.awt.Dimension(680, 50));
+        getContentPane().add(lbl_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 40, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -168,7 +253,8 @@ public class Tela_servicos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel_menu;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel_tabela;
+    private javax.swing.JScrollPane jScroll_tabela;
     private javax.swing.JLabel lbl_title;
     private javax.swing.JTable tbl_Servicos;
     // End of variables declaration//GEN-END:variables

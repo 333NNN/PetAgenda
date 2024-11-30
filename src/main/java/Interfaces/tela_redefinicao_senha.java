@@ -72,12 +72,13 @@ public class tela_redefinicao_senha extends javax.swing.JFrame {
         jlbl_titulo_redefinicao_senha.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
         jlbl_titulo_redefinicao_senha.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_titulo_redefinicao_senha.setText("Redefinição de senha");
-        jlbl_titulo_redefinicao_senha.setPreferredSize(new java.awt.Dimension(468, 56));
+        jlbl_titulo_redefinicao_senha.setPreferredSize(new java.awt.Dimension(560, 56));
         jPanel1.add(jlbl_titulo_redefinicao_senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 20, -1, -1));
 
         jlbl_LoginCpf.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_LoginCpf.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_LoginCpf.setText("Login:");
+        jlbl_LoginCpf.setPreferredSize(new java.awt.Dimension(530, 20));
         jPanel1.add(jlbl_LoginCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 98, -1, -1));
 
         jfld_loginCpf.setBackground(new java.awt.Color(217, 217, 217));
@@ -95,6 +96,7 @@ public class tela_redefinicao_senha extends javax.swing.JFrame {
         jlbl_senhaAntiga.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_senhaAntiga.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_senhaAntiga.setText("Senha antiga:");
+        jlbl_senhaAntiga.setPreferredSize(new java.awt.Dimension(530, 20));
         jPanel1.add(jlbl_senhaAntiga, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 188, -1, -1));
 
         txt_senhaAntiga.setBackground(new java.awt.Color(217, 217, 217));
@@ -117,6 +119,7 @@ public class tela_redefinicao_senha extends javax.swing.JFrame {
         jlbl_novaSenha.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_novaSenha.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_novaSenha.setText("Nova senha:");
+        jlbl_novaSenha.setPreferredSize(new java.awt.Dimension(530, 20));
         jPanel1.add(jlbl_novaSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 279, -1, -1));
 
         txt_senhaNova.setBackground(new java.awt.Color(217, 217, 217));
@@ -139,6 +142,7 @@ public class tela_redefinicao_senha extends javax.swing.JFrame {
         jlbl_confirm_nova_senha.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_confirm_nova_senha.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_confirm_nova_senha.setText("Confirme a nova senha:");
+        jlbl_confirm_nova_senha.setPreferredSize(new java.awt.Dimension(540, 20));
         jPanel1.add(jlbl_confirm_nova_senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, -1, -1));
 
         txt_checkSenha.setBackground(new java.awt.Color(217, 217, 217));
@@ -156,7 +160,7 @@ public class tela_redefinicao_senha extends javax.swing.JFrame {
                 txt_checkSenhaActionPerformed(evt);
             }
         });
-        jPanel1.add(txt_checkSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, -1, -1));
+        jPanel1.add(txt_checkSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, -1, -1));
 
         jbtn_redefinirSenha.setBackground(new java.awt.Color(77, 120, 63));
         jbtn_redefinirSenha.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
@@ -171,9 +175,9 @@ public class tela_redefinicao_senha extends javax.swing.JFrame {
         });
         // Aplicando a UI personalizada
         jbtn_redefinirSenha.setUI(new RoundedCornerButtonUI());
-        jPanel1.add(jbtn_redefinirSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 510, 240, 50));
+        jPanel1.add(jbtn_redefinirSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 500, 240, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 28, -1, 580));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, -1, 580));
 
         jlbl_background_cadastro_pet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N
         getContentPane().add(jlbl_background_cadastro_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));

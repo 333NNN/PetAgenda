@@ -54,11 +54,11 @@ public class TELA_LOGIN extends javax.swing.JFrame {
 
         jLabel_LOGIN.setFont(new java.awt.Font("Merriweather", 0, 32)); // NOI18N
         jLabel_LOGIN.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel_LOGIN.setText("Login");
+        jLabel_LOGIN.setText("Login:");
         jLabel_LOGIN.setMaximumSize(new java.awt.Dimension(123, 49));
         jLabel_LOGIN.setMinimumSize(new java.awt.Dimension(123, 49));
-        jLabel_LOGIN.setPreferredSize(new java.awt.Dimension(123, 49));
-        getContentPane().add(jLabel_LOGIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 250, 110, 50));
+        jLabel_LOGIN.setPreferredSize(new java.awt.Dimension(540, 50));
+        getContentPane().add(jLabel_LOGIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 250, -1, -1));
 
         txt_login.setBackground(new java.awt.Color(152, 141, 124));
         txt_login.setOpaque(false);
@@ -82,8 +82,9 @@ public class TELA_LOGIN extends javax.swing.JFrame {
 
         jLabel_SENHA.setFont(new java.awt.Font("Merriweather", 0, 32)); // NOI18N
         jLabel_SENHA.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel_SENHA.setText("Senha");
-        getContentPane().add(jLabel_SENHA, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 390, 130, 40));
+        jLabel_SENHA.setText("Senha:");
+        jLabel_SENHA.setPreferredSize(new java.awt.Dimension(540, 40));
+        getContentPane().add(jLabel_SENHA, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 390, -1, -1));
 
         txt_senha.setBackground(new java.awt.Color(152, 141, 124));
         txt_senha.setForeground(new java.awt.Color(0, 0, 0));

@@ -219,11 +219,13 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         lbl_CadastrarPet.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
         lbl_CadastrarPet.setForeground(new java.awt.Color(0, 0, 0));
         lbl_CadastrarPet.setText("Cadastrar pets");
+        lbl_CadastrarPet.setPreferredSize(new java.awt.Dimension(590, 58));
         jpanel_cadastrar_pet.add(lbl_CadastrarPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
 
         label_nome_do_pet1.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         label_nome_do_pet1.setForeground(new java.awt.Color(0, 0, 0));
         label_nome_do_pet1.setText("Nome do Pet:");
+        label_nome_do_pet1.setPreferredSize(new java.awt.Dimension(240, 20));
         jpanel_cadastrar_pet.add(label_nome_do_pet1, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 84, -1, -1));
 
         jtxtf_nome_pet.setBackground(new java.awt.Color(217, 217, 217));
@@ -246,11 +248,13 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         label_nome_do_pet.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         label_nome_do_pet.setForeground(new java.awt.Color(0, 0, 0));
         label_nome_do_pet.setText("Nome do Dono:");
+        label_nome_do_pet.setPreferredSize(new java.awt.Dimension(240, 20));
         jpanel_cadastrar_pet.add(label_nome_do_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 84, -1, -1));
 
         lbl_Castrado.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         lbl_Castrado.setForeground(new java.awt.Color(0, 0, 0));
         lbl_Castrado.setText("Castrado:");
+        lbl_Castrado.setPreferredSize(new java.awt.Dimension(80, 20));
         jpanel_cadastrar_pet.add(lbl_Castrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, -1, -1));
 
         chkBx_Sim.addItemListener(new java.awt.event.ItemListener() {
@@ -300,6 +304,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         lbl_Vacinas.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         lbl_Vacinas.setForeground(new java.awt.Color(0, 0, 0));
         lbl_Vacinas.setText("Vacinas:");
+        lbl_Vacinas.setPreferredSize(new java.awt.Dimension(80, 20));
         jpanel_cadastrar_pet.add(lbl_Vacinas, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, -1, -1));
 
         jbtn_AddVacinas.setBackground(new java.awt.Color(217, 217, 217));
@@ -320,6 +325,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         label_raca.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         label_raca.setForeground(new java.awt.Color(0, 0, 0));
         label_raca.setText("Raça:");
+        label_raca.setPreferredSize(new java.awt.Dimension(230, 20));
         jpanel_cadastrar_pet.add(label_raca, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 179, -1, -1));
 
         jtxtf_Raca.setBackground(new java.awt.Color(217, 217, 217));
@@ -342,6 +348,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         label_porte.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         label_porte.setForeground(new java.awt.Color(0, 0, 0));
         label_porte.setText("Porte:");
+        label_porte.setPreferredSize(new java.awt.Dimension(160, 20));
         jpanel_cadastrar_pet.add(label_porte, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, -1, -1));
 
         jcmbBx_Porte.setBackground(new java.awt.Color(217, 217, 217));
@@ -359,6 +366,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         label_cor.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         label_cor.setForeground(new java.awt.Color(0, 0, 0));
         label_cor.setText("Cor:");
+        label_cor.setPreferredSize(new java.awt.Dimension(180, 20));
         jpanel_cadastrar_pet.add(label_cor, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 180, -1, -1));
 
         txtf_Cor.setBackground(new java.awt.Color(217, 217, 217));
@@ -380,6 +388,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         label_sexo.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         label_sexo.setForeground(new java.awt.Color(0, 0, 0));
         label_sexo.setText("Sexo:");
+        label_sexo.setPreferredSize(new java.awt.Dimension(130, 20));
         jpanel_cadastrar_pet.add(label_sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 180, -1, -1));
 
         for (Sexo sexo : Sexo.values()) {
@@ -400,6 +409,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         label_comportamento_do_pet.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         label_comportamento_do_pet.setForeground(new java.awt.Color(0, 0, 0));
         label_comportamento_do_pet.setText("Comportamento do Pet:");
+        label_comportamento_do_pet.setPreferredSize(new java.awt.Dimension(780, 20));
         jpanel_cadastrar_pet.add(label_comportamento_do_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 279, -1, -1));
 
         jtxtArea_Comportamento.setBackground(new java.awt.Color(217, 217, 217));
@@ -428,6 +438,7 @@ public class tela_cadastro_pet extends javax.swing.JFrame {
         lbl_Saude.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         lbl_Saude.setForeground(new java.awt.Color(0, 0, 0));
         lbl_Saude.setText("Saúde do Pet:");
+        lbl_Saude.setPreferredSize(new java.awt.Dimension(790, 20));
         jpanel_cadastrar_pet.add(lbl_Saude, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 389, -1, -1));
 
         jtxtArea_Saude.setBackground(new java.awt.Color(217, 217, 217));

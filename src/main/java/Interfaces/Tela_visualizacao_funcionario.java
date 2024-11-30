@@ -60,7 +60,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
 
         lbl_funcionarios = new javax.swing.JLabel();
         jPanel_tabela = new javax.swing.JPanel();
-        jScroll_tabela = new javax.swing.JScrollPane();
+        tbl_Servicos = new javax.swing.JScrollPane();
         jtbl_funcionarios = new javax.swing.JTable();
         jPanel_deletar = new javax.swing.JPanel();
         jlbl_deletar = new javax.swing.JLabel();
@@ -79,6 +79,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         lbl_funcionarios.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
         lbl_funcionarios.setForeground(new java.awt.Color(0, 0, 0));
         lbl_funcionarios.setText("Funcionários");
+        lbl_funcionarios.setPreferredSize(new java.awt.Dimension(600, 58));
         getContentPane().add(lbl_funcionarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, -1, -1));
 
         jPanel_tabela.setBackground(new java.awt.Color(255, 255, 255));
@@ -88,8 +89,8 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
         jPanel_tabela.setPreferredSize(new java.awt.Dimension(915, 480));
         jPanel_tabela.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jScroll_tabela.setPreferredSize(new java.awt.Dimension(915, 480));
-        jScroll_tabela.setVerifyInputWhenFocusTarget(false);
+        tbl_Servicos.setPreferredSize(new java.awt.Dimension(915, 480));
+        tbl_Servicos.setVerifyInputWhenFocusTarget(false);
 
         jtbl_funcionarios.setFont(new java.awt.Font("Merriweather", 0, 16)); // NOI18N
         jtbl_funcionarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -119,7 +120,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
                 jtbl_funcionariosMouseEntered(evt);
             }
         });
-        jScroll_tabela.setViewportView(jtbl_funcionarios);
+        tbl_Servicos.setViewportView(jtbl_funcionarios);
         if (jtbl_funcionarios.getColumnModel().getColumnCount() > 0) {
             jtbl_funcionarios.getColumnModel().getColumn(0).setResizable(false);
             jtbl_funcionarios.getColumnModel().getColumn(1).setResizable(false);
@@ -128,7 +129,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
             jtbl_funcionarios.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        jPanel_tabela.add(jScroll_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel_tabela.add(tbl_Servicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(jPanel_tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 103, -1, -1));
 
@@ -266,7 +267,7 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
     private void moveHeader() {
         // Cabeçalho da tabela e o JScrollPane
         JTableHeader header = jtbl_funcionarios.getTableHeader();
-        JScrollBar horizontalScrollBar = jScroll_tabela.getHorizontalScrollBar();
+        JScrollBar horizontalScrollBar = tbl_Servicos.getHorizontalScrollBar();
 
         // Sincroniza a rolagem da JTable com o header
         horizontalScrollBar.addAdjustmentListener(new AdjustmentListener() {
@@ -343,11 +344,11 @@ public class Tela_visualizacao_funcionario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_editar;
     private javax.swing.JPanel jPanel_menu;
     private javax.swing.JPanel jPanel_tabela;
-    private javax.swing.JScrollPane jScroll_tabela;
     private javax.swing.JLabel jlbl_background;
     private javax.swing.JLabel jlbl_deletar;
     private javax.swing.JTable jtbl_funcionarios;
     private javax.swing.JLabel lbl_funcionarios;
+    private javax.swing.JScrollPane tbl_Servicos;
     // End of variables declaration//GEN-END:variables
 
 }
