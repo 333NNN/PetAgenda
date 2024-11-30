@@ -62,6 +62,7 @@ public class Tela_config extends javax.swing.JFrame {
         lbl_cadastrarUsuario.setFont(new java.awt.Font("Merriweather", 0, 18)); // NOI18N
         lbl_cadastrarUsuario.setForeground(new java.awt.Color(0, 0, 0));
         lbl_cadastrarUsuario.setText("Cadastrar novo usuário:");
+        lbl_cadastrarUsuario.setPreferredSize(new java.awt.Dimension(500, 23));
         jPanel1.add(lbl_cadastrarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
 
         btn_cadastrarUsuario.setBackground(new java.awt.Color(77, 120, 63));
@@ -83,6 +84,7 @@ public class Tela_config extends javax.swing.JFrame {
         lbl_AlteraSenha.setFont(new java.awt.Font("Merriweather", 0, 18)); // NOI18N
         lbl_AlteraSenha.setForeground(new java.awt.Color(0, 0, 0));
         lbl_AlteraSenha.setText("Alterar Senha:");
+        lbl_AlteraSenha.setPreferredSize(new java.awt.Dimension(500, 23));
         jPanel1.add(lbl_AlteraSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, -1, -1));
 
         btn_alteraSenha.setBackground(new java.awt.Color(77, 120, 63));
@@ -98,13 +100,14 @@ public class Tela_config extends javax.swing.JFrame {
             }
         });
         btn_alteraSenha.setUI(new RoundedCornerButtonUI());
-        jPanel1.add(btn_alteraSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, -1, -1));
+        jPanel1.add(btn_alteraSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, -1, -1));
 
         lbl_codigo.setBackground(new java.awt.Color(255, 255, 255));
         lbl_codigo.setFont(new java.awt.Font("Merriweather", 0, 18)); // NOI18N
         lbl_codigo.setForeground(new java.awt.Color(0, 0, 0));
         lbl_codigo.setText("Código para recuperação de senha:");
-        jPanel1.add(lbl_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, -1, -1));
+        lbl_codigo.setPreferredSize(new java.awt.Dimension(500, 23));
+        jPanel1.add(lbl_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, -1, -1));
 
         btn_exibirCodigo.setBackground(new java.awt.Color(77, 120, 63));
         btn_exibirCodigo.setFont(new java.awt.Font("Merriweather", 0, 20)); // NOI18N
@@ -119,7 +122,7 @@ public class Tela_config extends javax.swing.JFrame {
             }
         });
         btn_exibirCodigo.setUI(new RoundedCornerButtonUI());
-        jPanel1.add(btn_exibirCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, -1, -1));
+        jPanel1.add(btn_exibirCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 103, -1, -1));
 
@@ -135,6 +138,7 @@ public class Tela_config extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Configurações");
+        jLabel2.setPreferredSize(new java.awt.Dimension(580, 58));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(598, 40, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BG_PADRAO.png"))); // NOI18N

@@ -83,8 +83,10 @@ public class Tela_visualizacao_historico_servicos extends javax.swing.JFrame {
 
         lbl_historico_servicos.setBackground(new java.awt.Color(255, 255, 255));
         lbl_historico_servicos.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
+        lbl_historico_servicos.setForeground(new java.awt.Color(0, 0, 0));
         lbl_historico_servicos.setText("Histórico de Serviços");
-        getContentPane().add(lbl_historico_servicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, -1, -1));
+        lbl_historico_servicos.setPreferredSize(new java.awt.Dimension(690, 58));
+        getContentPane().add(lbl_historico_servicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 690, -1));
 
         jPanel_tabela.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_tabela.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));

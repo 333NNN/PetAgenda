@@ -135,11 +135,13 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         jlbl_atualizar_pet.setFont(new java.awt.Font("Segoe UI", 0, 45)); // NOI18N
         jlbl_atualizar_pet.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_atualizar_pet.setText("Atualizar pet");
-        jpanel_atualizar_pet.add(jlbl_atualizar_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, -1));
+        jlbl_atualizar_pet.setPreferredSize(new java.awt.Dimension(550, 61));
+        jpanel_atualizar_pet.add(jlbl_atualizar_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, -1, -1));
 
         jlbl_nome_pet.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jlbl_nome_pet.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_nome_pet.setText("Nome do pet:");
+        jlbl_nome_pet.setPreferredSize(new java.awt.Dimension(240, 21));
         jpanel_atualizar_pet.add(jlbl_nome_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 84, -1, -1));
 
         JTxtF_nome_pet.setBackground(new java.awt.Color(217, 217, 217));
@@ -157,11 +159,13 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         jlbl_nome_dono.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jlbl_nome_dono.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_nome_dono.setText("Nome do dono:");
+        jlbl_nome_dono.setPreferredSize(new java.awt.Dimension(240, 21));
         jpanel_atualizar_pet.add(jlbl_nome_dono, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 84, -1, -1));
 
         jlbl_castrado.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jlbl_castrado.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_castrado.setText("Castrado:");
+        jlbl_castrado.setPreferredSize(new java.awt.Dimension(80, 21));
         jpanel_atualizar_pet.add(jlbl_castrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, -1, -1));
 
         chkBx_Sim.addItemListener(new java.awt.event.ItemListener() {
@@ -211,6 +215,7 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         jllb_vacinas.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jllb_vacinas.setForeground(new java.awt.Color(0, 0, 0));
         jllb_vacinas.setText("Vacinas:");
+        jllb_vacinas.setPreferredSize(new java.awt.Dimension(80, 21));
         jpanel_atualizar_pet.add(jllb_vacinas, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, -1, -1));
 
         jbtn_AddVacinas.setBackground(new java.awt.Color(217, 217, 217));
@@ -231,6 +236,7 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         jlbl_raca.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jlbl_raca.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_raca.setText("Raça:");
+        jlbl_raca.setPreferredSize(new java.awt.Dimension(230, 21));
         jpanel_atualizar_pet.add(jlbl_raca, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 179, -1, -1));
 
         JTxtF_raca.setBackground(new java.awt.Color(217, 217, 217));
@@ -248,6 +254,7 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         jlbl_porte.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jlbl_porte.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_porte.setText("Porte:");
+        jlbl_porte.setPreferredSize(new java.awt.Dimension(160, 21));
         jpanel_atualizar_pet.add(jlbl_porte, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, -1, -1));
 
         jcmbBx_Porte.setBackground(new java.awt.Color(217, 217, 217));
@@ -265,6 +272,7 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         jlbl_cor.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jlbl_cor.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_cor.setText("Cor:");
+        jlbl_cor.setPreferredSize(new java.awt.Dimension(180, 21));
         jpanel_atualizar_pet.add(jlbl_cor, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 180, -1, -1));
 
         JTxtF_cor.setBackground(new java.awt.Color(217, 217, 217));
@@ -282,6 +290,7 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         jlbl_sexo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jlbl_sexo.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_sexo.setText("Sexo:");
+        jlbl_sexo.setPreferredSize(new java.awt.Dimension(130, 21));
         jpanel_atualizar_pet.add(jlbl_sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 180, -1, -1));
 
         for (Sexo sexo : Sexo.values()) {
@@ -302,6 +311,7 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         jtextArea_compor_pet.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jtextArea_compor_pet.setForeground(new java.awt.Color(0, 0, 0));
         jtextArea_compor_pet.setText("Comportamento do pet:");
+        jtextArea_compor_pet.setPreferredSize(new java.awt.Dimension(770, 21));
         jpanel_atualizar_pet.add(jtextArea_compor_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 279, -1, -1));
 
         jtxtArea_Comportamento.setBackground(new java.awt.Color(217, 217, 217));
@@ -325,6 +335,7 @@ public class tela_atualizar_pet extends javax.swing.JFrame {
         jtextArea_saude_pet.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jtextArea_saude_pet.setForeground(new java.awt.Color(0, 0, 0));
         jtextArea_saude_pet.setText("Saúde do pet:");
+        jtextArea_saude_pet.setPreferredSize(new java.awt.Dimension(780, 21));
         jpanel_atualizar_pet.add(jtextArea_saude_pet, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 389, -1, -1));
 
         jtxtArea_Saude.setBackground(new java.awt.Color(217, 217, 217));

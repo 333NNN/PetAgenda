@@ -74,6 +74,7 @@ public class Tela_incidentes extends javax.swing.JFrame {
         lbl_historico_servicos.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
         lbl_historico_servicos.setForeground(new java.awt.Color(0, 0, 0));
         lbl_historico_servicos.setText("Cadastro de Incidente");
+        lbl_historico_servicos.setPreferredSize(new java.awt.Dimension(600, 58));
         jPanel6.add(lbl_historico_servicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
 
         jtxtf_campo_nome_pet.setBackground(new java.awt.Color(217, 217, 217));
@@ -91,17 +92,20 @@ public class Tela_incidentes extends javax.swing.JFrame {
         jlbl_descricao_incidente.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_descricao_incidente.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_descricao_incidente.setText("Descrição do Incidente:");
-        jPanel6.add(jlbl_descricao_incidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 170, 20));
+        jlbl_descricao_incidente.setPreferredSize(new java.awt.Dimension(660, 20));
+        jPanel6.add(jlbl_descricao_incidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
         jlbl_Grupo1.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_Grupo1.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_Grupo1.setText("Id do agendamento:");
-        jPanel6.add(jlbl_Grupo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 150, 20));
+        jlbl_Grupo1.setPreferredSize(new java.awt.Dimension(190, 20));
+        jPanel6.add(jlbl_Grupo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, -1, -1));
 
         jlbl_emergencia_medica.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_emergencia_medica.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_emergencia_medica.setText("Emergência Médica:");
-        jPanel6.add(jlbl_emergencia_medica, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 160, 40));
+        jlbl_emergencia_medica.setPreferredSize(new java.awt.Dimension(240, 40));
+        jPanel6.add(jlbl_emergencia_medica, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, -1, -1));
 
         jckBox_Sim1.setFont(new java.awt.Font("Merriweather", 0, 12)); // NOI18N
         jckBox_Sim1.setForeground(new java.awt.Color(0, 0, 0));
@@ -134,7 +138,8 @@ public class Tela_incidentes extends javax.swing.JFrame {
         jlbl_nome_cpet1.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_nome_cpet1.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_nome_cpet1.setText("Nome do Pet:");
-        jPanel6.add(jlbl_nome_cpet1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 100, 20));
+        jlbl_nome_cpet1.setPreferredSize(new java.awt.Dimension(210, 20));
+        jPanel6.add(jlbl_nome_cpet1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
 
         getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 740, 400));
 

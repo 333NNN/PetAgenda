@@ -73,12 +73,14 @@ public class TELA_CADASTRO_USUARIO extends javax.swing.JFrame {
         jlbl_cadastrarUsuario.setFont(new java.awt.Font("Merriweather", 0, 36)); // NOI18N
         jlbl_cadastrarUsuario.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_cadastrarUsuario.setText("Cadastrar usuário");
-        jPanel1.add(jlbl_cadastrarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 318, 36));
+        jlbl_cadastrarUsuario.setPreferredSize(new java.awt.Dimension(460, 36));
+        jPanel1.add(jlbl_cadastrarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, -1, -1));
 
         jlbl_nome.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_nome.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         jlbl_nome.setForeground(new java.awt.Color(0, 0, 0));
         jlbl_nome.setText("Nome:");
+        jlbl_nome.setPreferredSize(new java.awt.Dimension(530, 20));
         jPanel1.add(jlbl_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 76, -1, -1));
 
         jtxt_nome.setBackground(new java.awt.Color(217, 217, 217));
@@ -93,6 +95,7 @@ public class TELA_CADASTRO_USUARIO extends javax.swing.JFrame {
         lbl_Cpf.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         lbl_Cpf.setForeground(new java.awt.Color(0, 0, 0));
         lbl_Cpf.setText("CPF (Será utilizado como Login):");
+        lbl_Cpf.setPreferredSize(new java.awt.Dimension(530, 20));
         jPanel1.add(lbl_Cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 163, -1, -1));
 
         jtxt_CPF.setBackground(new java.awt.Color(217, 217, 217));
@@ -156,6 +159,7 @@ public class TELA_CADASTRO_USUARIO extends javax.swing.JFrame {
         lbl_Senha1.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         lbl_Senha1.setForeground(new java.awt.Color(0, 0, 0));
         lbl_Senha1.setText("Senha (8 dígitos, incluindo números e caracteres especiais):");
+        lbl_Senha1.setPreferredSize(new java.awt.Dimension(580, 20));
         jPanel1.add(lbl_Senha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 251, -1, -1));
 
         jtxt_senha2.setBackground(new java.awt.Color(217, 217, 217));
@@ -175,6 +179,7 @@ public class TELA_CADASTRO_USUARIO extends javax.swing.JFrame {
         lbl_Senha2.setFont(new java.awt.Font("Merriweather", 0, 15)); // NOI18N
         lbl_Senha2.setForeground(new java.awt.Color(0, 0, 0));
         lbl_Senha2.setText("Confirme a senha:");
+        lbl_Senha2.setPreferredSize(new java.awt.Dimension(540, 20));
         jPanel1.add(lbl_Senha2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(362, 120, 643, 540));

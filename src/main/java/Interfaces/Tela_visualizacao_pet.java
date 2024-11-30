@@ -97,6 +97,7 @@ public class Tela_visualizacao_pet extends javax.swing.JFrame {
         lbl_funcionarios.setFont(new java.awt.Font("Merriweather", 0, 45)); // NOI18N
         lbl_funcionarios.setForeground(new java.awt.Color(0, 0, 0));
         lbl_funcionarios.setText("Pets");
+        lbl_funcionarios.setPreferredSize(new java.awt.Dimension(520, 58));
         getContentPane().add(lbl_funcionarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20, -1, -1));
 
         jPanel_menu.setBackground(new java.awt.Color(124, 115, 101));
