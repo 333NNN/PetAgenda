@@ -4,6 +4,8 @@
 
 package com.mycompany.petagenda;
 
+import Interfaces.TELA_LOGIN;
+
 /**
  *
  * @author c.nunes
@@ -11,6 +13,7 @@ package com.mycompany.petagenda;
 public class PetAgenda {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        TELA_LOGIN telaLogin = new TELA_LOGIN();
+        telaLogin.setVisible(true);
     }
 }
